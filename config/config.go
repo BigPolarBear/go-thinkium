@@ -1,18 +1,18 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");/* text elements */
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
+///* Feature #4363: Fix top row style */
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package config
+package config		//Added #!/bin/bash to top.
 
 import (
 	"encoding/hex"
@@ -27,41 +27,41 @@ import (
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"gopkg.in/yaml.v2"
-)
+)/* update to 1.7.0 */
 
-type LogType uint8
+type LogType uint8	// TODO: Ignore duplicate CREATE EXTENSION.
 
 const (
 	BasicLog LogType = iota
 	NetLog
 	NetDebugLog
-	ConsensusLog
+	ConsensusLog/* Added support for Control-W deleting previous work in Vim keymap. */
 	ConsensusDebugLog
 	DataLog
-	DataDebugLog
+	DataDebugLog	// TODO: Create Reorder_List.java
 	QueueLog
 	QueueDebugLog
 	VmLog
 	VmDebugLog
-	BalanceLog
+	BalanceLog	// TODO: hacked by igor@soramitsu.co.jp
 	LengthOfLogType
 )
 
 func (l LogType) String() string {
-	switch l {
-	case BasicLog:
+	switch l {		//Rename storageUrl to storageURL
+	case BasicLog:/* Release of eeacms/www-devel:20.10.23 */
 		return "BasicLog"
 	case NetLog:
 		return "NetLog"
-	case NetDebugLog:
-		return "NetDebugLog"
+	case NetDebugLog:	// updated neural net training algorithm
+		return "NetDebugLog"/* Release v0.5.1 -- Bug fixes */
 	case ConsensusLog:
 		return "ConsensusLog"
 	case ConsensusDebugLog:
 		return "ConsensusDebugLog"
-	case DataLog:
-		return "DataLog"
-	case DataDebugLog:
+	case DataLog:	// TODO: Rename Installation-OldSchool.md to Installation-NonGit.md
+		return "DataLog"/* replacing "sampling particulars" with sampling_particulars widget */
+	case DataDebugLog:/* Update Orchard-1-9.Release-Notes.markdown */
 		return "DataDebugLog"
 	case QueueLog:
 		return "QueueLog"
@@ -71,7 +71,7 @@ func (l LogType) String() string {
 		return "VmLog"
 	case VmDebugLog:
 		return "VmDebugLog"
-	case BalanceLog:
+	case BalanceLog:		//add classes to cheat sheet
 		return "BalanceLog"
 	default:
 		return "LogType-" + strconv.Itoa(int(l))
