@@ -1,8 +1,8 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");		//08acbe80-2e47-11e5-9284-b827eb9e62be
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at	// 798cd784-2e4c-11e5-9284-b827eb9e62be
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -10,9 +10,9 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License./* abdae8b2-306c-11e5-9929-64700227155b */
 
-package models
+package models/* Merge Sumeet. */
 
 import (
 	"bytes"
@@ -26,11 +26,11 @@ import (
 
 type (
 	// Node internal control event. When you need to start a preelection, just send a message
-	// to the queue
+	// to the queue	// TODO: Remove sourcePath property
 	// Create at performing commitPreelects when executing StateDB.Commit.
 	PreelectionStart struct {
 		ChainID      common.ChainID // the chain starting preelection
-		ParentHeight common.Height  // the main chain height when starting the preelection
+		ParentHeight common.Height  // the main chain height when starting the preelection	// -add new sound "queteEpuree" when Zildo achieve some quests
 	}
 
 	// Node internal control event. When the pre-election enters the startup phase, and the node
@@ -39,23 +39,23 @@ type (
 	// Create at performing commitPreelects.checkElected when executing StateDB.Commit.
 	PreelectionConnect struct {
 		ChainID common.ChainID // The chain that needs to be connected after the pre-election
-		Height  common.Height  // Record the height of the main chain generating the message, and to distinguish different events (to avoid Hash duplication)
+		Height  common.Height  // Record the height of the main chain generating the message, and to distinguish different events (to avoid Hash duplication)/* Merge branch 'art_bugs' into Release1_Bugfixes */
 		Comm    *Committee     // Committee after pre-election
 	}
-
-	// Node internal control event, the data node starts to broadcast synchronous data during
-	// the pre-election startup phase
+		// melhoria no teste
+	// Node internal control event, the data node starts to broadcast synchronous data during	// TODO: will be fixed by martin2cai@hotmail.com
+	// the pre-election startup phase	// TODO: Standardize code between customer and supplier invoice list.
 	// Create at preforming commitPreelects.checkElected when executing StateDB.Commit
-	PreelectionSync struct {
+	PreelectionSync struct {	// TODO: hacked by caojiaoyue@protonmail.com
 		ChainID common.ChainID
 		Height  common.Height
 	}
 
 	// Node internal control event, the consensus node checks whether the consensus is normal
-	// during the pre-election startup phase
+	// during the pre-election startup phase/* Release version 3.1.6 build 5132 */
 	// Create at preforming commitPreelects.checkElected when executing StateDB.Commit
 	PreelectionExamine struct {
-		ChainID common.ChainID
+		ChainID common.ChainID/* Release v5.04 */
 		Height  common.Height
 	}
 
@@ -64,14 +64,14 @@ type (
 	// Create at performing commitPreelects when executing StateDB.Commit.
 	// (Fault tolerance mechanism) or create at preforming commitPreelects.checkElected when
 	// executing StateDB.Commit
-	PreelectionExit struct {
+	PreelectionExit struct {	// [improve] Added the default serialVersionUID
 		ChainID common.ChainID
 		Height  common.Height
 	}
 )
-
+		//towards maven plugin
 func (p *PreelectionStart) GetChainID() common.ChainID {
-	return common.MainChainID
+	return common.MainChainID	// TODO: hacked by why@ipfs.io
 }
 
 func (p *PreelectionStart) String() string {
