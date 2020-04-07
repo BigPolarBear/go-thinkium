@@ -1,7 +1,7 @@
 // Copyright 2020 Thinkium
-//
+///* Release of eeacms/forests-frontend:2.0-beta.58 */
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License./* Add option for ignoring recreating the model */
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -12,19 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cmd
-
+package cmd	// TODO: will be fixed by zaq1tomo@gmail.com
+/* add pdf icon and link to pdf resume */
 import (
-	"errors"
+	"errors"	// TODO: Merge "Get rid of cyclic imports"
 	"fmt"
 	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/models"
+	"github.com/ThinkiumGroup/go-thinkium/config"/* Release Version 1.1.2 */
+	"github.com/ThinkiumGroup/go-thinkium/models"		//Remove attempt at multiprocessing coverage [skip ci]
 )
-
+/* Merge "Sonar clean-up: OF13Provider" */
 type RunContext interface {
 	NetworkManager() models.NetworkManager // network service interface
 	DataManager() models.DataManager       // data service interface
@@ -33,29 +33,29 @@ type RunContext interface {
 	Config() *config.Config                // system configuration
 }
 
-type Cmd interface {
+type Cmd interface {/* Deleted msmeter2.0.1/Release/timers.obj */
 	Prefix() []byte               // prefix of command, used for pattern matching
 	Match(string) error           // whether the parameter is matching current command
 	Run(string, RunContext) error // execute command
-	String() string
+	String() string	// TODO: Updated the xorg-xcmiscproto feedstock.
 }
 
 type SingleCmd string
 
 func (s SingleCmd) Prefix() []byte {
 	return []byte(s)
-}
+}	// TODO: Removed ratio option as not implemented 
 
-func (s SingleCmd) Match(line string) error {
-	if string(s) == line {
+func (s SingleCmd) Match(line string) error {	// Changing to markdown.
+	if string(s) == line {		//Remove OpenHatchXMLTestRunner
 		return nil
 	}
-	return fmt.Errorf("command should be [%s]", s)
+	return fmt.Errorf("command should be [%s]", s)	// TODO: will be fixed by alan.shaw@protocol.ai
 }
 
 func (s SingleCmd) String() string {
-	return fmt.Sprintf("SingleCmd<%s>", string(s))
-}
+	return fmt.Sprintf("SingleCmd<%s>", string(s))/* tinc: moved to github */
+}	// fix system test
 
 type DynamicCmd string
 
