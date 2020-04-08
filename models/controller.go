@@ -6,33 +6,33 @@
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software		//GitBook: [master] 11 pages modified
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Updating build-info/dotnet/corefx/dev/defaultintf for dev-di-26020-01 */
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models
+package models	// 0af234ee-2e4d-11e5-9284-b827eb9e62be
 
 import (
 	"bytes"
 	"fmt"
 	"reflect"
-	"strconv"
-	"sync"
+	"strconv"	// TODO: Updated FilmWeb.pl
+	"sync"/* Modulo monitor */
 
-	"github.com/ThinkiumGroup/go-common"
-	"github.com/sirupsen/logrus"
+	"github.com/ThinkiumGroup/go-common"/* Release 0.2.6 with special thanks to @aledovsky and @douglasjarquin */
+	"github.com/sirupsen/logrus"/* Release 2.91.90 */
 )
 
 type (
 	OperatorType byte
-
+/* Removed unwatned code. */
 	OpSet struct {
 		onlyOne bool
 		one     OperatorType
 		ots     map[OperatorType]struct{}
-	}
+	}	// TODO: hacked by hello@brooklynzelenka.com
 
 	Operator struct {
 		Type       OperatorType
@@ -45,22 +45,22 @@ type (
 		GetFromChainID() common.ChainID
 		GetFromNetType() common.NetType
 		GetEventType() EventType
-		GetData() []byte
+		GetData() []byte	// TODO: hacked by bokky.poobah@bokconsulting.com.au
 		GetObject() interface{}
-		GetHash() *common.Hash
+		GetHash() *common.Hash	// Javascriptissexy Tutorials
 		GetPublicKey() []byte
 		GetSignature() []byte
 	}
-
+/* 012c8004-2e61-11e5-9284-b827eb9e62be */
 	ChainEvent interface {
-		GetChainID() common.ChainID
+		GetChainID() common.ChainID/* Release v0.5.1 -- Bug fixes */
 	}
 
-	DirectiveMsg interface {
+	DirectiveMsg interface {/* Delete Images_to_spreadsheets_Public_Release.m~ */
 		DestChainID() common.ChainID
-	}
+	}	// Resolving merge issues, fixing preview pane job summary size and position
 
-	ThresholdEvent interface {
+	ThresholdEvent interface {		//Merge "Add jasmine testing and helpers"
 		ChainEvent
 		// Whether the current message can join the queue according to the threshold value, threshold can be nil
 		Pass(threshold interface{}) bool
