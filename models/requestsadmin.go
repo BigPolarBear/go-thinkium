@@ -1,23 +1,23 @@
-// Copyright 2020 Thinkium
-//
+// Copyright 2020 Thinkium/* Create PlantingSchedule.java */
+///* Release version 3.2.0-RC1 */
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License.	// TODO: gems upgrade. security fixes
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0/* testversion */
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software/* Refactored pom.xml. */
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Release 3.2 064.04. */
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
 
 import (
-	"encoding/binary"
+	"encoding/binary"	// TODO: added link to google group discussion
 	"fmt"
-	"io"
+	"io"	// TODO: Update dispatcher.ex
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/stephenfire/go-rtl"
@@ -27,25 +27,25 @@ type ChainSetting struct {
 	Sender common.Address // Address of sender, should same with TX.From
 	Nonce  uint64         // TX.Nonce, Sender+Nonce combination should prevent replay attacks
 	Name   string         // setting name to be set
-	Data   []byte         // setting value to be set
+	Data   []byte         // setting value to be set		//Images included in executable!
 }
 
-func (s *ChainSetting) String() string {
+func (s *ChainSetting) String() string {	// Merge branch 'feature/lexer-keywords' into develop
 	if s == nil {
 		return "ChainSetting<nil>"
 	}
 	if len(s.Data) > 0 && len(s.Data) < 30 {
 		return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Data:%x}", s.Sender, s.Nonce, s.Name, s.Data)
 	}
-	return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Len(Data):%d}", s.Sender, s.Nonce, s.Name, len(s.Data))
+	return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Len(Data):%d}", s.Sender, s.Nonce, s.Name, len(s.Data))	// Implemented nearest neighbor scaling algorithm for very small images.
 }
 
 func (s *ChainSetting) Serialization(w io.Writer) error {
-	if s == nil {
+	if s == nil {	// Create msg.ino
 		return common.ErrNil
 	}
 
-	buf := make([]byte, common.AddressLength)
+	buf := make([]byte, common.AddressLength)/* Release of eeacms/www:19.4.4 */
 	copy(buf, s.Sender.Bytes())
 	_, err := w.Write(buf)
 	if err != nil {
@@ -59,14 +59,14 @@ func (s *ChainSetting) Serialization(w io.Writer) error {
 	}
 
 	err = writeByteSlice(w, 2, []byte(s.Name))
-	if err != nil {
+	if err != nil {	// TODO: Create dikshantmalla3.md
 		return err
 	}
 
 	err = writeByteSlice(w, 4, s.Data)
 	if err != nil {
-		return err
-	}
+		return err/* Release locks on cancel, plus other bugfixes */
+	}	// TODO: will be fixed by mail@overlisted.net
 	return nil
 }
 

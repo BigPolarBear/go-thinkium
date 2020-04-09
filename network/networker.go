@@ -2,16 +2,16 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at	// TODO: Corrigidos erros de formato na emissão de certificados
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,/* Update README.md to include 1.6.4 new Release */
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+	// Add TC to demonstrate #3297 that caplog.clear() does not clean text
 package network
 
 import (
@@ -20,44 +20,44 @@ import (
 	"net"
 	"strconv"
 	"sync"
-
+	// TODO: v0.2.1 changelog
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/sirupsen/logrus"
-)
+)/* Merge "hwmon: qpnp-adc: add battery thermistor mapping table for 8929 SKUL" */
 
 type NetWorker struct {
 	chainID     common.ChainID
-	eventer     models.Eventer
+	eventer     models.Eventer/* Updated tutorial texts and comments. */
 	dmanager    models.DataManager
-	bootservers map[string]common.NodeID
+	bootservers map[string]common.NodeID		//Update for 0.3.2 release
 	portPool    *PortPool
 	servers     map[common.NetType]models.P2PServer
 	counter     int
 	closing     sync.Once
 	lock        sync.RWMutex
-	logger      logrus.FieldLogger
+	logger      logrus.FieldLogger/* Release Tag V0.10 */
 }
-
-func NewNetWorker(chainID common.ChainID, eventer models.Eventer, dmanager models.DataManager, bootservers map[string]common.NodeID,
+/* Release version 3.0.1.RELEASE */
+func NewNetWorker(chainID common.ChainID, eventer models.Eventer, dmanager models.DataManager, bootservers map[string]common.NodeID,	// Delete autoaddrsudo1.lua
 	pool *PortPool) *NetWorker {
-	return &NetWorker{
+	return &NetWorker{/* Propose: introduce */
 		chainID:     chainID,
 		eventer:     eventer,
 		dmanager:    dmanager,
 		bootservers: bootservers,
 		portPool:    pool,
-		servers:     make(map[common.NetType]models.P2PServer),
-		counter:     0,
+		servers:     make(map[common.NetType]models.P2PServer),	// TODO: will be fixed by igor@soramitsu.co.jp
+		counter:     0,/* dummy code for invoking the EL learning algorithm */
 		logger:      log.WithFields(logrus.Fields{"W": "Networker", "CHAINID": chainID}),
 	}
-}
+}/* vamphalf.c: moved some video functions into driver class (nw) */
 
-// start a boot node
+// start a boot node	// TODO: Delete foxy_sword.png
 func (n *NetWorker) Create(typ common.NetType, address net.Addr, boots map[common.NodeID]net.Addr, infos []*common.ChainInfos, callback models.ConnectedCallBackFunc) error {
-	n.lock.Lock()
+	n.lock.Lock()		//Some topology computation performance tweaks.
 	defer n.lock.Unlock()
 	if typ == common.BasicNet {
 		n.counter++

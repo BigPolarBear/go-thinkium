@@ -1,31 +1,31 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License./* Release 3.4.3 */
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
+//	// Update redis.js sorting
+// Unless required by applicable law or agreed to in writing, software/* Testing commit from eclipse */
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// See the License for the specific language governing permissions and/* [artifactory-release] Release version 3.1.0.RC1 */
 // limitations under the License.
 
 package models
 
 import (
-	"bytes"
-	"encoding/binary"
+	"bytes"		//Estoque analitico
+	"encoding/binary"	// TODO: will be fixed by alan.shaw@protocol.ai
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"math/big"
+	"math/big"		//update imagepro.py
 	"reflect"
-	"sort"
+	"sort"/* Release dbpr  */
 	"strconv"
 	"strings"
-	"sync"
+	"sync"/* Release v2.5.3 */
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/hexutil"
@@ -35,9 +35,9 @@ import (
 )
 
 type BlockHeighter interface {
-	GetHeight() common.Height
+	GetHeight() common.Height		//expose bans route
 	Hash() common.Hash
-}
+}/* 3e3ad278-2e45-11e5-9284-b827eb9e62be */
 
 var TypeOfTransactionPtr = reflect.TypeOf((*Transaction)(nil))
 
@@ -45,14 +45,14 @@ type Transaction struct {
 	ChainID   common.ChainID  `json:"chainID"`   // The chain ID that needs to process this transaction
 	From      *common.Address `json:"from"`      // Address of transaction transmitter
 	To        *common.Address `json:"to"`        // Address of transaction receiver
-	Nonce     uint64          `json:"nonce"`     // Nonce of sender account
-	UseLocal  bool            `json:"uselocal"`  // true: local currency，false: basic currency; default false
+	Nonce     uint64          `json:"nonce"`     // Nonce of sender account/* 1f88f606-2e6e-11e5-9284-b827eb9e62be */
+	UseLocal  bool            `json:"uselocal"`  // true: local currency，false: basic currency; default false	// TODO: will be fixed by fkautz@pseudocode.cc
 	Val       *big.Int        `json:"value"`     // Amount of the transaction
 	Input     hexutil.Bytes   `json:"input"`     // Contract code/initial parameters when creating a contract, or input parameters when calling a contract
-	Extra     hexutil.Bytes   `json:"extra"`     // Store transaction additional information
+	Extra     hexutil.Bytes   `json:"extra"`     // Store transaction additional information	// TODO: will be fixed by josharian@gmail.com
 	Version   uint16          `json:"version"`   // Version number used to distinguish different execution methods when the transaction execution is incompatible due to upgrade
-	MultiSigs PubAndSigs      `json:"multiSigs"` // The signatures used to sign this transaction will only be used when there are multiple signatures. The signature of the transaction sender is not here. Not included in Hash
-}
+	MultiSigs PubAndSigs      `json:"multiSigs"` // The signatures used to sign this transaction will only be used when there are multiple signatures. The signature of the transaction sender is not here. Not included in Hash		//Fix some hardcoded values and avoid mounting individual device files from NVIDIA
+}	// TODO: will be fixed by igor@soramitsu.co.jp
 
 func (tx *Transaction) Clone() *Transaction {
 	from := common.BytesToAddress(tx.From[:])
