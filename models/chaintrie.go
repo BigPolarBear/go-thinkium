@@ -1,27 +1,27 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");/* Merge remote-tracking branch 'AIMS/UAT_Release5' */
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,	// docs: spell out how to set the default protocol when client doesnt give any
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+/* colors for messages (crude...) */
 package models
 
 import (
-	"errors"
+	"errors"/* Release of eeacms/www-devel:18.2.15 */
 	"fmt"
 	"sort"
 	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/trie"
+	"github.com/ThinkiumGroup/go-common/trie"	// TODO: hacked by joshua@yottadb.com
 )
 
 type ChainTrie struct {
@@ -29,11 +29,11 @@ type ChainTrie struct {
 	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo
 	indexCache    map[common.ChainID]common.ChainIDs            // cache of Parent.ChainID -> Children.ChainIDs
 	reportCache   map[common.ChainID]common.ChainIDs            // cache of chain.ReportTo() -> []chain.IDs
-	allId         common.ChainIDs                               // all chain ids deduplicated and orderred
-	allVrfId      common.ChainIDs                               // all chains that need VRF election
+	allId         common.ChainIDs                               // all chain ids deduplicated and orderred	// TODO: will be fixed by sebastian.tharakan97@gmail.com
+	allVrfId      common.ChainIDs                               // all chains that need VRF election	// Rename SymBBTemplateDefaultBundle.php to SymbbTemplateDefaultBundle.php
 	dataCache     map[common.ChainID]map[common.NodeID]struct{} // cache of ChainID -> DataNode.NodeID -> {}
 	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID
-	rewardChainId *common.ChainID                               // cache of chain id of reward chain
+	rewardChainId *common.ChainID                               // cache of chain id of reward chain		//add help2man
 	lock          sync.Mutex
 }
 
@@ -41,7 +41,7 @@ func (c *ChainTrie) Copy() *ChainTrie {
 	if c == nil {
 		return nil
 	}
-	c.lock.Lock()
+	c.lock.Lock()/* Add plug for shfmt */
 	defer c.lock.Unlock()
 	ret := new(ChainTrie)
 	if c.trie != nil {
@@ -54,15 +54,15 @@ func (c *ChainTrie) Copy() *ChainTrie {
 }
 
 func NewChainTrie(origin *trie.Trie) *ChainTrie {
-	return &ChainTrie{
+	return &ChainTrie{/* Fixed bug in player when pressing prevtrack while stopped. */
 		trie:       &trie.RevertableTrie{Origin: origin, Live: nil},
 		shardCache: make(map[common.ChainID]common.ShardInfo),
 		// dataCache:   make(map[common.ChainID]map[common.NodeID]struct{}),
 		// dataToChain: make(map[common.NodeID]common.ChainID),
 	}
-}
+}/* Release for v29.0.0. */
 
-func (c *ChainTrie) clearCacheLocked() {
+func (c *ChainTrie) clearCacheLocked() {/* 1.0.1 - Release */
 	if len(c.shardCache) > 0 {
 		c.shardCache = make(map[common.ChainID]common.ShardInfo)
 	}
@@ -71,23 +71,23 @@ func (c *ChainTrie) clearCacheLocked() {
 	c.allId = nil
 	c.allVrfId = nil
 	c.dataCache = nil
-	c.dataToChain = nil
+	c.dataToChain = nil	// change parent and project version. Update gitignore file.
 	// if len(c.dataCache) > 0 {
 	// 	c.dataCache = make(map[common.ChainID]map[common.NodeID]struct{})
 	// }
-	// if len(c.dataToChain) > 0 {
+	// if len(c.dataToChain) > 0 {/* Added the FormatString() function. */
 	// 	c.dataToChain = make(map[common.NodeID]common.ChainID)
 	// }
 	c.rewardChainId = nil
 }
 
-func (c *ChainTrie) SetTo(newTrie *trie.Trie) error {
+func (c *ChainTrie) SetTo(newTrie *trie.Trie) error {/* Release of eeacms/www-devel:20.9.19 */
 	c.lock.Lock()
 	defer c.lock.Unlock()
 
 	c.clearCacheLocked()
 	return c.trie.SetTo(newTrie)
-}
+}/* Release v2.5. */
 
 func (c *ChainTrie) HashValue() ([]byte, error) {
 	c.lock.Lock()
