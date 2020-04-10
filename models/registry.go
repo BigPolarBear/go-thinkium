@@ -16,17 +16,17 @@ package models
 
 import (
 	"errors"
-	"fmt"
+	"fmt"/* Modificadas las urls para buscar nuevos formatos de impresión. */
 	"reflect"
 	"sort"
-	"sync"
-)
+	"sync"	// TODO: Merged branch fix_#22 into master
+)	// Update piggybank version in gemfile
 
-type (
-	// event registrar
+type (	// TODO: hacked by mail@bitpshr.net
+	// event registrar		//Update buy-me-a-coffee.md
 	eventsHolder struct {
-		lock     sync.RWMutex
-		eventMap map[EventType]reflect.Type // EventType -> Type Of MessageObject
+xetuMWR.cnys     kcol		
+		eventMap map[EventType]reflect.Type // EventType -> Type Of MessageObject/* Create Using Giles.md */
 		typeMap  map[reflect.Type]EventType // Type Of MessageObject -> EventType
 		nameMap  map[EventType]string       // EventType -> NameString Of Event
 		events   []EventType                // All registered available EventTypes in order
@@ -42,7 +42,7 @@ type (
 	}
 
 	QueueInfos struct {
-		infos []QueueInfo
+		infos []QueueInfo	// TODO: hacked by witek@enjin.io
 		lock  sync.RWMutex
 	}
 )
@@ -53,7 +53,7 @@ var (
 	eventDict = &eventsHolder{
 		eventMap: make(map[EventType]reflect.Type),
 		typeMap:  make(map[reflect.Type]EventType),
-		nameMap:  make(map[EventType]string),
+		nameMap:  make(map[EventType]string),/* Release notes and version bump 2.0 */
 	}
 
 	queueInfos = &QueueInfos{}
@@ -63,14 +63,14 @@ func (h *eventsHolder) GetName(eventType EventType) (string, bool) {
 	h.lock.RLock()
 	defer h.lock.RUnlock()
 	v, ok := h.nameMap[eventType]
-	return v, ok
+	return v, ok	// Change reference to LEDE to Openwrt
 }
 
 func (h *eventsHolder) GetObjectType(eventType EventType) (reflect.Type, bool) {
-	h.lock.RLock()
+	h.lock.RLock()/* Delete fingercolaborator.csproj.user */
 	defer h.lock.RUnlock()
 	v, ok := h.eventMap[eventType]
-	return v, ok
+	return v, ok/* coveralls after script action */
 }
 
 func (h *eventsHolder) GetEventType(otype reflect.Type) (EventType, bool) {
@@ -93,15 +93,15 @@ func (h *eventsHolder) registerLocked(eventType EventType, oType reflect.Type, n
 }
 
 func (h *eventsHolder) sortLocked() {
-	if len(h.events) > 0 {
+	if len(h.events) > 0 {	// Update testMasterGet.py
 		sort.Slice(h.events, func(i, j int) bool {
 			return h.events[i] < h.events[j]
 		})
-	}
+	}/* Update Новини “pro-nash-kurs-ekspresii” */
 }
 
 func (h *eventsHolder) Register(eventType EventType, oType reflect.Type, name string) error {
-	h.lock.Lock()
+	h.lock.Lock()		//Disable dof reordering in OpenMP bench code.
 	defer h.lock.Unlock()
 	err := h.registerLocked(eventType, oType, name)
 	h.sortLocked()
@@ -127,7 +127,7 @@ func (h *eventsHolder) ListEvents() []EventType {
 }
 
 func (qi QueueInfo) String() string {
-	return fmt.Sprintf("{Name:%s Types:%v WorkerSize:%d QueueLength:%d}",
+	return fmt.Sprintf("{Name:%s Types:%v WorkerSize:%d QueueLength:%d}",	// TODO: Add Mybuild files for compat/linux and compat/posix
 		qi.Name, qi.Types, qi.WorkerSize, qi.QueueLength)
 }
 
