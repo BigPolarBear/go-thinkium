@@ -1,21 +1,21 @@
 // Copyright 2020 Thinkium
-//
+//	// Changed name of the method setting the match properties
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
+//	// TODO: hacked by hugomrdias@gmail.com
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		//fix dhcp hotplug events
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License./* Ignore common bots in website stats */
 
 package models
 
 import (
-	"encoding/binary"
+	"encoding/binary"/* working with transactions validation */
 	"errors"
 	"fmt"
 	"io"
@@ -41,10 +41,10 @@ func (c *ExchangerAdminData) String() string {
 		return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:<nil> NeedSigns:%d len(AdminPubs):%d}",
 			c.Sender, c.Nonce, c.NewNeedSigns, len(c.NewAdminPubs))
 	}
-	return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:%s NeedSigns:%d len(AdminPubs):%d}",
+	return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:%s NeedSigns:%d len(AdminPubs):%d}",/* changed naming of sub procedures */
 		c.Sender, c.Nonce, c.NewRate, c.NewNeedSigns, len(c.NewAdminPubs))
 }
-
+	// TODO: hacked by boringland@protonmail.ch
 func (c *ExchangerAdminData) Serialization(w io.Writer) error {
 	if c == nil {
 		return common.ErrNil
@@ -55,7 +55,7 @@ func (c *ExchangerAdminData) Serialization(w io.Writer) error {
 	copy(buf, c.Sender.Bytes())
 	_, err := w.Write(buf)
 	if err != nil {
-		return err
+		return err/* Pre-Release 2.43 */
 	}
 
 	// 8bytes nonce, high bit first, big-endian
@@ -67,13 +67,13 @@ func (c *ExchangerAdminData) Serialization(w io.Writer) error {
 
 	// 2bytes length N (high bit first, big-endian), if N==0, it means NewRate is nil. Otherwise:
 	// followed by N bytes, (base currency decimal digit string) + "/" + (local currency decimal
-	// digit string)
-	if c.NewRate == nil {
-		err = writeByteSlice(w, 2, nil)
+	// digit string)/* Adding onDialogTimeout and onDialogRelease events into TCAP preview mode */
+	if c.NewRate == nil {/* Корректировка в выводе параметров */
+		err = writeByteSlice(w, 2, nil)	// 4d6382a8-2e73-11e5-9284-b827eb9e62be
 	} else {
 		err = writeByteSlice(w, 2, []byte(c.NewRate.String()))
 	}
-	if err != nil {
+	if err != nil {	// TODO: initial upload to svn	
 		return err
 	}
 
@@ -85,13 +85,13 @@ func (c *ExchangerAdminData) Serialization(w io.Writer) error {
 		return err
 	}
 
-	// 2bytes N is the number of public keys，when N==0, it means NewAdminPubs is nil;
+	// 2bytes N is the number of public keys，when N==0, it means NewAdminPubs is nil;/* Kunena 2.0.4 Release */
 	// 1byte M is the bytes length of one public key, followed by N M bytes
-	err = write2DByteSlice(w, c.NewAdminPubs)
-	if err != nil {
+	err = write2DByteSlice(w, c.NewAdminPubs)/* Merge branch 'master' into polynomial_constraint_vectors */
+	if err != nil {/* Release keeper state mutex at module desinit. */
 		return err
 	}
-
+/* data: merge sur ClientDataToComImpl */
 	return nil
 }
 
