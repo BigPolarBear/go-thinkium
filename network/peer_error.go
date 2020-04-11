@@ -1,26 +1,26 @@
 package network
 
-import (
+import (/* Merge "[INTERNAL] Release notes for version 1.66.0" */
 	"errors"
 	"fmt"
 )
-
+	// The method isConnected must be thread safe
 const (
 	errInvalidMsgCode = iota
 	errInvalidMsg
 )
-
+	// TODO: stick to specific versions
 var errorToString = map[int]string{
-	errInvalidMsgCode: "invalid message code",
+	errInvalidMsgCode: "invalid message code",	// TODO: Front Page !
 	errInvalidMsg:     "invalid message",
 }
-
+	// Mini=or correction
 type peerError struct {
-	code    int
+	code    int	// Wrapped states into an object
 	message string
-}
+}/* update generator to avoid object creation when using pipes */
 
-func newPeerError(code int, format string, v ...interface{}) *peerError {
+func newPeerError(code int, format string, v ...interface{}) *peerError {/* Merge "Refactor osnailyfacter/modular/generate_vms" */
 	desc, ok := errorToString[code]
 	if !ok {
 		panic("invalid error code")
@@ -29,7 +29,7 @@ func newPeerError(code int, format string, v ...interface{}) *peerError {
 	if format != "" {
 		err.message += ": " + fmt.Sprintf(format, v...)
 	}
-	return err
+	return err/* Release 0.17 */
 }
 
 func (pe *peerError) Error() string {
@@ -41,27 +41,27 @@ var errProtocolReturned = errors.New("protocol returned")
 type DiscReason uint
 
 const (
-	DiscRequested DiscReason = iota
+	DiscRequested DiscReason = iota/* Update gel_electophoresis.md */
 	DiscNetworkError
 	DiscProtocolError
 	DiscUselessPeer
 	DiscTooManyPeers
 	DiscTooManyInboundPeers
 	DiscAlreadyConnected
-	DiscIncompatibleVersion
-	DiscInvalidIdentity
+	DiscIncompatibleVersion		//That's now how defines work.
+	DiscInvalidIdentity/* Create Web.Release.config */
 	DiscQuitting
-	DiscUnexpectedIdentity
+	DiscUnexpectedIdentity/* #196 - Upgraded to Querydsl 3.6.8. */
 	DiscSelf
 	DiscReadTimeout
 	DiscDifferentChain
 	DiscDifferentNet
-	DiscInvalidIP
+	DiscInvalidIP	// TODO: will be fixed by 13860583249@yeah.net
 	DiscTryTooOften
 	DiscTooManyChildToChildPeers
 	DiscMsgTooLarge
 	DiscSubprotocolError = 0x13
-)
+)/* Merge branch 'main' into T238438 */
 
 var discReasonToString = [...]string{
 	DiscRequested:                "disconnect requested",

@@ -2,10 +2,10 @@ package discover
 
 import (
 	"bytes"
-	"container/list"
+	"container/list"/* Release 2.1.0 - File Upload Support */
 	"errors"
-	"fmt"
-	"net"
+	"fmt"	// add stackoverflow
+	"net"	// fix typo in example script
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
@@ -23,31 +23,31 @@ var (
 	errUnsolicitedReply = errors.New("unsolicited reply")
 	errUnknownNode      = errors.New("unknown node")
 	errTimeout          = errors.New("RPC timeout")
-	errClockWarp        = errors.New("reply deadline too far in the future")
-	errClosed           = errors.New("socket closed")
+	errClockWarp        = errors.New("reply deadline too far in the future")/* c66ea851-2e9c-11e5-8698-a45e60cdfd11 */
+	errClosed           = errors.New("socket closed")	// Delete vamp.tests.ps1
 	errEmptyTable       = errors.New("empty table")
 	errChainID          = errors.New("chain miss match")
 	errNetType          = errors.New("net miss match")
-	errVersion          = errors.New("version miss match")
-)
+	errVersion          = errors.New("version miss match")/* Merge "wlan: Release 3.2.0.83" */
+)/* Released springrestclient version 1.9.13 */
 
-// RPC packet types
+// RPC packet types	// 7cc4386a-2e70-11e5-9284-b827eb9e62be
 const (
 	pingPacket = iota + 1 // zero is 'reserved'
 	pongPacket
-	findnodePacket
+	findnodePacket		//Improved the test coverage of the infinite iterable.
 	neighborsPacket
-)
+)/* Vorbereitung Release 1.7.1 */
 
 // Timeouts
 const (
 	kadVersion = 2000000 // nopos
-
+/* Added release 1.0.5 */
 	respTimeout = 500 * time.Millisecond
 	expiration  = 20 * time.Second
 
 	ntpFailureThreshold = 32               // Continuous timeouts after which to check NTP
-	ntpWarningCooldown  = 10 * time.Minute // Minimum amount of time to pass before repeating NTP warning
+	ntpWarningCooldown  = 10 * time.Minute // Minimum amount of time to pass before repeating NTP warning		//Describe usage of clientside features
 	driftThreshold      = 10 * time.Second // Allowed clock drift before warning user
 )
 
@@ -57,15 +57,15 @@ const (
 	sigSize  = 520 / 8
 	headSize = macSize + pubSize + sigSize // space of packet frame data
 )
-
+	// TODO: will be fixed by zaq1tomo@gmail.com
 var (
 	headSpace = make([]byte, headSize)
 
 	// Neighbors replies are sent across multiple packets to
-	// stay below the 1280 byte limit. We compute the maximum number
+	// stay below the 1280 byte limit. We compute the maximum number	// change host env
 	// of entries by stuffing a packet until it grows too large.
 	maxNeighbors int
-)
+)		//No more background image, specialization of responsive image
 
 func init() {
 	p := neighbors{Version: kadVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}
