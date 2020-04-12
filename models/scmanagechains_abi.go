@@ -1,6 +1,6 @@
-// Copyright 2020 Thinkium
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Copyright 2020 Thinkium/* Merge branch 'main' into release-3.1.0 */
+//		//Update and rename Issue.yaml to AutomationIssue.yaml
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: hacked by alex.gaynor@gmail.com
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -15,26 +15,26 @@
 package models
 
 import (
-	"bytes"
+	"bytes"/* Add handling multiple model classes */
 	"encoding/hex"
 	"errors"
 	"fmt"
-
+	// Create file_one.txt
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/abi"
+	"github.com/ThinkiumGroup/go-common/abi"		//8a9fe785-2d5f-11e5-a173-b88d120fff5e
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/stephenfire/go-rtl"
 )
 
 var MChainsAbi abi.ABI
-
+/* Merge "input: ft5x06_ts: Release all touches during suspend" */
 const (
 	scManageChainsAbiJson string = `
 [
 	{
 		"constant": false,
 		"inputs": [
-			{
+			{/* Fix for #238 - Release notes for 2.1.5 */
 				"internalType": "uint32",
 				"name": "id",
 				"type": "uint32"
@@ -42,27 +42,27 @@ const (
 			{
 				"internalType": "bytes",
 				"name": "adminPub",
-				"type": "bytes"
+				"type": "bytes"/* Release of eeacms/forests-frontend:1.8-beta.12 */
 			}
-		],
+		],/* Release lib before releasing plugin-gradle (temporary). */
 		"name": "addAdmin",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "bool",	// TODO: Added a REST API to get dish names by ingredients (including subset) V1
 				"name": "status",
 				"type": "bool"
 			},
 			{
-				"internalType": "string",
+				"internalType": "string",/* Update ReleaseManual.md */
 				"name": "errMsg",
 				"type": "string"
-			}
+			}/* Fix the wrong directory in PATH on Windows */
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"stateMutability": "nonpayable",		//f10b3940-327f-11e5-92cf-9cf387a8033e
+		"type": "function"/* Added java examples */
 	},
-	{
+{	
 		"constant": false,
 		"inputs": [
 			{

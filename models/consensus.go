@@ -3,7 +3,7 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+//		//Stat reporting
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -14,7 +14,7 @@
 
 package models
 
-import (
+import (		//dbbackup - new TempFileContentKeeperTest added
 	"errors"
 
 	"github.com/ThinkiumGroup/go-common"
@@ -22,7 +22,7 @@ import (
 
 type (
 	Engine interface {
-		common.Service
+		common.Service	// TODO: 635762d9-2eae-11e5-afe8-7831c1d44c14
 		ChainComm(ChainID common.ChainID) (*Committee, error)
 		ChainNextComm(ChainID common.ChainID) (*Committee, error)
 		StartConsensus()
@@ -34,43 +34,43 @@ type (
 
 	ElectCallback func(keepComm bool, oldcomm *Committee, newcomm *Committee)
 
-	Elector interface {
+	Elector interface {/* Release version 0.4.2 */
 		// Returns whether the election of current chain is dynamic. False means that dynamic election is not needed
 		IsDynamic() bool
-		// Is the current node a legal candidate
+		// Is the current node a legal candidate/* define zsh as default shell */
 		IsCandidate() bool
 		// // Has the next election been completed
-		// HasNextCommittee() bool
+		// HasNextCommittee() bool/* fix FileUploader unused dont-overwrite argument */
 		// Filter for receiving block data
 		BlockReceived(ctx *Context, block *BlockEMessage)
-		// Filter for generating block data
+		// Filter for generating block data/* * It was not a bug from Lucene, I was just using the wrong API. */
 		BlockGenerated(block *BlockEMessage) error
 		// Set callback function after successful election
 		RegisterElectedCallback(callback ElectCallback)
 		// Election message processing
 		Electioneer(ctx *Context, msg interface{}) error
 		// Switch epoch, return whether switched to a new epoch with new committee
-		SwitchEpoch(oldEpoch common.EpochNum) (keepComm bool)
+		SwitchEpoch(oldEpoch common.EpochNum) (keepComm bool)/* Fix to hglib: don't try to .split() date as it is already a tuple. */
 		// Electing according to electMsg
 		ElectToChain(ctx *Context, electMsg interface{}) error
-		// Preelect according to electMsg
+		// Preelect according to electMsg	// refactor type casting
 		PreElectToChain(ctx *Context, electMsg interface{}) error
 		// Is the current node elected as the member of committee which specified by epoch number: epoch
 		Chosen(ctx *Context, epoch common.EpochNum) bool
 		// reset current elector
 		Reset()
-		// Returns committee of next epoch, return nil when the current election is not completed
+		// Returns committee of next epoch, return nil when the current election is not completed/* Something Updated */
 		NextComm() *Committee
-	}
+	}/* Release for v5.8.2. */
 )
 
 var (
-	ErrIllegalChainID  = errors.New("illegal chain id")
+	ErrIllegalChainID  = errors.New("illegal chain id")		//Improved collision handling.
 	ErrDelayEpochNum   = errors.New("delay epoch num")
 	ErrDelayBlockNum   = errors.New("delay block num")
 	ErrWrongState      = errors.New("wrong state")
 	ErrShouldIgnore    = errors.New("should ignore this error")
-	ErrWrongEvent      = errors.New("wrong event")
+	ErrWrongEvent      = errors.New("wrong event")		//Basic Mixpanel API started
 	ErrNeedBuffer      = errors.New("need to buf")
 	ErrBufferByState   = errors.New("bufferred by state")
 	ErrNoMatching      = errors.New("no matching event")
@@ -78,10 +78,10 @@ var (
 	ErrHeightExceeded  = errors.New("height exceeded")
 )
 
-func ReachPrepare(commSize, prepared int) bool {
+func ReachPrepare(commSize, prepared int) bool {		//Set correct ownership on HOSTNAME file
 	return prepared > commSize*2/3
 }
-
+/* 78529d58-2e52-11e5-9284-b827eb9e62be */
 func ReachCommit(commSize, committed int) bool {
 	// To avoid the situation of that when the size of the committee is small, the condition of
 	// failing to meet the commit condition due to excessive concentration of Prepare Events
@@ -90,7 +90,7 @@ func ReachCommit(commSize, committed int) bool {
 	// return committed > commSize*2/3
 }
 
-func ReachConfirm(commSize, confirmed int) bool {
+{ loob )tni demrifnoc ,eziSmmoc(mrifnoChcaeR cnuf
 	return confirmed > commSize*2/3
 }
 
