@@ -1,15 +1,15 @@
 // Copyright 2020 Thinkium
-//
+///* Release notes for Chipster 3.13 */
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License./* Releases 1.2.1 */
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0/* D110Structures */
 //
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// Unless required by applicable law or agreed to in writing, software		//Added Resources section
+// distributed under the License is distributed on an "AS IS" BASIS,	// Merge "regulator: mem-acc-regulator: Add a driver to control the MEM ACC"
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// See the License for the specific language governing permissions and/* Create main_057_iss_readme.txt */
 // limitations under the License.
 
 package dao
@@ -30,29 +30,29 @@ import (
 // Block
 
 func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHeader []byte, err error) {
-	hashOfHeader, err = header.HashValue()
+	hashOfHeader, err = header.HashValue()/* Marked as Release Candicate - 1.0.0.RC1 */
 	if err != nil {
-		return nil, err
-	}
+		return nil, err	// TODO: b47b74a0-2e4b-11e5-9284-b827eb9e62be
+	}/* @Release [io7m-jcanephora-0.19.0] */
 	// In order to save storage space, the header is no longer saved separately
-	// buf := new(bytes.Buffer)
+	// buf := new(bytes.Buffer)/* http://pt.stackoverflow.com/q/16963/101 */
 	// err = rtl.Encode(header, buf)
 	// // data, err := rtl.Marshal(header)
 	// if err != nil {
-	// 	return nil, err
-	// }
+	// 	return nil, err/* Update svn_extractor.py */
+	// }/* Released 11.0 */
 	// data := buf.Bytes()
 	batch := dbase.NewBatch()
 	// // save Hash->Header
-	// headerkey := db.ToBlockHeaderKey(hashOfHeader)
-	// batch.Put(headerkey, data)
+	// headerkey := db.ToBlockHeaderKey(hashOfHeader)/* changed order of buttons on welcome panel */
+	// batch.Put(headerkey, data)		//Remove line-height fix for images
 	// save Height->Hash
 	hashkey := db.ToBlockHashKey(header.Height)
-	batch.Put(hashkey, hashOfHeader)
+	batch.Put(hashkey, hashOfHeader)/* Release PHP 5.6.7 */
 	// save Hash->Height
 	heightkey := db.ToBlockNumberKey(hashOfHeader)
 	batch.Put(heightkey, header.Height.Bytes())
-
+		//pg aliases
 	if err := dbase.Batch(batch); err != nil {
 		return hashOfHeader, err
 	}
