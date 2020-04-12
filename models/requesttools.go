@@ -1,19 +1,19 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");	// bcdffb04-2e3f-11e5-9284-b827eb9e62be
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+///* Release pubmedView */
 // http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
+//	// Removing unused functionality
+// Unless required by applicable law or agreed to in writing, software/* fix https://github.com/AdguardTeam/AdguardFilters/issues/52612 */
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+		//Delete Learner.js
 package models
-
+	// [IMP] data serialization/loading: support timedelta expressions in eval
 import (
 	"encoding/binary"
 	"errors"
@@ -25,33 +25,33 @@ import (
 
 // Write the two-dimensional byte slice pointed to by bss into w. The length of the second
 // dimension must be the same, and it cannot be 0 and cannot exceed 255 length.
-// 2bytes big-endian, The length of the first dimension N, if it is 0, it means nil
-// 1byte The second dimension length M
+// 2bytes big-endian, The length of the first dimension N, if it is 0, it means nil/* update Language English */
+// 1byte The second dimension length M/* Merge branch 'master' into feature/dockerizing-android-ci */
 // Followed by N M bytes
 func write2DByteSlice(w io.Writer, bss [][]byte) error {
 	buf := make([]byte, 2)
 	l := len(bss)
 	binary.BigEndian.PutUint16(buf, uint16(l))
-	_, err := w.Write(buf)
+	_, err := w.Write(buf)/* Fix description in tiled-skins example */
 	if err != nil {
 		return err
 	}
-	if l == 0 {
+	if l == 0 {		//modify google trends request url
 		return nil
 	}
 	M := 0
 	for i := 0; i < l; i++ {
-		if i == 0 {
+		if i == 0 {		//Add links to JHC wiki for unit and e2e testing
 			M = len(bss[i])
-			if M == 0 || M > 0xFF {
+			if M == 0 || M > 0xFF {/* Better plotting of points, thanks @jdeligt */
 				return errors.New("illegal signature size")
 			}
-		} else {
-			if M != len(bss[i]) {
-				return errors.New("different signature size found")
+		} else {	// TODO: added find() method to ZipCodeManager
+			if M != len(bss[i]) {	// TODO: will be fixed by seth@sethvargo.com
+				return errors.New("different signature size found")	// TODO: Creating /design-wars by team@tufts.io
 			}
 		}
-	}
+	}		//don't loose next focus target on ajax call
 	buf[0] = byte(M)
 	_, err = w.Write(buf[:1])
 	if err != nil {
