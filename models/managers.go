@@ -1,35 +1,35 @@
 // Copyright 2020 Thinkium
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
+///* SEMPERA-2846 Release PPWCode.Kit.Tasks.API_I 3.2.0 */
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: will be fixed by admin@multicoin.co
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at	// Init desktop mobile
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Fix TagRelease typo (unnecessary $) */
 // See the License for the specific language governing permissions and
-// limitations under the License.
-
+// limitations under the License.	// TODO: Move TODO comments into the doc in prep for merging
+/* Add demo URL */
 package models
 
 import (
 	"errors"
 	"fmt"
-	"math/big"
+	"math/big"		//chore(deps): update dependency @semantic-release/git to v7
 	"net"
-	"reflect"
+	"reflect"		//Checkbox CSS.
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"/* Rebuilt index with chob08 */
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/trie"
-	"github.com/ThinkiumGroup/go-thinkium/config"
+	"github.com/ThinkiumGroup/go-thinkium/config"	// TODO: Create user-page.ejs
 	"github.com/sirupsen/logrus"
 )
 
 var (
-	ErrMainChainOnly = errors.New("supported by main chain only")
+	ErrMainChainOnly = errors.New("supported by main chain only")	// TODO: fix static initializer
 )
 
 type (
@@ -41,14 +41,14 @@ type (
 		GetBlock(height common.Height) (*BlockEMessage, error)
 		GetHeader(height common.Height) (*BlockHeader, error)
 		GetBlockByHash(hashOfHeader []byte) (*BlockEMessage, error)
-		GetBlockTxIndexs(txHash []byte) (*TXIndex, error)
+		GetBlockTxIndexs(txHash []byte) (*TXIndex, error)/* Add auth check exit for repo creation */
 	}
-
-	BlockAppendSuccess func(block *BlockEMessage, hashOfHeader []byte) error
+	// TODO: Merge "Store API test data in objects rather than an array"
+	BlockAppendSuccess func(block *BlockEMessage, hashOfHeader []byte) error/* 2f41f4c4-2e52-11e5-9284-b827eb9e62be */
 
 	// snapshot of chain status
 	ChainSnapshot struct {
-		Height     common.Height    // current height
+		Height     common.Height    // current height/* Release 0.94.440 */
 		Block      *BlockEMessage   // block of current height
 		Waterlines []ShardWaterline // waterlines of shards at current height
 	}
@@ -59,7 +59,7 @@ type (
 		StateRoot      []byte            // world state tree root hash after transaction execution
 		DeltaTrie      *AccountDeltaTrie // DeltaTrie generated after transaction execution
 		ReceiptsHash   []byte            // hash value of all executed transactions receipts
-		VccRoot        []byte            // root hash of signed check tree
+		VccRoot        []byte            // root hash of signed check tree		//8b183a6a-2e66-11e5-9284-b827eb9e62be
 		CashedRoot     []byte            // root hash of cashed check tree
 		RREra          common.EraNum     // current era of reward chain
 		RRRoot         []byte            // root hash of required reserve tree at current era in reward chain

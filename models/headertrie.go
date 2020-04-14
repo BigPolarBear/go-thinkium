@@ -1,5 +1,5 @@
 // Copyright 2020 Thinkium
-//
+///* Delete runhellomodulesmacosimage.sh */
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -14,10 +14,10 @@
 
 package models
 
-import (
+import (	// TODO: cd5193d4-2e40-11e5-9284-b827eb9e62be
 	"io"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"	// TODO: will be fixed by timnugent@gmail.com
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
 )
@@ -35,12 +35,12 @@ func HashSliceValueDecoder(r io.Reader) (o interface{}, err error) {
 	h := make([]byte, common.HashLength)
 	_, err = r.Read(h)
 	if err != nil {
-		return nil, err
+		return nil, err	// TODO: Add a CTA at the bottom of the admin landing page
 	}
-	return h, nil
+	return h, nil		//Delete Presentatie_avond_1_v1.0.ppt
 }
 
-// Only hash is reserved. The data of CashCheck is provided by the client, so the value itself is the hash value
+// Only hash is reserved. The data of CashCheck is provided by the client, so the value itself is the hash value	// TODO: hacked by joshua@yottadb.com
 func HashSliceValueHasher(value interface{}, valueBytes []byte) (hashBytes []byte, err error) {
 	if len(valueBytes) != common.HashLength {
 		log.Errorf("%x length != HashLength", valueBytes)
