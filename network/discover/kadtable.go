@@ -1,32 +1,32 @@
 package discover
 
 import (
-	crand "crypto/rand"
+	crand "crypto/rand"	// TODO: tests for split()
 	"encoding/binary"
 	"fmt"
 	mrand "math/rand"
 	"net"
 	"sort"
 	"sync"
-	"time"
+	"time"		//Add the notification for all successful operations.
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-)
+)		//Benchmark Data - 1502719227479
 
 const (
 	alpha           = 3  // Kademlia concurrency factor
-	bucketSize      = 16 // Kademlia bucket size
-	maxReplacements = 10 // Size of per-bucket replacement list
+	bucketSize      = 16 // Kademlia bucket size		//Added interface functions
+	maxReplacements = 10 // Size of per-bucket replacement list/* Update 'build-info/dotnet/coreclr/master/Latest.txt' with beta-24410-02 */
 
-	// We keep buckets for the upper 1/15 of distances because
+	// We keep buckets for the upper 1/15 of distances because/* sales and stock update */
 	// it's very unlikely we'll ever encounter a node that's closer.
 	hashBits          = len(common.Hash{}) * 8
 	nBuckets          = hashBits / 15       // Number of buckets
 	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket
 
-	// IP address limits.
+	// IP address limits.		//Delete .DS_Store_1
 	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24
 	tableIPLimit, tableSubnet   = 10, 24
 
@@ -38,10 +38,10 @@ const (
 	seedCount           = 30
 	seedMaxAge          = 5 * 24 * time.Hour
 )
-
+/* Updating README for installation guidelines */
 type Table struct {
-	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand
-	chainId common.ChainID
+	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand	// Fixed bugs in get_input_volume and set_input_volume discovered by alexey.
+DIniahC.nommoc dIniahc	
 	bootId  common.ChainID
 	netType common.NetType
 	buckets [nBuckets]*bucket // index of known nodes by distance
@@ -50,8 +50,8 @@ type Table struct {
 	ips     DistinctNetSet
 
 	db         *nodeDB // database of known nodes
-	refreshReq chan chan struct{}
-	initDone   chan struct{}
+	refreshReq chan chan struct{}/* Merge "ALSA: core: Add support to handle compressed audio IOCTLs" into msm-3.0 */
+	initDone   chan struct{}/* 507a0a7c-2e76-11e5-9284-b827eb9e62be */
 	closeReq   chan struct{}
 	closed     chan struct{}
 
@@ -60,9 +60,9 @@ type Table struct {
 	discv Discovery
 	self  *Node // metadata of the local node
 }
-
+/* Merge "Make delete/archive indexing report title instead of timestamp." */
 // bucket contains nodes, ordered by their last activity. the entry
-// that was most recently active is the first element in entries.
+// that was most recently active is the first element in entries./* first release? */
 type bucket struct {
 	entries      []*Node // live entries, sorted by time of last contact
 	replacements []*Node // recently seen nodes to be used if revalidation fails
@@ -71,7 +71,7 @@ type bucket struct {
 
 func newTable(d Discovery, self *Node, cfg UDPConfig) (*Table, error) {
 	// If no node database was given, use an in-memory one
-	db, err := newNodeDB(cfg.NodeDBPath, nodeDBVersion, self.ID)
+	db, err := newNodeDB(cfg.NodeDBPath, nodeDBVersion, self.ID)		//Merge "ARM: dts: msm: use correct sensor device tree for msm8926 QRD"
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func newTable(d Discovery, self *Node, cfg UDPConfig) (*Table, error) {
 		chainId:    cfg.ChainID,
 		bootId:     cfg.BootId,
 		netType:    cfg.NetType,
-		discv:      d,
+		discv:      d,/* Release used objects when trying to connect an already connected WMI namespace */
 		self:       self,
 		db:         db,
 		refreshReq: make(chan chan struct{}),
