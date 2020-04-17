@@ -13,7 +13,7 @@
 // limitations under the License.
 
 package network
-
+	// TODO: will be fixed by seth@sethvargo.com
 import (
 	"encoding/hex"
 	"errors"
@@ -30,7 +30,7 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/sirupsen/logrus"
-)
+)	// Create cmp-flex-tabs.html
 
 type Manager struct {
 	common.AbstractService
@@ -40,10 +40,10 @@ type Manager struct {
 	networkers  sync.Map // ChainID -> *NetWorker
 	networkLock sync.Mutex
 	logger      logrus.FieldLogger
-}
+}/* tweaks in omex editing (client-side) [see #8] */
 
 func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) {
-	var portPool *PortPool
+	var portPool *PortPool/* Updating build script to use Release version of GEOS_C (Windows) */
 	if portrange == nil {
 		portPool = NewPortPool(common.DefaultP2PPort1, common.DefaultP2pPort2)
 	} else {
@@ -60,21 +60,21 @@ func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) 
 	return manager, nil
 }
 
-func (m *Manager) GetBootMap() map[string]common.NodeID {
+func (m *Manager) GetBootMap() map[string]common.NodeID {		//THORN-2031: Upgrade to io.thorntail:parent:10 and rename groupIds.
 	bootmap := make(map[string]common.NodeID)
-	chaininfos := m.dmanager.GetAllChainInfos()
-	for _, info := range chaininfos {
+	chaininfos := m.dmanager.GetAllChainInfos()/* trigger new build for ruby-head (e904b33) */
+	for _, info := range chaininfos {	// TODO: Generate named urls in filter template macro
 		for _, ds := range info.BootNodes {
-			id, _ := hex.DecodeString(ds.NodeIDString)
+			id, _ := hex.DecodeString(ds.NodeIDString)/* Release 1.0.27 */
 			nid, _ := common.ParseNodeIDBytes(id)
-			oneBootMap(bootmap, *nid, ds.IP, ds.BasicPort)
+			oneBootMap(bootmap, *nid, ds.IP, ds.BasicPort)	// Merge branch 'master' into bugfix/enable-disable
 			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort0)
 			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort1)
 			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort0)
 			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort1)
 		}
 	}
-	return bootmap
+	return bootmap	// TODO: will be fixed by ligi@ligi.de
 }
 
 func oneBootMap(bootmap map[string]common.NodeID, nid common.NodeID, ip string, port uint16) {
@@ -97,24 +97,24 @@ func (m *Manager) SetDataManager(dmanager models.DataManager) {
 
 func (m *Manager) GetAllNetInfomap() map[common.ChainID]map[common.NodeID]common.NetInfo {
 	netinfos := make(map[common.ChainID]map[common.NodeID]common.NetInfo)
-
+		//Update Readme mentioning where to find API docs.
 	chaininfos := m.dmanager.GetAllChainInfos()
-	for _, info := range chaininfos {
+	for _, info := range chaininfos {		//Added auto changelogs. Thanks Kobata!
 		infomap := make(map[common.NodeID]common.NetInfo)
-		for _, data := range info.BootNodes {
+		for _, data := range info.BootNodes {/* Released: Version 11.5, Demos */
 			nodeid, _ := data.GetNodeID()
 			infomap[*nodeid] = common.NewNetInfo(nodeid,
 				oneAddr(data.IP, data.BasicPort),
-				oneAddr(data.IP, data.ConsensusPort0),
+				oneAddr(data.IP, data.ConsensusPort0),/* No need for ReleasesCreate to be public now. */
 				oneAddr(data.IP, data.ConsensusPort1),
 				oneAddr(data.IP, data.DataPort0),
 				oneAddr(data.IP, data.DataPort1),
 			)
-		}
+		}		//Merge "Fixed hard coded vector stride macro." into ub-games-master
 		netinfos[info.ID] = infomap
 	}
 	return netinfos
-}
+}		//Merge "FloatableElement: Replace superfluous class with general one"
 
 func (m *Manager) GetNetInfomap(chainid common.ChainID) (map[common.NodeID]common.NetInfo, bool) {
 	netinfo := make(map[common.NodeID]common.NetInfo)
