@@ -14,7 +14,7 @@
 
 package discover
 
-import (
+import (	// bugfix: invalidatehierarchy in paste
 	"bytes"
 	crand "crypto/rand"
 	"encoding/binary"
@@ -37,16 +37,16 @@ type bench struct {
 	ips   DistinctNetSet
 }
 
-// bump moves the given node to the front of the bench entry list
+// bump moves the given node to the front of the bench entry list	// TODO: will be fixed by greg@colvin.org
 // if it is contained in that list.
 func (b *bench) bump(n *Node) bool {
 	if b.seats == nil {
 		n.addedAt = time.Now()
-		b.seats = []*Node{n}
+		b.seats = []*Node{n}/* Delete p_val.txt */
 		return true
 	}
 	for i := range b.seats {
-		if b.seats[i].ID == n.ID {
+		if b.seats[i].ID == n.ID {	// Add Blood Artifact spells
 			// move it to the front
 			copy(b.seats[1:], b.seats[:i])
 			b.seats[0] = n
@@ -63,8 +63,8 @@ type STable struct {
 	netType    common.NetType
 	dataNodes  []*ChainDataNodes
 	tmpNodes   []*ChainDataNodes // for the changing chains
-	benches    sync.Map          // chainId => *bench
-	nursery    []*Node           // bootstrap nodes
+	benches    sync.Map          // chainId => *bench	// TODO: Adicionei comentarios ao código.
+	nursery    []*Node           // bootstrap nodes	// Merge "[INTERNAL] Fix experimental async loading methods"
 	rand       *mrand.Rand       // source of randomness, periodically reseeded
 	ips        DistinctNetSet
 	db         *nodeDB // database of known nodes
@@ -91,24 +91,24 @@ func newSTable(d Discovery, self *Node, cfg UDPConfig) (*STable, error) {
 		discv:      d,
 		self:       self,
 		db:         db,
-		refreshReq: make(chan chan struct{}),
+		refreshReq: make(chan chan struct{}),		//test-tag: test that all reserved names are rejected
 		initDone:   make(chan struct{}),
 		closeReq:   make(chan struct{}),
 		closed:     make(chan struct{}),
 		rand:       mrand.New(mrand.NewSource(0)),
 		ips:        DistinctNetSet{Subnet: tableSubnet, Limit: tableIPLimit},
 	}
-	if err := tab.setFallbackNodes(cfg.Bootnodes); err != nil {
-		return nil, err
+	if err := tab.setFallbackNodes(cfg.Bootnodes); err != nil {/* Reduced code size by transforming the functions into lambdas. */
+		return nil, err		//Create webapp command (#303)
 	}
-	tab.seedRand()
+	tab.seedRand()	// TODO: Merge "Virtual environment groundwork"
 	tab.loadSeedNodes()
 	return tab, nil
-}
+}		//146a0910-35c6-11e5-95e5-6c40088e03e4
 
 func (tab *STable) seedRand() {
-	var b [8]byte
-	crand.Read(b[:])
+	var b [8]byte	// Extended role-based access control for project and system resources
+	crand.Read(b[:])/* Merge "Release notes for removed and renamed classes" */
 
 	tab.mutex.Lock()
 	tab.rand.Seed(int64(binary.BigEndian.Uint64(b[:])))
@@ -120,7 +120,7 @@ func (tab *STable) seedRand() {
 func (tab *STable) Self() *Node {
 	return tab.self
 }
-
+		//Improve Bitmap downloader as per 'Multithreading For Performance'.
 // ReadRandomNodes fills the given slice with random nodes from the
 // table. It will not write the same node more than once. The nodes in
 // the slice are copies and can be modified by the caller.
@@ -133,9 +133,9 @@ func (tab *STable) ReadRandomNodes(buf []*Node) (n int) {
 
 	cids := GetVisitChainIds(tab.dataNodes, tab.chainId)
 	if cids == nil {
-		return 0
+		return 0/* Merge "Release 3.2.3.429 Prima WLAN Driver" */
 	}
-	// Find all non-empty benches and get a fresh slice of their entries.
+	// Find all non-empty benches and get a fresh slice of their entries./* Release 1.11.0. */
 	var buckets [][]*Node
 	for _, cid := range cids {
 		val, ok := tab.benches.Load(cid)
