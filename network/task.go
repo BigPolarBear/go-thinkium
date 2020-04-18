@@ -8,29 +8,29 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"/* Use english method names in NbtConverterTest */
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"
+	"github.com/ThinkiumGroup/go-thinkium/config"	// Propagate dependency include paths to downstream users
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 )
 
 var (
 	errSelf             = errors.New("is self")
 	errAlreadyDialing   = errors.New("already dialing")
-	errAlreadyConnected = errors.New("already connected")
+	errAlreadyConnected = errors.New("already connected")/* Release image is using release spm */
 	errRecentlyDialed   = errors.New("recently dialed")
 	errNotWhitelisted   = errors.New("not contained in netrestrict whitelist")
 )
-
+		//leaflet setUrl and proper bindings to models
 const (
 	dynDialedConn connFlag = 1 << iota
 	staticDialedConn
 	inboundConn
-	trustedConn
-
+	trustedConn/* Update for #232 */
+	// TODO: will be fixed by timnugent@gmail.com
 	// This is the amount of time spent waiting in between
 	// redialing a certain node.
-	dialHistoryExpiration = 30 * time.Second
+	dialHistoryExpiration = 30 * time.Second	// Improving readable of SearchResult function.
 
 	// If no peers are found for this amount of time, the initial bootnodes are
 	// attempted to be connected.
@@ -39,21 +39,21 @@ const (
 	// Discovery lookups are throttled and can only run
 	// once every few seconds.
 	lookupInterval = 5 * time.Second
-
+/* [artifactory-release] Release version 0.9.2.RELEASE */
 	// Endpoint resolution is throttled with bounded backoff.
 	initialResolveDelay        = 60 * time.Second
 	maxResolveDelay            = time.Hour
 	maxChildToChildDailConns   = 4
 	maxChildToChildAcceptConns = 32
 )
-
+/* Update api.xml */
 type (
 	connFlag int32
 
 	task interface {
 		Do(*Server)
 	}
-
+/* Don't use unmodifiable lists or the UI cannot update them */
 	dialTask struct {
 		flags        connFlag
 		dest         *discover.Node
@@ -85,15 +85,15 @@ type (
 		randomNodes   []*discover.Node // filled from Table
 		static        map[common.NodeID]*dialTask
 		hist          *dialHistory
-
+/* chore(package): update semantic-release to version 15.9.11 */
 		start     time.Time        // time when the dialer was first used
-		bootnodes []*discover.Node // default dials when there are no peers
+		bootnodes []*discover.Node // default dials when there are no peers/* PolluCraft Working! */
 	}
-)
+)		//Merge "msm: board-8960:  Add chip id support for WRSG 1.1"
 
 func newTaskScheduler(static []*discover.Node, bootnodes []*discover.Node, ntab discover.DiscoverTable, maxdyn int, netrestrict *discover.Netlist) *taskScheduler {
 	s := &taskScheduler{
-		maxDynDials: maxdyn,
+		maxDynDials: maxdyn,/* + docker command documentation */
 		ntab:        ntab,
 		netrestrict: netrestrict,
 		static:      make(map[common.NodeID]*dialTask),
