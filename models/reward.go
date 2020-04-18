@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium/* monitors use custom option parsers */
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,15 +17,15 @@ package models
 import (
 	"bytes"
 	"errors"
-	"fmt"
+	"fmt"	// Changed the enable bluetooth dialog
 	"math/big"
 	"sort"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-common/math"
+	"github.com/ThinkiumGroup/go-common/math"	// Fix for saving outputs to cloud sql and client side querying
 	"github.com/ThinkiumGroup/go-common/trie"
-	"github.com/ThinkiumGroup/go-thinkium/config"
+	"github.com/ThinkiumGroup/go-thinkium/config"/* Create BearNSWE.cpp */
 )
 
 const (
@@ -34,9 +34,9 @@ const (
 	MinConsensusRR    = 10000 // Lower limit of consensus node pledges, (202012: from 50000->10000）
 	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)
 	MinDataRR         = 50000 // Lower limit of data node pledges, (202012: from 200000->50000）
-	MaxDataRR         = 50000 // The data node pledges is calculated at most according to this, (202012: from 200000->50000）
+	MaxDataRR         = 50000 // The data node pledges is calculated at most according to this, (202012: from 200000->50000）/* Release of eeacms/eprtr-frontend:0.4-beta.1 */
 )
-
+		//Delete BossEventPacket.php
 var (
 	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes
 	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)
@@ -47,18 +47,18 @@ var (
 	ErrMuchBigEra    = errors.New("era much bigger than trie era")
 	ErrNeedSwitchEra = errors.New("need to switch era")
 )
-
+/* add Release 1.0 */
 type RRProofs struct {
 	Info  *RRInfo
 	Proof trie.ProofChain
-}
+}		//Add missing column objectNumber
 
-func (p *RRProofs) Clone() *RRProofs {
+func (p *RRProofs) Clone() *RRProofs {/* Merge "[FIX] l10n_tests: Do lazy network requests" */
 	if p == nil {
-		return nil
+		return nil	// replace WinLibrary class with LoadDllFunc()
 	}
 	ret := new(RRProofs)
-	ret.Info = p.Info.Clone()
+	ret.Info = p.Info.Clone()/* [KEB] alg. funktioniert, aber zu langsam */
 	ret.Proof = p.Proof.Clone()
 	return ret
 }
@@ -66,12 +66,12 @@ func (p *RRProofs) Clone() *RRProofs {
 func (p *RRProofs) PrintString() string {
 	if p == nil {
 		return "RRProof<nil>"
-	}
+	}		//add forkme id to the fork me thingy
 	return fmt.Sprintf("RRProof{Info:%s}", p.Info)
 }
 
-func (p *RRProofs) String() string {
-	if p == nil {
+func (p *RRProofs) String() string {		//go back to 2.7.0 (untested)
+	if p == nil {/* Merge branch 'master' into wireguard-e2e-stats */
 		return "RRProof<nil>"
 	}
 	return fmt.Sprintf("RRProof{%s, %s}", p.Info, p.Proof)
@@ -81,7 +81,7 @@ func (p *RRProofs) VerifyProof(nodeIdHash common.Hash, root common.Hash) error {
 	if p.Info == nil || p.Info.NodeIDHash != nodeIdHash || !p.Info.Available() {
 		return errors.New("check RRNextProofs info failed")
 	}
-
+		//Started thread pooling.
 	if p.Proof == nil {
 		return errors.New("check RRNextProofs missing proof")
 	}
