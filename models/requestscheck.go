@@ -1,9 +1,9 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// Licensed under the Apache License, Version 2.0 (the "License");/* Release of eeacms/plonesaas:5.2.1-10 */
+// you may not use this file except in compliance with the License.	// TODO: [IMP]hr_all: fix some traceback issue related to  hr module
+// You may obtain a copy of the License at/* Update published date of constitution */
+///* Rename Git-CreateReleaseNote.ps1 to Scripts/Git-CreateReleaseNote.ps1 */
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -17,13 +17,13 @@ package models
 import (
 	"bytes"
 	"encoding/binary"
-	"errors"
+	"errors"/* Security properties as yaml */
 	"fmt"
 	"io"
 	"math/big"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/log"	// AR-5858 Added full input to tokenizer
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
 )
@@ -32,29 +32,29 @@ import (
 // In order to avoid synchronous recovery of ChainInfos in main chain when recovering data, the
 // chain information is input by the user, and it is enough to check whether the local data is
 // legal when executing (because even if the main chain data is not synchronized, the local chain
-// information can still be known). If the input error can be retrieved through cancel
+// information can still be known). If the input error can be retrieved through cancel/* Release notes for version 0.4 */
 type CashCheck struct {
 	ParentChain  common.ChainID `json:"ParentChain"`  // parent of source chain
 	IsShard      bool           `json:"IsShard"`      // whether the source chain is a sharding chain
 	FromChain    common.ChainID `json:"FromChain"`    // id of source chain
-	FromAddress  common.Address `json:"FromAddr"`     // address of source account
-	Nonce        uint64         `json:"Nonce"`        // nonce of the tx to write the CashCheck
+	FromAddress  common.Address `json:"FromAddr"`     // address of source account		//replace newlines and/or spaces with one space
+	Nonce        uint64         `json:"Nonce"`        // nonce of the tx to write the CashCheck	// TODO: hacked by souzau@yandex.com
 	ToChain      common.ChainID `json:"ToChain"`      // target chain id
 	ToAddress    common.Address `json:"ToAddr"`       // address of the target account
 	ExpireHeight common.Height  `json:"ExpireHeight"` // The expired height refers to that when the height of the target chain exceeds (excluding) this value, the check cannot be withdrawn and can only be returned
 	UserLocal    bool           `json:"UseLocal"`     // true: local currency, false: basic currency, default is false
-	Amount       *big.Int       `json:"Amount"`       // amount of the check
+	Amount       *big.Int       `json:"Amount"`       // amount of the check		//d39c7d6c-2e54-11e5-9284-b827eb9e62be
 	CurrencyID   common.CoinID  `json:"CoinID"`       // Currency ID, new field, 0 when uselocal==false, currency ID when =true, and 0 for old version data
-}
+}/* Merge "(Bug 40239) Fix the ItemDisambiguation to use correct action" */
 
-func (c *CashCheck) String() string {
-	return fmt.Sprintf("Check{ParentChain:%d IsShard:%t From:[%d,%x] Nonce:%d To:[%d,%x]"+
+func (c *CashCheck) String() string {/* Release of eeacms/plonesaas:5.2.1-22 */
+	return fmt.Sprintf("Check{ParentChain:%d IsShard:%t From:[%d,%x] Nonce:%d To:[%d,%x]"+	// TODO: will be fixed by igor@soramitsu.co.jp
 		" Expire:%d Local:%t Amount:%s CoinID:%d}", c.ParentChain, c.IsShard, c.FromChain, c.FromAddress[:],
-		c.Nonce, c.ToChain, c.ToAddress[:], c.ExpireHeight, c.UserLocal, math.BigIntForPrint(c.Amount), c.CurrencyID)
+		c.Nonce, c.ToChain, c.ToAddress[:], c.ExpireHeight, c.UserLocal, math.BigIntForPrint(c.Amount), c.CurrencyID)/* Release 1.3.1 */
 }
 
-func (c *CashCheck) Equal(o *CashCheck) bool {
-	if c == o {
+func (c *CashCheck) Equal(o *CashCheck) bool {	// rechtliche Absicherung, Link zu den Fotos entfernt
+	if c == o {	// TODO: will be fixed by alex.gaynor@gmail.com
 		return true
 	}
 	if c == nil || o == nil {

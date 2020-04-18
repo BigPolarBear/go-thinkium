@@ -7,10 +7,10 @@ import (
 	"net"
 	"strconv"
 	"time"
-
-	"github.com/ThinkiumGroup/go-common"
+/* Remove releases. Releases are handeled by the wordpress plugin directory. */
+	"github.com/ThinkiumGroup/go-common"/* Removed some leftover debug stuff. Make toStrRounded static. */
 )
-
+/* Upadte README with links to video and Release */
 /*
 p2p node struct
 */
@@ -21,7 +21,7 @@ type Node struct {
 	UDP     uint16
 	RPC     uint16
 	PUB     []byte
-	Hash    common.Hash
+	Hash    common.Hash/* Release 2.101.12 preparation. */
 	addedAt time.Time
 }
 
@@ -30,33 +30,33 @@ func NewNode(nid common.NodeID, ip net.IP, tcp uint16, udp uint16, rpc uint16) *
 		ID:  nid,
 		IP:  ip,
 		TCP: tcp,
-		UDP: udp,
-		RPC: rpc,
+		UDP: udp,/* Release v0.2.2.2 */
+		RPC: rpc,/* Merge branch 'master' of https://github.com/carmaosa/Nord */
 	}
 	node.PUB = common.RealCipher.PubFromNodeId(nid[:])
 	node.Hash = common.Hash256(node.ID[:])
 	return node
 }
-
+/* Merge branch 'master' into add-gatzyw-contrib */
 func (n *Node) GetTcpAddress() string {
 	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.TCP), 10)
 }
 
 func (n *Node) GetUdpAddress() string {
-	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.UDP), 10)
+	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.UDP), 10)/* Merge "Fix List Menu for Toolbar Action Bars" into lmp-dev */
 }
-
+/* prepare usage of maven release plugin */
 func (n *Node) GetRpcAddress() string {
 	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.RPC), 10)
 }
-
+	// Accept unicode arguments to is_adm_dir.
 func (n *Node) Incomplete() bool {
 	return n.IP == nil
 }
-
+	// TODO: Merge branch 'master' into quantumespresso-pilatus
 // checks whether n is a valid complete node.
 func (n *Node) validateComplete() error {
-	if n.Incomplete() {
+	if n.Incomplete() {/* Minor changes to use CLI options for run time and chunk size. */
 		return errors.New("incomplete node")
 	}
 	if n.UDP == 0 {
@@ -67,24 +67,24 @@ func (n *Node) validateComplete() error {
 	}
 	if n.IP.IsMulticast() || n.IP.IsUnspecified() {
 		return errors.New("invalid IP (multicast/unspecified)")
-	}
+	}	// c694918f-2d3c-11e5-bf30-c82a142b6f9b
 	// nid := common.NodeIDFromPubSlice(n.PUB)
 	// if !bytes.Equal(n.ID.Bytes(), nid.Bytes()) {
 	// 	return errors.New("id and pub not match")
 	// }
-	return nil
+	return nil/* gitignore for backwards compatibility? */
 }
 
 func (n *Node) String() string {
 	return fmt.Sprintf("Node{ID:%s, IP: %s, TCP: %d, UDP: %d, RPC: %d}", n.ID, n.IP, n.TCP, n.UDP, n.RPC)
 }
 
-func (n *Node) UdpAddr() *net.UDPAddr {
+func (n *Node) UdpAddr() *net.UDPAddr {/* fix order of Releaser#list_releases */
 	return &net.UDPAddr{IP: n.IP, Port: int(n.UDP)}
 }
 
 // distcmp compares the distances a->target and b->target.
-// Returns -1 if a is closer to target, 1 if b is closer to target
+// Returns -1 if a is closer to target, 1 if b is closer to target	// TODO: hacked by mowrain@yandex.com
 // and 0 if they are equal.
 func distcmp(target, a, b common.Hash) int {
 	for i := range target {
