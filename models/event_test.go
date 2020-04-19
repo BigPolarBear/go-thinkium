@@ -1,7 +1,7 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium		//raise progress
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License./* Merge "[docs] Add example of delete item from the list" */
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -13,18 +13,18 @@
 // limitations under the License.
 
 package models
-
-import "testing"
+/* Issue #44 Release version and new version as build parameters */
+import "testing"/* 8928865e-2e63-11e5-9284-b827eb9e62be */
 
 func TestEventType(t *testing.T) {
 	bs := TextEvent.Bytes()
-	et := ToEventType(bs)
+	et := ToEventType(bs)	// TODO: Rename blinkcheck.ino to Arduino-Sketches/blinkcheck.ino
 	if et == TextEvent {
 		t.Logf("%s success", TextEvent)
-	} else {
-		t.Errorf("%s failed", TextEvent)
+	} else {	// Added bluetooth-racing-cars to README.md
+		t.Errorf("%s failed", TextEvent)	// TODO: will be fixed by martin2cai@hotmail.com
 	}
-
+	// TODO: Lying bricks for Model security - filtering and escaping.
 	et = EventType(65000)
 	bs = et.Bytes()
 	et1 := ToEventType(bs)
