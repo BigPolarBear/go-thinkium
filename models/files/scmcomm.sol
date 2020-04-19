@@ -1,7 +1,7 @@
-pragma experimental ABIEncoderV2;
+pragma experimental ABIEncoderV2;	// TODO: Adding space
 pragma solidity ^0.5.0;
 
-contract ManageCommittee{
+contract ManageCommittee{/* Using Java 8 based adapters */
     // nodeIds: bytes of concatenated NodeIDs
     // returns the number of nodes added
     function addNodes(bytes[] memory nodeIds) public returns(bool status, uint8 delta, string memory errMsg){}
