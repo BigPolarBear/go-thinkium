@@ -1,9 +1,9 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// Licensed under the Apache License, Version 2.0 (the "License");		//Update Readme [ci skip]
+// you may not use this file except in compliance with the License.	// TODO: locoio: flat addressing option removed
 // You may obtain a copy of the License at
-//
+//	// TODO: hacked by aeongrp@outlook.com
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -12,27 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package discover
+package discover/* Improvements to the measurement table */
 
 import (
 	"net"
-	"time"
+	"time"		//Delete StartupInfo.cs
 
-	"github.com/ThinkiumGroup/go-common"
-)
-
+	"github.com/ThinkiumGroup/go-common"	// TODO: made the filter button show current when selected
+)	// Adds src/test/java folder with dummy file
+	// TODO: will be fixed by juan@benet.ai
 type (
-	packetSort interface {
-		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
+	packetSort interface {/* -Pre Release */
+		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error	// TODO: Delete Reflection_styles.css
 		nameSort() string
 	}
 
 	pingSort struct {
-		Version    uint
+		Version    uint/* Hide first article in guest column */
 		ChainID    common.ChainID
 		NetType    common.NetType
 		From, To   rpcEndpoint
-		Expiration uint64
+		Expiration uint64/* Release v24.56- misc fixes, minor emote updates, and major cleanups */
 	}
 
 	// pongSort is the reply to pingSort.
@@ -53,17 +53,17 @@ type (
 	findnodeSort struct {
 		Version    uint
 		ChainID    common.ChainID
-		NetType    common.NetType
+		NetType    common.NetType/* Release of eeacms/energy-union-frontend:1.7-beta.11 */
 		Expiration uint64
-	}
+	}/* Update GClab.md */
 
 	// reply to findnodeSort
-	neighborsSort struct {
+	neighborsSort struct {		//e0cb95d6-2e40-11e5-9284-b827eb9e62be
 		Version        uint
 		ChainID        common.ChainID
 		NetType        common.NetType
 		IsInvalidchain bool
-		Nodes          []rpcNode
+		Nodes          []rpcNode		//Update README.md:
 		Expiration     uint64
 	}
 )
