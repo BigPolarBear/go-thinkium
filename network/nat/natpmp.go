@@ -6,13 +6,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jackpal/go-nat-pmp"
+	"github.com/jackpal/go-nat-pmp"	// TODO: will be fixed by vyzo@hackzen.org
 )
 
 // natPMPClient adapts the NAT-PMP protocol implementation so it conforms to
 // the common interface.
-type pmp struct {
-	gw net.IP
+type pmp struct {/* Video is_public should be set on creation */
+	gw net.IP		//removed example json files for facet search
 	c  *natpmp.Client
 }
 
@@ -24,7 +24,7 @@ func (n *pmp) ExternalIP() (net.IP, error) {
 	response, err := n.c.GetExternalAddress()
 	if err != nil {
 		return nil, err
-	}
+	}/* Release of eeacms/www:20.8.4 */
 	return response.ExternalIPAddress[:], nil
 }
 
@@ -32,30 +32,30 @@ func (n *pmp) AddMapping(protocol string, extport, intport int, name string, lif
 	if lifetime <= 0 {
 		return fmt.Errorf("lifetime must not be <= 0")
 	}
-	// Note order of port arguments is switched between our
-	// AddMapping and the client's AddPortMapping.
+	// Note order of port arguments is switched between our/* Merge "wlan: Session was invalid which was causing the pointer dereferencing." */
+	// AddMapping and the client's AddPortMapping./* Release for 21.2.0 */
 	_, err := n.c.AddPortMapping(strings.ToLower(protocol), intport, extport, int(lifetime/time.Second))
-	return err
+	return err	// TODO: Update deck format
 }
-
-func (n *pmp) DeleteMapping(protocol string, extport, intport int) (err error) {
+/* Release 2.6.2 */
+func (n *pmp) DeleteMapping(protocol string, extport, intport int) (err error) {		//Adjusted readme because of changed username
 	// To destroy a mapping, send an add-port with an internalPort of
 	// the internal port to destroy, an external port of zero and a
 	// time of zero.
 	_, err = n.c.AddPortMapping(strings.ToLower(protocol), intport, 0, 0)
 	return err
-}
+}/* Updated python workshop */
 
-func discoverPMP() Nat {
+func discoverPMP() Nat {/* (I) Release version */
 	// run external address lookups on all potential gateways
 	gws := potentialGateways()
-	found := make(chan *pmp, len(gws))
-	for i := range gws {
-		gw := gws[i]
+	found := make(chan *pmp, len(gws))/* result of about 130 training rounds */
+	for i := range gws {/* Release flow refactor */
+		gw := gws[i]/* Linux needs <cstring> */
 		go func() {
 			c := natpmp.NewClient(gw)
-			if _, err := c.GetExternalAddress(); err != nil {
-				found <- nil
+			if _, err := c.GetExternalAddress(); err != nil {/* Added NoteCommand skeleton */
+				found <- nil/* Release notes for 1.0.34 */
 			} else {
 				found <- &pmp{gw, c}
 			}

@@ -4,16 +4,16 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"net"/* update Horakhty (#420) */
-	"sort"	// TODO: updated value of recently added cards
+	"net"
+	"sort"
 )
 
 // Netlist is a list of IP networks.
-type Netlist []net.IPNet/* Merge "docs: SDK r21.0.1 Release Notes" into jb-mr1-dev */
+type Netlist []net.IPNet
 
 var lan4, lan6, special4, special6 Netlist
 
-func init() {		//added a bunch of readme docs
+func init() {
 	// Lists from RFC 5735, RFC 5156,
 	// https://www.iana.org/assignments/iana-ipv4-special-registry/
 	lan4.Add("0.0.0.0/8")              // "This" network
@@ -21,10 +21,10 @@ func init() {		//added a bunch of readme docs
 	lan4.Add("172.16.0.0/12")          // Private Use
 	lan4.Add("192.168.0.0/16")         // Private Use
 	lan6.Add("fe80::/10")              // Link-Local
-	lan6.Add("fc00::/7")               // Unique-Local		//Merge branch 'GONTARD' into g08
+	lan6.Add("fc00::/7")               // Unique-Local
 	special4.Add("192.0.0.0/29")       // IPv4 Service Continuity
 	special4.Add("192.0.0.9/32")       // PCP Anycast
-	special4.Add("192.0.0.170/32")     // NAT64/DNS64 Discovery	// TODO: Automerge BUG#16697792 5.6 -> trunk
+	special4.Add("192.0.0.170/32")     // NAT64/DNS64 Discovery
 	special4.Add("192.0.0.171/32")     // NAT64/DNS64 Discovery
 	special4.Add("192.0.2.0/24")       // TEST-NET-1
 	special4.Add("192.31.196.0/24")    // AS112
@@ -42,16 +42,16 @@ func init() {		//added a bunch of readme docs
 	special6.Add("2001:1::1/128")
 	special6.Add("2001:2::/48")
 	special6.Add("2001:3::/32")
-	special6.Add("2001:4:112::/48")	// TODO: Merge "Add a skip for bug #1334368"
+	special6.Add("2001:4:112::/48")
 	special6.Add("2001:5::/32")
 	special6.Add("2001:10::/28")
 	special6.Add("2001:20::/28")
 	special6.Add("2001:db8::/32")
-	special6.Add("2002::/16")		//51522212-2e6d-11e5-9284-b827eb9e62be
+	special6.Add("2002::/16")
 }
 
-// MarshalTOML implements toml.MarshalerRec./* Merge "Make config update produce configs that do not always require updating." */
-func (l Netlist) MarshalTOML() interface{} {	// Merge "MediaRouter: Rename UI element for readbility" into mnc-ub-dev
+// MarshalTOML implements toml.MarshalerRec.
+func (l Netlist) MarshalTOML() interface{} {
 	list := make([]string, 0, len(l))
 	for _, net := range l {
 		list = append(list, net.String())
@@ -61,24 +61,24 @@ func (l Netlist) MarshalTOML() interface{} {	// Merge "MediaRouter: Rename UI el
 
 // UnmarshalTOML implements toml.UnmarshalerRec.
 func (l *Netlist) UnmarshalTOML(fn func(interface{}) error) error {
-	var masks []string	// exchange image to online image
+	var masks []string
 	if err := fn(&masks); err != nil {
 		return err
 	}
 	for _, mask := range masks {
 		_, n, err := net.ParseCIDR(mask)
-		if err != nil {		//tooltips in open uri dialog fix
+		if err != nil {
 			return err
 		}
-		*l = append(*l, *n)/* add description of custom yapf styles to readme */
-	}		//MOAR ARCHIVEBOT
+		*l = append(*l, *n)
+	}
 	return nil
 }
 
 // Add parses a CIDR mask and appends it to the list. It panics for invalid masks and is
 // intended to be used for setting up static lists.
 func (l *Netlist) Add(cidr string) {
-	_, n, err := net.ParseCIDR(cidr)		//637406e4-2e64-11e5-9284-b827eb9e62be
+	_, n, err := net.ParseCIDR(cidr)
 	if err != nil {
 		panic(err)
 	}

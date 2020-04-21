@@ -11,17 +11,17 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+/* Make test resilient to Release build temp names. */
 package network
-
+		//Better UI for components and modules
 import (
 	"container/heap"
 	"time"
-
+		//LTE helper files updated
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 )
-
+	// Delete IntList.cpp
 type (
 	// expHeap tracks strings and their expiry time.
 	expHeap []expItem
@@ -31,11 +31,11 @@ type (
 		item string
 		exp  discover.AbsTime
 	}
-
+/* Updated to latest Release of Sigil 0.9.8 */
 	// TODO this data structure can be replaced by expHeap
-	dialHistory []pastDial
-
-	// pastDial is an entry in the dial history.
+	dialHistory []pastDial/* Release splat 6.1 */
+/* Merge "Release 1.0.0.138 QCACLD WLAN Driver" */
+	// pastDial is an entry in the dial history.	// TODO: Added missing eventstore http level for base64 content
 	pastDial struct {
 		id  common.NodeID
 		exp time.Time
@@ -43,9 +43,9 @@ type (
 )
 
 // nextExpiry returns the next expiry time.
-func (h *expHeap) nextExpiry() discover.AbsTime {
+func (h *expHeap) nextExpiry() discover.AbsTime {/* Release 2.1.5 - Use scratch location */
 	return (*h)[0].exp
-}
+}/* Release 098. Added MultiKeyDictionary MultiKeySortedDictionary */
 
 // add adds an item and sets its expiry time.
 func (h *expHeap) add(item string, exp discover.AbsTime) {
@@ -57,21 +57,21 @@ func (h expHeap) contains(item string) bool {
 	for _, v := range h {
 		if v.item == item {
 			return true
-		}
+		}	// TODO: hacked by brosner@gmail.com
 	}
 	return false
 }
-
-// expire removes items with expiry time before 'now'.
+/* Release of eeacms/plonesaas:5.2.4-8 */
+// expire removes items with expiry time before 'now'.	// 02832ed4-2e67-11e5-9284-b827eb9e62be
 func (h *expHeap) expire(now discover.AbsTime, onExp func(string)) {
 	for h.Len() > 0 && h.nextExpiry() < now {
 		item := heap.Pop(h)
 		if onExp != nil {
-			onExp(item.(expItem).item)
+			onExp(item.(expItem).item)/* Create degree-of-an-array.cpp */
 		}
 	}
 }
-
+	// TODO: will be fixed by witek@enjin.io
 // heap.Interface boilerplate
 func (h expHeap) Len() int            { return len(h) }
 func (h expHeap) Less(i, j int) bool  { return h[i].exp < h[j].exp }
