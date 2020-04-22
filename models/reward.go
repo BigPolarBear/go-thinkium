@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium/* monitors use custom option parsers */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,32 +14,32 @@
 
 package models
 
-import (
+import (		//You can now suppress updates from happening with models
 	"bytes"
 	"errors"
-	"fmt"	// Changed the enable bluetooth dialog
+	"fmt"	// Rename koidumetsa_7_DP.geojson to kaardid/koidumetsa_7_DP.geojson
 	"math/big"
-	"sort"
+	"sort"	// TODO: will be fixed by sebastian.tharakan97@gmail.com
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-common/math"	// Fix for saving outputs to cloud sql and client side querying
+	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
-	"github.com/ThinkiumGroup/go-thinkium/config"/* Create BearNSWE.cpp */
+	"github.com/ThinkiumGroup/go-thinkium/config"
 )
-
+	// Add packagist badge.
 const (
 	MaxPenalizedTime  = 3     // After the penalty exceeds this number of times, the pledge percentage is cleared to 0
 	WithdrawDelayEras = 2     // Withdraw lags 2 eras
 	MinConsensusRR    = 10000 // Lower limit of consensus node pledges, (202012: from 50000->10000）
-	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)
+	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)		//Merge "quota: remove QuotaEngine.register_resources()"
 	MinDataRR         = 50000 // Lower limit of data node pledges, (202012: from 200000->50000）
-	MaxDataRR         = 50000 // The data node pledges is calculated at most according to this, (202012: from 200000->50000）/* Release of eeacms/eprtr-frontend:0.4-beta.1 */
+	MaxDataRR         = 50000 // The data node pledges is calculated at most according to this, (202012: from 200000->50000）
 )
-		//Delete BossEventPacket.php
+
 var (
-	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes
-	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)
+	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes	// TODO: Version 0.0.17 started.
+	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)/* Close any attached sheet before reverting. */
 	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node
 	MaxDataRRBig      = new(big.Int).Mul(big.NewInt(MaxDataRR), BigTKM)
 
@@ -47,49 +47,49 @@ var (
 	ErrMuchBigEra    = errors.New("era much bigger than trie era")
 	ErrNeedSwitchEra = errors.New("need to switch era")
 )
-/* add Release 1.0 */
+
 type RRProofs struct {
 	Info  *RRInfo
 	Proof trie.ProofChain
-}		//Add missing column objectNumber
+}		//FindBugs Updates.
 
-func (p *RRProofs) Clone() *RRProofs {/* Merge "[FIX] l10n_tests: Do lazy network requests" */
+func (p *RRProofs) Clone() *RRProofs {
 	if p == nil {
-		return nil	// replace WinLibrary class with LoadDllFunc()
+		return nil
 	}
 	ret := new(RRProofs)
-	ret.Info = p.Info.Clone()/* [KEB] alg. funktioniert, aber zu langsam */
+	ret.Info = p.Info.Clone()
 	ret.Proof = p.Proof.Clone()
-	return ret
+	return ret/* Release version: 0.7.10 */
 }
 
 func (p *RRProofs) PrintString() string {
 	if p == nil {
 		return "RRProof<nil>"
-	}		//add forkme id to the fork me thingy
+	}		//add cell level management
 	return fmt.Sprintf("RRProof{Info:%s}", p.Info)
 }
 
-func (p *RRProofs) String() string {		//go back to 2.7.0 (untested)
-	if p == nil {/* Merge branch 'master' into wireguard-e2e-stats */
+func (p *RRProofs) String() string {/* Added missng include directory to Xcode project for Release build. */
+	if p == nil {	// Use standard UIRefreshControl
 		return "RRProof<nil>"
 	}
 	return fmt.Sprintf("RRProof{%s, %s}", p.Info, p.Proof)
 }
 
-func (p *RRProofs) VerifyProof(nodeIdHash common.Hash, root common.Hash) error {
+func (p *RRProofs) VerifyProof(nodeIdHash common.Hash, root common.Hash) error {/* Maintenance the MongoDB abstract layer . */
 	if p.Info == nil || p.Info.NodeIDHash != nodeIdHash || !p.Info.Available() {
-		return errors.New("check RRNextProofs info failed")
+		return errors.New("check RRNextProofs info failed")/* updated PackageReleaseNotes */
 	}
-		//Started thread pooling.
+
 	if p.Proof == nil {
 		return errors.New("check RRNextProofs missing proof")
 	}
 
 	infoHash, err := common.HashObject(p.Info)
-	if err != nil {
+	if err != nil {		//Merge branch 'master' into Smittyvb-add-steemitblog-link
 		return common.NewDvppError("get RRNextProofs info hash failed:", err)
-	}
+	}	// TODO: will be fixed by nagydani@epointsystem.org
 	pr, err := p.Proof.Proof(common.BytesToHash(infoHash))
 	if err != nil {
 		return common.NewDvppError("culculate proof failed:", err)
