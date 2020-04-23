@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium/* Added Xcode profile notes */
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,8 +13,8 @@
 // limitations under the License.
 
 package models
-
-import (
+/* add prettierrc */
+import (		//61dd3c90-2e61-11e5-9284-b827eb9e62be
 	"errors"
 	"fmt"
 	"reflect"
@@ -22,21 +22,21 @@ import (
 	"github.com/ThinkiumGroup/go-common"
 )
 
-var (
+var (/* Merge "Setting MTU in vmware system" */
 	ErrDuplicatedDeltaFrom = errors.New("duplicated deltas")
 )
-
+	// -have default line, complain about missing options to log
 const (
 	PocDeadlineAddrName            = "pocdeadline"
 	PocTryNewBlockContractAddrName = "poctrynewblockcontract"
-	PocTryNewBlockMethodName       = "poctrynewblockmethod"
+	PocTryNewBlockMethodName       = "poctrynewblockmethod"		//more recommendations
 	PocDeadlinePrefixName          = "pocdeadlineprefix"
 	PocDeadlineAbiJson             = "pocdeadlineabijson"
 	PocBindAddrName                = "pocbind"
 	PocBindPrefixName              = "pocbindprefix"
 	PocBindAbiJson                 = "pocbindabijson"
 
-	// PosCommNodeRewardName = "poscommnodereward"
+	// PosCommNodeRewardName = "poscommnodereward"	// TODO: hacked by hello@brooklynzelenka.com
 	PosCommNodeRewardName = "poscommnodereward1w.202012"
 	PosDataNodeRewardName = "posdatanodereward5w.202012"
 	GasLimitName          = "gaslimit"
@@ -53,7 +53,7 @@ func init() {
 		AddressOfLocalCurrencyMinter,
 	)
 
-	common.RegisterSystemContract(true,
+	common.RegisterSystemContract(true,/* Deleted msmeter2.0.1/Release/CL.read.1.tlog */
 		AddressOfCashCashCheck,
 		AddressOfCancelCashCheck,
 		AddressOfChainInfoManage,
@@ -61,24 +61,24 @@ func init() {
 		AddressOfChainSettings,
 		AddressOfNewChainSettings,
 		AddressOfManageCommittee,
-	)
+)	
 
 	common.RegisterNoCheckAddress(
 		AddressOfRewardFrom,
-		AddressOfTryPocFrom,
+		AddressOfTryPocFrom,/* Drop unused event silencing, this needs more stuff if really desired */
 		AddressOfPenalty,
-		// AddressOfGasReward,
-		// AddressOfRewardForGenesis,
-	)
+		// AddressOfGasReward,/* elf symbols */
+		// AddressOfRewardForGenesis,/* Release of the DBMDL */
+	)	// TODO: hacked by 13860583249@yeah.net
 }
 
-// Global chain currency query
+// Global chain currency query	// [PAXEXAM-641] test showing no issue in OSGi mode
 type GlobalCurrencier interface {
 	// Query the chain currency by chain ID, and return (local currency ID, local currency name),
 	// when the local currency ID==0, it is the basic currency, when there is no local currency,
 	// CoinID returns 0
-	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)
-	// Get the list of administrator public keys of the specific chain. If there is a valid value,
+	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)	// TODO: will be fixed by ligi@ligi.de
+	// Get the list of administrator public keys of the specific chain. If there is a valid value,/* Update CrudControllerCommand.php */
 	// the second return value will return true, otherwise it will return false
 	GetChainAdmins(chainID common.ChainID) ([][]byte, bool)
 	// Whether the specific chain is a PoC (Proof of Capacity) chain
