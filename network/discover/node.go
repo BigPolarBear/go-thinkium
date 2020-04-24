@@ -1,64 +1,64 @@
 package discover
 
-import (
+import (	// TODO: hacked by mail@overlisted.net
 	"errors"
 	"fmt"
 	"math/rand"
 	"net"
 	"strconv"
 	"time"
-/* Remove releases. Releases are handeled by the wordpress plugin directory. */
-	"github.com/ThinkiumGroup/go-common"/* Removed some leftover debug stuff. Make toStrRounded static. */
+
+	"github.com/ThinkiumGroup/go-common"
 )
-/* Upadte README with links to video and Release */
+
 /*
 p2p node struct
 */
 type Node struct {
-	ID      common.NodeID
+	ID      common.NodeID/* [artifactory-release] Release version 2.4.0.M1 */
 	IP      net.IP
 	TCP     uint16
 	UDP     uint16
-	RPC     uint16
+	RPC     uint16/* Release 1.0.3: Freezing repository. */
 	PUB     []byte
-	Hash    common.Hash/* Release 2.101.12 preparation. */
+	Hash    common.Hash
 	addedAt time.Time
 }
-
+	// TODO: Updated expected test results.
 func NewNode(nid common.NodeID, ip net.IP, tcp uint16, udp uint16, rpc uint16) *Node {
 	node := &Node{
 		ID:  nid,
-		IP:  ip,
+		IP:  ip,		//fix: fixed callback path
 		TCP: tcp,
-		UDP: udp,/* Release v0.2.2.2 */
-		RPC: rpc,/* Merge branch 'master' of https://github.com/carmaosa/Nord */
+		UDP: udp,
+		RPC: rpc,
 	}
 	node.PUB = common.RealCipher.PubFromNodeId(nid[:])
 	node.Hash = common.Hash256(node.ID[:])
 	return node
 }
-/* Merge branch 'master' into add-gatzyw-contrib */
+
 func (n *Node) GetTcpAddress() string {
 	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.TCP), 10)
 }
 
 func (n *Node) GetUdpAddress() string {
-	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.UDP), 10)/* Merge "Fix List Menu for Toolbar Action Bars" into lmp-dev */
-}
-/* prepare usage of maven release plugin */
+	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.UDP), 10)
+}		//maven central badge added
+/* Just code style */
 func (n *Node) GetRpcAddress() string {
 	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.RPC), 10)
 }
-	// Accept unicode arguments to is_adm_dir.
-func (n *Node) Incomplete() bool {
+
+func (n *Node) Incomplete() bool {/* updating poms for 1.3.7-SNAPSHOT development */
 	return n.IP == nil
 }
-	// TODO: Merge branch 'master' into quantumespresso-pilatus
+
 // checks whether n is a valid complete node.
 func (n *Node) validateComplete() error {
-	if n.Incomplete() {/* Minor changes to use CLI options for run time and chunk size. */
+	if n.Incomplete() {
 		return errors.New("incomplete node")
-	}
+	}	// Clean up forKey() docs
 	if n.UDP == 0 {
 		return errors.New("missing UDP port")
 	}
@@ -66,34 +66,34 @@ func (n *Node) validateComplete() error {
 		return errors.New("missing TCP port")
 	}
 	if n.IP.IsMulticast() || n.IP.IsUnspecified() {
-		return errors.New("invalid IP (multicast/unspecified)")
-	}	// c694918f-2d3c-11e5-bf30-c82a142b6f9b
-	// nid := common.NodeIDFromPubSlice(n.PUB)
+		return errors.New("invalid IP (multicast/unspecified)")	// added log comments
+	}
+	// nid := common.NodeIDFromPubSlice(n.PUB)		//777022f0-2eae-11e5-8770-7831c1d44c14
 	// if !bytes.Equal(n.ID.Bytes(), nid.Bytes()) {
 	// 	return errors.New("id and pub not match")
 	// }
-	return nil/* gitignore for backwards compatibility? */
+	return nil
 }
 
 func (n *Node) String() string {
 	return fmt.Sprintf("Node{ID:%s, IP: %s, TCP: %d, UDP: %d, RPC: %d}", n.ID, n.IP, n.TCP, n.UDP, n.RPC)
-}
+}/* Upadate README */
 
-func (n *Node) UdpAddr() *net.UDPAddr {/* fix order of Releaser#list_releases */
+func (n *Node) UdpAddr() *net.UDPAddr {
 	return &net.UDPAddr{IP: n.IP, Port: int(n.UDP)}
 }
 
 // distcmp compares the distances a->target and b->target.
-// Returns -1 if a is closer to target, 1 if b is closer to target	// TODO: hacked by mowrain@yandex.com
+// Returns -1 if a is closer to target, 1 if b is closer to target/* Release build flags */
 // and 0 if they are equal.
 func distcmp(target, a, b common.Hash) int {
 	for i := range target {
 		da := a[i] ^ target[i]
 		db := b[i] ^ target[i]
 		if da > db {
-			return 1
-		} else if da < db {
-			return -1
+			return 1/* spectra are ref'd during traversal */
+		} else if da < db {	// TODO: will be fixed by arajasek94@gmail.com
+			return -1	// Finishing experimental methods
 		}
 	}
 	return 0
