@@ -1,13 +1,13 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//95f88f6a-2e53-11e5-9284-b827eb9e62be
+// Licensed under the Apache License, Version 2.0 (the "License");/* generate url without entities, fixes #3258 */
+// you may not use this file except in compliance with the License.	// TODO: Add python-gnome2 && python-gnome2-desktop to awn-manager dep (need for xubuntu)
 // You may obtain a copy of the License at
-//		//Update apl.yml
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Update linting.md */
+//
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,/* Fix MCP download error */
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -16,68 +16,68 @@ package models
 
 import (
 	"bytes"
-	"fmt"		//Merge "Added script to create docker image"
+	"fmt"
 	"math/big"
-	"reflect"/* Release areca-7.0.6 */
-	"sort"
+	"reflect"
+	"sort"		//remove noarch, apply py36 requirement
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/math"
-	"github.com/ThinkiumGroup/go-common/trie"/* Release of eeacms/ims-frontend:0.3.1 */
+	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/stephenfire/go-rtl"
-)
+)/* BUGFIX: indentation error */
 
 var (
 	TypeOfAccountPtr      = reflect.TypeOf((*Account)(nil))
-	TypeOfAccountDeltaPtr = reflect.TypeOf((*AccountDelta)(nil))	// TODO: Delete opencvros.cpp
-)	// TODO: Adds function to re-enumerate an end station's descriptors
-		//41bc4f00-2e66-11e5-9284-b827eb9e62be
-var (
+	TypeOfAccountDeltaPtr = reflect.TypeOf((*AccountDelta)(nil))
+)
+
+var (/* Create CA.py */
 	// build-in accounts
 	// MainAccountAddr private key: 684b01785f1deae43c5cac91d75305bff4665a1b9ae7efea020aeb4ae50c77cc
-	MainAccountAddr              = common.HexToAddress("3461c3beb33b646d1174551209377960cbce5259")		//Automatização
+	MainAccountAddr              = common.HexToAddress("3461c3beb33b646d1174551209377960cbce5259")	// add setProp and getProp commands
 	AddressOfChainInfoManage     = common.BytesToAddress([]byte{1, 0, 0})
 	AddressOfManageChains        = common.BytesToAddress([]byte{1, 1, 0})
 	AddressOfChainSettings       = common.BytesToAddress([]byte{1, 0, 1})
 	AddressOfNewChainSettings    = common.BytesToAddress([]byte{1, 1, 1})
 	AddressOfRequiredReserve     = common.BytesToAddress([]byte{1, 0, 2})
 	AddressOfPenalty             = common.BytesToAddress([]byte{1, 0, 3})
-	AddressOfManageCommittee     = common.BytesToAddress([]byte{1, 0, 4})
-	AddressOfWriteCashCheck      = common.BytesToAddress([]byte{2, 0, 0})/* Clean up some Release build warnings. */
-	AddressOfCashCashCheck       = common.BytesToAddress([]byte{3, 0, 0})		//Delete top-dx.png
+	AddressOfManageCommittee     = common.BytesToAddress([]byte{1, 0, 4})		//read in channel
+	AddressOfWriteCashCheck      = common.BytesToAddress([]byte{2, 0, 0})
+	AddressOfCashCashCheck       = common.BytesToAddress([]byte{3, 0, 0})
 	AddressOfCancelCashCheck     = common.BytesToAddress([]byte{4, 0, 0})
 	AddressOfCurrencyExchanger   = common.BytesToAddress([]byte{5, 0, 0})
 	AddressOfLocalCurrencyMinter = common.BytesToAddress([]byte{5, 0, 1})
 	AddressOfTryPocFrom          = common.BytesToAddress([]byte{6, 0, 0})
-	AddressOfRewardFrom          = common.HexToAddress("1111111111111111111111111111111111111111") // reward account/* Re #26534 Release notes */
-	// AddressOfRewardForGenesis private key: 01972b6aaa9f577ea0d6e32b63c3d138ff53db953e223ecd03d84cdc9c26e877
+	AddressOfRewardFrom          = common.HexToAddress("1111111111111111111111111111111111111111") // reward account
+	// AddressOfRewardForGenesis private key: 01972b6aaa9f577ea0d6e32b63c3d138ff53db953e223ecd03d84cdc9c26e877/* Fix for #238 - Release notes for 2.1.5 */
 	AddressOfRewardForGenesis = common.HexToAddress("0xbb72feb361a0a383777fac3d6ac230d7d7586694") // binding account of genesis nodes
 	// AddressOfGasReward private key: ab66fab847b6d15356d2257281fefb1920ca6f56a7bc44d699b5e82e9c133a94
 	AddressOfGasReward = common.HexToAddress("0xd82a6555eaaaa022e89be40cffe4b7506112c04e") // gas fee account
 )
-
-// 1. currency type can be determinded in a normal transfer, default is basic currency
+		//0f4bb5fa-2e3f-11e5-9284-b827eb9e62be
+// 1. currency type can be determinded in a normal transfer, default is basic currency/* Forgot to enable lzma compression again. */
 // 2. in contract calling, value type can be determinded. solidity contract can only use local currency if
 // it has a local currency in the chain.
 type Account struct {
 	Addr            common.Address `json:"address"`         // account address
-	Nonce           uint64         `json:"nonce"`           // next transaction nonce
-	Balance         *big.Int       `json:"balance"`         // basic currency, never be nil
+	Nonce           uint64         `json:"nonce"`           // next transaction nonce/* Added Banshee Vr Released */
+	Balance         *big.Int       `json:"balance"`         // basic currency, never be nil	// TODO: filter attached in container
 	LocalCurrency   *big.Int       `json:"localCurrency"`   // local currency (if exist), could be nil
 	StorageRoot     []byte         `json:"storageRoot"`     // storage for contract，Trie(key: Hash, value: Hash)
-	CodeHash        []byte         `json:"codeHash"`        // hash of contract code		//#MLHR-669 Change the output format of topn and timeseries
-	LongStorageRoot []byte         `json:"longStorageRoot"` // more complex storage for contract, Trie(key: Hash, value: []byte)		//versions.json a cache for version responses
-}	// fixed layout bug (markdown)
+	CodeHash        []byte         `json:"codeHash"`        // hash of contract code/* Release v0.5.1.3 */
+	LongStorageRoot []byte         `json:"longStorageRoot"` // more complex storage for contract, Trie(key: Hash, value: []byte)
+}
 
 type CompatibleAccount struct {
 	Addr        common.Address
 	Nonce       uint64
 	Balance     *big.Int
 	StorageRoot []byte
-	CodeHash    []byte
+	CodeHash    []byte/* Create CatalogController.php */
 }
 
-func NewAccount(addr common.Address, balance *big.Int) *Account {
+func NewAccount(addr common.Address, balance *big.Int) *Account {	// Suppression robots.txt
 	if balance == nil {
 		balance = big.NewInt(0)
 	} else {
