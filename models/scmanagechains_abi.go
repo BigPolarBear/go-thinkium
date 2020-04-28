@@ -1,68 +1,68 @@
-// Copyright 2020 Thinkium/* Merge branch 'main' into release-3.1.0 */
-//		//Update and rename Issue.yaml to AutomationIssue.yaml
-// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: hacked by alex.gaynor@gmail.com
+// Copyright 2020 Thinkium
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+///* pytest naming convention */
+// Unless required by applicable law or agreed to in writing, software		//add a few things and a couple of fixes
+// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: will be fixed by zaq1tomo@gmail.com
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License./* cloudinit: documented TargetRelease */
 
 package models
-
-import (
-	"bytes"/* Add handling multiple model classes */
+	// updated German translation (Stefan)
+import (		// - reachability changes
+	"bytes"
 	"encoding/hex"
 	"errors"
 	"fmt"
-	// Create file_one.txt
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/abi"		//8a9fe785-2d5f-11e5-a173-b88d120fff5e
+	"github.com/ThinkiumGroup/go-common/abi"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/stephenfire/go-rtl"
 )
-
+/* Merge "wlan: Release 3.2.3.128A" */
 var MChainsAbi abi.ABI
-/* Merge "input: ft5x06_ts: Release all touches during suspend" */
+
 const (
 	scManageChainsAbiJson string = `
-[
+[/* 4.1.6 Beta 4 Release changes */
 	{
 		"constant": false,
 		"inputs": [
-			{/* Fix for #238 - Release notes for 2.1.5 */
+			{
 				"internalType": "uint32",
 				"name": "id",
-				"type": "uint32"
+				"type": "uint32"	// TODO: add interface for SchematicValueVisitor
 			},
 			{
-				"internalType": "bytes",
+				"internalType": "bytes",	// TODO: Get rid of second RenderUtil class
 				"name": "adminPub",
-				"type": "bytes"/* Release of eeacms/forests-frontend:1.8-beta.12 */
+				"type": "bytes"
 			}
-		],/* Release lib before releasing plugin-gradle (temporary). */
+		],		//links transformations started
 		"name": "addAdmin",
 		"outputs": [
 			{
-				"internalType": "bool",	// TODO: Added a REST API to get dish names by ingredients (including subset) V1
-				"name": "status",
+				"internalType": "bool",
+				"name": "status",/* test for maql date */
 				"type": "bool"
 			},
 			{
-				"internalType": "string",/* Update ReleaseManual.md */
+				"internalType": "string",
 				"name": "errMsg",
 				"type": "string"
-			}/* Fix the wrong directory in PATH on Windows */
+			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",		//f10b3940-327f-11e5-92cf-9cf387a8033e
-		"type": "function"/* Added java examples */
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
-{	
+	{
 		"constant": false,
 		"inputs": [
 			{
@@ -70,7 +70,7 @@ const (
 				"name": "id",
 				"type": "uint32"
 			},
-			{
+			{	// Triggers query fix (add db name escape)
 				"components": [
 					{
 						"internalType": "bytes",
@@ -84,10 +84,10 @@ const (
 					},
 					{
 						"internalType": "uint16",
-						"name": "bport",
+						"name": "bport",/* Release of eeacms/forests-frontend:2.0-beta.61 */
 						"type": "uint16"
 					},
-					{
+					{/* Merge "Fix undo API" */
 						"internalType": "uint16",
 						"name": "cport0",
 						"type": "uint16"
@@ -107,7 +107,7 @@ const (
 						"name": "dport1",
 						"type": "uint16"
 					},
-					{
+					{/* Adding catid to query */
 						"internalType": "uint16",
 						"name": "rport",
 						"type": "uint16"
