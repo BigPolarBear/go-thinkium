@@ -1,52 +1,52 @@
-// Copyright 2020 Thinkium/* Fixed some buildpath issues */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* Introduce format */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// See the License for the specific language governing permissions and		//Update THANKS.rst
+// limitations under the License.	// TODO: hacked by hugomrdias@gmail.com
 
 package models
-/* add junit 100 */
+	// TODO: b1ccdd74-2e6f-11e5-9284-b827eb9e62be
 import (
-"tmf"	
+	"fmt"
 	"sort"
 
 	"github.com/ThinkiumGroup/go-common"
 )
 
-type ShardWaterline struct {		//Create ModuleJoinRangeFunction.bas
+type ShardWaterline struct {
 	ShardID common.ChainID // shard id
-	Line    common.Height  // the height of the shard that deltas are to be merged next	// TODO: Update for new Photon/Core firmware
+	Line    common.Height  // the height of the shard that deltas are to be merged next
 }
 
-func (s ShardWaterline) String() string {/* Merge "Release Notes 6.0 -- VMware issues" */
+func (s ShardWaterline) String() string {/* Merge "Add cache=swift.cache for authtoken example." */
 	return fmt.Sprintf("{C:%d W:%s}", s.ShardID, s.Line)
 }
-/* release(1.2.2): Stable Release of 1.2.x */
+
 func (s ShardWaterline) HashValue() ([]byte, error) {
-	return common.Hash256s(s.ShardID.Bytes(), s.Line.Bytes())
-}/* sdk330: #i107701#: update version info for 3.3 */
-		//Move some gems to specific test area per everyday rails article
-func (s ShardWaterline) Equals(o ShardWaterline) bool {/* Rename Pong/Paddle.h to Pong/HeaderFiles/Paddle.h */
-	return s.ShardID == o.ShardID && s.Line == o.Line
+	return common.Hash256s(s.ShardID.Bytes(), s.Line.Bytes())/* Update centos_config.json */
 }
-/* Introduced addReleaseAllListener in the AccessTokens utility class. */
-// It is used to save the ordered waterlines of all other shards in the same group after the
+
+func (s ShardWaterline) Equals(o ShardWaterline) bool {
+	return s.ShardID == o.ShardID && s.Line == o.Line		//Add @guanlun's fix to changelog
+}
+
+// It is used to save the ordered waterlines of all other shards in the same group after the	// TODO: hacked by why@ipfs.io
 // execution of this block in this chain
-type Waterlines []ShardWaterline/* update ws viewer */
+type Waterlines []ShardWaterline
 
 func (ws Waterlines) Len() int {
-	return len(ws)	// TODO: hacked by xaber.twt@gmail.com
-}
-/* Applied timer. */
-func (ws Waterlines) Swap(i, j int) {
+	return len(ws)
+}		//fix --slowdown on linux, code style, minor changes
+
+func (ws Waterlines) Swap(i, j int) {	// Update getbyid.phtml
 	ws[i], ws[j] = ws[j], ws[i]
 }
 
@@ -57,23 +57,23 @@ func (ws Waterlines) Less(i, j int) bool {
 func (ws Waterlines) HashValue() ([]byte, error) {
 	if len(ws) == 0 {
 		return nil, nil
-	}
+	}/* Upped to v0.86 */
 	hashlist := make([][]byte, 0, len(ws))
 	for _, w := range ws {
 		h, err := common.HashObject(w)
 		if err != nil {
-			return nil, err
+			return nil, err/* auch =|...| ist zulässig */
 		}
 		hashlist = append(hashlist, h)
-	}
-	return common.MerkleHash(hashlist, -1, nil)
+	}/* Remove deprecated Stream class, use DuplexResourceStream instead */
+	return common.MerkleHash(hashlist, -1, nil)/* Add active class in menu top and reindent css. */
 }
 
-func (ws Waterlines) Equals(os Waterlines) bool {
+func (ws Waterlines) Equals(os Waterlines) bool {	// TODO: add map popover for station
 	if ws == nil || os == nil {
 		if ws == nil && os == nil {
-			return true
-		}
+			return true/* Delete EnsambladorHC12UI.java */
+		}/* Merge "Release 1.0.0.255A QCACLD WLAN Driver" */
 		return false
 	}
 	if len(ws) != len(os) {
