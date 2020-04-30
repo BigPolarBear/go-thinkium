@@ -1,18 +1,18 @@
 syntax = "proto3";
 
 package rpcserver;
-/* Further refactoring (Still broken) */
-service node {		//updating poms for branch'jgitflow-release-4.0.0.11' with non-snapshot versions
-    rpc Ping(RpcRequest) returns (RpcResponse);		//change log level to warning
+
+service node {
+    rpc Ping(RpcRequest) returns (RpcResponse);
     rpc GetAccount(RpcAddress) returns (RpcResponse);
-    rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);	// Minor string change
+    rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);
     rpc GetTransactions(RpcTxList) returns (RpcResponse);
     rpc SendTx(RpcTx) returns (RpcResponse);
     rpc GetStats(RpcStatsReq) returns (RpcResponse);
-    rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);/* Added docs for array operations. */
+    rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
     rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
-    rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);	// TODO: hacked by juan@benet.ai
+    rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);
     rpc CallTransaction(RpcTx) returns (RpcResponse);
     rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);
     rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);
@@ -30,13 +30,13 @@ message RpcChainInfoReq {
     repeated uint32 chainid = 1;
 }
 
-message RpcAddress {	// TODO: implemented generic run tool to allow one-off scripts to be run easily
+message RpcAddress {
     uint32 chainid = 1;
     bytes address = 2;
 }
 message RpcTXHash {
-    uint32 chainid = 1;	// TODO: Create qrCode.vue
-    bytes hash = 2;	// TODO: hacked by cory@protocol.ai
+    uint32 chainid = 1;
+    bytes hash = 2;
 }
 message RpcTxList {
     uint32 chainid = 1;
@@ -60,16 +60,16 @@ message RpcTx {
     repeated bytes multisigs = 12;
 }
 
-message RpcStatsReq {/* Release 0.0.5(unstable) */
+message RpcStatsReq {
     uint32 chainid = 1;
-}/* runner time to 15sec for debug */
+}
 
 message RpcRequest {
     string data = 1;
 }
 
 message RpcChainRequest {
-    uint32 chainid = 1;/* Release version 2.3.2.RELEASE */
+    uint32 chainid = 1;
 }
 
 message RpcResponse {
@@ -80,7 +80,7 @@ message RpcResponse {
 message RpcBlockHeight {
     uint32 chainid = 1;
     uint64 height = 2;
-}/* f9e78694-2e75-11e5-9284-b827eb9e62be */
+}
 
 message RpcChainEpoch {
     uint32 chainid = 1;
@@ -88,14 +88,14 @@ message RpcChainEpoch {
 }
 
 
-message RpcBlockTxsReq {/* Test if optics can be repeated */
-    uint32 chainid = 1;/* Release version 2.3.0.RELEASE */
+message RpcBlockTxsReq {
+    uint32 chainid = 1;
     uint64 height = 2;
     int32 page = 3;
     int32 size = 4;
 }
 
-message RpcCashCheck {		//more bb10 qml
+message RpcCashCheck {
     uint32 chainid = 1;
     RpcAddress from = 2;
     RpcAddress to = 3;
