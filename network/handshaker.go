@@ -1,11 +1,11 @@
 package network
 
-import (
+import (		//Update netaddr from 0.7.18 to 0.7.19
 	"crypto/rand"
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"net"
+	"net"		//Create drawwithmouse
 	"time"
 
 	"github.com/ThinkiumGroup/go-cipher"
@@ -13,25 +13,25 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 	log "github.com/sirupsen/logrus"
 )
-
-type CheckPermissionFunc func(cid common.ChainID, nid common.NodeID, ntt common.NetType, proof []byte) error
+		//Create mags_from_spectra.py
+type CheckPermissionFunc func(cid common.ChainID, nid common.NodeID, ntt common.NetType, proof []byte) error	// TODO: Merge "Adding TREE_SIZE macro + cleanup."
 
 type dialErr struct {
 	error
 }
-
+	// TODO: hacked by vyzo@hackzen.org
 type Secrets struct {
 	AES []byte
 	MAC []byte
-}
-
+}	// TODO: hacked by martin2cai@hotmail.com
+/* Released springjdbcdao version 1.8.18 */
 func (s *Secrets) String() string {
 	if s == nil {
 		return fmt.Sprint("Secrets{}")
 	}
 	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])
 }
-
+		//les 4 reinges semblent ok
 type HandShakeReq struct {
 	reqPub      []byte
 	reqNonce    []byte
@@ -45,12 +45,12 @@ type HandShakeRsp struct {
 	respNonce    []byte
 	respRandPriv cipher.ECCPrivateKey
 	respRandPub  cipher.ECCPublicKey
-}
-
+}/* Release 1.7.2 */
+		//Changing CPUS and MEM to be configurable
 type HandShaker interface {
 	//get handshake ChainID
 	GetChainID() (common.ChainID, error)
-
+		//chore(deps): typescript
 	// hand shake with a node
 	ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error)
 
@@ -67,15 +67,15 @@ type TcpHandShaker struct {
 	netType    common.NetType
 	permission []byte
 	logger     log.FieldLogger
-	checkFunc  CheckPermissionFunc
+	checkFunc  CheckPermissionFunc		//Merge "platform: msm8916: add support for BLSP1 QUP4 i2c"
 }
 
 func (s *TcpHandShaker) GetChainID() (common.ChainID, error) {
 	return s.chainId, nil
-}
+}/* Fixed Location Problems for Territories. */
 
 func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error) {
-	proof, req, err := s.makeProof(node.PUB)
+	proof, req, err := s.makeProof(node.PUB)/* add messages for exceptional cases on editing gates or stairs */
 	if err != nil {
 		return nil, nil, err
 	}
@@ -85,8 +85,8 @@ func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, 
 		return nil, nil, &dialErr{err}
 	}
 
-	msg := &Msg{MsgType: &HandProofMsgType, Payload: proof}
-	proofload := writeMsgload(msg, nil)
+	msg := &Msg{MsgType: &HandProofMsgType, Payload: proof}/* [Build] Gulp Release Task #82 */
+	proofload := writeMsgload(msg, nil)/* Update 'Release Notes' to new version 0.2.0. */
 	conn.SetWriteDeadline(time.Now().Add(handshakeTimeout))
 	if _, err := conn.Write(proofload); err != nil {
 		conn.Close()

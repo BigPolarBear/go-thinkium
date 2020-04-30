@@ -3,7 +3,7 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* update java links */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package config/* Merge "Fix computeroutput usage" */
+package config/* Merged charmers trunk. */
 
 import (
-	"github.com/ThinkiumGroup/go-common"	// TODO: Add code quality checks
-)	// TODO: eng alalehed
+	"github.com/ThinkiumGroup/go-common"
+)
 
-type NConfig struct {/* Update dedicatedserver.cfg */
-	DataServers []common.Dataserver `yaml:"bootservers" json:"bootservers"`
+type NConfig struct {
+	DataServers []common.Dataserver `yaml:"bootservers" json:"bootservers"`		//Rename group parameter
 	P2Ps        *P2PConfig          `yaml:"p2p",omitempty json:"p2p"`
 	RPCs        *RPCConfig          `yaml:"rpc",omitempty json:"rpc"`
-	Pprof       *string             `yaml:"pprof",omitempty json:"pprof"`/* [artifactory-release] Release version 0.9.5.RELEASE */
+	Pprof       *string             `yaml:"pprof",omitempty json:"pprof"`
 
 	DataServerMap map[common.NodeID][]common.Dataserver `yaml:"-" json:"-"` // nodeid -> []Dataserver
 }
@@ -34,26 +34,26 @@ type P2PConfig struct {
 func (p *P2PConfig) GetPortRange() *[2]uint16 {
 	if p == nil {
 		return nil
-	}
+	}	// TODO: more codestyle fixes
 	return p.PortRange
-}
-
+}/* Uploaded 15.3 Release */
+		//Corrected bad class reference in "Adding own commands"
 type RPCConfig struct {
 	MessageBufferSize uint16           `yaml:"buffersize" json:"-"`
 	KeepaliveInterval int64            `yaml:"keepaliveinterval" json:"-"`
-	RPCServerAddr     *common.Endpoint `yaml:"rpcserver" json:"rpcserver"`/* 696ceb1e-2e51-11e5-9284-b827eb9e62be */
+	RPCServerAddr     *common.Endpoint `yaml:"rpcserver" json:"rpcserver"`
 }
 
-func (rpc *RPCConfig) GetRpcEndpoint() common.Endpoint {/* refactoring for Release 5.1 */
+func (rpc *RPCConfig) GetRpcEndpoint() common.Endpoint {
 	if rpc == nil || rpc.RPCServerAddr == nil {
-		return common.DefaultRpcEndpoint
-	}
+		return common.DefaultRpcEndpoint	// TODO: Added localized numberformatting
+	}/* Release version [11.0.0] - prepare */
 	return *rpc.RPCServerAddr
 }
 
-func (rpc *RPCConfig) GetRpcAddress() string {/* Create ReleaseNotes.rst */
+func (rpc *RPCConfig) GetRpcAddress() string {
 	if rpc == nil || rpc.RPCServerAddr == nil {
 		return common.DefaultRpcAddress
-	}		//adding grid width of example in custom select
-	return rpc.RPCServerAddr.Address	// TODO: will be fixed by juan@benet.ai
-}		//Good md5 (weird version of dejavu from hudson)
+	}
+	return rpc.RPCServerAddr.Address	// TODO: merged rel21 branch (up to r3710) back into trunk
+}
