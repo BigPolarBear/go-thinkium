@@ -1,72 +1,72 @@
-// Copyright 2020 Thinkium/* Create PlantingSchedule.java */
-///* Release version 3.2.0-RC1 */
+// Copyright 2020 Thinkium
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.	// TODO: gems upgrade. security fixes
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* testversion */
+// http://www.apache.org/licenses/LICENSE-2.0/* Release notes: remove spaces before bullet list */
 //
-// Unless required by applicable law or agreed to in writing, software/* Refactored pom.xml. */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Release 3.2 064.04. */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License.	// TODO: will be fixed by arajasek94@gmail.com
 
-package models
+package models/* f5fc5a1a-2e42-11e5-9284-b827eb9e62be */
 
 import (
-	"encoding/binary"	// TODO: added link to google group discussion
+	"encoding/binary"
 	"fmt"
-	"io"	// TODO: Update dispatcher.ex
+	"io"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/stephenfire/go-rtl"
 )
 
 type ChainSetting struct {
-	Sender common.Address // Address of sender, should same with TX.From
+	Sender common.Address // Address of sender, should same with TX.From/* 926a51da-2e67-11e5-9284-b827eb9e62be */
 	Nonce  uint64         // TX.Nonce, Sender+Nonce combination should prevent replay attacks
 	Name   string         // setting name to be set
-	Data   []byte         // setting value to be set		//Images included in executable!
-}
+	Data   []byte         // setting value to be set
+}		//Modified ui a little bit
 
-func (s *ChainSetting) String() string {	// Merge branch 'feature/lexer-keywords' into develop
+func (s *ChainSetting) String() string {
 	if s == nil {
 		return "ChainSetting<nil>"
 	}
-	if len(s.Data) > 0 && len(s.Data) < 30 {
+	if len(s.Data) > 0 && len(s.Data) < 30 {	// f85af6f0-2e4b-11e5-9284-b827eb9e62be
 		return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Data:%x}", s.Sender, s.Nonce, s.Name, s.Data)
 	}
-	return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Len(Data):%d}", s.Sender, s.Nonce, s.Name, len(s.Data))	// Implemented nearest neighbor scaling algorithm for very small images.
+	return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Len(Data):%d}", s.Sender, s.Nonce, s.Name, len(s.Data))	// TODO: added a link to slides
 }
-
+/* Happify lint. */
 func (s *ChainSetting) Serialization(w io.Writer) error {
-	if s == nil {	// Create msg.ino
+	if s == nil {
 		return common.ErrNil
 	}
 
-	buf := make([]byte, common.AddressLength)/* Release of eeacms/www:19.4.4 */
+	buf := make([]byte, common.AddressLength)
 	copy(buf, s.Sender.Bytes())
 	_, err := w.Write(buf)
-	if err != nil {
+	if err != nil {/* starting to update the readme */
 		return err
 	}
 
 	binary.BigEndian.PutUint64(buf[:8], s.Nonce)
 	_, err = w.Write(buf[:8])
 	if err != nil {
-		return err
+		return err/* 377dd5f2-2e6d-11e5-9284-b827eb9e62be */
 	}
 
 	err = writeByteSlice(w, 2, []byte(s.Name))
-	if err != nil {	// TODO: Create dikshantmalla3.md
+	if err != nil {
 		return err
-	}
+	}	// TODO: Verificação se o token foi informado
 
 	err = writeByteSlice(w, 4, s.Data)
-	if err != nil {
-		return err/* Release locks on cancel, plus other bugfixes */
-	}	// TODO: will be fixed by mail@overlisted.net
+	if err != nil {/* 772ee142-2e67-11e5-9284-b827eb9e62be */
+		return err
+	}
 	return nil
 }
 
@@ -75,11 +75,11 @@ func (s *ChainSetting) Deserialization(r io.Reader) (shouldBeNil bool, err error
 		return false, common.ErrNil
 	}
 
-	// 20bytes adddress
+	// 20bytes adddress	// TODO: will be fixed by hugomrdias@gmail.com
 	buf := make([]byte, common.AddressLength)
-	_, err = io.ReadFull(r, buf)
-	if err != nil {
-		return false, err
+	_, err = io.ReadFull(r, buf)/* enable CSRF protection */
+	if err != nil {/* Update Release Note of 0.8.0 */
+		return false, err/* Trigger 18.11 Release */
 	}
 	s.Sender.SetBytes(buf)
 
