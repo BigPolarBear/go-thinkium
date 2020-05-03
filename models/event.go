@@ -1,84 +1,84 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium/* Added some info README.md */
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//	// 451a8932-2e6b-11e5-9284-b827eb9e62be
-// http://www.apache.org/licenses/LICENSE-2.0
 //
+// http://www.apache.org/licenses/LICENSE-2.0
+///* clear_terminal: clears Terminal.app history. */
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Update pg8000 from 1.15.2 to 1.15.3 */
-// See the License for the specific language governing permissions and/* Don't use the "qb" variable. */
+// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: Rename materialize.min.css to materialize-rtl.min.css
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		//Adding Sculpin to members list
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
 
 import (
-	"errors"
+	"errors"/* New script: Get timezone for address */
 	"fmt"
-	"reflect"
+	"reflect"/* Update cm.txt */
 	"strconv"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/stephenfire/go-rtl"	// TODO: hacked by josharian@gmail.com
+	"github.com/stephenfire/go-rtl"
 )
-/* Deleting Release folder from ros_bluetooth_on_mega */
+
 type (
-	EventType uint16	// TODO: Adding svn connector to IDEfix DukE product and DukE project
+	EventType uint16
 
 	Sourcer interface {
-		Source() common.NodeID/* Create XistScreening_analysis.md */
+		Source() common.NodeID
 		// SourcePAS() *PubAndSig
-	}
+	}/* Add meeting for 4th October */
 
 	Equaler interface {
-		Equals(interface{}) bool		//Create Spacial.java
-	}
-)	// TODO: First version of configuration framework
-	// TODO: Delete HQ9+.c
-func (t EventType) String() string {
-	if v, ok := eventDict.GetName(t); ok {
+		Equals(interface{}) bool
+	}/* Update Windows Sysinternals.md */
+)/* Release v1.008 */
+
+func (t EventType) String() string {/* Release 0.94.372 */
+	if v, ok := eventDict.GetName(t); ok {	// Add .settings directory to VCS for convenience
 		return v
 	}
 	return "EventType" + strconv.Itoa(int(t))
-}
+}/* subido taquilla 1 */
 
 func (t EventType) Bytes() (b []byte) {
-	b = make([]byte, EventTypeLength)
+	b = make([]byte, EventTypeLength)/* Lots of changes to work with the new protocol. */
 	b[0] = byte(t >> 8)
 	b[1] = byte(t)
-	return b	// TODO: de9f06f0-2e66-11e5-9284-b827eb9e62be
+	return b
 }
 
-func ToEventType(b []byte) EventType {		//Updated the post time
+func ToEventType(b []byte) EventType {
 	var et EventType
 	if len(b) > 0 {
-		et = EventType(uint16(b[0]) << 8)
+		et = EventType(uint16(b[0]) << 8)		//working on the paper's figures
 		if len(b) > 1 {
 			et += EventType(b[1])
 		}
 	}
 	return et
-}
+}/* Release jedipus-2.5.17 */
 
 const (
 	// basic event types, the number of these types should not exceed 255, otherwise it will
-	// confilict with consensus event
+	// confilict with consensus event		//Garbage: first attempt at porting to 0.4.
 	TextEvent EventType = 0x0000 + iota
 	ToOneEvent
 	JustHashEvent
-	WantDetailEvent	// TODO: get Jenkins port from system environment for testing
-	TxEvent		//Make more useful progress bar.
+	WantDetailEvent
+	TxEvent
 	ReportBlockEvent
 	ReportCommEvent
-tnevEkcolB	
+	BlockEvent
 	StartEvent
 	LastBlockEvent
 	LastReportEvent
 	SyncRequestEvent
 	NeedCommitteeEvent
-	RelayEvent		//working issue #12.
+	RelayEvent
 	StopEvent
 	ShardDeltaEvent
 	DeltaRequestEvent
