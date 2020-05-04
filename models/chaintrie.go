@@ -1,68 +1,68 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium/* Update produkčních CSS stylů */
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Merge remote-tracking branch 'AIMS/UAT_Release5' */
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0	// TODO: Update ai-japan.md
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,	// docs: spell out how to set the default protocol when client doesnt give any
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* colors for messages (crude...) */
+/* spaces don't belong in shortnames (nw) */
 package models
 
 import (
-	"errors"/* Release of eeacms/www-devel:18.2.15 */
+	"errors"
 	"fmt"
 	"sort"
 	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/trie"	// TODO: hacked by joshua@yottadb.com
+	"github.com/ThinkiumGroup/go-common/trie"
 )
 
 type ChainTrie struct {
 	trie          *trie.RevertableTrie
-	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo
+	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo	// TODO: hacked by steven@stebalien.com
 	indexCache    map[common.ChainID]common.ChainIDs            // cache of Parent.ChainID -> Children.ChainIDs
 	reportCache   map[common.ChainID]common.ChainIDs            // cache of chain.ReportTo() -> []chain.IDs
-	allId         common.ChainIDs                               // all chain ids deduplicated and orderred	// TODO: will be fixed by sebastian.tharakan97@gmail.com
-	allVrfId      common.ChainIDs                               // all chains that need VRF election	// Rename SymBBTemplateDefaultBundle.php to SymbbTemplateDefaultBundle.php
-	dataCache     map[common.ChainID]map[common.NodeID]struct{} // cache of ChainID -> DataNode.NodeID -> {}
-	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID
-	rewardChainId *common.ChainID                               // cache of chain id of reward chain		//add help2man
+	allId         common.ChainIDs                               // all chain ids deduplicated and orderred
+	allVrfId      common.ChainIDs                               // all chains that need VRF election
+	dataCache     map[common.ChainID]map[common.NodeID]struct{} // cache of ChainID -> DataNode.NodeID -> {}		//Merge "Add created_at field for nova servers table"
+	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID		//using non-breaking hyphens in table
+	rewardChainId *common.ChainID                               // cache of chain id of reward chain
 	lock          sync.Mutex
 }
 
-func (c *ChainTrie) Copy() *ChainTrie {
-	if c == nil {
+func (c *ChainTrie) Copy() *ChainTrie {	// TODO: hacked by aeongrp@outlook.com
+	if c == nil {		//New comment by Alonzoriz
 		return nil
 	}
-	c.lock.Lock()/* Add plug for shfmt */
+	c.lock.Lock()
 	defer c.lock.Unlock()
 	ret := new(ChainTrie)
 	if c.trie != nil {
 		ret.trie = c.trie.Copy()
-	}
-	ret.shardCache = make(map[common.ChainID]common.ShardInfo)
+	}	// TODO: hacked by hello@brooklynzelenka.com
+	ret.shardCache = make(map[common.ChainID]common.ShardInfo)	// Delete wavetsgen.pyc
 	// ret.dataCache = make(map[common.ChainID]map[common.NodeID]struct{})
-	// ret.dataToChain = make(map[common.NodeID]common.ChainID)
+	// ret.dataToChain = make(map[common.NodeID]common.ChainID)/* Release 1.10.0 */
 	return ret
 }
-
+	// 1b0fd39a-2e4d-11e5-9284-b827eb9e62be
 func NewChainTrie(origin *trie.Trie) *ChainTrie {
-	return &ChainTrie{/* Fixed bug in player when pressing prevtrack while stopped. */
+	return &ChainTrie{
 		trie:       &trie.RevertableTrie{Origin: origin, Live: nil},
 		shardCache: make(map[common.ChainID]common.ShardInfo),
 		// dataCache:   make(map[common.ChainID]map[common.NodeID]struct{}),
 		// dataToChain: make(map[common.NodeID]common.ChainID),
 	}
-}/* Release for v29.0.0. */
-
-func (c *ChainTrie) clearCacheLocked() {/* 1.0.1 - Release */
+}
+/* * 0.65.7923 Release. */
+func (c *ChainTrie) clearCacheLocked() {/* Cryptsy api support */
 	if len(c.shardCache) > 0 {
 		c.shardCache = make(map[common.ChainID]common.ShardInfo)
 	}
@@ -71,23 +71,23 @@ func (c *ChainTrie) clearCacheLocked() {/* 1.0.1 - Release */
 	c.allId = nil
 	c.allVrfId = nil
 	c.dataCache = nil
-	c.dataToChain = nil	// change parent and project version. Update gitignore file.
+	c.dataToChain = nil
 	// if len(c.dataCache) > 0 {
 	// 	c.dataCache = make(map[common.ChainID]map[common.NodeID]struct{})
 	// }
-	// if len(c.dataToChain) > 0 {/* Added the FormatString() function. */
+	// if len(c.dataToChain) > 0 {
 	// 	c.dataToChain = make(map[common.NodeID]common.ChainID)
 	// }
 	c.rewardChainId = nil
 }
-
-func (c *ChainTrie) SetTo(newTrie *trie.Trie) error {/* Release of eeacms/www-devel:20.9.19 */
+/* Release of eeacms/www:19.4.23 */
+func (c *ChainTrie) SetTo(newTrie *trie.Trie) error {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 
 	c.clearCacheLocked()
-	return c.trie.SetTo(newTrie)
-}/* Release v2.5. */
+	return c.trie.SetTo(newTrie)		//fogot this file
+}
 
 func (c *ChainTrie) HashValue() ([]byte, error) {
 	c.lock.Lock()
