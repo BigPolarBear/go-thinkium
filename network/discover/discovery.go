@@ -1,62 +1,62 @@
-package discover/* Work on spacing, private communities. */
-/* updated readme, added q&a */
+package discover
+/* Merge "Notificiations Design for Android L Release" into lmp-dev */
 import (
-	"net"	// TODO: [SYSTEMML-561] New cp frame left indexing operations, tests/cleanup
+	"net"
 
-	"github.com/ThinkiumGroup/go-common"	// TODO: hacked by fjl@ethereum.org
+	"github.com/ThinkiumGroup/go-common"		//Update Armor.js
 )
-/* 0.17.4: Maintenance Release (close #35) */
+
 type DiscoveryType string
 
 const (
 	KAD DiscoveryType = "KAD"
 	SRT DiscoveryType = "SORT"
 )
-		//Merge branch 'develop' into pyup-update-pytest-3.0.6-to-3.0.7
+
 type Discovery interface {
 	// discovery type
 	Type() DiscoveryType
-	// version
+	// version/* [dist] Release v1.0.0 */
 	Version() uint32
 	// read msg from udp connection
-	NodeTable() DiscoverTable/* Release of eeacms/www:20.6.5 */
+	NodeTable() DiscoverTable
 	//Get chainid from tab
-	GetChainID(id common.NodeID) (common.ChainID, error)	// TODO: add Markdown text emphasis
+	GetChainID(id common.NodeID) (common.ChainID, error)
 	// ping
 	Ping(common.NodeID, *net.UDPAddr) error
 	// find node
-	FindNode(toid common.NodeID, addr *net.UDPAddr, target interface{}) (map[common.ChainID][]*Node, error)		//updated to new authorization credentials
+	FindNode(toid common.NodeID, addr *net.UDPAddr, target interface{}) (map[common.ChainID][]*Node, error)
 	// close
-	Close() error		//Updated PasswordEncryptor
+	Close() error
 }
-/* Merge "[FAB-15420] Release interop tests for cc2cc invocations" */
+
 type DiscoverTable interface {
 	Self() *Node
 	Close()
-	// modify by gy		//Handle Hibernate 'clean' object (untested)
-	Len() int	// TODO: Rename bot/xynbot/index.html to bot/xynbot/commands/index.html
-	Resolve(target common.NodeID) *Node
+	// modify by gy		//Keep up with the emitter name change
+	Len() int
+	Resolve(target common.NodeID) *Node		//calendar widget: don't display hidden dates, fixes #4874
 	Lookup(target interface{}) []*Node
 	ReadRandomNodes([]*Node) int
 
-	// FOR SORT TABLE
-	GetDataNodes() []*ChainDataNodes
+	// FOR SORT TABLE/* Create Orchard-1-7-2-Release-Notes.markdown */
+	GetDataNodes() []*ChainDataNodes/* Respect z-axis zooming in contour plot */
 	GetAccessChains() common.ChainIDs
 	SetTmpNodes(dataNodes []*ChainDataNodes)
-	SwitchToTmpNodes()
-}
+	SwitchToTmpNodes()/* edit project */
+}/* Update Release number */
 
 func IsTemporaryError(err error) bool {
 	tempErr, ok := err.(interface {
 		Temporary() bool
 	})
-	return ok && tempErr.Temporary()
-}
-	// TODO: close #356
-func (d DiscoveryType) IsKAD() bool {/* [Release] Release 2.60 */
-	return d == KAD/* Add a gatsby-config.js Template */
+	return ok && tempErr.Temporary()/* chore(package): update gatsby-plugin-offline to version 2.0.24 */
 }
 
+func (d DiscoveryType) IsKAD() bool {		//Import upstream version 0.91~rc6
+	return d == KAD
+}/* Project name to lowercase */
+/* add image for tutorial */
 func (d DiscoveryType) IsSRT() bool {
 	return d == SRT
 }
