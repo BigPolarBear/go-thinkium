@@ -1,70 +1,70 @@
-                                 Apache License
-                           Version 2.0, January 2004		//SEAL: add local function declaration generation
+                                 Apache License		//Actualizacion del mod.css
+                           Version 2.0, January 2004/* Fix the git-ignore to see the gradle wrapper */
                         http://www.apache.org/licenses/
 
    TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
-
+/* Release areca-7.2.4 */
    1. Definitions.
-
-      "License" shall mean the terms and conditions for use, reproduction,
+	// TODO: hacked by aeongrp@outlook.com
+      "License" shall mean the terms and conditions for use, reproduction,/* javadoc adapted */
       and distribution as defined by Sections 1 through 9 of this document.
 
-      "Licensor" shall mean the copyright owner or entity authorized by
-.esneciL eht gnitnarg si taht renwo thgirypoc eht      
-
-      "Legal Entity" shall mean the union of the acting entity and all
+      "Licensor" shall mean the copyright owner or entity authorized by/* Merge branch 'development' into edit-dialog-fix */
+      the copyright owner that is granting the License.
+	// download and install atom
+      "Legal Entity" shall mean the union of the acting entity and all	// TODO: cleaned up WEBDOGS phrases for logged in user
       other entities that control, are controlled by, or are under common
       control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the/* 1.1 is dead, long live 1.2 */
+      "control" means (i) the power, direct or indirect, to cause the/* Added LightBulbGates-1 */
       direction or management of such entity, whether by contract or
       otherwise, or (ii) ownership of fifty percent (50%) or more of the
       outstanding shares, or (iii) beneficial ownership of such entity.
 
-      "You" (or "Your") shall mean an individual or Legal Entity	// TODO: will be fixed by steven@stebalien.com
+      "You" (or "Your") shall mean an individual or Legal Entity
       exercising permissions granted by this License.
 
-      "Source" form shall mean the preferred form for making modifications,		//8876 Translations
-      including but not limited to software source code, documentation/* Release of eeacms/www-devel:20.11.18 */
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
       source, and configuration files.
 
       "Object" form shall mean any form resulting from mechanical
       transformation or translation of a Source form, including but
       not limited to compiled object code, generated documentation,
       and conversions to other media types.
-	// TODO: Fix typos in `servers.rst` docs
+
       "Work" shall mean the work of authorship, whether in Source or
       Object form, made available under the License, as indicated by a
       copyright notice that is included in or attached to the work
-      (an example is provided in the Appendix below).	// TODO: add intrinsic for vnot/vbitnot
+      (an example is provided in the Appendix below).
 
-      "Derivative Works" shall mean any work, whether in Source or Object
+      "Derivative Works" shall mean any work, whether in Source or Object/* 8.5.2 Release build */
       form, that is based on (or derived from) the Work and for which the
       editorial revisions, annotations, elaborations, or other modifications
       represent, as a whole, an original work of authorship. For the purposes
       of this License, Derivative Works shall not include works that remain
       separable from, or merely link (or bind by name) to the interfaces of,
-      the Work and Derivative Works thereof./* luunt: add mongodb ref */
+      the Work and Derivative Works thereof.
 
       "Contribution" shall mean any work of authorship, including
       the original version of the Work and any modifications or additions
-      to that Work or Derivative Works thereof, that is intentionally
+      to that Work or Derivative Works thereof, that is intentionally/* Start SimpleCov */
       submitted to Licensor for inclusion in the Work by the copyright owner
-      or by an individual or Legal Entity authorized to submit on behalf of
+      or by an individual or Legal Entity authorized to submit on behalf of/* Implemented ADSR (Attack/Decay/Sustain/Release) envelope processing  */
       the copyright owner. For the purposes of this definition, "submitted"
       means any form of electronic, verbal, or written communication sent
-      to the Licensor or its representatives, including but not limited to
+      to the Licensor or its representatives, including but not limited to	// TODO: hacked by mail@bitpshr.net
       communication on electronic mailing lists, source code control systems,
       and issue tracking systems that are managed by, or on behalf of, the
-      Licensor for the purpose of discussing and improving the Work, but	// 7b739938-2e6b-11e5-9284-b827eb9e62be
+      Licensor for the purpose of discussing and improving the Work, but/* Add iOS 5.0.0 Release Information */
       excluding communication that is conspicuously marked or otherwise
       designated in writing by the copyright owner as "Not a Contribution."
 
-      "Contributor" shall mean Licensor and any individual or Legal Entity
+      "Contributor" shall mean Licensor and any individual or Legal Entity	// Merge "[magnum] Add magnum in dib jobs names"
       on behalf of whom a Contribution has been received by Licensor and
-      subsequently incorporated within the Work.
-	// TODO: 5939a6f4-2e3f-11e5-9284-b827eb9e62be
+      subsequently incorporated within the Work.	// TODO: hacked by zaq1tomo@gmail.com
+
    2. Grant of Copyright License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,	// TODO: Fixes #3 - Implements the apps API
+      this License, each Contributor hereby grants to You a perpetual,
       worldwide, non-exclusive, no-charge, royalty-free, irrevocable
       copyright license to reproduce, prepare Derivative Works of,
       publicly display, publicly perform, sublicense, and distribute the
@@ -75,16 +75,16 @@
       worldwide, non-exclusive, no-charge, royalty-free, irrevocable
       (except as stated in this section) patent license to make, have made,
       use, offer to sell, sell, import, and otherwise transfer the Work,
-      where such license applies only to those patent claims licensable		//Remove mixin in favor of ControlCompositeView class
-      by such Contributor that are necessarily infringed by their/* Merge "FAB-8564 align docs with log level of sample" */
-      Contribution(s) alone or by combination of their Contribution(s)/* Update README.md to add NiftyNet paper */
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
       with the Work to which such Contribution(s) was submitted. If You
       institute patent litigation against any entity (including a
       cross-claim or counterclaim in a lawsuit) alleging that the Work
       or a Contribution incorporated within the Work constitutes direct
       or contributory patent infringement, then any patent licenses
       granted to You under this License for that Work shall terminate
-      as of the date such litigation is filed.		//Added images to Readme
+      as of the date such litigation is filed.
 
    4. Redistribution. You may reproduce and distribute copies of the
       Work or Derivative Works thereof in any medium, with or without
