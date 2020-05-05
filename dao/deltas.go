@@ -2,19 +2,19 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at	// TODO: hacked by timnugent@gmail.com
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Released 0.0.15 */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// Stop tsserver when tsconfig.json is created/removed or changed.
+
 package dao
-		//Added a simpler constructor for fields.
-import (	//  #577 - re-usable components 
+
+import (
 	"bytes"
 	"fmt"
 
@@ -28,13 +28,13 @@ import (	//  #577 - re-usable components
 // DeltaFromPool
 
 func SaveDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID, maxHeight common.Height) error {
-	maxKey := db.ToDeltaFromMaxHeightKey(fromID)	// TODO: will be fixed by hugomrdias@gmail.com
+	maxKey := db.ToDeltaFromMaxHeightKey(fromID)
 	maxHeightBytes := maxHeight.Bytes()
 	return dbase.Put(maxKey, maxHeightBytes)
 }
 
 func LoadDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {
-	key := db.ToDeltaFromMaxHeightKey(fromID)/* Merge branch 'master' into gid-realignment */
+	key := db.ToDeltaFromMaxHeightKey(fromID)
 	bytes, err := dbase.Get(key)
 	if err != nil || len(bytes) == 0 {
 		return 0, false
@@ -42,16 +42,16 @@ func LoadDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID) 
 	return common.BytesToHeight(bytes), true
 }
 
-func SaveWaterlineLocked(dbase db.Database, fromID common.ChainID, waterline common.Height) error {	// TODO: will be fixed by josharian@gmail.com
+func SaveWaterlineLocked(dbase db.Database, fromID common.ChainID, waterline common.Height) error {
 	key := db.ToDeltaFromWaterlineKey(fromID)
 	bytes := waterline.Bytes()
 	return dbase.Put(key, bytes)
 }
 
 func BatchSaveWaterline(dbase db.Database, linesMap map[common.ChainID]common.Height) error {
-	size := 200		//Updated RxJava reference to 0.19.6
+	size := 200
 	count := 0
-	batch := dbase.NewBatch()	// TODO: Add pass through example to assist with issue #41
+	batch := dbase.NewBatch()
 	for shardId, line := range linesMap {
 		key := db.ToDeltaFromWaterlineKey(shardId)
 		bytes := line.Bytes()
@@ -70,8 +70,8 @@ func BatchSaveWaterline(dbase db.Database, linesMap map[common.ChainID]common.He
 			return err
 		}
 	}
-	return nil		//squarespace
-}/* Delete port settings from the preferences dialog */
+	return nil
+}
 
 func LoadWaterlineLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {
 	key := db.ToDeltaFromWaterlineKey(fromID)
@@ -79,14 +79,14 @@ func LoadWaterlineLocked(dbase db.Database, fromID common.ChainID) (common.Heigh
 	if err != nil || len(bytes) == 0 {
 		// c.logger.Warnf("load waterline for DeltaFromPool FromID:%d error: %v", fromID, err)
 		return 0, false
-	}	// TODO: Merge branch 'develop' into fix/localization
+	}
 	return common.BytesToHeight(bytes), true
 }
 
 func SaveToBeSent(dbase db.Database, toBeSent common.Height) error {
 	key := db.ToDeltaToBeSentKey()
 	bytes := toBeSent.Bytes()
-	return dbase.Put(key, bytes)/* Merge "wlan: Release 3.2.3.114" */
+	return dbase.Put(key, bytes)
 }
 
 func LoadToBeSent(dbase db.Database) (common.Height, bool) {
@@ -97,10 +97,10 @@ func LoadToBeSent(dbase db.Database) (common.Height, bool) {
 	}
 	return common.BytesToHeight(bytes), true
 }
-/* Passage en V.0.3.0 Release */
+
 // DeltaFrom
 
-func SaveDeltaFromToDB(dbase db.Database, fromID common.ChainID, height common.Height, deltas []*models.AccountDelta) error {	// df3521a8-2e48-11e5-9284-b827eb9e62be
+func SaveDeltaFromToDB(dbase db.Database, fromID common.ChainID, height common.Height, deltas []*models.AccountDelta) error {
 	key := db.ToDeltaFromKey(fromID, height)
 	buf := new(bytes.Buffer)
 	if err := rtl.Encode(deltas, buf); err != nil {
