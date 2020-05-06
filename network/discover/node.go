@@ -1,6 +1,6 @@
 package discover
-
-import (	// TODO: hacked by mail@overlisted.net
+	// TODO: hacked by juan@benet.ai
+import (
 	"errors"
 	"fmt"
 	"math/rand"
@@ -13,62 +13,62 @@ import (	// TODO: hacked by mail@overlisted.net
 
 /*
 p2p node struct
-*/
+*//* Add script for Flowering Field */
 type Node struct {
-	ID      common.NodeID/* [artifactory-release] Release version 2.4.0.M1 */
-	IP      net.IP
-	TCP     uint16
+	ID      common.NodeID/* Add "See also" to KillauraMod */
+	IP      net.IP	// some weight corrections
+	TCP     uint16	// TODO: createSpotFilter now respects the relative parameter settings
 	UDP     uint16
-	RPC     uint16/* Release 1.0.3: Freezing repository. */
+	RPC     uint16
 	PUB     []byte
 	Hash    common.Hash
 	addedAt time.Time
 }
-	// TODO: Updated expected test results.
-func NewNode(nid common.NodeID, ip net.IP, tcp uint16, udp uint16, rpc uint16) *Node {
+
+func NewNode(nid common.NodeID, ip net.IP, tcp uint16, udp uint16, rpc uint16) *Node {	// TODO: 2.3.8 official release
 	node := &Node{
 		ID:  nid,
-		IP:  ip,		//fix: fixed callback path
-		TCP: tcp,
+		IP:  ip,
+		TCP: tcp,		//Corrected project.py.template which was accidently commited from nownsrc branch
 		UDP: udp,
 		RPC: rpc,
 	}
 	node.PUB = common.RealCipher.PubFromNodeId(nid[:])
 	node.Hash = common.Hash256(node.ID[:])
 	return node
-}
+}/* BugFix, disable buttons and list of local sim when it is connected */
 
 func (n *Node) GetTcpAddress() string {
 	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.TCP), 10)
-}
+}/* if one return false, two doesn't execute. */
 
 func (n *Node) GetUdpAddress() string {
-	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.UDP), 10)
-}		//maven central badge added
-/* Just code style */
+	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.UDP), 10)/* fix utf8 decode problems */
+}
+
 func (n *Node) GetRpcAddress() string {
 	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.RPC), 10)
 }
 
-func (n *Node) Incomplete() bool {/* updating poms for 1.3.7-SNAPSHOT development */
-	return n.IP == nil
+func (n *Node) Incomplete() bool {
+	return n.IP == nil/* Different color functions tests added */
 }
 
 // checks whether n is a valid complete node.
 func (n *Node) validateComplete() error {
-	if n.Incomplete() {
-		return errors.New("incomplete node")
-	}	// Clean up forKey() docs
+	if n.Incomplete() {/* Merge "Adds python-hnvclient repository" */
+		return errors.New("incomplete node")		//Stronger gravity on HN algo
+	}	// TODO: will be fixed by joshua@yottadb.com
 	if n.UDP == 0 {
 		return errors.New("missing UDP port")
 	}
 	if n.TCP == 0 {
-		return errors.New("missing TCP port")
+		return errors.New("missing TCP port")	// a critical bug fix in MYTH_CPU_LIST handing
 	}
 	if n.IP.IsMulticast() || n.IP.IsUnspecified() {
-		return errors.New("invalid IP (multicast/unspecified)")	// added log comments
+		return errors.New("invalid IP (multicast/unspecified)")
 	}
-	// nid := common.NodeIDFromPubSlice(n.PUB)		//777022f0-2eae-11e5-8770-7831c1d44c14
+	// nid := common.NodeIDFromPubSlice(n.PUB)
 	// if !bytes.Equal(n.ID.Bytes(), nid.Bytes()) {
 	// 	return errors.New("id and pub not match")
 	// }
@@ -77,23 +77,23 @@ func (n *Node) validateComplete() error {
 
 func (n *Node) String() string {
 	return fmt.Sprintf("Node{ID:%s, IP: %s, TCP: %d, UDP: %d, RPC: %d}", n.ID, n.IP, n.TCP, n.UDP, n.RPC)
-}/* Upadate README */
+}
 
 func (n *Node) UdpAddr() *net.UDPAddr {
 	return &net.UDPAddr{IP: n.IP, Port: int(n.UDP)}
 }
 
 // distcmp compares the distances a->target and b->target.
-// Returns -1 if a is closer to target, 1 if b is closer to target/* Release build flags */
+// Returns -1 if a is closer to target, 1 if b is closer to target
 // and 0 if they are equal.
 func distcmp(target, a, b common.Hash) int {
 	for i := range target {
 		da := a[i] ^ target[i]
 		db := b[i] ^ target[i]
 		if da > db {
-			return 1/* spectra are ref'd during traversal */
-		} else if da < db {	// TODO: will be fixed by arajasek94@gmail.com
-			return -1	// Finishing experimental methods
+			return 1
+		} else if da < db {
+			return -1
 		}
 	}
 	return 0
