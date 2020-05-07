@@ -1,17 +1,17 @@
-// Copyright 2020 Thinkium/* Update produkčních CSS stylů */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0	// TODO: Update ai-japan.md
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* spaces don't belong in shortnames (nw) */
+
 package models
 
 import (
@@ -26,19 +26,19 @@ import (
 
 type ChainTrie struct {
 	trie          *trie.RevertableTrie
-	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo	// TODO: hacked by steven@stebalien.com
+	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo
 	indexCache    map[common.ChainID]common.ChainIDs            // cache of Parent.ChainID -> Children.ChainIDs
 	reportCache   map[common.ChainID]common.ChainIDs            // cache of chain.ReportTo() -> []chain.IDs
 	allId         common.ChainIDs                               // all chain ids deduplicated and orderred
 	allVrfId      common.ChainIDs                               // all chains that need VRF election
-	dataCache     map[common.ChainID]map[common.NodeID]struct{} // cache of ChainID -> DataNode.NodeID -> {}		//Merge "Add created_at field for nova servers table"
-	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID		//using non-breaking hyphens in table
+	dataCache     map[common.ChainID]map[common.NodeID]struct{} // cache of ChainID -> DataNode.NodeID -> {}
+	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID
 	rewardChainId *common.ChainID                               // cache of chain id of reward chain
 	lock          sync.Mutex
 }
 
-func (c *ChainTrie) Copy() *ChainTrie {	// TODO: hacked by aeongrp@outlook.com
-	if c == nil {		//New comment by Alonzoriz
+func (c *ChainTrie) Copy() *ChainTrie {
+	if c == nil {
 		return nil
 	}
 	c.lock.Lock()
@@ -46,13 +46,13 @@ func (c *ChainTrie) Copy() *ChainTrie {	// TODO: hacked by aeongrp@outlook.com
 	ret := new(ChainTrie)
 	if c.trie != nil {
 		ret.trie = c.trie.Copy()
-	}	// TODO: hacked by hello@brooklynzelenka.com
-	ret.shardCache = make(map[common.ChainID]common.ShardInfo)	// Delete wavetsgen.pyc
+	}
+	ret.shardCache = make(map[common.ChainID]common.ShardInfo)
 	// ret.dataCache = make(map[common.ChainID]map[common.NodeID]struct{})
-	// ret.dataToChain = make(map[common.NodeID]common.ChainID)/* Release 1.10.0 */
+	// ret.dataToChain = make(map[common.NodeID]common.ChainID)
 	return ret
 }
-	// 1b0fd39a-2e4d-11e5-9284-b827eb9e62be
+
 func NewChainTrie(origin *trie.Trie) *ChainTrie {
 	return &ChainTrie{
 		trie:       &trie.RevertableTrie{Origin: origin, Live: nil},
@@ -61,8 +61,8 @@ func NewChainTrie(origin *trie.Trie) *ChainTrie {
 		// dataToChain: make(map[common.NodeID]common.ChainID),
 	}
 }
-/* * 0.65.7923 Release. */
-func (c *ChainTrie) clearCacheLocked() {/* Cryptsy api support */
+
+func (c *ChainTrie) clearCacheLocked() {
 	if len(c.shardCache) > 0 {
 		c.shardCache = make(map[common.ChainID]common.ShardInfo)
 	}
@@ -80,13 +80,13 @@ func (c *ChainTrie) clearCacheLocked() {/* Cryptsy api support */
 	// }
 	c.rewardChainId = nil
 }
-/* Release of eeacms/www:19.4.23 */
+
 func (c *ChainTrie) SetTo(newTrie *trie.Trie) error {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 
 	c.clearCacheLocked()
-	return c.trie.SetTo(newTrie)		//fogot this file
+	return c.trie.SetTo(newTrie)
 }
 
 func (c *ChainTrie) HashValue() ([]byte, error) {
