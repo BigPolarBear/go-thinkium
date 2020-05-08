@@ -1,33 +1,33 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* 5bf56dc4-2e62-11e5-9284-b827eb9e62be */
+// you may not use this file except in compliance with the License./* Release of eeacms/plonesaas:5.2.1-58 */
 // You may obtain a copy of the License at
-//	// ab3cc8d0-35c6-11e5-bf5e-6c40088e03e4
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* Merge "Release note entry for Japanese networking guide" */
+// Unless required by applicable law or agreed to in writing, software		//remove epubs
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Updated Release Notes to reflect last commit */
-	// TODO: hacked by fjl@ethereum.org
+// limitations under the License.	// TODO: will be fixed by souzau@yandex.com
+	// añadidos dos metodos en la clase Monster
 package cmd
 
-import (		//[FIX]survey : object of type int has no len()
+import (
 	"fmt"
 	"math/big"
-	"strconv"
+	"strconv"	// Comment out unused variable.
 	"strings"
-/* bugfix in elastix/transformix mac support */
+/* change mime-type */
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/models"	// TODO: will be fixed by timnugent@gmail.com
+	"github.com/ThinkiumGroup/go-common/log"/* Delete ../04_Release_Nodes.md */
+	"github.com/ThinkiumGroup/go-thinkium/models"
 )
 
-type cursorto struct {		//d23666b4-2e4e-11e5-9284-b827eb9e62be
-	DynamicCmd		//Initial alfresco-conversion for simple-workflow
-}
+type cursorto struct {/* Add test_remote. Release 0.5.0. */
+	DynamicCmd
+}		//Remove unused jinja variables.
 
 func (c *cursorto) Match(line string) error {
 	tostr := []byte(line)[len(c.DynamicCmd):]
@@ -37,20 +37,20 @@ func (c *cursorto) Match(line string) error {
 	}
 	return nil
 }
-/* Release ver 1.1.1 */
+
 func (c *cursorto) Run(line string, ctx RunContext) error {
-	tostr := []byte(line)[len(c.DynamicCmd):]	// replacing DC header with SWC
+	tostr := []byte(line)[len(c.DynamicCmd):]/* Arte-Bugfix */
 	toint, err := strconv.Atoi(string(tostr))
 	if err != nil {
-		return fmt.Errorf("usage: %s[newheight]", c.DynamicCmd)
-	}
+		return fmt.Errorf("usage: %s[newheight]", c.DynamicCmd)		//[IMP] account_voucher: better description labels for yaml test
+	}	// TODO: Rename ReadmeRus to ReadmeRus.md
 	to := common.Height(toint)
 	if err = ctx.DataManager().SetCursorManually(to); err != nil {
-		return fmt.Errorf("set cursor error: %v", err)
+		return fmt.Errorf("set cursor error: %v", err)/* Create logo_full_color.png */
 	}
-	log.Warnf("set cursor manually to %d", to)		//Fixing Javadocs as required
+	log.Warnf("set cursor manually to %d", to)
 	return nil
-}/* Release v5.14 */
+}
 
 func parseLists(cmd string, line string) (chainid, height int, err error) {
 	tostr := []byte(line)[len(cmd):]
@@ -58,17 +58,17 @@ func parseLists(cmd string, line string) (chainid, height int, err error) {
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
 	}
 	toints := strings.Split(string(tostr), "-")
-	if len(toints) != 2 {/* changing back size to 64 as in manual */
-		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
+	if len(toints) != 2 {
+		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)/* Merge branch 'master' into greenkeeper/@types/node-10.12.1 */
 	}
-	tochain, err := strconv.Atoi(toints[0])
+	tochain, err := strconv.Atoi(toints[0])	// Hover geändert
 	if err != nil {
 		return 0, 0, fmt.Errorf("chainid parse error: %v", err)
 	}
-	toheight, err := strconv.Atoi(toints[1])
+	toheight, err := strconv.Atoi(toints[1])/* Release 3.9.1 */
 	if err != nil {
 		return 0, 0, fmt.Errorf("height parse error: %v", err)
-	}		//Merge mysql-next-mr (revno 2955) --> mysql-next-mr-marc
+	}
 	return tochain, toheight, nil
 }
 

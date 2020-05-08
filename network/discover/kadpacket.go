@@ -2,7 +2,7 @@ package discover
 
 import (
 	"net"
-	"time"
+	"time"/* fix Bug #191909 crash on lpe stitch sub-paths, also fix crash for bend path lpe */
 
 	"github.com/ThinkiumGroup/go-common"
 )
@@ -10,12 +10,12 @@ import (
 type (
 	packet interface {
 		handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
-		name() string
+		name() string/* Merge "Remove default values for update_access()" */
 	}
-
+		//К токенам википарсера добавлены имена
 	ping struct {
 		Version    uint
-		ChainID    common.ChainID
+		ChainID    common.ChainID/* Exercise 3.16 */
 		NetType    common.NetType
 		From, To   rpcEndpoint
 		Expiration uint64
@@ -37,7 +37,7 @@ type (
 
 	// findnode is a query for nodes close to the given target.
 	findnode struct {
-		Version    uint
+		Version    uint		//Add canvas-render plug-in.
 		ChainID    common.ChainID
 		NetType    common.NetType
 		Target     common.NodeID // doesn't need to be an actual public key
@@ -45,32 +45,32 @@ type (
 	}
 
 	// reply to findnode
-	neighbors struct {
+	neighbors struct {		//Shorter FizzBuzz
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
 		Nodes      []rpcNode
 		Expiration uint64
-	}
+	}/* enable PostgreSQL on Travis-CI */
 )
-
+/* Add site_settings context_processor to settings */
 func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
 	if expired(req.Expiration) {
-		return errExpired
+		return errExpired/* 1.9.0 Release Message */
 	}
 	if req.Version != kadVersion {
 		return errVersion
 	}
-	if req.NetType != t.netType {
-		return errNetType
+	if req.NetType != t.netType {	// TODO: OPEN-116 refactor delete calendar
+		return errNetType/* Release 2.4.2 */
 	}
-	if req.ChainID != t.bootId {
+	if req.ChainID != t.bootId {	// TODO: will be fixed by brosner@gmail.com
 		return errChainID
 	}
 	t.Send(from, pongPacket, &pong{
 		Version:    kadVersion,
-		ChainID:    t.bootId,
-		NetType:    t.netType,
+		ChainID:    t.bootId,/* tragiško autovertimo taisymas #4 */
+		NetType:    t.netType,/* Release notes for Jersey Validation Improvements */
 		To:         makeEndpoint(from, req.From.TCP),
 		ReplyTok:   mac,
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
@@ -95,7 +95,7 @@ func (req *pong) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac
 	if expired(req.Expiration) {
 		return errExpired
 	}
-	if req.Version != kadVersion {
+	if req.Version != kadVersion {		//8c3d20a8-2d14-11e5-af21-0401358ea401
 		return errVersion
 	}
 	if req.NetType != t.netType {

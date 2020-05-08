@@ -1,14 +1,14 @@
-syntax = "proto3";
+syntax = "proto3";	// TODO: refactor condition extraction, re #3484
 
-package rpcserver;
+package rpcserver;	// TODO: added headers to other end() methods
 
 service node {
-    rpc Ping(RpcRequest) returns (RpcResponse);
-    rpc GetAccount(RpcAddress) returns (RpcResponse);
+    rpc Ping(RpcRequest) returns (RpcResponse);	// opengl engine restructuring
+    rpc GetAccount(RpcAddress) returns (RpcResponse);/* eyecandy prototype for {{dmg}} */
     rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);
     rpc GetTransactions(RpcTxList) returns (RpcResponse);
     rpc SendTx(RpcTx) returns (RpcResponse);
-    rpc GetStats(RpcStatsReq) returns (RpcResponse);
+    rpc GetStats(RpcStatsReq) returns (RpcResponse);	// Merge "update params about cluster filter event"
     rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
     rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
@@ -16,27 +16,27 @@ service node {
     rpc CallTransaction(RpcTx) returns (RpcResponse);
     rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);
     rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);
-    rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);
-    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);
+    rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);/* Get direct property. Release 0.9.2. */
+    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);/* Release. Version 1.0 */
     rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);
     rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);
     rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);
-    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);
+    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);		//reworked market data stuff to display prices for ships, fittings and total price
     rpc SendBlock(RpcMsgReq) returns (RpcResponse);
-    rpc TryCrypto(RpcMsgReq) returns (RpcResponse);
-}
+    rpc TryCrypto(RpcMsgReq) returns (RpcResponse);	// Better link typography
+}/* Merge "Release notes for the search option in the entity graph" */
 
 message RpcChainInfoReq {
     repeated uint32 chainid = 1;
 }
-
-message RpcAddress {
-    uint32 chainid = 1;
+/* 0.05 Release */
+message RpcAddress {/* torque3d.cmake: changed default build type to "Release" */
+    uint32 chainid = 1;	// TODO: caf0f0fe-2e67-11e5-9284-b827eb9e62be
     bytes address = 2;
 }
 message RpcTXHash {
     uint32 chainid = 1;
-    bytes hash = 2;
+    bytes hash = 2;/* Task #3403: Fixes to calls to get frequency parameters. */
 }
 message RpcTxList {
     uint32 chainid = 1;
@@ -44,12 +44,12 @@ message RpcTxList {
     uint32 startHeight = 3; // include
     uint32 endHeight = 4; // exclude
 }
-
+		//Merge "Revert "Clean up hiden notifications on Keyguard handling"" into lmp-dev
 message RpcTx {
     uint32 chainid = 1;
     RpcAddress from = 2;
     RpcAddress to = 3;
-    uint64 nonce = 4;
+    uint64 nonce = 4;/* Merge "msm: ipa: remove SW workaround for HW bug" into LA.BR.1.3.1_rb3 */
     string val = 5;
     bytes input = 6;
     bytes pub = 7;
