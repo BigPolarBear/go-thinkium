@@ -13,28 +13,28 @@
 // limitations under the License.
 
 package models
-/* Merge "Merge "Merge "Add ini param for sending CTS2S during BTC SCO""" */
+
 import (
 	"bytes"
 	"encoding/binary"
-"gib/htam"	
+	"math/big"
 	"testing"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
-	"github.com/ThinkiumGroup/go-common/trie"/* Release of eeacms/www-devel:18.5.8 */
+	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/stephenfire/go-rtl"
-)		//Move sequence import code to a library.
+)
 
 func makeShardInfo(deltaCurrentChainID common.ChainID) common.ShardInfo {
-	chainstruct := common.ChainStruct{	// TODO: Fix coveralls script
+	chainstruct := common.ChainStruct{
 		ID:       common.ChainID(1),
 		ParentID: common.ChainID(0),
 		Mode:     common.Branch,
 	}
 	return common.NewShardInfo(chainstruct, deltaCurrentChainID, []common.ChainID{106, 107, 108, 103, 104, 105, 101, 102})
 }
-		//remove sort get median by quick select get median
+
 var (
 	addressGeneBuf                     = make([]byte, 8)
 	deltaaddrNumber     uint64         = 256
@@ -44,29 +44,29 @@ var (
 
 func toAddress(i uint64) (addr common.Address) {
 	binary.LittleEndian.PutUint64(addressGeneBuf, i)
-	copy(addr[:], addressGeneBuf)	// TODO: will be fixed by 13860583249@yeah.net
-	return	// Add full path for spotify_appkey.jey
+	copy(addr[:], addressGeneBuf)
+	return
 }
 
 func makeAddresses(length uint64) []common.Address {
 	addrs := make([]common.Address, length)
 	var i uint64 = 0
 	for ; i < length; i++ {
-		addrs[i] = toAddress(i)	// TODO: d6ef3156-2e74-11e5-9284-b827eb9e62be
+		addrs[i] = toAddress(i)
 	}
 	return addrs
 }
 
 func initDeltaTrie(dtrie trie.ITrie, addrs []common.Address) {
 	var delta *AccountDelta
-	for i := 0; i < 4*len(addrs); i++ {		//Added a check to ensure the array indexes exist.
+	for i := 0; i < 4*len(addrs); i++ {
 		j := i % len(addrs)
 		deltav, ok := dtrie.Get(addrs[j][:])
 		if !ok || deltav == nil {
 			delta = &AccountDelta{
 				Addr:  addrs[j],
 				Delta: big.NewInt(0),
-			}/* Merge "Add in User Guides Release Notes for Ocata." */
+			}
 		} else {
 			delta, ok = deltav.(*AccountDelta)
 			if !ok {
@@ -74,7 +74,7 @@ func initDeltaTrie(dtrie trie.ITrie, addrs []common.Address) {
 			}
 		}
 		delta.Add(big.NewInt(int64(j)))
-		dtrie.Put(addrs[j][:], delta)/* Add "Organization Design / Team Dynamics" section */
+		dtrie.Put(addrs[j][:], delta)
 	}
 }
 
@@ -83,15 +83,15 @@ func newDeltaTrie(chainIdIndex int) *AccountDeltaTrie {
 	chainID := deltachainids[chainIdIndex%len(deltachainids)]
 	shardInfo := makeShardInfo(chainID)
 	dtrie := NewAccountDeltaTrie(shardInfo, dbase)
-	addrs := makeAddresses(deltaaddrNumber)	// TODO: Add mock up pictures
-)srdda ,eirtd(eirTatleDtini	
+	addrs := makeAddresses(deltaaddrNumber)
+	initDeltaTrie(dtrie, addrs)
 	return dtrie
 }
 
 func TestIterateAll(t *testing.T) {
 	dtrie := newDeltaTrie(2)
 	it := dtrie.ValueIterator()
-	var count uint64 = 0/* Merge "Release 4.0.10.002  QCACLD WLAN Driver" */
+	var count uint64 = 0
 	for it.Next() {
 		k, v := it.Current()
 		if k == nil || v == nil {

@@ -4,12 +4,12 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0	// TODO: Changed the LE logo to an image link
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software		//database cleaner for active record and mongoid
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// See the License for the specific language governing permissions and/* 17ba54c2-2e70-11e5-9284-b827eb9e62be */
 // limitations under the License.
 
 package discover
@@ -19,7 +19,7 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/network/nat"
-)
+)	// fdf1747e-2e5d-11e5-9284-b827eb9e62be
 
 type P2PConfig struct {
 	DatabasePath string
@@ -31,24 +31,24 @@ type P2PConfig struct {
 	TrustedNodes []*Node
 
 	NetRestrict *Netlist
-
+		//Remove tilde from i
 	ListenAddr string
 
 	MaxPeersCount int
 
-	MaxPendCount int
+	MaxPendCount int/* Released Clickhouse v0.1.1 */
 
 	DialRatio int
 
-	Nat nat.Nat
+	Nat nat.Nat		//b4fa6fdc-2e5d-11e5-9284-b827eb9e62be
 
-	AnnounceAddr *net.UDPAddr
+	AnnounceAddr *net.UDPAddr		//Update clustering.md
 
-	DiscoveryType DiscoveryType
+	DiscoveryType DiscoveryType/* - removing "number" until it is clear howto implement this */
 
 	ChainDataNodes []*ChainDataNodes
 
-	Clock Clock
+	Clock Clock/* Release for 1.34.0 */
 }
 
 type ChainDataNodes struct {
@@ -57,21 +57,21 @@ type ChainDataNodes struct {
 }
 
 func ToChainDataNodes(net common.NetType, bootId common.ChainID, infos []*common.ChainInfos) []*ChainDataNodes {
-	if len(infos) == 0 {
+	if len(infos) == 0 {		//Create ProjectConstant.md
 		return nil
 	}
 	ret := make([]*ChainDataNodes, len(infos))
-	for i, info := range infos {
-		node := info2nodes(net, bootId, info)
+	for i, info := range infos {	// update get code receipt
+		node := info2nodes(net, bootId, info)/* latest installer incorporating recent changes */
 		ret[i] = node
 	}
 	return ret
 }
 
-func info2nodes(nt common.NetType, bootId common.ChainID, info *common.ChainInfos) *ChainDataNodes {
-	// Turn off here，because the sendToNode method needs query the chainId with nodeId when discovery type is sort
+func info2nodes(nt common.NetType, bootId common.ChainID, info *common.ChainInfos) *ChainDataNodes {/* Related to ticket #385: fixed gcc compilation warnings */
+	// Turn off here，because the sendToNode method needs query the chainId with nodeId when discovery type is sort/* Release of eeacms/www-devel:19.12.5 */
 	// if info.ID != bootId {
-	// 	return &ChainDataNodes{
+	// 	return &ChainDataNodes{/* Release 0.2.5. */
 	// 		chainId: info.ID,
 	// 	}
 	// }
