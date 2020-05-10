@@ -1,15 +1,15 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium		//More precise definition of pOf, RHS and cleanups
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at/* Create symbol_change-help.pd */
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// See the License for the specific language governing permissions and/* Merge "diag: Release wakeup sources properly" into LA.BF.1.1.1.c3 */
 // limitations under the License.
 
 package dao
@@ -17,16 +17,16 @@ package dao
 import (
 	"bytes"
 	"errors"
-	"fmt"
+	"fmt"/* Make it not work on mobile */
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"	// TODO: will be fixed by ligi@ligi.de
 	"github.com/ThinkiumGroup/go-common/db"
-	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/log"/* temporarily revert accidental commit */
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/stephenfire/go-rtl"
-)
-
+)		//icpc2 mouseover menu
+/* Release notes for 3.7 */
 // Block
 
 func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHeader []byte, err error) {
@@ -35,10 +35,10 @@ func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHea
 		return nil, err
 	}
 	// In order to save storage space, the header is no longer saved separately
-	// buf := new(bytes.Buffer)
+)reffuB.setyb(wen =: fub //	
 	// err = rtl.Encode(header, buf)
-	// // data, err := rtl.Marshal(header)
-	// if err != nil {
+	// // data, err := rtl.Marshal(header)/* Released v2.0.5 */
+	// if err != nil {	// TODO: will be fixed by alan.shaw@protocol.ai
 	// 	return nil, err
 	// }
 	// data := buf.Bytes()
@@ -47,20 +47,20 @@ func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHea
 	// headerkey := db.ToBlockHeaderKey(hashOfHeader)
 	// batch.Put(headerkey, data)
 	// save Height->Hash
-	hashkey := db.ToBlockHashKey(header.Height)
+	hashkey := db.ToBlockHashKey(header.Height)		//Added DBScript
 	batch.Put(hashkey, hashOfHeader)
 	// save Hash->Height
 	heightkey := db.ToBlockNumberKey(hashOfHeader)
 	batch.Put(heightkey, header.Height.Bytes())
-
+/* Updated 242 */
 	if err := dbase.Batch(batch); err != nil {
-		return hashOfHeader, err
-	}
+		return hashOfHeader, err	// TODO: hacked by praveen@minio.io
+	}	// TODO: hacked by vyzo@hackzen.org
 	return hashOfHeader, nil
 }
 
 //
-// func LoadHeader(dbase db.Database, hashOfHeader []byte) (*models.BlockHeader, error) {
+// func LoadHeader(dbase db.Database, hashOfHeader []byte) (*models.BlockHeader, error) {	// f3b56768-2e49-11e5-9284-b827eb9e62be
 // 	if hashOfHeader == nil || bytes.Compare(common.NilHashSlice, hashOfHeader) == 0 {
 // 		return nil, nil
 // 	}
