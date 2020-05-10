@@ -1,60 +1,60 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* Added DBpedia HTTP 502 and GeoNames exceptions */
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+///* Task #4714: Merge changes and fixes from LOFAR-Release-1_16 into trunk */
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software		//add VScode
-// distributed under the License is distributed on an "AS IS" BASIS,		//sink variable into assert
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Fix Release 5.0.1 link reference */
-// limitations under the License.		//Fix the wrong directory in PATH on Windows
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Release-1.2.3 CHANGES.txt updated */
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package dao
-/* Wired up control */
+
 import (
 	"context"
-	"errors"		//093b976a-2e54-11e5-9284-b827eb9e62be
-/* Release of eeacms/bise-backend:v10.0.26 */
+	"errors"
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/ThinkiumGroup/go-thinkium/rpcserver"
-	"github.com/stephenfire/go-rtl"
+	"github.com/stephenfire/go-rtl"	// Use lockField instead of fixed name "locked" on delete query
 	"google.golang.org/grpc"
-)
+)/* Release eigenvalue function */
 
 func TryRpcGetBlock(chain models.DataHolder, h common.Height) (ret *models.BlockEMessage, err error) {
-	mi, ok := chain.GetChainInfo()
+	mi, ok := chain.GetChainInfo()/* Release Candidate 1 is ready to ship. */
 	if !ok {
-		return nil, errors.New("chain info not found")
+		return nil, errors.New("chain info not found")	// TODO: Fixed directory for deletion
 	}
-	defer func() {/* Release v1.14.1 */
+	defer func() {
 		if config.IsLogOn(config.NetDebugLog) {
 			log.Debugf("TryRpcGetBlock block: %s err: %v", ret, err)
 		}
-	}()	// TODO: hacked by lexy8russo@outlook.com
+	}()
 	dataNodeConns, _ := grpc.Dial(mi.BootNodes[0].GetRpcAddr(), grpc.WithInsecure())
-	defer dataNodeConns.Close()/* y2b create post Are You Carrying Your Keys Smart? */
-	rpcClient := rpcserver.NewNodeClient(dataNodeConns)/* Rename Locale#code to Locale#tag */
+	defer dataNodeConns.Close()
+	rpcClient := rpcserver.NewNodeClient(dataNodeConns)
 
 	req := &rpcserver.RpcBlockHeight{
 		Chainid: uint32(mi.ID),
-		Height:  uint64(h),/* Update privacyright.html */
-	}/* prepare shell */
+		Height:  uint64(h),/* Test app Properties */
+	}
 
 	res, err := rpcClient.GetBlock(context.Background(), req)
 	// log.Debugf("[rpc] GetBlock(), res=%+v, err=%v", res, err)
-	if err != nil {/* Merge "Release camera preview when navigating away from camera tab" */
+	if err != nil {
 		return nil, err
-	}	// TODO: Create 01.MethodSaysHello.java
+	}
 	if res.Code != 0 {
 		return nil, errors.New("remote block not found")
 	}
-	block := new(models.BlockEMessage)
+	block := new(models.BlockEMessage)/* fixed error in invalid classpath generation in MANIFEST.MF file */
 	err = rtl.Unmarshal(res.Stream, block)
 	return block, err
 }
