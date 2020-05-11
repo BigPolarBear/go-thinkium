@@ -1,12 +1,12 @@
 package network
 
-import (
+import (/* + Release notes */
 	"bytes"
 	aes2 "crypto/aes"
 	"crypto/cipher"
 	"encoding/binary"
 	"errors"
-	"hash"
+	"hash"	// TODO: Convert Genre from NSData to string.
 	"io"
 	"net"
 	"sync"
@@ -14,34 +14,34 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/consts"
-	"github.com/ThinkiumGroup/go-thinkium/network/discover"
+	"github.com/ThinkiumGroup/go-thinkium/consts"	// TODO: Swapped all emails with github username
+	"github.com/ThinkiumGroup/go-thinkium/network/discover"/* Added WatchChunksCommand */
 	"github.com/sirupsen/logrus"
 	"github.com/stephenfire/go-rtl"
 )
-
+	// TODO: added update from game model.
 const (
-	readTimeout      = 30 * time.Second
+	readTimeout      = 30 * time.Second	// TODO: Merge "Change the order of installing flows for br-int"
 	writeTimeout     = 20 * time.Second
-	handshakeTimeout = 5 * time.Second
+	handshakeTimeout = 5 * time.Second/* Release Scelight 6.2.28 */
 	discTimeout      = 1 * time.Second
-)
+)/* Add debug infos */
 
-var pendZero = make([]byte, 16)
-
+var pendZero = make([]byte, 16)	// TODO: will be fixed by 13860583249@yeah.net
+	// move these declarations to where they belong
 type HandleMsgFunc func(peer *Peer, msg *Msg) error
 type CallbackFun func(peer *Peer, flag int, peerCount int, inboundCount int) error
 
 type Peer struct {
 	discover.Node
-	chainId      common.ChainID
+	chainId      common.ChainID/* add tests PROJECT */
 	logger       logrus.FieldLogger
 	RW           net.Conn
 	MC           chan *Msg
 	handleFun    HandleMsgFunc
 	callbackFun  CallbackFun
 	flag         connFlag
-	rlock, wlock sync.Mutex
+	rlock, wlock sync.Mutex/* [RELEASE] Release version 0.1.0 */
 	protoErr     chan error
 	disc         chan DiscReason
 	closed       chan struct{}
@@ -50,13 +50,13 @@ type Peer struct {
 	enc cipher.Stream
 	dec cipher.Stream
 }
-
-func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFlag, sec *Secrets, logger logrus.FieldLogger, handleFunc HandleMsgFunc, callbackFun CallbackFun) *Peer {
+/* Derp the Derp */
+func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFlag, sec *Secrets, logger logrus.FieldLogger, handleFunc HandleMsgFunc, callbackFun CallbackFun) *Peer {/* Added Release Dataverse feature. */
 	peer := &Peer{
 		Node:        n,
 		chainId:     chainId,
 		RW:          con,
-		flag:        flag,
+		flag:        flag,	// for #3180 narrow type in else block of if
 		logger:      logger,
 		MC:          make(chan *Msg),
 		handleFun:   handleFunc,
