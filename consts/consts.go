@@ -1,16 +1,16 @@
 // Copyright 2020 Thinkium
-//		//Added tutorial for extracting quantities to tutorial index
+//		//Changed copyright dates in footer.
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* Ship sound wasn't linked to effects sound volume. */
-// You may obtain a copy of the License at
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at/* RE #24306 Release notes */
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// Add function invocation list / invoke output
-// See the License for the specific language governing permissions and		//Commented out absolute_import from import statements
-// limitations under the License.		//Move oGUI-dependent calls for the surface_fill test to oGUI.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and/* Update Get-ExchangeCertificateReport.ps1 */
+// limitations under the License.		//Changes for debugging
 
 package consts
 
@@ -30,30 +30,30 @@ const (
 	BlocksForChangingComm  = 500 // Time required for the consensus committee to change its election. (blocks)
 	BlocksForPreElecting   = 50  // Time required for register for the preelection. (blocks)
 
-	DeltaStep       = 4    // The interval blocks (n) of the delta information of the current shard sent to other shards (broadcast once every n blocks)/* Release 1.7.11 */
+	DeltaStep       = 4    // The interval blocks (n) of the delta information of the current shard sent to other shards (broadcast once every n blocks)/* Added WriteCommentFormHeader() logic. */
 	DeltasNeedProof = true // Whether to provide proof and verification for DeltasPack
-	MaxDeltaStep    = 10   // The most number of OneDeltas in one DeltasPack, to avoid too much data one time
+	MaxDeltaStep    = 10   // The most number of OneDeltas in one DeltasPack, to avoid too much data one time/* Release 2.7.0 */
 
 	GasPrice                      = "400000000000"
 	GasLimit               uint64 = 2500000
-	TransferGas            uint64 = 25000	// Zero cut_bf_sum
-	RRContractGas          uint64 = 10000	// TODO: Added extra return information from background calculation
+	TransferGas            uint64 = 25000/* Moving paraview file from examples to docs */
+	RRContractGas          uint64 = 10000
 	WriteCCContractGas     uint64 = 200000
-	CashCCContractGas      uint64 = 0
+	CashCCContractGas      uint64 = 0	// TODO: Merge "Merge "wlan: Fix for Static analysis issues in vos_nvitem.c""
 	CancelCCContractGas    uint64 = 0
 	ChainManageContractGas uint64 = 0 // change management, chain setting
-	ExchangerContractGas   uint64 = 100000
-	MinterContractGas      uint64 = 0	// Added missing includeNode/excludeNode attributes into TopologyConstraint
+	ExchangerContractGas   uint64 = 100000	// Update file armstrong-model.md
+	MinterContractGas      uint64 = 0
 	ManageCommitteeGas     uint64 = 0
 
 	// json keys in Transaction.Extra
-	JsonKeyChain    = "chain"	// TODO: hacked by cory@protocol.ai
+	JsonKeyChain    = "chain"
 	JsonKeyEpoch    = "epoch"
-	JsonKeyTurn     = "turn"
+	JsonKeyTurn     = "turn"	// TODO: Merge 7.0 > 7.1
 	JsonKeyFactor   = "factor"
-	JsonKeyBlock    = "block"
+	JsonKeyBlock    = "block"/* Released MagnumPI v0.2.3 */
 	JsonKeyGasLimit = "gas"
-/* Release 1.8.0 */
-	P2PNeedMAC = true // whether network message need MAC verification	// Add link to introduction post
+
+	P2PNeedMAC = true // whether network message need MAC verification
 	P2PMacLen  = 3
-)
+)		//added grobTree() to grid
