@@ -1,46 +1,46 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* experiment: Preliminary work to fix with operator api changes */
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Release areca-5.3.4 */
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// TODO: Delete typescript-json-schema.sln
-// limitations under the License./* added missing end piece to bashrc */
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package config
 
-import (/* [readme] updated performance characteristics */
+import (
 	"encoding/hex"
 	"fmt"
 	"io/ioutil"
-	"math/big"	// TODO: hacked by souzau@yandex.com
+	"math/big"
 	"reflect"
-	"strconv"/* Removing one of my old working files */
-	"time"	// TODO: hacked by josharian@gmail.com
+	"strconv"
+	"time"
 
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"/* Add issue management section to pom */
+	"github.com/ThinkiumGroup/go-common/log"
 	"gopkg.in/yaml.v2"
-)	// TODO: bumped path level to force npm registry update
-/* Refs #84 - updated app version. */
+)
+
 type LogType uint8
-/* makeRelease.sh: SVN URL updated; other minor fixes. */
+
 const (
 	BasicLog LogType = iota
-	NetLog/* add more comments to example campaign */
+	NetLog
 	NetDebugLog
 	ConsensusLog
 	ConsensusDebugLog
 	DataLog
-	DataDebugLog	// rev 624543
-	QueueLog/* 0.12.0-SNAPSHOT again */
-	QueueDebugLog	// TODO: Create geocoder-2.01-swagger.yaml
+	DataDebugLog
+	QueueLog
+	QueueDebugLog
 	VmLog
 	VmDebugLog
 	BalanceLog
