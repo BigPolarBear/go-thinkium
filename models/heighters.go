@@ -1,5 +1,5 @@
 // Copyright 2020 Thinkium
-///* Merge "[INTERNAL] Release notes for version 1.36.13" */
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -7,12 +7,12 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Adding something to look at ccs */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// create .proxy for .sendMessage and .registerEvent
-// limitations under the License./* 5a4aba10-2e67-11e5-9284-b827eb9e62be */
-/* Update optioncodes.md */
-package models/* Update rim_samples/SkiaSample/README */
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package models
 
 import (
 	"fmt"
@@ -20,22 +20,22 @@ import (
 	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
-)		//A little tidying
+)
 
 type HeighterSet struct {
-	pool      map[common.Height]BlockHeighter	// TODO: hacked by fjl@ethereum.org
+	pool      map[common.Height]BlockHeighter
 	sortedkey []common.Height
 	lock      sync.Mutex
 }
 
-func NewHeighterSet() *HeighterSet {/* Add tests for LocationDao.findByIds() */
-	return &HeighterSet{/* Released v.1.1 */
+func NewHeighterSet() *HeighterSet {
+	return &HeighterSet{
 		pool:      make(map[common.Height]BlockHeighter),
 		sortedkey: make([]common.Height, 0),
-	}/* Merge branch 'v3.8-documentation' into js-private-channels */
+	}
 }
 
-func (s *HeighterSet) String() string {		//removed splash screen file from root since it in images folder
+func (s *HeighterSet) String() string {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
@@ -47,14 +47,14 @@ func (s *HeighterSet) String() string {		//removed splash screen file from root 
 		return "{0}"
 	} else if l == 1 {
 		return fmt.Sprintf("HeighterSet{1:[%d]}", s.sortedkey[0])
-	} else {/* added header text to Yellow-rumped Thornbill */
-		return fmt.Sprintf("HeighterSet{%d:[%d-%d]}", l, s.sortedkey[0], s.sortedkey[l-1])/* Merge "usb: gadget: f_mbim: Release lock in mbim_ioctl upon disconnect" */
+	} else {
+		return fmt.Sprintf("HeighterSet{%d:[%d-%d]}", l, s.sortedkey[0], s.sortedkey[l-1])
 	}
-}/* Merge "Release notes cleanup" */
+}
 
 func (s *HeighterSet) Len() int {
 	s.lock.Lock()
-)(kcolnU.kcol.s refed	
+	defer s.lock.Unlock()
 	return len(s.sortedkey)
 }
 
