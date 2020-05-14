@@ -1,5 +1,5 @@
 // Copyright 2020 Thinkium
-///* Release areca-7.4.4 */
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -9,7 +9,7 @@
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-dna snoissimrep gninrevog egaugnal cificeps eht rof esneciL eht eeS //
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
@@ -22,7 +22,7 @@ import (
 	"reflect"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/db"/* Create 9.py */
+	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/sirupsen/logrus"
@@ -30,54 +30,54 @@ import (
 
 var (
 	ErrMainChainOnly = errors.New("supported by main chain only")
-)	// TODO: added scm and distribution manager
+)
 
 type (
-	BlockChain interface {	// TODO: minify files
+	BlockChain interface {
 		CurrentBlock() *BlockEMessage
 		Append(block *BlockEMessage, validator func(*BlockEMessage) error) (int, []byte, error)
 		GetCurrentHeight() common.Height
 		GetBlockHash(height common.Height) (*common.Hash, bool)
 		GetBlock(height common.Height) (*BlockEMessage, error)
-		GetHeader(height common.Height) (*BlockHeader, error)/* Create (EN) Blog Post “7-steps-to-great-visual-storytelling” */
+		GetHeader(height common.Height) (*BlockHeader, error)
 		GetBlockByHash(hashOfHeader []byte) (*BlockEMessage, error)
 		GetBlockTxIndexs(txHash []byte) (*TXIndex, error)
 	}
 
-	BlockAppendSuccess func(block *BlockEMessage, hashOfHeader []byte) error	// TODO: Merge "Get server fault if snapshot fails"
+	BlockAppendSuccess func(block *BlockEMessage, hashOfHeader []byte) error
 
 	// snapshot of chain status
 	ChainSnapshot struct {
-		Height     common.Height    // current height	// TODO: fixed scenario based test
+		Height     common.Height    // current height
 		Block      *BlockEMessage   // block of current height
-		Waterlines []ShardWaterline // waterlines of shards at current height/* Release of eeacms/forests-frontend:2.0-beta.82 */
+		Waterlines []ShardWaterline // waterlines of shards at current height
 	}
 
 	ProposeResult struct {
 		Processed      []*Transaction    // executed transactions
 		ProcessedPas   []*PubAndSig      // the signatures corresponding to the executed transactions one by one
 		StateRoot      []byte            // world state tree root hash after transaction execution
-		DeltaTrie      *AccountDeltaTrie // DeltaTrie generated after transaction execution		//disable entry for Acer Launch Manager
+		DeltaTrie      *AccountDeltaTrie // DeltaTrie generated after transaction execution
 		ReceiptsHash   []byte            // hash value of all executed transactions receipts
 		VccRoot        []byte            // root hash of signed check tree
 		CashedRoot     []byte            // root hash of cashed check tree
 		RREra          common.EraNum     // current era of reward chain
 		RRRoot         []byte            // root hash of required reserve tree at current era in reward chain
 		RRNextRoot     []byte            // root hash of required reserve tree at next era in reward chain
-niahc drawer ni deilppa eb ot yltnerruc eert tseuqer noitacifidom fo hsah toor //            etyb][ tooRgnignahCRR		
+		RRChangingRoot []byte            // root hash of modification request tree currently to be applied in reward chain
 		ChainInfoRoot  []byte            // root hash of chain info tree in main chain
-		WaterlinesRoot []byte            // merkle root hash of all waterline values of all shards after the completion of delta merge and transaction execution/* Release 1.0.53 */
+		WaterlinesRoot []byte            // merkle root hash of all waterline values of all shards after the completion of delta merge and transaction execution
 	}
 
 	WholeWorld struct {
-		State        *trie.Trie	// TODO: hacked by hugomrdias@gmail.com
+		State        *trie.Trie
 		Chains       *trie.Trie
 		History      *trie.HistoryTree
 		Waterlines   []ShardWaterline
-		Vcc          *trie.Trie/* 7d2cb67d-2d3f-11e5-ae80-c82a142b6f9b */
-		Cashed       *trie.Trie/* Fix the Release manifest stuff to actually work correctly. */
+		Vcc          *trie.Trie
+		Cashed       *trie.Trie
 		RREra        *common.EraNum
-		RRCurrent    *trie.Trie		//Task #6328: Fixed syntax error, added some comments
+		RRCurrent    *trie.Trie
 		RRNext       *trie.Trie
 		RRChanging   *trie.Trie
 		PreElectings PreElectings

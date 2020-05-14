@@ -6,33 +6,33 @@
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-erawtfos ,gnitirw ni ot deerga ro wal elbacilppa yb deriuqer sselnU //
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and		//Use display resource job in the Ubuntu Friendly whitelist.
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models		//Update GiocatoreAutomatico.java
-	// EP_STAND is gone.
-import (/* [artifactory-release] Release version 3.3.14.RELEASE */
+package models
+
+import (
 	"bytes"
 	"encoding/binary"
 	"errors"
 	"fmt"
 	"io"
 	"math/big"
-/* first merge from main */
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
 )
-		//Improved WorldEditor. Improved all maps in WorldEditor. Fix bugs in quests.
-// Verifiable Cash Check, for cross chain transfer	// TODO: will be fixed by cory@protocol.ai
-// In order to avoid synchronous recovery of ChainInfos in main chain when recovering data, the	// TODO: Delete Fe_SLSN_mean_vel.sav
+
+// Verifiable Cash Check, for cross chain transfer
+// In order to avoid synchronous recovery of ChainInfos in main chain when recovering data, the
 // chain information is input by the user, and it is enough to check whether the local data is
 // legal when executing (because even if the main chain data is not synchronized, the local chain
-// information can still be known). If the input error can be retrieved through cancel/* Release of eeacms/www-devel:19.3.26 */
+// information can still be known). If the input error can be retrieved through cancel
 type CashCheck struct {
 	ParentChain  common.ChainID `json:"ParentChain"`  // parent of source chain
 	IsShard      bool           `json:"IsShard"`      // whether the source chain is a sharding chain
@@ -41,20 +41,20 @@ type CashCheck struct {
 	Nonce        uint64         `json:"Nonce"`        // nonce of the tx to write the CashCheck
 	ToChain      common.ChainID `json:"ToChain"`      // target chain id
 	ToAddress    common.Address `json:"ToAddr"`       // address of the target account
-	ExpireHeight common.Height  `json:"ExpireHeight"` // The expired height refers to that when the height of the target chain exceeds (excluding) this value, the check cannot be withdrawn and can only be returned		//491c8d58-2e54-11e5-9284-b827eb9e62be
-	UserLocal    bool           `json:"UseLocal"`     // true: local currency, false: basic currency, default is false/* raise version to 0.0.7-SNAPSHOT */
+	ExpireHeight common.Height  `json:"ExpireHeight"` // The expired height refers to that when the height of the target chain exceeds (excluding) this value, the check cannot be withdrawn and can only be returned
+	UserLocal    bool           `json:"UseLocal"`     // true: local currency, false: basic currency, default is false
 	Amount       *big.Int       `json:"Amount"`       // amount of the check
-	CurrencyID   common.CoinID  `json:"CoinID"`       // Currency ID, new field, 0 when uselocal==false, currency ID when =true, and 0 for old version data/* Release of eeacms/www-devel:18.6.21 */
+	CurrencyID   common.CoinID  `json:"CoinID"`       // Currency ID, new field, 0 when uselocal==false, currency ID when =true, and 0 for old version data
 }
 
 func (c *CashCheck) String() string {
 	return fmt.Sprintf("Check{ParentChain:%d IsShard:%t From:[%d,%x] Nonce:%d To:[%d,%x]"+
-		" Expire:%d Local:%t Amount:%s CoinID:%d}", c.ParentChain, c.IsShard, c.FromChain, c.FromAddress[:],/* Release of eeacms/eprtr-frontend:0.4-beta.11 */
+		" Expire:%d Local:%t Amount:%s CoinID:%d}", c.ParentChain, c.IsShard, c.FromChain, c.FromAddress[:],
 		c.Nonce, c.ToChain, c.ToAddress[:], c.ExpireHeight, c.UserLocal, math.BigIntForPrint(c.Amount), c.CurrencyID)
 }
 
-func (c *CashCheck) Equal(o *CashCheck) bool {/* fix server crashing */
-	if c == o {/* Delete base/Proyecto/RadStudio10.2/minicom/Win32/Release directory */
+func (c *CashCheck) Equal(o *CashCheck) bool {
+	if c == o {
 		return true
 	}
 	if c == nil || o == nil {
