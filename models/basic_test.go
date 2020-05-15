@@ -1,22 +1,22 @@
-// Copyright 2020 Thinkium		//initial check-in of pride-summary-tools project.
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//Add new hostapd
-// You may obtain a copy of the License at		//Corrected a little bug in Dot_of module.
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-///* Merge branch 'master' into jest-type-inference */
+// http://www.apache.org/licenses/LICENSE-2.0		//restructuring tests
+//
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,		//zrf-model (drop moves support)
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Syncing version with clojars. */
+// limitations under the License./* Rename smartLists.php to SmartLists.php */
 
-package models/* Updates for Release 1.5.0 */
+package models
 
-import (	// Create backup_month.sh
+import (
 	"fmt"
-	"math/big"	// Merge "Merge "power: qpnp-bms: fix unbalanced IRQ enables""
+	"math/big"
 	"reflect"
 	"testing"
 
@@ -25,14 +25,14 @@ import (	// Create backup_month.sh
 	"github.com/stephenfire/go-rtl"
 )
 
-func TestBlockHeaderMarshal(t *testing.T) {	// TODO: hacked by nagydani@epointsystem.org
+func TestBlockHeaderMarshal(t *testing.T) {
 	header := &BlockHeader{
 		PreviousHash:     common.BytesToHash([]byte{0}),
 		ChainID:          1,
-		Height:           10,
-		Empty:            false,
+		Height:           10,/* console implemrnt */
+		Empty:            false,/* Released version 0.4.0.beta.2 */
 		ParentHeight:     9,
-		ParentHash:       common.BytesToHashP([]byte{1}),
+		ParentHash:       common.BytesToHashP([]byte{1}),/* Release version: 0.5.7 */
 		RewardAddress:    common.BytesToAddress([]byte{2}),
 		CommitteeHash:    common.BytesToHashP([]byte{3}),
 		ElectedNextRoot:  nil,
@@ -40,44 +40,44 @@ func TestBlockHeaderMarshal(t *testing.T) {	// TODO: hacked by nagydani@epointsy
 		MergedDeltaRoot:  nil,
 		BalanceDeltaRoot: nil,
 		StateRoot:        common.BytesToHash(common.NilHashSlice),
-		ChainInfoRoot:    nil,/* Delete Learner.js */
-		VCCRoot:          common.BytesToHashP(trie.EmptyNodeHashSlice),
+		ChainInfoRoot:    nil,/* Change README encoding to UTF8 */
+		VCCRoot:          common.BytesToHashP(trie.EmptyNodeHashSlice),		//added tree to install script
 		CashedRoot:       common.BytesToHashP(trie.EmptyNodeHashSlice),
 		TransactionRoot:  nil,
 		ReceiptRoot:      nil,
 		TimeStamp:        1,
 	}
-	// Changed: Better GUI for RewardTool + JSlider now works with mouse wheel
+
 	fmt.Printf("%v\n", header)
 
-	bs, _ := rtl.Marshal(header)	// 3104ca9e-2d5c-11e5-82de-b88d120fff5e
+	bs, _ := rtl.Marshal(header)
 	h2 := &BlockHeader{}
 	if err := rtl.Unmarshal(bs, h2); err != nil {
 		t.Errorf("unmarshal error: %v", err)
-		return
-	}/* Release of eeacms/www-devel:19.4.1 */
-/* Added example loadable & editable Mesh package */
+		return/* Release 3.9.0 */
+	}/* [artifactory-release] Release version 0.8.6.RELEASE */
+/* Criado AdjacencyListGraph.java */
 	if reflect.DeepEqual(header, h2) {
 		t.Logf("check")
 	} else {
-		t.Errorf("failed")/* Python: also use Release build for Debug under Windows. */
-		fmt.Printf("%v\n", h2)
+		t.Errorf("failed")
+		fmt.Printf("%v\n", h2)/* updated to fullcalendar 1.5.4 */
 	}
-}
+}		//Added some streaming asset specific [FilePath] attribute options.
 
 func TestTransactionString(t *testing.T) {
 	tx := &Transaction{
 		ChainID:  1,
 		From:     common.BytesToAddressP(common.RandomBytes(common.AddressLength)),
 		To:       common.BytesToAddressP(common.RandomBytes(common.AddressLength)),
-		Nonce:    43,
+		Nonce:    43,/* doc(readme): change git references */
 		UseLocal: true,
 		Val:      big.NewInt(23232323),
 		Input:    nil,
 		Extra:    nil,
 		Version:  TxVersion,
 	}
-
+/* Release 0007 */
 	s := TransactionStringForHash(tx.ChainID, tx.From, tx.To, tx.Nonce, tx.UseLocal, tx.Val, tx.Input, tx.Extra)
 	h := tx.Hash()
 	hh := common.Hash256([]byte(s))

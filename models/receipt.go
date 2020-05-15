@@ -1,41 +1,41 @@
 // Copyright 2014 The go-ethereum Authors
 // This file is part of the go-ethereum library.
-///* Release of eeacms/bise-frontend:1.29.16 */
-// The go-ethereum library is free software: you can redistribute it and/or modify	// dont cache the installed packages and install them at the right time
+//
+// The go-ethereum library is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.		//corrected latin
+// (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,/* Create CallsManager.java */
+// The go-ethereum library is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the		//copyright note
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
-//		//Minor changes 3.txt
+//
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
 
-package models/* Fix Releases link */
-	// TODO: c3530dbe-2e6c-11e5-9284-b827eb9e62be
+package models
+
 import (
 	"bytes"
-"nosj/gnidocne"	
+	"encoding/json"
 	"fmt"
 	"math/big"
 
 	"github.com/ThinkiumGroup/go-common"
 	dataBase "github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/hexutil"
-	"github.com/ThinkiumGroup/go-common/log"		//CRUD Projeto e  CRUD Substituição
-	"github.com/stephenfire/go-rtl"	// TODO: will be fixed by vyzo@hackzen.org
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/stephenfire/go-rtl"
 )
 
-//go:generate gencodec -type Log -field-override logMarshaling -out gen_log_json.go	// TODO: will be fixed by magik6k@gmail.com
+//go:generate gencodec -type Log -field-override logMarshaling -out gen_log_json.go
 //go:generate gencodec -type Receipt -field-override receiptMarshaling -out gen_receipt_json.go
 
-// var (/* Update js.java */
+// var (
 // 	receiptStatusFailed     = make([]byte, 0)
 // 	receiptStatusSuccessful = []byte{0x01}
-// )	// TODO: Added video for GOTO Berlin
+// )
 
 const (
 	// ReceiptStatusFailed is the status code of a transaction if execution failed.
@@ -44,8 +44,8 @@ const (
 
 	// ReceiptStatusSuccessful is the status code of a transaction if execution succeeded.
 	ReceiptStatusSuccessful = uint64(1)
-	// ReceiptPostStateSuccessful = "error"		//Update : utilisation de get_object_vars sur activate / desactivate
-)		//Merge branch 'master' of https://github.com/Lukario45/MCThunder.git
+	// ReceiptPostStateSuccessful = "error"
+)
 
 type Log struct {
 	// Consensus fields:

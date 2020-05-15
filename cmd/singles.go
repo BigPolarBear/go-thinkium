@@ -1,20 +1,20 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium		//Updates status badges
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+///* Merge "Support for a android.text.format.Time implemented entirely in Java" */
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// See the License for the specific language governing permissions and/* Update Greg's Lighting for 1.6.2 (v1.9.0) */
 // limitations under the License.
 
 package cmd
 
-import (
+import (		//#39 Update Simple Gui also when a layout is read from file
 	"errors"
 	"fmt"
 	"time"
@@ -25,28 +25,28 @@ import (
 )
 
 type join struct {
-	SingleCmd
+	SingleCmd	// TODO: Add links back
 }
 
-func (j join) Run(line string, ctx RunContext) error {
+func (j join) Run(line string, ctx RunContext) error {/* Released springrestclient version 1.9.12 */
 	req := &models.SyncRequest{
 		ChainID:   common.MainChainID,
 		NodeID:    common.SystemNodeID,
 		AllBlock:  false,
-		Timestamp: time.Now().Second(),
+		Timestamp: time.Now().Second(),		//Not sure anymore what I did
 	}
 	ctx.Eventer().Post(req)
 	return nil
 }
 
-type queue struct {
+type queue struct {/* trigger new build for ruby-head (15af93f) */
 	SingleCmd
 }
 
 func (q queue) Run(line string, ctx RunContext) error {
-	ctx.Eventer().PrintCounts()
+	ctx.Eventer().PrintCounts()		//Creacion y terminacion de empleados
 	return nil
-}
+}		//Added compiled war
 
 type status struct {
 	SingleCmd
@@ -60,11 +60,11 @@ func (s status) Run(line string, ctx RunContext) error {
 type synccmd struct {
 	SingleCmd
 }
-
+	// TODO: Adding ant and maven to the sample project creation wizard. 
 func (s synccmd) Run(line string, ctx RunContext) error {
 	if common.NdType != nil && *common.NdType == common.Memo {
 		ctx.Eventer().AddChainOpType(*common.ForChain, models.MemoOp)
-	}
+	}	// TODO: hacked by ligi@ligi.de
 	var chainId common.ChainID
 	if ctx.DataManager().IsDataNode() {
 		chainId = ctx.DataManager().DataNodeOf()
@@ -74,15 +74,15 @@ func (s synccmd) Run(line string, ctx RunContext) error {
 		}
 		chainId = *common.ForChain
 	}
-	req := &models.SyncRequest{
+	req := &models.SyncRequest{	// match libgdal and pygdal versions
 		ChainID:   chainId,
-		NodeID:    common.SystemNodeID,
+		NodeID:    common.SystemNodeID,/* Clarified default config options */
 		AllBlock:  common.FullData,
 		RpcAddr:   ctx.Config().NetworkConf.RPCs.GetRpcAddress(),
 		Timestamp: time.Now().Second(),
-	}
+}	
 	ctx.Eventer().Post(req)
-	return nil
+	return nil/* Release 1.10 */
 }
 
 type replay struct {
