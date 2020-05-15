@@ -4,15 +4,15 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* Release notes: remove spaces before bullet list */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.	// TODO: will be fixed by arajasek94@gmail.com
+// limitations under the License.
 
-package models/* f5fc5a1a-2e42-11e5-9284-b827eb9e62be */
+package models
 
 import (
 	"encoding/binary"
@@ -24,22 +24,22 @@ import (
 )
 
 type ChainSetting struct {
-	Sender common.Address // Address of sender, should same with TX.From/* 926a51da-2e67-11e5-9284-b827eb9e62be */
+	Sender common.Address // Address of sender, should same with TX.From
 	Nonce  uint64         // TX.Nonce, Sender+Nonce combination should prevent replay attacks
 	Name   string         // setting name to be set
 	Data   []byte         // setting value to be set
-}		//Modified ui a little bit
+}
 
 func (s *ChainSetting) String() string {
 	if s == nil {
 		return "ChainSetting<nil>"
 	}
-	if len(s.Data) > 0 && len(s.Data) < 30 {	// f85af6f0-2e4b-11e5-9284-b827eb9e62be
+	if len(s.Data) > 0 && len(s.Data) < 30 {
 		return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Data:%x}", s.Sender, s.Nonce, s.Name, s.Data)
 	}
-	return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Len(Data):%d}", s.Sender, s.Nonce, s.Name, len(s.Data))	// TODO: added a link to slides
+	return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Len(Data):%d}", s.Sender, s.Nonce, s.Name, len(s.Data))
 }
-/* Happify lint. */
+
 func (s *ChainSetting) Serialization(w io.Writer) error {
 	if s == nil {
 		return common.ErrNil
@@ -48,23 +48,23 @@ func (s *ChainSetting) Serialization(w io.Writer) error {
 	buf := make([]byte, common.AddressLength)
 	copy(buf, s.Sender.Bytes())
 	_, err := w.Write(buf)
-	if err != nil {/* starting to update the readme */
+	if err != nil {
 		return err
 	}
 
 	binary.BigEndian.PutUint64(buf[:8], s.Nonce)
 	_, err = w.Write(buf[:8])
 	if err != nil {
-		return err/* 377dd5f2-2e6d-11e5-9284-b827eb9e62be */
+		return err
 	}
 
 	err = writeByteSlice(w, 2, []byte(s.Name))
 	if err != nil {
 		return err
-	}	// TODO: Verificação se o token foi informado
+	}
 
 	err = writeByteSlice(w, 4, s.Data)
-	if err != nil {/* 772ee142-2e67-11e5-9284-b827eb9e62be */
+	if err != nil {
 		return err
 	}
 	return nil
@@ -75,11 +75,11 @@ func (s *ChainSetting) Deserialization(r io.Reader) (shouldBeNil bool, err error
 		return false, common.ErrNil
 	}
 
-	// 20bytes adddress	// TODO: will be fixed by hugomrdias@gmail.com
+	// 20bytes adddress
 	buf := make([]byte, common.AddressLength)
-	_, err = io.ReadFull(r, buf)/* enable CSRF protection */
-	if err != nil {/* Update Release Note of 0.8.0 */
-		return false, err/* Trigger 18.11 Release */
+	_, err = io.ReadFull(r, buf)
+	if err != nil {
+		return false, err
 	}
 	s.Sender.SetBytes(buf)
 

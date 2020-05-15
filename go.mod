@@ -1,4 +1,4 @@
-module github.com/ThinkiumGroup/go-thinkium	// TODO: hacked by sbrichards@gmail.com
+module github.com/ThinkiumGroup/go-thinkium
 
 go 1.13
 
@@ -18,7 +18,7 @@ require (
 	github.com/sirupsen/logrus v1.7.0
 	github.com/stephenfire/go-rtl v1.0.1
 	github.com/syndtr/goleveldb v1.0.1-0.20190923125748-758128399b1d
-	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad/* Release: Making ready for next release cycle 3.2.0 */
+	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad
 	golang.org/x/net v0.0.0-20201202161906-c7110b5ffcbb
 	google.golang.org/grpc v1.28.1
 	gopkg.in/yaml.v2 v2.3.0
