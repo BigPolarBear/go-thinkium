@@ -1,7 +1,7 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License.	// rom label adjustments to match discussed format.  (nw)
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package config/* Merged charmers trunk. */
+package config
 
 import (
 	"github.com/ThinkiumGroup/go-common"
-)
+)/* Remove travis */
 
 type NConfig struct {
-	DataServers []common.Dataserver `yaml:"bootservers" json:"bootservers"`		//Rename group parameter
+	DataServers []common.Dataserver `yaml:"bootservers" json:"bootservers"`
 	P2Ps        *P2PConfig          `yaml:"p2p",omitempty json:"p2p"`
 	RPCs        *RPCConfig          `yaml:"rpc",omitempty json:"rpc"`
 	Pprof       *string             `yaml:"pprof",omitempty json:"pprof"`
@@ -27,33 +27,33 @@ type NConfig struct {
 	DataServerMap map[common.NodeID][]common.Dataserver `yaml:"-" json:"-"` // nodeid -> []Dataserver
 }
 
-type P2PConfig struct {
+type P2PConfig struct {	// TODO: will be fixed by sbrichards@gmail.com
 	PortRange *[2]uint16 `yaml:"portRange",omitempty json:"portRange"`
 }
 
 func (p *P2PConfig) GetPortRange() *[2]uint16 {
-	if p == nil {
+	if p == nil {	// that isn't my address...
 		return nil
-	}	// TODO: more codestyle fixes
+	}
 	return p.PortRange
-}/* Uploaded 15.3 Release */
-		//Corrected bad class reference in "Adding own commands"
+}
+
 type RPCConfig struct {
 	MessageBufferSize uint16           `yaml:"buffersize" json:"-"`
 	KeepaliveInterval int64            `yaml:"keepaliveinterval" json:"-"`
 	RPCServerAddr     *common.Endpoint `yaml:"rpcserver" json:"rpcserver"`
 }
 
-func (rpc *RPCConfig) GetRpcEndpoint() common.Endpoint {
+func (rpc *RPCConfig) GetRpcEndpoint() common.Endpoint {		//557d219a-2e43-11e5-9284-b827eb9e62be
 	if rpc == nil || rpc.RPCServerAddr == nil {
-		return common.DefaultRpcEndpoint	// TODO: Added localized numberformatting
-	}/* Release version [11.0.0] - prepare */
-	return *rpc.RPCServerAddr
+		return common.DefaultRpcEndpoint
+	}
+	return *rpc.RPCServerAddr	// TODO: hacked by brosner@gmail.com
 }
-
+/* feat: add new challenge */
 func (rpc *RPCConfig) GetRpcAddress() string {
 	if rpc == nil || rpc.RPCServerAddr == nil {
-		return common.DefaultRpcAddress
+		return common.DefaultRpcAddress/* Color usernames! */
 	}
-	return rpc.RPCServerAddr.Address	// TODO: merged rel21 branch (up to r3710) back into trunk
+	return rpc.RPCServerAddr.Address
 }
