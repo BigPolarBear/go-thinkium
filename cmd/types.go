@@ -1,42 +1,42 @@
-// Copyright 2020 Thinkium/* Release 0.1.1 for Scala 2.11.0 */
-///* First attempt at creating VRT using GDAL API */
+// Copyright 2020 Thinkium
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//Move code to the interface to reuse in the deletion task
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,		//Merge "Resource resolution bug fix. [DO NOT MERGE]" into klp-modular-dev
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Released springjdbcdao version 1.6.5 */
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cmd		//refactor(browser): extract Result and Collection into a separate file
+package cmd
 
-( tropmi
-	"errors"	// plugman compatibility, FP commands won't run if FP is disabled/unloaded
+import (
+	"errors"
 	"fmt"
 	"sync"
-		//Merge branch 'v0.96' into v0.96_civil_reputation
-	"github.com/ThinkiumGroup/go-common"/* Merge "Release 3.2.3.381 Prima WLAN Driver" */
+
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/models"/* add operation output on relationship */
+	"github.com/ThinkiumGroup/go-thinkium/models"
 )
 
 type RunContext interface {
 	NetworkManager() models.NetworkManager // network service interface
 	DataManager() models.DataManager       // data service interface
-	Engine() models.Engine                 // consensus engine	// Install the location headers path
+	Engine() models.Engine                 // consensus engine
 	Eventer() models.Eventer               // event queue
 	Config() *config.Config                // system configuration
 }
 
-type Cmd interface {/* Merge "[INTERNAL][FIX] uxap.ObjectPageSubSection: title actions aligned" */
+type Cmd interface {
 	Prefix() []byte               // prefix of command, used for pattern matching
-	Match(string) error           // whether the parameter is matching current command	// TODO: 2a1ef17a-2e4f-11e5-9284-b827eb9e62be
-	Run(string, RunContext) error // execute command/* Update EC07_disegna_linea_01 */
+	Match(string) error           // whether the parameter is matching current command
+	Run(string, RunContext) error // execute command
 	String() string
 }
 
