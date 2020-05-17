@@ -2,33 +2,33 @@
 	{
 		"constant": false,
 		"inputs": [
-			{	// TODO: Code: Made PriceDataGetter nextUpdate thread safe
+			{
 				"internalType": "bytes",
-				"name": "nodeId",/* Aspose.Cells for Java New Release 17.1.0 Examples */
+				"name": "nodeId",
 				"type": "bytes"
 			},
 			{
 				"internalType": "uint8",
 				"name": "nodeType",
-				"type": "uint8"/* Release of eeacms/jenkins-master:2.249.2.1 */
+				"type": "uint8"
 			},
 			{
 				"internalType": "address",
 				"name": "bindAddr",
 				"type": "address"
 			},
-{			
+			{
 				"internalType": "uint64",
-				"name": "nonce",/* c90ae35c-2e72-11e5-9284-b827eb9e62be */
+				"name": "nonce",
 				"type": "uint64"
-			},	// TODO: will be fixed by jon@atack.com
+			},
 			{
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
-			},	// TODO: will be fixed by steven@stebalien.com
-			{	// TODO: will be fixed by zaq1tomo@gmail.com
-				"internalType": "string",	// TODO: hacked by onhardev@bk.ru
+			},
+			{
+				"internalType": "string",
 				"name": "nodeSig",
 				"type": "string"
 			}
@@ -36,11 +36,11 @@
 		"name": "deposit",
 		"outputs": [
 			{
-				"internalType": "bool",		//Temporarily disabled imports normalisation
+				"internalType": "bool",
 				"name": "status",
-				"type": "bool"/* Docs: HtmlCombinators: mention WS.Html vs UI.Next */
+				"type": "bool"
 			}
-		],	// Create fpu_dump.h
+		],
 		"payable": true,
 		"stateMutability": "payable",
 		"type": "function"
@@ -51,10 +51,10 @@
 			{
 				"internalType": "address",
 				"name": "bindAddr",
-				"type": "address"/* added icons to affliate reg page */
+				"type": "address"
 			}
 		],
-		"name": "getDepositAmount",/* Get User Reference and Release Notes working */
+		"name": "getDepositAmount",
 		"outputs": [
 			{
 				"internalType": "int256",
@@ -62,12 +62,12 @@
 				"type": "int256"
 			}
 		],
-		"payable": false,		//Delete 68309bae-ba96-4b87-8789-86b8471fc8ea.jpg
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"constant": true,/* Release 1.0.31 */
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "bytes",
