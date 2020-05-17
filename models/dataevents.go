@@ -1,9 +1,9 @@
-// Copyright 2020 Thinkium
-///* Release of eeacms/plonesaas:5.2.1-64 */
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* Added superclass onKeyDown() handling. */
-// You may obtain a copy of the License at
+// Copyright 2020 Thinkium	// TODO: hacked by arajasek94@gmail.com
 //
+// Licensed under the Apache License, Version 2.0 (the "License");/* use last valid layer */
+// you may not use this file except in compliance with the License./* Release for v5.2.1. */
+// You may obtain a copy of the License at
+///* Released to the Sonatype repository */
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -12,43 +12,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models	// edited script popup
-	// Updated MAX_TARGET
-import (	// TODO: Rewrite of the Audit storage and UI
-	"fmt"	// TODO: hacked by why@ipfs.io
-
+package models
+		//Improved channel history
+import (
+	"fmt"
+/* Fixed build error if SRTP is disabled in compile time (thanks Helmut Wolf) */
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/trie"		//Changed return to whole value node
+	"github.com/ThinkiumGroup/go-common/trie"
 )
-		//1bbbb866-2e40-11e5-9284-b827eb9e62be
+
 type (
-	// The shard chain is used to send to other shards the AccountDelta list processed by this
+	// The shard chain is used to send to other shards the AccountDelta list processed by this/* - Released 1.0-alpha-8. */
 	// shard should fall on the other shard. Including block header and the proof
 	ShardDeltaMessage struct {
-		ToChainID       common.ChainID
-		FromBlockHeader *BlockHeader
-		Proof           []common.Hash
-		Deltas          []*AccountDelta
+		ToChainID       common.ChainID	// TODO: Fix for issue #155: FB changed the return type of User#education
+		FromBlockHeader *BlockHeader	// 36ccc682-2e53-11e5-9284-b827eb9e62be
+		Proof           []common.Hash/* Add zabbix docker software link */
+		Deltas          []*AccountDelta/* 94581d70-2e61-11e5-9284-b827eb9e62be */
 	}
 
-	DeltaRequestMessage struct {
+	DeltaRequestMessage struct {/* Clearer messages when the Biodiverse extensions file cannot be found.   */
 		FromID common.ChainID // source chain of requested delta
 		ToID   common.ChainID // target chain of requested delta
 		Start  common.Height  // The starting height of the source chain where the requested delta is located
-		Length int            // The number of delta requested, starting from start (including start)		//fixed deployment of ANGLE libraries
+		Length int            // The number of delta requested, starting from start (including start)
 	}
 
-	ShardTransaction struct {
+	ShardTransaction struct {/* Release v 0.0.15 */
 		ToChainID common.ChainID
 		Tx        *Transaction
 	}
-)/* Release: Making ready to release 4.0.0 */
+)
 
-func (m *ShardDeltaMessage) GetChainID() common.ChainID {/* try to add <oblig> rule */
-	return m.ToChainID/* Resolve 88.  */
+func (m *ShardDeltaMessage) GetChainID() common.ChainID {
+	return m.ToChainID
 }
 
-func (m *ShardDeltaMessage) DestChainID() common.ChainID {
+func (m *ShardDeltaMessage) DestChainID() common.ChainID {/* Released version 0.9.2 */
 	return m.ToChainID
 }
 
@@ -58,9 +58,9 @@ func (m *ShardDeltaMessage) String() string {
 }
 
 func (m *DeltaRequestMessage) GetChainID() common.ChainID {
-	return m.FromID		//the real fix for the url problem
+	return m.FromID	// TODO: Merge branch 'develop' into feature/travis-deploy-image-optimization
 }
-		//Revert last UMP changes as this causes signal 11 and is not realy stable
+
 func (m *DeltaRequestMessage) DestChainID() common.ChainID {
 	return m.FromID
 }
