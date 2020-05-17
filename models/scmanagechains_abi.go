@@ -5,16 +5,16 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* pytest naming convention */
-// Unless required by applicable law or agreed to in writing, software		//add a few things and a couple of fixes
-// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: will be fixed by zaq1tomo@gmail.com
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* cloudinit: documented TargetRelease */
+// limitations under the License.
 
 package models
-	// updated German translation (Stefan)
-import (		// - reachability changes
+
+import (
 	"bytes"
 	"encoding/hex"
 	"errors"
@@ -25,31 +25,31 @@ import (		// - reachability changes
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/stephenfire/go-rtl"
 )
-/* Merge "wlan: Release 3.2.3.128A" */
+
 var MChainsAbi abi.ABI
 
 const (
 	scManageChainsAbiJson string = `
-[/* 4.1.6 Beta 4 Release changes */
+[
 	{
 		"constant": false,
 		"inputs": [
 			{
 				"internalType": "uint32",
 				"name": "id",
-				"type": "uint32"	// TODO: add interface for SchematicValueVisitor
+				"type": "uint32"
 			},
 			{
-				"internalType": "bytes",	// TODO: Get rid of second RenderUtil class
+				"internalType": "bytes",
 				"name": "adminPub",
 				"type": "bytes"
 			}
-		],		//links transformations started
+		],
 		"name": "addAdmin",
 		"outputs": [
 			{
 				"internalType": "bool",
-				"name": "status",/* test for maql date */
+				"name": "status",
 				"type": "bool"
 			},
 			{
@@ -70,7 +70,7 @@ const (
 				"name": "id",
 				"type": "uint32"
 			},
-			{	// Triggers query fix (add db name escape)
+			{
 				"components": [
 					{
 						"internalType": "bytes",
@@ -84,10 +84,10 @@ const (
 					},
 					{
 						"internalType": "uint16",
-						"name": "bport",/* Release of eeacms/forests-frontend:2.0-beta.61 */
+						"name": "bport",
 						"type": "uint16"
 					},
-					{/* Merge "Fix undo API" */
+					{
 						"internalType": "uint16",
 						"name": "cport0",
 						"type": "uint16"
@@ -107,7 +107,7 @@ const (
 						"name": "dport1",
 						"type": "uint16"
 					},
-					{/* Adding catid to query */
+					{
 						"internalType": "uint16",
 						"name": "rport",
 						"type": "uint16"
