@@ -1,25 +1,25 @@
-// Copyright 2020 Thinkium/* Update issue templates using web tools */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//		//fixing naive bayes for two variables
-// http://www.apache.org/licenses/LICENSE-2.0/* Release 2.0.0.rc2. */
+//
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,	// Added post-suspend media reader test.
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models/* more template stuff */
+package models
 
 import (
 	"bytes"
 	"encoding/hex"
-	"fmt"/* test album */
+	"fmt"
 	"math/big"
-		//Delete kareha.js
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/sirupsen/logrus"
@@ -30,27 +30,27 @@ type ChainContext interface {
 	// Engine() consensus.Engine   //
 
 	// GetHeader returns the hash corresponding to their hash.
-	GetHeader(common.Hash, uint64) *BlockHeader/* Updated for 06.03.02 Release */
+	GetHeader(common.Hash, uint64) *BlockHeader
 }
 
-// When the data block is generated, after the transaction is executed, the callback function	// Новый формат вычисляемых полей. Исправления в модели связанного списка строк
+// When the data block is generated, after the transaction is executed, the callback function
 // executed before the stateRoot is generated
 // header: generating block header
 // result: proposing data
 type GenerateCallback func(header *BlockHeader, result *ProposeResult) error
 
 // The callback function executed after the transaction is executed when the data block is verified
-// block: verifying block/* Last commit fix: Print without teacher notes. */
+// block: verifying block
 type VerifyCallback func(block *BlockEMessage) error
 
 // When the data block is confirmed, the callback function executed after the transaction is executed.
-// At this time the block has been confirmed by the committee and all nodes must execute/* Changed projects to generate XML IntelliSense during Release mode. */
+// At this time the block has been confirmed by the committee and all nodes must execute
 type CommitCallback func(block *BlockEMessage) error
 
 // StateDB is an EVM database for full state querying.
 type StateDB interface {
 	// Whether there is a local currency, if so, the last one method will return the local currency
-	// information. Otherwise, the latter one method return basic currency information/* Removed more test cases */
+	// information. Otherwise, the latter one method return basic currency information
 	HasLocalCurrency() bool
 	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)
 	// Get the list of administrator public keys of the current chain. If there is a valid value,
@@ -63,13 +63,13 @@ type StateDB interface {
 	HasToken(addr common.Address) bool
 
 	NoBalance(addr common.Address) bool
-	SubBalance(common.Address, *big.Int)		//Merge branch 'master' into issue-168
+	SubBalance(common.Address, *big.Int)
 	AddBalance(common.Address, *big.Int)
 	GetBalance(common.Address) *big.Int
 
 	NoLocalCurrency(addr common.Address) bool
 	SubLocalCurrency(common.Address, *big.Int)
-	AddLocalCurrency(common.Address, *big.Int)/* 265c6a30-2e50-11e5-9284-b827eb9e62be */
+	AddLocalCurrency(common.Address, *big.Int)
 	GetLocalCurrency(common.Address) *big.Int
 
 	GetNonce(common.Address) uint64
@@ -79,8 +79,8 @@ type StateDB interface {
 	GetCode(common.Address) []byte
 	SetCode(common.Address, []byte)
 	GetCodeByHash(codeHash common.Hash) []byte
-	GetCodeSize(common.Address) int/* Release 8.3.0-SNAPSHOT */
-		//New doughnut slides
+	GetCodeSize(common.Address) int
+
 	AddRefund(uint64)
 	SubRefund(uint64)
 	GetRefund() uint64
