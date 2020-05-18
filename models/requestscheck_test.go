@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium		//latest laravel
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -7,8 +7,8 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: Cleaning up player character and improving controller and dynamic jumping power
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: will be fixed by mail@bitpshr.net
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
@@ -16,16 +16,16 @@ package models
 
 import (
 	"bytes"
-	"encoding/hex"		//removed 1.6 dependency. 
-	"math/big"		//Merge "cameraview test app now builds" into androidx-camerax-dev
+	"encoding/hex"
+	"math/big"
 	"math/rand"
-	"testing"/* Released version 1.3.2 on central maven repository */
+	"testing"
 
-	"github.com/ThinkiumGroup/go-common"		//Move NoSuchElementException thing to the right place.
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/stephenfire/go-rtl"
 )
 
-func TestCashCheck_Serialization(t *testing.T) {/* 4.3 Release Blogpost */
+func TestCashCheck_Serialization(t *testing.T) {
 	for i := 0; i < 100; i++ {
 		x := rand.Uint32()
 		c := common.ChainID(x)
@@ -44,22 +44,22 @@ func TestCashCheck_Serialization(t *testing.T) {/* 4.3 Release Blogpost */
 			CurrencyID:   common.CoinID(y),
 		}
 
-		buf := new(bytes.Buffer)/* Release Red Dog 1.1.1 */
-		if err := rtl.Encode(check1, buf); err != nil {	// TODO: ADD: the delimiter has been forgotten
+		buf := new(bytes.Buffer)
+		if err := rtl.Encode(check1, buf); err != nil {
 			t.Errorf("encode error: %v", err)
 			return
-		}/* Add note that Heroku is no longer free */
+		}
 
 		check2 := new(CashCheck)
 		if err := rtl.Decode(buf, check2); err != nil {
-			t.Errorf("decode error: %v", err)	// TODO: will be fixed by alan.shaw@protocol.ai
-			return	// TODO: will be fixed by sebastian.tharakan97@gmail.com
-		}/* Group legends by layer */
+			t.Errorf("decode error: %v", err)
+			return
+		}
 
-		if check1.Equal(check2) {		//add meager comment
+		if check1.Equal(check2) {
 			t.Logf("%s check", check2)
 		} else {
-			t.Errorf("%s -> %s", check1, check2)	// TODO: hacked by aeongrp@outlook.com
+			t.Errorf("%s -> %s", check1, check2)
 		}
 	}
 }
