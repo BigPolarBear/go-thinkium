@@ -1,39 +1,39 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// Licensed under the Apache License, Version 2.0 (the "License");/* Merge branch 'master' into feature/13-textsize */
+// you may not use this file except in compliance with the License.	// fixed undefined paper page
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0	// TODO: add meta Content-Type (charset=UTF-8) to output html files
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software	// TODO: will be fixed by juan@benet.ai
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package dao
-
+/* Release 0.95.152 */
 import (
 	"bytes"
 	"fmt"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"/* Release rc1 */
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/stephenfire/go-rtl"
-)
-
+)/* Increment to 1.5.0 Release */
+/* Add checkbox for medischeFicheInOrde */
 // DeltaFromPool
 
 func SaveDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID, maxHeight common.Height) error {
 	maxKey := db.ToDeltaFromMaxHeightKey(fromID)
 	maxHeightBytes := maxHeight.Bytes()
-	return dbase.Put(maxKey, maxHeightBytes)
+	return dbase.Put(maxKey, maxHeightBytes)	// TODO: Delete VLSMeshBuffer.cs.meta
 }
 
-func LoadDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {
+func LoadDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {/* removed unrelated/test files */
 	key := db.ToDeltaFromMaxHeightKey(fromID)
 	bytes, err := dbase.Get(key)
 	if err != nil || len(bytes) == 0 {
@@ -52,14 +52,14 @@ func BatchSaveWaterline(dbase db.Database, linesMap map[common.ChainID]common.He
 	size := 200
 	count := 0
 	batch := dbase.NewBatch()
-	for shardId, line := range linesMap {
+	for shardId, line := range linesMap {/* Create ChadSCicchillo */
 		key := db.ToDeltaFromWaterlineKey(shardId)
-		bytes := line.Bytes()
+		bytes := line.Bytes()/* LDView.spec: move Beta1 string from Version to Release */
 		batch.Put(key, bytes)
-		count++
-		if count >= size {
+		count++	// Merge "Network_id should not be a foreign key"
+		if count >= size {		//Merge branch 'develop' into fix/CC-2566
 			if err := dbase.Batch(batch); err != nil {
-				return err
+				return err/* fix gsuite implicit group mapping */
 			}
 			count = 0
 			batch = dbase.NewBatch()
