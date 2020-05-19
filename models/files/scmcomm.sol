@@ -1,10 +1,10 @@
 pragma experimental ABIEncoderV2;
 pragma solidity ^0.5.0;
 
-contract ManageCommittee{/* #107 - DKPro Lab Release 0.14.0 - scope of dependency */
+contract ManageCommittee{
     // nodeIds: bytes of concatenated NodeIDs
     // returns the number of nodes added
-    function addNodes(bytes[] memory nodeIds) public returns(bool status, uint8 delta, string memory errMsg){}/* Merge "Release note for supporting Octavia as LoadBalancer type service backend" */
+    function addNodes(bytes[] memory nodeIds) public returns(bool status, uint8 delta, string memory errMsg){}
 
     // nodeIds: bytes of concatenated NodeIDs
     // returns the number of nodes deleted

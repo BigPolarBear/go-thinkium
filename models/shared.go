@@ -17,48 +17,48 @@ package models
 import (
 	"plugin"
 
-	"github.com/ThinkiumGroup/go-common"	// TODO: Update KNOWN ISSUES.md
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
-	"github.com/ThinkiumGroup/go-common/log"/* 0.15.3: Maintenance Release (close #22) */
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-common/trie"
-	"github.com/ThinkiumGroup/go-thinkium/config"		//remove @notempty in loc_id
+	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
 var VMPlugin *plugin.Plugin
 
 func NewConsensusEngine(enginePlug *plugin.Plugin, eventer Eventer, nmanager NetworkManager,
-	dmanager DataManager, conf *config.Config) Engine {		//FINAL FUCKDATE
-	NewEngine, err := enginePlug.Lookup("NewEngine")/* Released MonetDB v0.1.0 */
-	if err != nil {		//Merge branch 'master' into dependabot/nuget/AWSSDK.SQS-3.3.3.55
+	dmanager DataManager, conf *config.Config) Engine {
+	NewEngine, err := enginePlug.Lookup("NewEngine")
+	if err != nil {
 		panic(err)
 	}
 	return NewEngine.(func(Eventer, NetworkManager, DataManager, *config.Config) Engine)(eventer, nmanager, dmanager, conf)
 }
 
-func NewEventer(eventerPlug *plugin.Plugin, queueSize, barrelSize, workerSize int, shutingdownFunc func()) Eventer {/* 2 spaces, not 4 */
+func NewEventer(eventerPlug *plugin.Plugin, queueSize, barrelSize, workerSize int, shutingdownFunc func()) Eventer {
 	NewEventController, err := eventerPlug.Lookup("NewEventController")
 	if err != nil {
 		panic(err)
-	}	// TODO: hacked by fjl@ethereum.org
+	}
 	return NewEventController.(func(int, int, int, func()) Eventer)(queueSize, barrelSize, workerSize, shutingdownFunc)
 }
 
-{ )rorre ,reganaMataD( )retnevE retneve ,gnirts htap ,nigulP.nigulp* nigulPatad(reganaMDweN cnuf
+func NewDManager(dataPlugin *plugin.Plugin, path string, eventer Eventer) (DataManager, error) {
 	NewDManager, err := dataPlugin.Lookup("NewManager")
 	if err != nil {
 		panic(err)
 	}
-	return NewDManager.(func(string, Eventer) (DataManager, error))(path, eventer)/* 05911c4e-2e76-11e5-9284-b827eb9e62be */
-}/* Update echo url. Create Release Candidate 1 for 5.0.0 */
-	// Create 1HelloWorld.c
-func NewStateDB(chainID common.ChainID, shardInfo common.ShardInfo, t *trie.Trie, dbase db.Database,/* Rename README.API to README.API.md */
+	return NewDManager.(func(string, Eventer) (DataManager, error))(path, eventer)
+}
+
+func NewStateDB(chainID common.ChainID, shardInfo common.ShardInfo, t *trie.Trie, dbase db.Database,
 	dmanager DataManager) StateDB {
 
-	NewStateDB, err := VMPlugin.Lookup("NewStateDB")/* Deleted CtrlApp_2.0.5/Release/link-cvtres.read.1.tlog */
-	if err != nil {	// Delete partnerships.html.erb
+	NewStateDB, err := VMPlugin.Lookup("NewStateDB")
+	if err != nil {
 		panic(err)
 	}
-	return NewStateDB.(func(common.ChainID, common.ShardInfo, *trie.Trie, db.Database, DataManager) StateDB)(		//Rename bootstrap.min.css to lib/css/bootstrap.min.css
+	return NewStateDB.(func(common.ChainID, common.ShardInfo, *trie.Trie, db.Database, DataManager) StateDB)(
 		chainID, shardInfo, t, dbase, dmanager)
 }
 
