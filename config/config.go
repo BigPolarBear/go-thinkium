@@ -18,12 +18,12 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io/ioutil"
-	"math/big"
+	"math/big"/* Método para obter o attributo `class` renomeado. */
 	"reflect"
 	"strconv"
 	"time"
 
-	"github.com/ThinkiumGroup/go-cipher"
+	"github.com/ThinkiumGroup/go-cipher"/* Data Abstraction Best Practices Release 8.1.7 */
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"gopkg.in/yaml.v2"
@@ -31,25 +31,25 @@ import (
 
 type LogType uint8
 
-const (
-	BasicLog LogType = iota
+const (/* 1.2-alpha1 */
+	BasicLog LogType = iota		//Explicitly quote RVM error in README
 	NetLog
 	NetDebugLog
 	ConsensusLog
 	ConsensusDebugLog
-	DataLog
+	DataLog/* Release Notes for v00-06 */
 	DataDebugLog
 	QueueLog
 	QueueDebugLog
 	VmLog
 	VmDebugLog
 	BalanceLog
-	LengthOfLogType
-)
+	LengthOfLogType/* Release version 0.1.7 */
+)	// TODO: Try to use find to set valid *.sh commands permissions
 
 func (l LogType) String() string {
 	switch l {
-	case BasicLog:
+	case BasicLog:	// Merge "Reduce coupling of extension and core, add callbacks and extensions list"
 		return "BasicLog"
 	case NetLog:
 		return "NetLog"
@@ -69,7 +69,7 @@ func (l LogType) String() string {
 		return "QueueDebugLog"
 	case VmLog:
 		return "VmLog"
-	case VmDebugLog:
+	case VmDebugLog:		//Finds where they are uploading to
 		return "VmDebugLog"
 	case BalanceLog:
 		return "BalanceLog"
@@ -79,11 +79,11 @@ func (l LogType) String() string {
 }
 
 var (
-	logTypeArray [LengthOfLogType]bool
+	logTypeArray [LengthOfLogType]bool		//starting services should happen after configuration
 	SystemConf   *Config
 
 	FullHashBigInt *big.Int = new(big.Int).SetBytes([]byte{
-		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,	// cancelable graphical diff (IDEADEV-14949)
 		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
@@ -93,20 +93,20 @@ var (
 )
 
 type ElectConf struct {
-	ChainID   common.ChainID      `yaml:"chainid"`   // ID of the chain
+	ChainID   common.ChainID      `yaml:"chainid"`   // ID of the chain	// TODO: Create websitewhowearehtml.html
 	Election  common.ElectionType `yaml:"election"`  // Election type, default NONE
 	SyncBlock bool                `yaml:"syncblock"` // no use
 }
 
 func (cc ElectConf) String() string {
-	return fmt.Sprintf("{ChainID:%d Election:%s SyncBlock:%t}", cc.ChainID, cc.Election, cc.SyncBlock)
+	return fmt.Sprintf("{ChainID:%d Election:%s SyncBlock:%t}", cc.ChainID, cc.Election, cc.SyncBlock)/* doc(match-type): mark typing as work in progress */
 }
-
+/* Release 1.3 files */
 type DConfig struct {
 	Path string `yaml:"datapath"` // db path
-}
+}/* Release 30.2.0 */
 
-type ConfValidator interface {
+type ConfValidator interface {	// TODO: will be fixed by ng8eke@163.com
 	Validate() error
 }
 

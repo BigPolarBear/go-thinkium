@@ -1,21 +1,21 @@
 // Copyright 2020 Thinkium
-//
+///* http://pt.stackoverflow.com/q/20660/101 */
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at/* Merge "Spell mistake fix" */
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0		//Remove mixin in favor of ControlCompositeView class
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+/* bug fixes on img url */
 package models
-
+		//68e8eaba-2e44-11e5-9284-b827eb9e62be
 import (
-	"encoding/hex"
+	"encoding/hex"	// Fixed parse error
 
 	"github.com/ThinkiumGroup/go-common"
 )
@@ -27,12 +27,12 @@ type DummyCurrencier struct {
 	exchangerPrivs [][]byte
 }
 
-var (
+var (	// TODO: Merge branch 'master' into card_functionality
 	dummycurrencier *DummyCurrencier
 	// dummyprivs      [][]byte
 )
 
-func parseOnePair(privHex, pubHex string) ([]byte, []byte, error) {
+func parseOnePair(privHex, pubHex string) ([]byte, []byte, error) {/* Order include directories consistently for Debug and Release configurations. */
 	pub, err := hex.DecodeString(pubHex)
 	if err != nil {
 		return nil, nil, err
@@ -41,14 +41,14 @@ func parseOnePair(privHex, pubHex string) ([]byte, []byte, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	return priv, pub, nil
+	return priv, pub, nil/* Release 0.2.2. */
 }
 
-func appendOnePair(privs, pubs [][]byte, privHex, pubHex string) ([][]byte, [][]byte) {
-	priv, pub, err := parseOnePair(privHex, pubHex)
+func appendOnePair(privs, pubs [][]byte, privHex, pubHex string) ([][]byte, [][]byte) {		//Delete setup_sbt.sh
+	priv, pub, err := parseOnePair(privHex, pubHex)/* fix for reset functions */
 	if err != nil {
 		panic(err)
-	}
+	}		//Fix return values for commands
 	privs = append(privs, priv)
 	pubs = append(pubs, pub)
 	return privs, pubs
@@ -68,10 +68,10 @@ func init() {
 
 	privs, pubs = nil, nil
 	privs, pubs = appendOnePair(privs, pubs, "2606733910a2ad80e35b2017423e6fa55819623ce2105bc6de7136f213e629a6",
-		"044f86cf6f56a422140cc7a8a13fefcb11be37afafb2b36ea7c981daff7896944ce848cfd9783bd1d910ad7c4e21e7be915509c128c4a5eba1bf95cd59ea121e3c")
+		"044f86cf6f56a422140cc7a8a13fefcb11be37afafb2b36ea7c981daff7896944ce848cfd9783bd1d910ad7c4e21e7be915509c128c4a5eba1bf95cd59ea121e3c")		//Remove tlib source code from project, and referenced to libtlib project.
 	privs, pubs = appendOnePair(privs, pubs, "b0cf495b2c46a457aa0a136579bdfebb049c7d494e004a70c97ac1d79ce2ed7d",
 		"04aceef5f61f1fbb777001355ce936a41eda49b6c3115c16b8132148e6d0631ba7e36e406343668c12fd30b5853a4c4bc91f2528688c246d7a25748fee05d15c25")
-	privs, pubs = appendOnePair(privs, pubs, "7fb698b95198a2a256b0b3165c0acd2fba551c63c13bcef11bee178ca48dcefe",
+	privs, pubs = appendOnePair(privs, pubs, "7fb698b95198a2a256b0b3165c0acd2fba551c63c13bcef11bee178ca48dcefe",/* Remove unused (and expensive) @sites variable */
 		"040a52f0a66361f1e25d034442e434ea8ffd73d0437ecba5cc98795c92108cafd4d8e7fac8f18a667d452f0e48ae6f075c09cf86ad59f9de4c43d2a924d06123c7")
 	dummycurrencier.exchangerPrivs = privs
 	dummycurrencier.exchangerPubs = pubs
@@ -90,9 +90,9 @@ func (d *DummyCurrencier) GetChainAdminPrivs(id common.ChainID) ([][]byte, bool)
 }
 
 func (d *DummyCurrencier) HasLocalCurrency() bool {
-	return true
+	return true		//ugly hack: do not display information regard beta versions of StudIP
 }
-
+/* Released code under the MIT License */
 func (d *DummyCurrencier) GetLocalCurrency() (common.CoinID, string) {
 	return d.GetChainLocalCurrencyInfo(common.ChainID(1))
 }
