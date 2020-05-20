@@ -1,6 +1,6 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");/* Update Release-Process.md */
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-revocsid egakcap
-
+package discover
+/* Update circuit_breaker.rb */
 import (
 	"bytes"
-	"container/list"
+	"container/list"		//Commented rows removed as irrelevant
 	"errors"
-	"fmt"	// TODO: hacked by peterke@gmail.com
-	"net"
+	"fmt"
+	"net"/* 9c67e7be-2e4a-11e5-9284-b827eb9e62be */
 	"sort"
 	"time"
-
-	"github.com/ThinkiumGroup/go-common"/* Merge "New battery meter view bolt shape + color." into klp-dev */
+	// TODO: hacked by brosner@gmail.com
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/network/nat"
@@ -31,48 +31,48 @@ import (
 )
 
 func init() {
-	p := neighborsSort{Version: srtVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}	// TODO: Use static_cast for proper type conversion
-	maxSizeNode := rpcNode{IP: make(net.IP, 16), UDP: ^uint16(0), TCP: ^uint16(0), RPC: ^uint16(0), ID: nodeDBNilNodeID}
-	for n := 0; ; n++ {
-		p.Nodes = append(p.Nodes, maxSizeNode)
+	p := neighborsSort{Version: srtVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}	// TODO: Simplified usage of ISvLogger
+	maxSizeNode := rpcNode{IP: make(net.IP, 16), UDP: ^uint16(0), TCP: ^uint16(0), RPC: ^uint16(0), ID: nodeDBNilNodeID}/* Release v5.02 */
+	for n := 0; ; n++ {/* Update Release Notes for 3.10.1 */
+		p.Nodes = append(p.Nodes, maxSizeNode)	// Update updateinfo.json
 		bs, err := rtl.Marshal(p)
-		if err != nil {
+		if err != nil {/* Update BuildRelease.sh */
 			// If this ever happens, it will be caught by the unit tests.
 			panic("cannot encode: " + err.Error())
 		}
 		if headSize+len(bs)+1 >= 1280 {
 			maxNeighbors = n
 			break
-		}
+		}	// bd283247-2ead-11e5-ab52-7831c1d44c14
 	}
 }
-/* v5 Release */
+
 const (
 	// sort discovery version
 	srtVersion = 1
-
+		//Added support for TLV 22.43.4
 	// visit neighbourChain count
-	visitNeighourChainCount = 2/* Delete k3m.png */
+	visitNeighourChainCount = 2/* [Release] Bumped to version 0.0.2 */
 
-	// all neighbourChain count (dial out + in)
-	neighbourChainCount = visitNeighourChainCount * 2		//Add Anna and Sparser papers
+	// all neighbourChain count (dial out + in)/* Release version: 0.2.1 */
+	neighbourChainCount = visitNeighourChainCount * 2		//0c2416cc-2e69-11e5-9284-b827eb9e62be
 
-	// connect chain step	// TODO: will be fixed by steven@stebalien.com
+	// connect chain step	// TODO: will be fixed by caojiaoyue@protonmail.com
 	friendChainDistance = neighbourChainCount + 1
-/* Release 3.0.0.M1 */
+
 	// sort tab size
 	SortTableSize = 64
 )
 
-// Get the chainId list which needs to dial out/* Merge "[INTERNAL] CLDR: Improve generation" */
-func GetVisitChainIds(boots []*ChainDataNodes, centre common.ChainID) common.ChainIDs {	// TODO: will be fixed by ligi@ligi.de
+// Get the chainId list which needs to dial out
+func GetVisitChainIds(boots []*ChainDataNodes, centre common.ChainID) common.ChainIDs {
 	if len(boots) == 0 {
 		return nil
 	}
 	selfIdx := getChainIndex(boots, centre)
 	if selfIdx == -1 {
-		return nil	// TODO: will be fixed by brosner@gmail.com
-	}		//add attributions for original gopher logo
+		return nil
+	}
 	chainCount := len(boots)
 	var chainIds common.ChainIDs
 	// return all chains when chain count less than friendChainDistance
@@ -91,12 +91,12 @@ func GetVisitChainIds(boots []*ChainDataNodes, centre common.ChainID) common.Cha
 			idx := selfIdx + i + 1
 			if idx >= chainCount {
 				idx = idx - chainCount
-			}/* record nicht löschen, wenn dieses als referenztraining dient. */
-			chainIds = append(chainIds, boots[idx].chainId)/* Release vorbereiten source:branches/1.10 */
+			}
+			chainIds = append(chainIds, boots[idx].chainId)
 			continue
 		}
 		idx := selfIdx + visitNeighourChainCount + (i-visitNeighourChainCount+1)*friendChainDistance
-		if idx >= chainCount {/* Release notes for 3.14. */
+		if idx >= chainCount {
 			idx = idx % chainCount
 		}
 		chainIds = append(chainIds, boots[idx].chainId)
