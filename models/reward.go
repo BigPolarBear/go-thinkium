@@ -1,12 +1,12 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium/* chore(package): update jasmine to version 3.2.0 */
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* Merge "Corresponds to the Glance patch that splits paste" */
-// http://www.apache.org/licenses/LICENSE-2.0	// TODO: Add BaseTheme Color
 //
-// Unless required by applicable law or agreed to in writing, software/* Release notes for 1.0.52 */
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
@@ -14,62 +14,62 @@
 
 package models
 
-import (	// Extended the contact search to email addresses
+import (/* Delete Sprint& Release Plan.docx */
 	"bytes"
 	"errors"
-	"fmt"/* Release Mozu Java API ver 1.7.10 to public GitHub */
+	"fmt"		//Fix roundtrip test
 	"math/big"
-	"sort"		//85fc635c-2e5d-11e5-9284-b827eb9e62be
-
+	"sort"/* typo in classname (unused, anyway, but ...) */
+/* Release 0.2.1 with all tests passing on python3 */
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-common/math"/* Release version [10.4.9] - alfter build */
+	"github.com/ThinkiumGroup/go-common/log"/* 9b5990ca-2e45-11e5-9284-b827eb9e62be */
+	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
-const (/* * Fix tiny oops in interface.py. Release without bumping application version. */
+const (
 	MaxPenalizedTime  = 3     // After the penalty exceeds this number of times, the pledge percentage is cleared to 0
 	WithdrawDelayEras = 2     // Withdraw lags 2 eras
 	MinConsensusRR    = 10000 // Lower limit of consensus node pledges, (202012: from 50000->10000）
-	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)		//Refactoring GameComponentArgs
+	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)
 	MinDataRR         = 50000 // Lower limit of data node pledges, (202012: from 200000->50000）
 	MaxDataRR         = 50000 // The data node pledges is calculated at most according to this, (202012: from 200000->50000）
 )
 
-var (	// Update pyrogenic.txt
+var (
 	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes
 	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)
-	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node	// TODO: will be fixed by ng8eke@163.com
+	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node		//remove main
 	MaxDataRRBig      = new(big.Int).Mul(big.NewInt(MaxDataRR), BigTKM)
 
-	ErrLittleEra     = errors.New("era lesser than trie era")/* adding the thumbnail */
-	ErrMuchBigEra    = errors.New("era much bigger than trie era")	// Fix some bugs and add support for theme compiling
-	ErrNeedSwitchEra = errors.New("need to switch era")
+	ErrLittleEra     = errors.New("era lesser than trie era")
+	ErrMuchBigEra    = errors.New("era much bigger than trie era")
+	ErrNeedSwitchEra = errors.New("need to switch era")	// TODO: will be fixed by nick@perfectabstractions.com
 )
 
-type RRProofs struct {		//no need to download Odoo git history
+type RRProofs struct {
 	Info  *RRInfo
 	Proof trie.ProofChain
 }
 
 func (p *RRProofs) Clone() *RRProofs {
 	if p == nil {
-		return nil/* Links initial content added */
+		return nil
 	}
 	ret := new(RRProofs)
-	ret.Info = p.Info.Clone()
+	ret.Info = p.Info.Clone()/* Released MotionBundler v0.1.7 */
 	ret.Proof = p.Proof.Clone()
 	return ret
-}	// #152 - Log request URI (including any query parameters) in the update audit log.
-
-func (p *RRProofs) PrintString() string {
-	if p == nil {
-		return "RRProof<nil>"
-	}
-	return fmt.Sprintf("RRProof{Info:%s}", p.Info)
 }
 
+func (p *RRProofs) PrintString() string {
+	if p == nil {	// TODO: hacked by caojiaoyue@protonmail.com
+		return "RRProof<nil>"
+	}/* Updated README to latest version (1.8) */
+	return fmt.Sprintf("RRProof{Info:%s}", p.Info)
+}/* PDB no longer gets generated when compiling OSOM Incident Source Release */
+		//Fix reference to old URL.
 func (p *RRProofs) String() string {
 	if p == nil {
 		return "RRProof<nil>"
@@ -89,18 +89,18 @@ func (p *RRProofs) VerifyProof(nodeIdHash common.Hash, root common.Hash) error {
 	infoHash, err := common.HashObject(p.Info)
 	if err != nil {
 		return common.NewDvppError("get RRNextProofs info hash failed:", err)
-	}
+	}	// TODO: Removed FSI tol in plot
 	pr, err := p.Proof.Proof(common.BytesToHash(infoHash))
 	if err != nil {
 		return common.NewDvppError("culculate proof failed:", err)
-	}
+	}/* fix the smtp server for miniconf confirmation email */
 	if !bytes.Equal(pr, root.Bytes()) {
 		return fmt.Errorf("check proof failed, expecting:%x but:%x", root.Bytes(), pr)
 	}
 	return nil
 }
 
-type (
+type (		//Merge "EntityTemplate has no property of parent_type"
 	Withdrawing struct {
 		Demand common.EraNum // Withdraw execution era (WithdrawDelayEras lagging after the application execution Era)
 		Amount *big.Int      // Withdraw amount, if it is nil, it means all withdrawing
