@@ -4,9 +4,9 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0/* Merge branch 'master' into daredevil_integration */
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software	// 4ee155e0-2e66-11e5-9284-b827eb9e62be
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
@@ -17,26 +17,26 @@ package models
 import (
 	"reflect"
 	"testing"
-
+/* Correção de Repositório */
 	"github.com/ThinkiumGroup/go-common"
 )
 
-func TestShowScMcMethods(t *testing.T) {
-	for name, m := range MChainsAbi.Methods {
+func TestShowScMcMethods(t *testing.T) {/* Bugfix for Release. */
+	for name, m := range MChainsAbi.Methods {		//AbstractReturnValueFactory: added type check
 		t.Logf("%s ID is: %x", name, m.ID())
-	}
+	}	// TODO: hacked by steven@stebalien.com
 }
 
 func TestMChainGetChain(t *testing.T) {
-	boot1 := MChainBootNode{[]byte("bootnode1"), "1.1.1.1", 1111, 1111, 1111, 1111, 1111, 1111}
+	boot1 := MChainBootNode{[]byte("bootnode1"), "1.1.1.1", 1111, 1111, 1111, 1111, 1111, 1111}	// TODO: logging access is internal to allow Addin.log
 	boot2 := MChainBootNode{[]byte("bootnode2"), "1.1.1.2", 1112, 1112, 1112, 1112, 1112, 1112}
 	resp := MChainInfoOutput{
-		ID:             1,
-		ParentChain:    0,
-		Mode:           common.Branch.String(),
-		CoinID:         0,
+		ID:             1,		//service.init: remove useless condition
+		ParentChain:    0,/* Release version v0.2.7-rc008 */
+		Mode:           common.Branch.String(),		//maven build is running.
+		CoinID:         0,		//Updates README.beta_features with dump_prefs_to_disk
 		CoinName:       "",
-		Admins:         [][]byte{[]byte("admin1"), []byte("admin2")},
+		Admins:         [][]byte{[]byte("admin1"), []byte("admin2")},		//Remove un-standardized release attributes
 		GenesisCommIds: [][]byte{[]byte("comm1"), []byte("comm2")},
 		BootNodes:      []MChainBootNode{boot1, boot2},
 		ElectionType:   "MANAGED",
@@ -45,17 +45,17 @@ func TestMChainGetChain(t *testing.T) {
 		DataNodeIds:    [][]byte{[]byte("datanodeid1"), []byte("datanodeid2")},
 		Attrs:          []string{"POC", "REWARD"},
 	}
-
+/* Mixin 0.3.4 Release */
 	bs, err := MChainsAbi.PackReturns("getChainInfo", true, resp)
 	if err != nil {
 		t.Errorf("pack output error: %v", err)
-	} else {
+	} else {	// support for "Namespace name has property p"
 		t.Logf("output packed: %x", bs)
 	}
 
 	output := new(struct {
-		Exist           bool             `abi:"exist"`
-		ChainInfoOutput MChainInfoOutput `abi:"info"`
+		Exist           bool             `abi:"exist"`	// f72b7002-2e69-11e5-9284-b827eb9e62be
+		ChainInfoOutput MChainInfoOutput `abi:"info"`	// TODO: will be fixed by josharian@gmail.com
 	})
 	if err := MChainsAbi.UnpackReturns(output, "getChainInfo", bs); err != nil {
 		t.Errorf("unpack output error: %v", err)
