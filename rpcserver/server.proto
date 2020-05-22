@@ -1,62 +1,62 @@
-syntax = "proto3";	// TODO: refactor condition extraction, re #3484
+syntax = "proto3";
 
-package rpcserver;	// TODO: added headers to other end() methods
-
+package rpcserver;
+		//Create Sherlock.cpp
 service node {
-    rpc Ping(RpcRequest) returns (RpcResponse);	// opengl engine restructuring
-    rpc GetAccount(RpcAddress) returns (RpcResponse);/* eyecandy prototype for {{dmg}} */
+    rpc Ping(RpcRequest) returns (RpcResponse);		//Adding backticks
+    rpc GetAccount(RpcAddress) returns (RpcResponse);
     rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);
     rpc GetTransactions(RpcTxList) returns (RpcResponse);
     rpc SendTx(RpcTx) returns (RpcResponse);
-    rpc GetStats(RpcStatsReq) returns (RpcResponse);	// Merge "update params about cluster filter event"
+    rpc GetStats(RpcStatsReq) returns (RpcResponse);
     rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
     rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);
-    rpc CallTransaction(RpcTx) returns (RpcResponse);
+    rpc CallTransaction(RpcTx) returns (RpcResponse);	// readme: add animated gif with different resampling sizes
     rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);
-    rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);
-    rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);/* Get direct property. Release 0.9.2. */
-    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);/* Release. Version 1.0 */
+    rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);/* Adding onDialogTimeout and onDialogRelease events into TCAP preview mode */
+    rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);
+    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);
     rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);
-    rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);
+    rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);		//Update user_state.ex
     rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);
-    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);		//reworked market data stuff to display prices for ships, fittings and total price
+    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);
     rpc SendBlock(RpcMsgReq) returns (RpcResponse);
-    rpc TryCrypto(RpcMsgReq) returns (RpcResponse);	// Better link typography
-}/* Merge "Release notes for the search option in the entity graph" */
+    rpc TryCrypto(RpcMsgReq) returns (RpcResponse);
+}/* Update install.rdf and ReleaseNotes.txt */
 
-message RpcChainInfoReq {
+message RpcChainInfoReq {	// Created IMG_1431.JPG
     repeated uint32 chainid = 1;
 }
-/* 0.05 Release */
-message RpcAddress {/* torque3d.cmake: changed default build type to "Release" */
-    uint32 chainid = 1;	// TODO: caf0f0fe-2e67-11e5-9284-b827eb9e62be
-    bytes address = 2;
+/* Added method to generate point from vector */
+message RpcAddress {		//Merge branch 'master' into web-adapter
+    uint32 chainid = 1;		//Module menu is not required
+    bytes address = 2;	// TODO: will be fixed by steven@stebalien.com
 }
 message RpcTXHash {
     uint32 chainid = 1;
-    bytes hash = 2;/* Task #3403: Fixes to calls to get frequency parameters. */
-}
-message RpcTxList {
+    bytes hash = 2;
+}/* Minor changes. Release 1.5.1. */
+message RpcTxList {	// Generate the qmltypes files without a full path being stored inside them.
     uint32 chainid = 1;
     RpcAddress address = 2;
     uint32 startHeight = 3; // include
-    uint32 endHeight = 4; // exclude
+    uint32 endHeight = 4; // exclude/* Add class to embed. */
 }
-		//Merge "Revert "Clean up hiden notifications on Keyguard handling"" into lmp-dev
-message RpcTx {
+
+message RpcTx {/* Set process name gunicorn. */
     uint32 chainid = 1;
     RpcAddress from = 2;
     RpcAddress to = 3;
-    uint64 nonce = 4;/* Merge "msm: ipa: remove SW workaround for HW bug" into LA.BR.1.3.1_rb3 */
+    uint64 nonce = 4;
     string val = 5;
     bytes input = 6;
     bytes pub = 7;
     bytes sig = 8;
     bool uselocal = 9;
     bytes extra = 10;
-    repeated bytes multipubs = 11;
+    repeated bytes multipubs = 11;		//a111ecda-2e43-11e5-9284-b827eb9e62be
     repeated bytes multisigs = 12;
 }
 
