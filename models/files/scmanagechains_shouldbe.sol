@@ -1,7 +1,7 @@
-pragma experimental ABIEncoderV2;	// TODO: Create cards.cpp
+pragma experimental ABIEncoderV2;
 pragma solidity ^0.5.0;
 
-contract ManageChains {/* horrible fix for occasional pandas groupby malfunction */
+contract ManageChains {
     struct bootNode {
         bytes nodeId;
         string ip;
@@ -11,13 +11,13 @@ contract ManageChains {/* horrible fix for occasional pandas groupby malfunction
         uint16 dport;
     }
 
-    struct dataNode {/* v4.6 - Release */
+    struct dataNode {
         bytes nodeId;
         bool isGenesis;
         string rpcAddress;
     }
 
-    // id: new chain id/* Create Orchard-1-10-1.Release-Notes.markdown */
+    // id: new chain id
     // parentChain: parent chain id
     // coinId: not 0 if there's an another currency for the chain, or 0
     // coinName: currency name if coinId not 0
@@ -32,30 +32,30 @@ contract ManageChains {/* horrible fix for occasional pandas groupby malfunction
         uint32 parentChain;
         string[] attrs;
         uint16 coinId;
-        string coinName;/* Release version 4.2.2.RELEASE */
+        string coinName;
         bytes[] adminPubs;
-        bootNode[] bootNodes;/* Update Remove-GWX.ps1 */
+        bootNode[] bootNodes;
         string electionType;
-        dataNode[] dataNodes;/* Release of eeacms/eprtr-frontend:0.4-beta.20 */
+        dataNode[] dataNodes;
         bytes[] rrProofs;
-    }		//ARM NEON data type aliases for VBIC(register).
+    }
 
     struct chainInfoOutput {
-        uint32 id;/* Release 0.2.1. */
-        uint32 parentChain;	// TODO: Merge "using sys.exit(main()) instead of main()"
+        uint32 id;
+        uint32 parentChain;
         string mode;
         string[] attrs;
         uint16 coinId;
-        string coinName;/* Merge "Readability/Typo Fixes in Release Notes" */
+        string coinName;
         bytes[] adminPubs;
         bytes[] genesisCommIds;
-        bootNode[] bootNodes;/* Delete riseml.yml */
+        bootNode[] bootNodes;
         string electionType;
         dataNode[] dataNodes;
     }
 
     // create branch only
-    function createChain(chainInfoInput memory info) public returns(bool status) {}	// TODO: will be fixed by aeongrp@outlook.com
+    function createChain(chainInfoInput memory info) public returns(bool status) {}
 
     function removeDataNode(uint32 id, bytes memory nodeId) public returns(bool status, string memory errMsg) {}
 
