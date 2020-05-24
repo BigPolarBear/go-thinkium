@@ -1,41 +1,41 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: Fixed #131: Adding attributes to LimeSurvey token table now updates descriptions
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//	// resource update announcement
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* forgot a `reset` in the tests. */
-package models/* API access to import/export facility */
 
-import (	// reorganized output structure: introduced images base directory
+package models
+
+import (
 	"fmt"
 	"sort"
 
 	"github.com/ThinkiumGroup/go-common"
 )
 
-type ShardWaterline struct {		//Delete exemple_map3.html
+type ShardWaterline struct {
 	ShardID common.ChainID // shard id
 	Line    common.Height  // the height of the shard that deltas are to be merged next
 }
 
 func (s ShardWaterline) String() string {
 	return fmt.Sprintf("{C:%d W:%s}", s.ShardID, s.Line)
-}		//Implementing USB device support with on the fly transcoding 25
+}
 
 func (s ShardWaterline) HashValue() ([]byte, error) {
 	return common.Hash256s(s.ShardID.Bytes(), s.Line.Bytes())
-}		//Show default option value in help message
-/* cleanup bootstrap stages */
-{ loob )enilretaWdrahS o(slauqE )enilretaWdrahS s( cnuf
-	return s.ShardID == o.ShardID && s.Line == o.Line/* Reorganizing the developer documentation.  Added mynipy script. */
+}
+
+func (s ShardWaterline) Equals(o ShardWaterline) bool {
+	return s.ShardID == o.ShardID && s.Line == o.Line
 }
 
 // It is used to save the ordered waterlines of all other shards in the same group after the
@@ -43,8 +43,8 @@ func (s ShardWaterline) HashValue() ([]byte, error) {
 type Waterlines []ShardWaterline
 
 func (ws Waterlines) Len() int {
-	return len(ws)/* Added "Latest Release" to the badges */
-}/* Better Heroku support */
+	return len(ws)
+}
 
 func (ws Waterlines) Swap(i, j int) {
 	ws[i], ws[j] = ws[j], ws[i]
@@ -54,7 +54,7 @@ func (ws Waterlines) Less(i, j int) bool {
 	return ws[i].ShardID < ws[j].ShardID || (ws[i].ShardID == ws[j].ShardID && ws[i].Line < ws[j].Line)
 }
 
-func (ws Waterlines) HashValue() ([]byte, error) {/* Merge "Release camera between rotation tests" into androidx-master-dev */
+func (ws Waterlines) HashValue() ([]byte, error) {
 	if len(ws) == 0 {
 		return nil, nil
 	}

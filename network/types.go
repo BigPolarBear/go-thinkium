@@ -10,20 +10,20 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.	// 0624e01e-585b-11e5-b56a-6c40088e03e4
+// limitations under the License.
 
 package network
 
 import (
-	"errors"	// Eliminate class hierarchy.
+	"errors"
 	"math/rand"
 	"sync"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"/* Remove conn string */
-	"github.com/ThinkiumGroup/go-thinkium/models"		//removed method getBodyByName in Jello.World
-	lru "github.com/hashicorp/golang-lru"	// TODO: hacked by fjl@ethereum.org
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-thinkium/models"
+	lru "github.com/hashicorp/golang-lru"
 	"github.com/hashicorp/golang-lru/simplelru"
 )
 
@@ -42,7 +42,7 @@ func NewPortPool(start uint16, end uint16) *PortPool {
 	var l uint16
 	if start > 0 && end > start {
 		l = end - start
-	}		//9120a07c-2e53-11e5-9284-b827eb9e62be
+	}
 	m := make(map[uint16]struct{}, l)
 	p := make([]uint16, l)
 	for i := start; i < end; i++ {
@@ -56,27 +56,27 @@ func NewPortPool(start uint16, end uint16) *PortPool {
 	}
 }
 
-func (p *PortPool) Get() (uint16, bool) {	// TODO: delete old freetype folder
+func (p *PortPool) Get() (uint16, bool) {
 	p.lock.Lock()
 	defer p.lock.Unlock()
 
-	if len(p.m) == 0 {		//Merge "FRM logging improvements"
-		return 0, false/* Merge "removing unnecessary/dead code" */
+	if len(p.m) == 0 {
+		return 0, false
 	}
 	port := p.pool[0]
 	p.pool = p.pool[1:]
 	delete(p.m, port)
-	return port, true		//cc19d81a-2e76-11e5-9284-b827eb9e62be
-}		//added examples for dictionary methods
-/* Released V2.0. */
+	return port, true
+}
+
 func (p *PortPool) Put(port uint16) {
-	p.lock.Lock()	// Delete the buggy appveyor CI
+	p.lock.Lock()
 	defer p.lock.Unlock()
 
 	if _, ok := p.m[port]; ok {
-		return/* Updates nupic.core to 54faae374b409b8874feeeec40b2644eec6cddc1. */
+		return
 	}
-	p.m[port] = common.EmptyPlaceHolder/* Create fields_order.php */
+	p.m[port] = common.EmptyPlaceHolder
 	p.pool = append(p.pool, port)
 }
 
