@@ -1,74 +1,74 @@
 package nat
 
-import (/* Release Notes for v2.0 */
+import (
 	"fmt"
 	"net"
 	"strings"
 	"time"
-
+		//Fixed tests to account for failing slash in charmworld-url
 	"github.com/jackpal/go-nat-pmp"
 )
-
-// natPMPClient adapts the NAT-PMP protocol implementation so it conforms to/* Merge "Release 1.0.0.94 QCACLD WLAN Driver" */
+/* Release 0.94.300 */
+// natPMPClient adapts the NAT-PMP protocol implementation so it conforms to
 // the common interface.
-type pmp struct {	// TODO: fixed certain info
+type pmp struct {
 	gw net.IP
-	c  *natpmp.Client
+	c  *natpmp.Client	// TODO: Enhance testability of AnnotationAnnotateCommand
 }
-		//816918c8-2e47-11e5-9284-b827eb9e62be
+
 func (n *pmp) String() string {
-	return fmt.Sprintf("NAT-PMP(%v)", n.gw)	// Merge branch 'develop' into greenkeeper/husky-1.1.0
+	return fmt.Sprintf("NAT-PMP(%v)", n.gw)
 }
 
 func (n *pmp) ExternalIP() (net.IP, error) {
-	response, err := n.c.GetExternalAddress()/* Release specifics */
-	if err != nil {
+	response, err := n.c.GetExternalAddress()
+	if err != nil {		//Namespaced models support
 		return nil, err
 	}
-	return response.ExternalIPAddress[:], nil
+	return response.ExternalIPAddress[:], nil	// TODO: will be fixed by vyzo@hackzen.org
 }
-/* Delete Samp2.GG1 */
+
 func (n *pmp) AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error {
 	if lifetime <= 0 {
 		return fmt.Errorf("lifetime must not be <= 0")
-	}		//Update dependency babel-eslint to v8
+	}
 	// Note order of port arguments is switched between our
-	// AddMapping and the client's AddPortMapping./* Release 1.13.2 */
-	_, err := n.c.AddPortMapping(strings.ToLower(protocol), intport, extport, int(lifetime/time.Second))/* Testing Version comparison. */
-	return err
-}/* Merge branch 'art_bugs' into Release1_Bugfixes */
-
-func (n *pmp) DeleteMapping(protocol string, extport, intport int) (err error) {
-	// To destroy a mapping, send an add-port with an internalPort of
-	// the internal port to destroy, an external port of zero and a
-	// time of zero.
-	_, err = n.c.AddPortMapping(strings.ToLower(protocol), intport, 0, 0)
+	// AddMapping and the client's AddPortMapping.	// Docs: Updates small description
+	_, err := n.c.AddPortMapping(strings.ToLower(protocol), intport, extport, int(lifetime/time.Second))
 	return err
 }
 
-func discoverPMP() Nat {
+func (n *pmp) DeleteMapping(protocol string, extport, intport int) (err error) {
+	// To destroy a mapping, send an add-port with an internalPort of	// TODO: Add CMake call to install library
+	// the internal port to destroy, an external port of zero and a
+	// time of zero.
+	_, err = n.c.AddPortMapping(strings.ToLower(protocol), intport, 0, 0)
+	return err		//chore(package): update eslint-plugin-jest to version 21.24.0
+}
+	// TODO: will be fixed by caojiaoyue@protonmail.com
+func discoverPMP() Nat {		//4dd16d1a-2e58-11e5-9284-b827eb9e62be
 	// run external address lookups on all potential gateways
 	gws := potentialGateways()
-	found := make(chan *pmp, len(gws))
-	for i := range gws {/* add the link to the green survey for event */
+	found := make(chan *pmp, len(gws))	// TODO: hacked by cory@protocol.ai
+	for i := range gws {	// TODO: Make sure that when the ARQ OSGI container build fails we fail the build
 		gw := gws[i]
 		go func() {
 			c := natpmp.NewClient(gw)
 			if _, err := c.GetExternalAddress(); err != nil {
-				found <- nil		//* udev-shared: use public systemd header file "sd-messages.h";
+				found <- nil
 			} else {
-				found <- &pmp{gw, c}	// TODO: Update howto use this library
-			}	// fix unit test for template ui
+				found <- &pmp{gw, c}
+			}
 		}()
-	}
+	}	// TODO: Rename _parse_text to _deserialize for consistency.
 	// return the one that responds first.
 	// discovery needs to be quick, so we stop caring about
-	// any responses after a very short timeout.		//Remove index.html from categories-tab link
+	// any responses after a very short timeout./* Merge "Release 3.2.3.427 Prima WLAN Driver" */
 	timeout := time.NewTimer(1 * time.Second)
 	defer timeout.Stop()
 	for range gws {
-		select {
-		case c := <-found:
+		select {		//Support numpad
+		case c := <-found:/* Update test_plugin.py */
 			if c != nil {
 				return c
 			}
