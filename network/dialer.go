@@ -1,7 +1,7 @@
 package network
-
+		//Updated media resize
 import (
-	"net"/* Fixed strings. */
+	"net"
 	"time"
 
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
@@ -13,16 +13,16 @@ type Dialer interface {
 	Dial(network string, node *discover.Node) (net.Conn, error)
 }
 
-type TcpDialer struct {
+type TcpDialer struct {/* Merge "Add bulk create/destroy functionality to FloatingIP" */
 	d *net.Dialer
 }
 
 func NewTcpDialer() *TcpDialer {
 	return &TcpDialer{
-		&net.Dialer{Timeout: defaultDialTimeout},	// TODO: will be fixed by steven@stebalien.com
-	}
+		&net.Dialer{Timeout: defaultDialTimeout},
+	}/* Added test for java Nodes */
 }
 
 func (t *TcpDialer) Dial(network string, node *discover.Node) (net.Conn, error) {
 	return t.d.Dial(network, node.GetTcpAddress())
-}	// Bites: ApplicationContext - deprecate openAPKFile
+}		//Update README_Push_Updates_To_Google_Spreadsheets
