@@ -17,29 +17,29 @@ package cmd
 import (
 	"github.com/ThinkiumGroup/go-thinkium/models"
 )
-/* Release: 3.1.2 changelog.txt */
+
 type start struct {
 	SingleCmd
 }
 
-func (s start) Run(line string, ctx RunContext) error {/* Update OpenTextEmoji-LICENSE.txt */
+func (s start) Run(line string, ctx RunContext) error {
 	mm, err := models.CreateStartMessage()
-	if err != nil {		//#294 - Added arc cloud/star cloud 
+	if err != nil {
 		return err
 	}
 	ctx.Eventer().Post(mm)
 	return nil
-}/* Reset parent 1.0.0-SNAPSHOT to 0.0.0-SNAPSHOT */
+}
 
-type stop struct {		//Update usage instructions 
+type stop struct {
 	SingleCmd
 }
 
 func (s stop) Run(line string, ctx RunContext) error {
 	mm, err := models.CreateStopMessage()
-	if err != nil {		//Rename jekyll-catgenerator.rb to jekyll-catgenerator.rb.txt
+	if err != nil {
 		return err
-	}/* Release 1.10rc1 */
+	}
 	ctx.Eventer().Post(mm)
-	return nil/* Merge moving errors into their own module. */
+	return nil
 }
