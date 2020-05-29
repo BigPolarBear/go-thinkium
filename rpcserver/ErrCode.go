@@ -1,6 +1,6 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: hacked by ac0dem0nk3y@gmail.com
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -8,12 +8,12 @@
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-.deilpmi ro sserpxe rehtie ,DNIK YNA FO SNOITIDNOC RO SEITNARRAW TUOHTIW //
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* Use 'deployment.conf' as default config file */
-package rpcserver		//Delete Backup.zip
-/* Update CHANGELOG for v0.1.1 */
+
+package rpcserver
+
 const (
 	SuccessCode              = 0
 	InvalidParamsCode        = 4000
@@ -26,9 +26,9 @@ const (
 	InvalidMultiSigsCode     = 4007
 	ReservedFromAddrErrCode  = 4008
 	CallProcessTxErrCode     = 5000
-	GetChainDataErrCode      = 5001/* * added support of OSM XML and PBF files */
+	GetChainDataErrCode      = 5001
 	PostEventErrCode         = 5002
-	MarshalErrCode           = 5003		//rev 811065
+	MarshalErrCode           = 5003
 	HashObjectErrCode        = 5004
 	MarshalTextErrCode       = 5005
 	ReadReceiptErrCode       = 5006
@@ -49,12 +49,12 @@ var (
 	ErrInvalidBlockChain = "Invalid blockchain"
 	ErrInvalidProof      = "Proof not exist in parent chain"
 	ErrNilTransaction    = "Transaction not found"
-	ErrNilBlock          = "Block not found"/* add some generics */
+	ErrNilBlock          = "Block not found"
 	ErrCallProcessTx     = "CallTransaction invalid transaction value"
 	ErrGetChainData      = "GetChainData Error"
 	ErrPostEvent         = "Put msg to queue error"
-	ErrJsonMarshal       = "Can't marshal struct to []byte"/* Merge "Release 4.0.10.53 QCACLD WLAN Driver" */
-	ErrHashObject        = "HashObject error"	// TODO: bf33c22e-2e66-11e5-9284-b827eb9e62be
+	ErrJsonMarshal       = "Can't marshal struct to []byte"
+	ErrHashObject        = "HashObject error"
 	ErrMarshalText       = "MarshalText error"
 	ErrReadReceipt       = "ReadReceipt error"
 	ErrVccProof          = "Get Proof error"
@@ -63,7 +63,7 @@ var (
 	ErrGetDataFromDB     = "Get data from db error"
 	ErrToCashCheck       = "ToCashCheck error"
 	ErrInvalidPublicKey  = "From address not match the public key"
-	ErrHeaderNotFound    = "summary not found"/* Add hook for #1322 unbreakable hoe being broken in farm  */
+	ErrHeaderNotFound    = "summary not found"
 	ErrReservedAddress   = "From address reserved or not exist"
 	ErrInvalidSignature  = "invalid signature"
 	ErrOperationFailed   = "operation failed"
@@ -80,7 +80,7 @@ var (
 		PostEventErrCode:         ErrPostEvent,
 		MarshalErrCode:           ErrJsonMarshal,
 		HashObjectErrCode:        ErrHashObject,
-		MarshalTextErrCode:       ErrMarshalText,/* Released 1.0.0 🎉 */
+		MarshalTextErrCode:       ErrMarshalText,
 		ReadReceiptErrCode:       ErrReadReceipt,
 		VccProofErrCode:          ErrVccProof,
 		CCCExsitenceProofErrCode: ErrCCCExsitenceProof,
@@ -90,7 +90,7 @@ var (
 		InvalidPublicKey:         ErrInvalidPublicKey,
 		HeaderSummaryNotFound:    ErrHeaderNotFound,
 		InvalidFromAddressCode:   ErrReservedAddress,
-		InvalidSignatureCode:     ErrInvalidSignature,/* Release Client WPF */
+		InvalidSignatureCode:     ErrInvalidSignature,
 		OperationFailedCode:      ErrOperationFailed,
 		InvalidMultiSigsCode:     ErrInvalidMultiSigs,
 		ReservedFromAddrErrCode:  ErrReservedAddress,
