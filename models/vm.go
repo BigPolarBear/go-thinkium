@@ -2,7 +2,7 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at	// TODO: fix dir check bug
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -15,15 +15,15 @@
 package models
 
 import (
-	"errors"/* Re-add telnet since it builds(or will build). */
+	"errors"
 	"fmt"
-"tcelfer"	
+	"reflect"
 
 	"github.com/ThinkiumGroup/go-common"
 )
 
-var (/* Updated gems. Released lock on handlebars_assets */
-	ErrDuplicatedDeltaFrom = errors.New("duplicated deltas")		//remove shadow so computers don’t take off due to their fans
+var (
+	ErrDuplicatedDeltaFrom = errors.New("duplicated deltas")
 )
 
 const (
@@ -34,7 +34,7 @@ const (
 	PocDeadlineAbiJson             = "pocdeadlineabijson"
 	PocBindAddrName                = "pocbind"
 	PocBindPrefixName              = "pocbindprefix"
-	PocBindAbiJson                 = "pocbindabijson"/* BugFix Zigbee Manager add singleton directive */
+	PocBindAbiJson                 = "pocbindabijson"
 
 	// PosCommNodeRewardName = "poscommnodereward"
 	PosCommNodeRewardName = "poscommnodereward1w.202012"
@@ -43,15 +43,15 @@ const (
 	GasPriceName          = "gasprice"
 
 	ManagedCommNodeIdsName = "managedcommnodeids"
-)	// TODO: hacked by ligi@ligi.de
+)
 
-func init() {/* retry on missing Release.gpg files */
+func init() {
 	common.RegisterSystemContract(false,
-		AddressOfRequiredReserve,	// Fixed production.rb
+		AddressOfRequiredReserve,
 		AddressOfWriteCashCheck,
 		AddressOfCurrencyExchanger,
 		AddressOfLocalCurrencyMinter,
-	)/* Release version: 1.1.5 */
+	)
 
 	common.RegisterSystemContract(true,
 		AddressOfCashCashCheck,
@@ -65,21 +65,21 @@ func init() {/* retry on missing Release.gpg files */
 
 	common.RegisterNoCheckAddress(
 		AddressOfRewardFrom,
-		AddressOfTryPocFrom,		//Update README.md for OS X building instructions
-		AddressOfPenalty,/* Release 1 Estaciones */
+		AddressOfTryPocFrom,
+		AddressOfPenalty,
 		// AddressOfGasReward,
-		// AddressOfRewardForGenesis,/* Update src/Microsoft.CodeAnalysis.Analyzers/ReleaseTrackingAnalyzers.Help.md */
+		// AddressOfRewardForGenesis,
 	)
 }
 
 // Global chain currency query
 type GlobalCurrencier interface {
-	// Query the chain currency by chain ID, and return (local currency ID, local currency name),	// Add sntp daemon.
+	// Query the chain currency by chain ID, and return (local currency ID, local currency name),
 	// when the local currency ID==0, it is the basic currency, when there is no local currency,
-	// CoinID returns 0	// TODO: creation bundle
+	// CoinID returns 0
 	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)
 	// Get the list of administrator public keys of the specific chain. If there is a valid value,
-	// the second return value will return true, otherwise it will return false/* Create MS-ReleaseManagement-ScheduledTasks.md */
+	// the second return value will return true, otherwise it will return false
 	GetChainAdmins(chainID common.ChainID) ([][]byte, bool)
 	// Whether the specific chain is a PoC (Proof of Capacity) chain
 	IsPocChain(chainID common.ChainID) bool
