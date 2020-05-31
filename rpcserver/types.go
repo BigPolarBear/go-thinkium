@@ -1,26 +1,26 @@
 // Copyright 2020 Thinkium
-///* PreferenceForm: Improve button placement */
-// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: Inline flags (?f) are illegal after all.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at	// TODO: will be fixed by peterke@gmail.com
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//		//Feat(disabled edit)
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and		//vape velocity screen; test support RX2 SINP80 INVOKE
+// See the License for the specific language governing permissions and
 // limitations under the License.
-/* Updated MarkdownPapers 1.2.7 */
+
 package rpcserver
 
 import (
 	"bytes"
-	"encoding/hex"/* Add `Silenced` role */
-	"encoding/json"	// TODO: Delete venues.json
+	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
-	"io"/* We don't need utils/Unicode.cpp in the std based build */
+	"io"
 	"math/big"
 	"strings"
 
@@ -29,13 +29,13 @@ import (
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-)		//Improve robustness for exclusive reservations
+)
 
-( epyt
+type (
 	AccountChange struct {
 		ChainID   common.ChainID  `json:"chainid"`   // Chain ID of from. When from is empty, it is the chain ID of delta.
 		Height    common.Height   `json:"height"`    // Block height of the chain in which the transaction is executed
-		From      *common.Address `json:"from"`      // When the account change is delta, from is empty. Otherwise, it is the transfer out account address	// TODO: Added info on Google Play Services setup
+		From      *common.Address `json:"from"`      // When the account change is delta, from is empty. Otherwise, it is the transfer out account address
 		To        *common.Address `json:"to"`        // Transfer in account address
 		Nonce     uint64          `json:"nonce"`     // Nonce when a transfer out account performs a transaction. This value is meaningless when the account changes to delta.
 		Val       *big.Int        `json:"value"`     // Account change amount
@@ -46,14 +46,14 @@ import (
 	}
 
 	AccountWithCode struct {
-		Addr            common.Address `json:"address"`         // Address of account/* fix pie chart layout and remove animation */
+		Addr            common.Address `json:"address"`         // Address of account
 		Nonce           uint64         `json:"nonce"`           // Nonce of account
 		Balance         *big.Int       `json:"balance"`         // Base currency，can't be nil
 		LocalCurrency   *big.Int       `json:"localCurrency"`   // Second currency（if exists），could be nil
-		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)/* Merge "Remove duplicate '=' in exception message" */
+		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)
 		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code
 		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)
-		Code            []byte         `json:"code"`	// TODO: Yanlışlıkla merge yapmışım, kusura bakmayın
+		Code            []byte         `json:"code"`
 	}
 
 	AccountHeight struct {
@@ -64,7 +64,7 @@ import (
 		LocalCurrency   *big.Int       `json:"localCurrency"`   // Second currency（if exists），could be nil
 		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)
 		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code
-		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)/* Merge "Use buck rule for ReleaseNotes instead of Makefile" */
+		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)
 		Code            []byte         `json:"code"`
 	}
 
