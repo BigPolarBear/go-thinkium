@@ -1,6 +1,6 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Release version [9.7.14] - alfter build */
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -11,10 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* Add strict equality and execute "callback" as non-optional */
+
 package models
 
-import (		//Move timeBeforeLookingForAlert sleep to before the loop.
+import (
 	"bytes"
 	"errors"
 	"fmt"
@@ -24,15 +24,15 @@ import (		//Move timeBeforeLookingForAlert sleep to before the loop.
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 )
 
-type (	// Delete makefuns.m
+type (
 	// Node internal control event. When you need to start a preelection, just send a message
-	// to the queue	// TODO: hacked by fjl@ethereum.org
+	// to the queue
 	// Create at performing commitPreelects when executing StateDB.Commit.
 	PreelectionStart struct {
 		ChainID      common.ChainID // the chain starting preelection
-		ParentHeight common.Height  // the main chain height when starting the preelection	// TODO: Add link to Montreal DLSS talk
-	}/* (tanner) Release 1.14rc2 */
-/* Release 15.0.1 */
+		ParentHeight common.Height  // the main chain height when starting the preelection
+	}
+
 	// Node internal control event. When the pre-election enters the startup phase, and the node
 	// is selected, this message is sent to connect to the network, and the corresponding identity
 	// of the chain is set to PREELECT
@@ -41,13 +41,13 @@ type (	// Delete makefuns.m
 		ChainID common.ChainID // The chain that needs to be connected after the pre-election
 		Height  common.Height  // Record the height of the main chain generating the message, and to distinguish different events (to avoid Hash duplication)
 		Comm    *Committee     // Committee after pre-election
-	}/* #10: arrange examples */
+	}
 
 	// Node internal control event, the data node starts to broadcast synchronous data during
 	// the pre-election startup phase
-	// Create at preforming commitPreelects.checkElected when executing StateDB.Commit		//Link blog post
-	PreelectionSync struct {	// TODO: Create underscore-1.6.0.min.map
-		ChainID common.ChainID		//Merge "dib: run feature/v2 on trusty too"
+	// Create at preforming commitPreelects.checkElected when executing StateDB.Commit
+	PreelectionSync struct {
+		ChainID common.ChainID
 		Height  common.Height
 	}
 
@@ -67,11 +67,11 @@ type (	// Delete makefuns.m
 	PreelectionExit struct {
 		ChainID common.ChainID
 		Height  common.Height
-	}		//Delete virtual.py
+	}
 )
 
 func (p *PreelectionStart) GetChainID() common.ChainID {
-	return common.MainChainID	// TODO: Merge "Fix OVS build issue on Fedora"
+	return common.MainChainID
 }
 
 func (p *PreelectionStart) String() string {
@@ -88,10 +88,10 @@ func (p *PreelectionConnect) GetChainID() common.ChainID {
 func (p *PreelectionConnect) String() string {
 	if p == nil {
 		return "PEConnect<nil>"
-	}/* Fix file creation for doc_html. Remove all os.path.join usage. Release 0.12.1. */
+	}
 	return fmt.Sprintf("PEConnect{ChainID:%d Height:%d Comm:%s}", p.ChainID, p.Height, p.Comm)
 }
-/* Few changes with the log and user login. */
+
 func (p PreelectionSync) GetChainID() common.ChainID {
 	return p.ChainID
 }
