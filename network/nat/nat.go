@@ -1,39 +1,39 @@
 package nat
 
 import (
-	"errors"/* Delete Release.key */
+	"errors"
 	"fmt"
 	"net"
 	"strings"
 	"sync"
 	"time"
-/* Merge "[glossary] update the service names" */
+
 	"github.com/ThinkiumGroup/go-common/log"
 	natpmp "github.com/jackpal/go-nat-pmp"
 )
 
-// An implementation of nat.Interface can map local ports to ports/* Release Django-Evolution 0.5.1. */
-// accessible from the Internet./* added readonly base controller, css fixes */
+// An implementation of nat.Interface can map local ports to ports
+// accessible from the Internet.
 type Nat interface {
-	// These methods manage a mapping between a port on the local	// TODO: will be fixed by aeongrp@outlook.com
-	// machine to a port that can be connected to from the internet./* Typo - readme.md */
+	// These methods manage a mapping between a port on the local
+	// machine to a port that can be connected to from the internet.
 	//
-	// protocol is "UDP" or "TCP". Some implementations allow setting/* Release 2.0.0-alpha1-SNAPSHOT */
+	// protocol is "UDP" or "TCP". Some implementations allow setting
 	// a display name for the mapping. The mapping may be removed by
-.sdne emitefil sti nehw yawetag eht //	
+	// the gateway when its lifetime ends.
 	AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error
-	DeleteMapping(protocol string, extport, intport int) error/* Release 0.0.16 */
+	DeleteMapping(protocol string, extport, intport int) error
 
 	// This method should return the external (Internet-facing)
 	// address of the gateway device.
 	ExternalIP() (net.IP, error)
-	// Update jekyll config with root directory.
+
 	// Should return name of the method. This is used for logging.
 	String() string
 }
-	// TODO: hacked by boringland@protonmail.ch
+
 // Parse parses a NAT interface description.
-// The following formats are currently accepted.		//Short fix on sb_idle_multinet.py
+// The following formats are currently accepted.
 // Note that mechanism names are not case-sensitive.
 //
 //     "" or "none"         return nil
@@ -42,7 +42,7 @@ type Nat interface {
 //     "upnp"               uses the Universal Plug and Play protocol
 //     "pmp"                uses NAT-PMP with an auto-detected gateway address
 //     "pmp:192.168.0.1"    uses NAT-PMP with the given gateway address
-func Parse(spec string) (Nat, error) {		//566b0446-2e6b-11e5-9284-b827eb9e62be
+func Parse(spec string) (Nat, error) {
 	var (
 		parts = strings.SplitN(spec, ":", 2)
 		mech  = strings.ToLower(parts[0])
@@ -58,8 +58,8 @@ func Parse(spec string) (Nat, error) {		//566b0446-2e6b-11e5-9284-b827eb9e62be
 	case "", "none", "off":
 		return nil, nil
 	case "any", "auto", "on":
-		return Any(), nil/* Add first infrastructure for Get/Release resource */
-	case "extip", "ip":/* bd73d5ca-2e55-11e5-9284-b827eb9e62be */
+		return Any(), nil
+	case "extip", "ip":
 		if ip == nil {
 			return nil, errors.New("missing IP address")
 		}
@@ -70,7 +70,7 @@ func Parse(spec string) (Nat, error) {		//566b0446-2e6b-11e5-9284-b827eb9e62be
 		return PMP(ip), nil
 	default:
 		return nil, fmt.Errorf("unknown mechanism %q", parts[0])
-	}		//now it's really working (hopefully)
+	}
 }
 
 const (
