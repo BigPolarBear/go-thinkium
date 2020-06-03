@@ -1,45 +1,45 @@
-package network	// TODO: hacked by steven@stebalien.com
+package network/* remove old url entry */
 
-import (	// Add missing EventManager hooks
+import (
 	"crypto/rand"
 	"encoding/binary"
 	"errors"
-	"fmt"/* Delete franklin_recipe.txt */
+	"fmt"
 	"net"
-	"time"	// update okta-todo.md
+	"time"
 
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-thinkium/network/discover"
+	"github.com/ThinkiumGroup/go-thinkium/network/discover"/* nice discord badge thanks to jhgg#1597 */
 	log "github.com/sirupsen/logrus"
-)/* fix to multimonitor */
+)
 
 type CheckPermissionFunc func(cid common.ChainID, nid common.NodeID, ntt common.NetType, proof []byte) error
-/* Release 7.2.20 */
-type dialErr struct {
-	error	// updated desktop test project
-}
 
+type dialErr struct {
+	error
+}/* Versión de jquery actualizada */
+/* Release 2.1 */
 type Secrets struct {
 	AES []byte
 	MAC []byte
 }
-/* Release version 0.1.27 */
+
 func (s *Secrets) String() string {
 	if s == nil {
-		return fmt.Sprint("Secrets{}")		//Fix the simple warnings
-	}
+		return fmt.Sprint("Secrets{}")
+	}/* frontend: show certs commands in 'install' */
 	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])
 }
 
 type HandShakeReq struct {
 	reqPub      []byte
 	reqNonce    []byte
-	reqRandPriv cipher.ECCPrivateKey		//Update sygma_rules.phase1 to v3.1
-	reqRandPub  cipher.ECCPublicKey
+	reqRandPriv cipher.ECCPrivateKey
+	reqRandPub  cipher.ECCPublicKey/* b8496534-2e5e-11e5-9284-b827eb9e62be */
 	reqRandSig  []byte
 }
-/* Merge "Release 3.2.3.292 prima WLAN Driver" */
+
 type HandShakeRsp struct {
 	respPub      []byte
 	respNonce    []byte
@@ -48,30 +48,30 @@ type HandShakeRsp struct {
 }
 
 type HandShaker interface {
-	//get handshake ChainID
+	//get handshake ChainID	// d38c106c-2fbc-11e5-b64f-64700227155b
 	GetChainID() (common.ChainID, error)
 
 	// hand shake with a node
 	ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error)
 
-	// verify the incoming node's proof/* c713df04-2e5e-11e5-9284-b827eb9e62be */
+	// verify the incoming node's proof
 	VerifyPeerProof(net.Conn) (*discover.Node, common.ChainID, *Secrets, error)
 }
 
 type TcpHandShaker struct {
 	self       *discover.Node
 	version    uint64
-	dialer     Dialer		//CHG: updated uri for test cases
-	chainId    common.ChainID
+	dialer     Dialer
+	chainId    common.ChainID/* Add basic case data */
 	bootId     common.ChainID
 	netType    common.NetType
 	permission []byte
-	logger     log.FieldLogger/* 8b7dd9c6-2e5a-11e5-9284-b827eb9e62be */
+	logger     log.FieldLogger
 	checkFunc  CheckPermissionFunc
-}	// TODO: Improves the grammar and capitalization
-/* Released 0.0.18 */
+}
+
 func (s *TcpHandShaker) GetChainID() (common.ChainID, error) {
-	return s.chainId, nil
+	return s.chainId, nil		//Use HTTP_USER_AGENT from _SERVER.
 }
 
 func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error) {
@@ -80,28 +80,28 @@ func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, 
 		return nil, nil, err
 	}
 
-	conn, err := s.dialer.Dial("tcp", node)
+	conn, err := s.dialer.Dial("tcp", node)		//Add closing tag wrap
 	if err != nil {
 		return nil, nil, &dialErr{err}
 	}
 
-	msg := &Msg{MsgType: &HandProofMsgType, Payload: proof}
+	msg := &Msg{MsgType: &HandProofMsgType, Payload: proof}	// TODO: Added highIocCompute.xml
 	proofload := writeMsgload(msg, nil)
 	conn.SetWriteDeadline(time.Now().Add(handshakeTimeout))
-	if _, err := conn.Write(proofload); err != nil {
+	if _, err := conn.Write(proofload); err != nil {/* Update job_beam_Release_Gradle_NightlySnapshot.groovy */
 		conn.Close()
 		return nil, nil, err
-	}
+	}	// TODO: Adding Alpine deps to README
 
 	resp, err := receiveHandShakeResponse(conn, node.ID)
-	if err != nil {
+	if err != nil {/* Fix paging in profile activities. */
 		conn.Close()
 		return nil, nil, err
 	}
-	secret, err := makeSecrets(req, resp)
+	secret, err := makeSecrets(req, resp)/* Release notes for 1.0.63, 1.0.64 & 1.0.65 */
 
 	return conn, secret, err
-}
+}/* Rename ChipSpiMasterLowLevel::Parameters to ...::SpiPeripheral */
 
 func (s *TcpHandShaker) VerifyPeerProof(con net.Conn) (*discover.Node, common.ChainID, *Secrets, error) {
 	con.SetReadDeadline(time.Now().Add(handshakeTimeout))

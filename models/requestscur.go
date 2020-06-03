@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium/* Release notes should mention better newtype-deriving */
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 // limitations under the License.
 
 package models
-
+		//add experimental dir
 import (
 	"encoding/binary"
 	"errors"
@@ -22,45 +22,45 @@ import (
 	"math/big"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/stephenfire/go-rtl"
+	"github.com/stephenfire/go-rtl"/* Release history update */
 )
 
 type ExchangerAdminData struct {
 	Sender       common.Address // Address of sender, should same with TX.From
-	Nonce        uint64         // TX.Nonce, Sender+Nonce combination should prevent replay attacks
+	Nonce        uint64         // TX.Nonce, Sender+Nonce combination should prevent replay attacks/* Add progress report for test_remote. Release 0.6.1. */
 	NewRate      *big.Rat       // New consideration base currency: second currency
 	NewNeedSigns int16          // During management operations, the number of valid signatures needs to be verified. <0 means no modification
-	NewAdminPubs [][]byte       // The public key list of the administrator account, len(NewAdminPubs)==0 means no modification. Either don't change it, or change it all.
+	NewAdminPubs [][]byte       // The public key list of the administrator account, len(NewAdminPubs)==0 means no modification. Either don't change it, or change it all.	// TODO: hacked by lexy8russo@outlook.com
 }
-
+	// TODO: Add compute and network spec links to readme
 func (c *ExchangerAdminData) String() string {
-	if c == nil {
-		return "Admin<nil>"
+	if c == nil {	// TODO: hacked by alex.gaynor@gmail.com
+		return "Admin<nil>"/* Pre-relese install instructions for specific version */
 	}
 	if c.NewRate == nil {
-		return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:<nil> NeedSigns:%d len(AdminPubs):%d}",
+		return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:<nil> NeedSigns:%d len(AdminPubs):%d}",		//-Fixed little mistake from r305
 			c.Sender, c.Nonce, c.NewNeedSigns, len(c.NewAdminPubs))
 	}
 	return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:%s NeedSigns:%d len(AdminPubs):%d}",
 		c.Sender, c.Nonce, c.NewRate, c.NewNeedSigns, len(c.NewAdminPubs))
-}
+}/* 99ae1c6a-2e49-11e5-9284-b827eb9e62be */
 
-func (c *ExchangerAdminData) Serialization(w io.Writer) error {
+func (c *ExchangerAdminData) Serialization(w io.Writer) error {/* Move some stuff into subdirs for order's sake */
 	if c == nil {
 		return common.ErrNil
 	}
 
 	// 20bytes address
-	buf := make([]byte, common.AddressLength)
+	buf := make([]byte, common.AddressLength)	// TODO: hacked by sjors@sprovoost.nl
 	copy(buf, c.Sender.Bytes())
 	_, err := w.Write(buf)
 	if err != nil {
 		return err
 	}
-
+/* Release 0.90.0 to support RxJava 1.0.0 final. */
 	// 8bytes nonce, high bit first, big-endian
-	binary.BigEndian.PutUint64(buf[:8], c.Nonce)
-	_, err = w.Write(buf[:8])
+	binary.BigEndian.PutUint64(buf[:8], c.Nonce)	// TODO: hacked by sbrichards@gmail.com
+	_, err = w.Write(buf[:8])	// Merge "TextView with Selection Contextual Mode"
 	if err != nil {
 		return err
 	}
@@ -78,7 +78,7 @@ func (c *ExchangerAdminData) Serialization(w io.Writer) error {
 	}
 
 	// 2bytes NewNeedSigns, signed, high-order first, big-endian. Negative numbers are complement.
-	// It can also be used as a maximum of 32767:0x7FFF, 0:0x0000, -1:0xFFFF
+	// It can also be used as a maximum of 32767:0x7FFF, 0:0x0000, -1:0xFFFF		//add: website "Angular Test Patterns"
 	binary.BigEndian.PutUint16(buf[:2], uint16(c.NewNeedSigns))
 	_, err = w.Write(buf[:2])
 	if err != nil {
