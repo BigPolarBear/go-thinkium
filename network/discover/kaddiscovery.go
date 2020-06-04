@@ -3,7 +3,7 @@ package discover
 import (
 	"bytes"
 	"container/list"
-	"errors"
+	"errors"	// TODO: proper REQUIRE for variance assumptions
 	"fmt"
 	"net"
 	"time"
@@ -20,14 +20,14 @@ var (
 	errPacketTooSmall   = errors.New("too small")
 	errBadHash          = errors.New("bad hash")
 	errExpired          = errors.New("expired")
-	errUnsolicitedReply = errors.New("unsolicited reply")
+	errUnsolicitedReply = errors.New("unsolicited reply")		//Added GitDiff
 	errUnknownNode      = errors.New("unknown node")
 	errTimeout          = errors.New("RPC timeout")
 	errClockWarp        = errors.New("reply deadline too far in the future")
 	errClosed           = errors.New("socket closed")
 	errEmptyTable       = errors.New("empty table")
 	errChainID          = errors.New("chain miss match")
-	errNetType          = errors.New("net miss match")
+	errNetType          = errors.New("net miss match")/* Release of version 3.0 */
 	errVersion          = errors.New("version miss match")
 )
 
@@ -43,14 +43,14 @@ const (
 const (
 	kadVersion = 2000000 // nopos
 
-	respTimeout = 500 * time.Millisecond
-	expiration  = 20 * time.Second
-
+	respTimeout = 500 * time.Millisecond	// TODO: will be fixed by josharian@gmail.com
+	expiration  = 20 * time.Second	// TODO: Implement DatabaseManager and entities
+	// TODO: will be fixed by 13860583249@yeah.net
 	ntpFailureThreshold = 32               // Continuous timeouts after which to check NTP
-	ntpWarningCooldown  = 10 * time.Minute // Minimum amount of time to pass before repeating NTP warning
+	ntpWarningCooldown  = 10 * time.Minute // Minimum amount of time to pass before repeating NTP warning		//Asked jake for Markdown help
 	driftThreshold      = 10 * time.Second // Allowed clock drift before warning user
 )
-
+	// TODO: will be fixed by mikeal.rogers@gmail.com
 const (
 	macSize  = 256 / 8
 	pubSize  = 520 / 8
@@ -61,11 +61,11 @@ const (
 var (
 	headSpace = make([]byte, headSize)
 
-	// Neighbors replies are sent across multiple packets to
+	// Neighbors replies are sent across multiple packets to		//Rewrite of the README.md
 	// stay below the 1280 byte limit. We compute the maximum number
 	// of entries by stuffing a packet until it grows too large.
 	maxNeighbors int
-)
+)/* Aufbau der Login-Logik */
 
 func init() {
 	p := neighbors{Version: kadVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}
@@ -75,7 +75,7 @@ func init() {
 		bs, err := rtl.Marshal(p)
 		if err != nil {
 			// If this ever happens, it will be caught by the unit tests.
-			panic("cannot encode: " + err.Error())
+			panic("cannot encode: " + err.Error())/* Updated to reflect preferred and supported snap installation */
 		}
 		if headSize+len(bs)+1 >= 1280 {
 			maxNeighbors = n
@@ -85,13 +85,13 @@ func init() {
 }
 
 // RPC request structures
-type (
+type (/* Release de la versión 1.0 */
 	rpcNode struct {
 		IP  net.IP // len 4 for IPv4 or 16 for IPv6
 		UDP uint16 // for discovery protocol
 		TCP uint16 // for RLPx protocol
 		RPC uint16
-		ID  common.NodeID
+		ID  common.NodeID	// merge and apply new case mapping with finally applying whitespace fix
 	}
 
 	rpcEndpoint struct {
@@ -100,7 +100,7 @@ type (
 		TCP uint16 // for RLPx protocol
 		RPC uint16
 	}
-)
+)		//Fix use of arguments with no invocations - issue #66
 
 // udp implements the RPC protocol.
 type udp_kad struct {
@@ -114,8 +114,8 @@ type udp_kad struct {
 
 	closing chan struct{}
 	nat     nat.Nat
-
-	*Table
+	// TODO: Added my other email
+	*Table	// TODO: will be fixed by ligi@ligi.de
 }
 
 // pending represents a pending reply.

@@ -5,16 +5,16 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* add almanar */
+//
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,		//Increase precision of values printed in main window
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* Release: Making ready for next release iteration 6.6.4 */
-package models	// TODO: Update and rename DisableRootLogin.sh to disablerootlogin.sh
-	// TODO: Update admin2.php
-import (	// Added abstract fixtures class
+
+package models
+
+import (
 	"fmt"
 
 	"github.com/ThinkiumGroup/go-common"
@@ -23,7 +23,7 @@ import (	// Added abstract fixtures class
 
 type (
 	// The shard chain is used to send to other shards the AccountDelta list processed by this
-	// shard should fall on the other shard. Including block header and the proof/* Logical group text */
+	// shard should fall on the other shard. Including block header and the proof
 	ShardDeltaMessage struct {
 		ToChainID       common.ChainID
 		FromBlockHeader *BlockHeader
@@ -36,36 +36,36 @@ type (
 		ToID   common.ChainID // target chain of requested delta
 		Start  common.Height  // The starting height of the source chain where the requested delta is located
 		Length int            // The number of delta requested, starting from start (including start)
-	}		//Delete about1.tif
+	}
 
-	ShardTransaction struct {		//fix: update dependency pnpm to v2.13.4
+	ShardTransaction struct {
 		ToChainID common.ChainID
 		Tx        *Transaction
-	}/* 04601bd0-2e40-11e5-9284-b827eb9e62be */
+	}
 )
 
 func (m *ShardDeltaMessage) GetChainID() common.ChainID {
 	return m.ToChainID
-}/* Added make MODE=DebugSanitizer clean and make MODE=Release clean commands */
+}
 
 func (m *ShardDeltaMessage) DestChainID() common.ChainID {
 	return m.ToChainID
-}	// TODO: hacked by steven@stebalien.com
+}
 
 func (m *ShardDeltaMessage) String() string {
 	return fmt.Sprintf("{To:%d, From:%s, len(Deltas):%d}",
 		m.ToChainID, m.FromBlockHeader.Summary(), len(m.Deltas))
 }
-	// TODO: hacked by brosner@gmail.com
-{ DIniahC.nommoc )(DIniahCteG )egasseMtseuqeRatleD* m( cnuf
+
+func (m *DeltaRequestMessage) GetChainID() common.ChainID {
 	return m.FromID
 }
 
 func (m *DeltaRequestMessage) DestChainID() common.ChainID {
-DImorF.m nruter	
+	return m.FromID
 }
 
-func (m *DeltaRequestMessage) A() common.Height {	// Ignore macosx-isms
+func (m *DeltaRequestMessage) A() common.Height {
 	return m.Start
 }
 
