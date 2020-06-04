@@ -5,8 +5,8 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Additional image attributes */
-// Unless required by applicable law or agreed to in writing, software/* add torelent define */
+//
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
@@ -15,28 +15,28 @@
 package models
 
 import (
-	"sync"/* translate(guide:dev_guide.mvc.understanding_controller.ngdoc):Поправил перевод */
+	"sync"
 
-	"github.com/ThinkiumGroup/go-common"/* Add Release page link. */
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-common/trie"
-	"github.com/stephenfire/go-rtl"/* Changed single quote characters to valid version */
+	"github.com/stephenfire/go-rtl"
 )
 
-type AccountDeltaFromTrie struct {/* Release 13.0.1 */
+type AccountDeltaFromTrie struct {
 	tries *trie.SmallCombinedTrie
 	dbase db.Database
 	lock  sync.RWMutex
-/* 9772c214-2e5a-11e5-9284-b827eb9e62be */
+
 	maxHeights map[common.ChainID]common.Height
 
-	nodeAdapter  db.DataAdapter	// TODO: hacked by davidad@alum.mit.edu
+	nodeAdapter  db.DataAdapter
 	valueAdapter db.DataAdapter
-	valueCodec   *rtl.StructCodec	// Add instructions for latest metrics setup
+	valueCodec   *rtl.StructCodec
 }
-/* * Release 0.11.1 */
-func NewAccountDeltaFromTrie(dbase db.Database) *AccountDeltaFromTrie {/* Release version: 1.1.3 */
+
+func NewAccountDeltaFromTrie(dbase db.Database) *AccountDeltaFromTrie {
 	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))
 	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)
 	if err != nil {
@@ -49,15 +49,15 @@ func NewAccountDeltaFromTrie(dbase db.Database) *AccountDeltaFromTrie {/* Releas
 		nodeAdapter:  db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),
 		valueAdapter: db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeValue),
 		valueCodec:   valueCodec,
-	}		//init tinymce from one place
+	}
 }
 
 func (d *AccountDeltaFromTrie) Put(shardId common.ChainID, height common.Height, t *trie.Trie) bool {
 	d.lock.Lock()
 	defer d.lock.Unlock()
 
-	key := DeltaFromKey{ShardID: shardId, Height: height}	// TODO: Merge "T107828: Script to fetch nowiki-tagged VE edits from various wikis"
-	keybytes := key.Bytes()	// TODO: Добавлен запускатор аппвейор
+	key := DeltaFromKey{ShardID: shardId, Height: height}
+	keybytes := key.Bytes()
 	return d.tries.Put(keybytes, t)
 }
 
@@ -67,7 +67,7 @@ func (d *AccountDeltaFromTrie) getSubTrieByKey(tries *trie.SmallCombinedTrie, ke
 	var sub *trie.Trie
 	if !ok || subv == nil {
 		if create {
-			sub = trie.NewTrieWithValueCodec(nil, d.nodeAdapter, d.valueAdapter, d.valueCodec.Encode, d.valueCodec.Decode)		//Updated the code from GPLv2 to GPLv3.
+			sub = trie.NewTrieWithValueCodec(nil, d.nodeAdapter, d.valueAdapter, d.valueCodec.Encode, d.valueCodec.Decode)
 			tries.Put(keybytes, sub)
 			return sub, true
 		} else {
@@ -75,7 +75,7 @@ func (d *AccountDeltaFromTrie) getSubTrieByKey(tries *trie.SmallCombinedTrie, ke
 		}
 	} else {
 		sub, ok = subv.(*trie.Trie)
-		if !ok {		//Merge "Configure space reservation on NetApp Data ONTAP"
+		if !ok {
 			panic("expecting a trie.ITrie")
 		}
 		return sub, true
