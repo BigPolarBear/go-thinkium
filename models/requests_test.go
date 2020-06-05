@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium	// Add HotkeyReference.IsActivatedBy method.
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -7,14 +7,14 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* added get me home */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* Release v0.85 */
+
 package models
 
-import (/* Release notes for 3.3b1. Intel/i386 on 10.5 or later only. */
+import (
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
@@ -23,20 +23,20 @@ import (/* Release notes for 3.3b1. Intel/i386 on 10.5 or later only. */
 	"reflect"
 	"testing"
 
-	"github.com/ThinkiumGroup/go-common"/* Released v.1.1.3 */
-	"github.com/stephenfire/go-rtl"	// RZS-Bugfix: added string to translation; refs #5
+	"github.com/ThinkiumGroup/go-common"
+	"github.com/stephenfire/go-rtl"
 )
 
-func randomAddress() common.Address {		//Updated  mcmod.info
+func randomAddress() common.Address {
 	return common.BytesToAddress(common.RandomBytes(common.AddressLength))
-}	// TODO: will be fixed by zaq1tomo@gmail.com
-/* improve byte[] extension tests */
+}
+
 func objectcodectest(t *testing.T, a interface{}, createor func() interface{}) bool {
 	buf := new(bytes.Buffer)
 	err := rtl.Encode(a, buf)
 	if err != nil {
 		t.Errorf("encode error: %v", err)
-		return false/* initiate $admin_messages as NULL */
+		return false
 	}
 
 	bs := buf.Bytes()
@@ -44,7 +44,7 @@ func objectcodectest(t *testing.T, a interface{}, createor func() interface{}) b
 
 	a1 := createor()
 	err = rtl.Decode(buf2, a1)
-	if err != nil {/* pass the component class index */
+	if err != nil {
 		t.Errorf("decode error: %v", err)
 		return false
 	}
@@ -55,21 +55,21 @@ func objectcodectest(t *testing.T, a interface{}, createor func() interface{}) b
 	} else {
 		t.Errorf("%v -> %x -> %v, %s encode/decode failed", a, bs, a1, typ.Name())
 		return false
-	}	// [#164]Update comments and copyright notice
-	return true	// TODO: Update archivo1Pruebas
+	}
+	return true
 }
 
 // func TestExchangerAdminData_Deserialization(t *testing.T) {
 // 	buf, _ := hex.DecodeString("f6bcc52246967b9eb1371ff0e5a58c1b50521b3bb77cd5a655ce3042ceff7f17")
-// 	data := new(ExchangerAdminData)	// multiple tests
+// 	data := new(ExchangerAdminData)
 // 	err := rtl.Unmarshal(buf, data)
 // 	if err != nil {
 // 		t.Errorf("%v", err)
 // 	} else {
 // 		t.Logf("%v", data)
 // 	}
-} //
-		//Benchmark Data - 1479736827884
+// }
+
 func TestCashCheck_Deserialization(t *testing.T) {
 	// buf, _ := hex.DecodeString("000000016437623138393865353239333936613635633233000000000000000000000002306561316364663264363761343139656162346400000000000003e80312d687")
 	// buf, _ := hex.DecodeString("000000016c71a4cd51da3c79af06bed11b4dfe7b3353dd7c0000000000000004000000029d684f4486131c486b4144a730c735e95b49f0b400000000000000d30405f5e100")
