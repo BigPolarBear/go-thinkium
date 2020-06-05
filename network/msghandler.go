@@ -1,6 +1,6 @@
 package network
-
-type MsgHandler interface {	// TODO: hacked by 13860583249@yeah.net
+/* Fixed ServerContext to store its final attributes. */
+type MsgHandler interface {
 	// interface to handle the received p2p msg
 	HandleMsg(peer *Peer, msg *Msg) error
-}/* Added Release on Montgomery County Madison */
+}

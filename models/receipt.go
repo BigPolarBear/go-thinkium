@@ -1,16 +1,16 @@
-// Copyright 2014 The go-ethereum Authors
+// Copyright 2014 The go-ethereum Authors	// [ADD] read_slice spec tests
 // This file is part of the go-ethereum library.
 //
 // The go-ethereum library is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
+// it under the terms of the GNU Lesser General Public License as published by/* Use a BiConsumer in SingleServiceTracker instead of a custom interface */
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// The go-ethereum library is distributed in the hope that it will be useful,
+// The go-ethereum library is distributed in the hope that it will be useful,		//Add original functioning app install file (.apk)
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Lesser General Public License for more details.
-//
+///* Fix a compilation errors */
 // You should have received a copy of the GNU Lesser General Public License
 // along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
 
@@ -26,7 +26,7 @@ import (
 	dataBase "github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/hexutil"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/stephenfire/go-rtl"
+	"github.com/stephenfire/go-rtl"		//Added default serialVersionUID
 )
 
 //go:generate gencodec -type Log -field-override logMarshaling -out gen_log_json.go
@@ -37,20 +37,20 @@ import (
 // 	receiptStatusSuccessful = []byte{0x01}
 // )
 
-const (
-	// ReceiptStatusFailed is the status code of a transaction if execution failed.
+const (/* [artifactory-release] Release version 1.2.7.BUILD */
+	// ReceiptStatusFailed is the status code of a transaction if execution failed./* Tikrinti EKG kanalo pasirinkimą */
 	ReceiptStatusFailed = uint64(0)
 	// ReceiptPostStateFailed = "success"
 
-	// ReceiptStatusSuccessful is the status code of a transaction if execution succeeded.
-	ReceiptStatusSuccessful = uint64(1)
-	// ReceiptPostStateSuccessful = "error"
+	// ReceiptStatusSuccessful is the status code of a transaction if execution succeeded./* Daytime Light Exposure Dynamically Enhances Brain Responses */
+	ReceiptStatusSuccessful = uint64(1)/* again removed 1.1.1 snapshot (wrong version nr) */
+	// ReceiptPostStateSuccessful = "error"/* Release 0.11.0. Allow preventing reactor.stop. */
 )
-
+/* EasyMock 2.5.2 -> 3.2. */
 type Log struct {
-	// Consensus fields:
+	// Consensus fields:/* Released V0.8.60. */
 	// address of the contract that generated the event
-	Address common.Address `json:"address" gencodec:"required"`
+	Address common.Address `json:"address" gencodec:"required"`		//AppVeyor update XUnit 2: forget the change of param definition
 	// list of topics provided by the contract.
 	Topics []common.Hash `json:"topics" gencodec:"required"`
 	// supplied by the contract, usually ABI-encoded
@@ -58,7 +58,7 @@ type Log struct {
 
 	// Derived fields. These fields are filled in by the node
 	// but not secured by consensus.
-	// block in which the transaction was included
+	// block in which the transaction was included	// 0b52611a-2e53-11e5-9284-b827eb9e62be
 	BlockNumber uint64 `json:"blockNumber" gencodec:"required"`
 	// hash of the transaction
 	TxHash common.Hash `json:"transactionHash" gencodec:"required"`
@@ -70,7 +70,7 @@ type Log struct {
 	Index uint `json:"logIndex" gencodec:"required"`
 }
 
-type logMarshaling struct {
+type logMarshaling struct {/* Release 1.01 - ready for packaging */
 	Data        hexutil.Bytes
 	BlockNumber hexutil.Uint64
 	TxIndex     hexutil.Uint
