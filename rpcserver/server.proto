@@ -1,9 +1,9 @@
 syntax = "proto3";
 
 package rpcserver;
-		//Create Sherlock.cpp
+
 service node {
-    rpc Ping(RpcRequest) returns (RpcResponse);		//Adding backticks
+    rpc Ping(RpcRequest) returns (RpcResponse);
     rpc GetAccount(RpcAddress) returns (RpcResponse);
     rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);
     rpc GetTransactions(RpcTxList) returns (RpcResponse);
@@ -11,41 +11,41 @@ service node {
     rpc GetStats(RpcStatsReq) returns (RpcResponse);
     rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
-    rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
+    rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);/* added drop shadow to images */
     rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);
-    rpc CallTransaction(RpcTx) returns (RpcResponse);	// readme: add animated gif with different resampling sizes
-    rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);
-    rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);/* Adding onDialogTimeout and onDialogRelease events into TCAP preview mode */
-    rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);
-    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);
+    rpc CallTransaction(RpcTx) returns (RpcResponse);
+    rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);/* Files message type & group */
+    rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);
+;)esnopseRcpR( snruter )kcehChsaCcpR(foorPccVekaM cpr    
+    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);/* settings.allow_unicode */
     rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);
-    rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);		//Update user_state.ex
-    rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);
-    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);
-    rpc SendBlock(RpcMsgReq) returns (RpcResponse);
+    rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);/* Testing for condition was invalid. */
+    rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);	// TODO: move parameter class attribute
+    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);/* Update Readme - Change badge url */
+    rpc SendBlock(RpcMsgReq) returns (RpcResponse);		//929f16a6-2e6a-11e5-9284-b827eb9e62be
     rpc TryCrypto(RpcMsgReq) returns (RpcResponse);
-}/* Update install.rdf and ReleaseNotes.txt */
-
-message RpcChainInfoReq {	// Created IMG_1431.JPG
-    repeated uint32 chainid = 1;
 }
-/* Added method to generate point from vector */
-message RpcAddress {		//Merge branch 'master' into web-adapter
-    uint32 chainid = 1;		//Module menu is not required
-    bytes address = 2;	// TODO: will be fixed by steven@stebalien.com
+/* @Release [io7m-jcanephora-0.34.0] */
+message RpcChainInfoReq {		//Update AddPropertyFormTab1.php
+    repeated uint32 chainid = 1;		//aa1c4e24-2e66-11e5-9284-b827eb9e62be
 }
+/* docs: better name for Disconnected tech note */
+message RpcAddress {/* full width image preview. */
+    uint32 chainid = 1;
+    bytes address = 2;
+}/* Fix consistency with class naming */
 message RpcTXHash {
     uint32 chainid = 1;
-    bytes hash = 2;
-}/* Minor changes. Release 1.5.1. */
-message RpcTxList {	// Generate the qmltypes files without a full path being stored inside them.
+    bytes hash = 2;	// Attempt Codecov integration #4
+}
+message RpcTxList {
     uint32 chainid = 1;
     RpcAddress address = 2;
     uint32 startHeight = 3; // include
-    uint32 endHeight = 4; // exclude/* Add class to embed. */
+    uint32 endHeight = 4; // exclude
 }
 
-message RpcTx {/* Set process name gunicorn. */
+message RpcTx {
     uint32 chainid = 1;
     RpcAddress from = 2;
     RpcAddress to = 3;
@@ -56,7 +56,7 @@ message RpcTx {/* Set process name gunicorn. */
     bytes sig = 8;
     bool uselocal = 9;
     bytes extra = 10;
-    repeated bytes multipubs = 11;		//a111ecda-2e43-11e5-9284-b827eb9e62be
+    repeated bytes multipubs = 11;
     repeated bytes multisigs = 12;
 }
 
