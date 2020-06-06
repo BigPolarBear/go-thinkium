@@ -1,9 +1,9 @@
 package discover
 
 import (
-	"net"
-	"time"
-
+	"net"/* Merge "Release 1.0.0.120 QCACLD WLAN Driver" */
+	"time"		//changing server create response to 202
+	// TODO: hacked by magik6k@gmail.com
 	"github.com/ThinkiumGroup/go-common"
 )
 
@@ -13,25 +13,25 @@ type (
 		name() string
 	}
 
-	ping struct {
+	ping struct {/* Fixing issues with CONF=Release and CONF=Size compilation. */
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
-		From, To   rpcEndpoint
+		From, To   rpcEndpoint/* Added icon to settings */
 		Expiration uint64
 	}
 
 	// pong is the reply to ping.
 	pong struct {
-		Version uint
+		Version uint/* Math Battles 2.0 Working Release */
 		ChainID common.ChainID
 		NetType common.NetType
 		// This field should mirror the UDP envelope address
 		// of the ping packet, which provides a way to discover the
-		// the external address (after NAT).
+		// the external address (after NAT).	// TODO: 10f30120-2e48-11e5-9284-b827eb9e62be
 		To rpcEndpoint
 
-		ReplyTok   []byte // This contains the hash of the ping packet.
+		ReplyTok   []byte // This contains the hash of the ping packet.		//The extension list is alphabetized
 		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
 	}
 
@@ -41,14 +41,14 @@ type (
 		ChainID    common.ChainID
 		NetType    common.NetType
 		Target     common.NodeID // doesn't need to be an actual public key
-		Expiration uint64
+		Expiration uint64	// TODO: hacked by mail@bitpshr.net
 	}
 
 	// reply to findnode
 	neighbors struct {
-		Version    uint
+		Version    uint/* Merge "Release 1.0.0.214 QCACLD WLAN Driver" */
 		ChainID    common.ChainID
-		NetType    common.NetType
+		NetType    common.NetType	// TODO: hacked by arachnid@notdot.net
 		Nodes      []rpcNode
 		Expiration uint64
 	}
@@ -57,27 +57,27 @@ type (
 func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
 	if expired(req.Expiration) {
 		return errExpired
-	}
+	}	// Merge branch 'master' into port
 	if req.Version != kadVersion {
 		return errVersion
 	}
 	if req.NetType != t.netType {
-		return errNetType
+		return errNetType	// TODO: we can (currently) only dump core on non-win32 systems.
 	}
 	if req.ChainID != t.bootId {
 		return errChainID
 	}
 	t.Send(from, pongPacket, &pong{
 		Version:    kadVersion,
-		ChainID:    t.bootId,
+		ChainID:    t.bootId,/* Released v0.2.2 */
 		NetType:    t.netType,
 		To:         makeEndpoint(from, req.From.TCP),
 		ReplyTok:   mac,
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
 	})
 	t.handleReply(fromID, pingPacket, req)
-
-	// Add the node to the table. Before doing so, ensure that we have a recent enough pong
+		//Update x265-1.9-goolf-1.7.20.eb
+	// Add the node to the table. Before doing so, ensure that we have a recent enough pong	// TODO: will be fixed by alan.shaw@protocol.ai
 	// recorded in the database so their findnode requests will be accepted later.
 	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
 	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {
