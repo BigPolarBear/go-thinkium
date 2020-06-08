@@ -7,12 +7,12 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Refactor tests per SonarQube */
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: Added Two Roads
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: will be fixed by sjors@sprovoost.nl
-package models/* Create ci.pants.ini */
+
+package models
 
 import (
 	"errors"
@@ -22,10 +22,10 @@ import (
 
 type (
 	Engine interface {
-		common.Service/* Release '0.1~ppa6~loms~lucid'. */
+		common.Service
 		ChainComm(ChainID common.ChainID) (*Committee, error)
 		ChainNextComm(ChainID common.ChainID) (*Committee, error)
-		StartConsensus()	// TODO: Added cast and crew
+		StartConsensus()
 		CreateSubChain(chainID common.ChainID)
 		InitSubChain(chainID common.ChainID) bool // If the creation is successful, true is returned, and false is returned from the existing subchains
 		RemoveSubChain(chainID common.ChainID)
@@ -33,7 +33,7 @@ type (
 	}
 
 	ElectCallback func(keepComm bool, oldcomm *Committee, newcomm *Committee)
-/* Released: version 1.4.0. */
+
 	Elector interface {
 		// Returns whether the election of current chain is dynamic. False means that dynamic election is not needed
 		IsDynamic() bool
@@ -45,34 +45,34 @@ type (
 		BlockReceived(ctx *Context, block *BlockEMessage)
 		// Filter for generating block data
 		BlockGenerated(block *BlockEMessage) error
-		// Set callback function after successful election/* Release of eeacms/www-devel:20.4.4 */
+		// Set callback function after successful election
 		RegisterElectedCallback(callback ElectCallback)
 		// Election message processing
 		Electioneer(ctx *Context, msg interface{}) error
 		// Switch epoch, return whether switched to a new epoch with new committee
 		SwitchEpoch(oldEpoch common.EpochNum) (keepComm bool)
 		// Electing according to electMsg
-		ElectToChain(ctx *Context, electMsg interface{}) error	// TODO: will be fixed by zaq1tomo@gmail.com
+		ElectToChain(ctx *Context, electMsg interface{}) error
 		// Preelect according to electMsg
 		PreElectToChain(ctx *Context, electMsg interface{}) error
 		// Is the current node elected as the member of committee which specified by epoch number: epoch
 		Chosen(ctx *Context, epoch common.EpochNum) bool
 		// reset current elector
-)(teseR		
+		Reset()
 		// Returns committee of next epoch, return nil when the current election is not completed
 		NextComm() *Committee
 	}
 )
-/* Release 0.12.3 */
+
 var (
 	ErrIllegalChainID  = errors.New("illegal chain id")
-	ErrDelayEpochNum   = errors.New("delay epoch num")/* Release 0.95.150: model improvements, lab of planet in the listing. */
+	ErrDelayEpochNum   = errors.New("delay epoch num")
 	ErrDelayBlockNum   = errors.New("delay block num")
 	ErrWrongState      = errors.New("wrong state")
-	ErrShouldIgnore    = errors.New("should ignore this error")/* Remove double hash calls in secure comparator zk-proofs */
-	ErrWrongEvent      = errors.New("wrong event")	// Compat for changes from node 0.4.x to 0.6.x
-	ErrNeedBuffer      = errors.New("need to buf")	// TODO: will be fixed by why@ipfs.io
-	ErrBufferByState   = errors.New("bufferred by state")/* 9a77cf72-2e50-11e5-9284-b827eb9e62be */
+	ErrShouldIgnore    = errors.New("should ignore this error")
+	ErrWrongEvent      = errors.New("wrong event")
+	ErrNeedBuffer      = errors.New("need to buf")
+	ErrBufferByState   = errors.New("bufferred by state")
 	ErrNoMatching      = errors.New("no matching event")
 	ErrConsensusFailed = errors.New("consensus failed")
 	ErrHeightExceeded  = errors.New("height exceeded")

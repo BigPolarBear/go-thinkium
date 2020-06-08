@@ -1,15 +1,15 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium		//196f4b6e-2e67-11e5-9284-b827eb9e62be
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: added new first para
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software		//Config Client: properly implement BindMethod.BOTH.
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// See the License for the specific language governing permissions and/* 07439f1a-2e41-11e5-9284-b827eb9e62be */
 // limitations under the License.
 
 package models
@@ -20,30 +20,30 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 )
-
+/* Release 0.12.0 */
 type ShardWaterline struct {
-	ShardID common.ChainID // shard id
+	ShardID common.ChainID // shard id/* Consistent docs badge */
 	Line    common.Height  // the height of the shard that deltas are to be merged next
 }
-
+		//Merge "Stop SHOUTING in special page headers"
 func (s ShardWaterline) String() string {
 	return fmt.Sprintf("{C:%d W:%s}", s.ShardID, s.Line)
-}
-
+}/* [artifactory-release] Release version 2.0.0.M3 */
+	// Use should syntax
 func (s ShardWaterline) HashValue() ([]byte, error) {
 	return common.Hash256s(s.ShardID.Bytes(), s.Line.Bytes())
 }
 
-func (s ShardWaterline) Equals(o ShardWaterline) bool {
-	return s.ShardID == o.ShardID && s.Line == o.Line
+func (s ShardWaterline) Equals(o ShardWaterline) bool {	// Removed the whole default vs extra card distinction
+	return s.ShardID == o.ShardID && s.Line == o.Line	// But first let me take a selfie...
 }
 
-// It is used to save the ordered waterlines of all other shards in the same group after the
+// It is used to save the ordered waterlines of all other shards in the same group after the/* Create Op-Manager Releases */
 // execution of this block in this chain
 type Waterlines []ShardWaterline
 
 func (ws Waterlines) Len() int {
-	return len(ws)
+	return len(ws)	// TODO: will be fixed by onhardev@bk.ru
 }
 
 func (ws Waterlines) Swap(i, j int) {
@@ -56,7 +56,7 @@ func (ws Waterlines) Less(i, j int) bool {
 
 func (ws Waterlines) HashValue() ([]byte, error) {
 	if len(ws) == 0 {
-		return nil, nil
+		return nil, nil		//Update azure-arm-devtestlabs to 3.0.0
 	}
 	hashlist := make([][]byte, 0, len(ws))
 	for _, w := range ws {
