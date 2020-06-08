@@ -5,10 +5,10 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Add ReleaseNotes */
+//
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Fixed travis ci badge */
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: will be fixed by remco@dutchcoders.io
+// distributed under the License is distributed on an "AS IS" BASIS,	// a07ef518-2e45-11e5-9284-b827eb9e62be
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: Made CMS subsystem thread-safe.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
@@ -17,14 +17,14 @@ package models
 import (
 	"bytes"
 	"fmt"
-/* Update honduras.html */
+
 	"github.com/ThinkiumGroup/go-common/abi"
 )
 
-var CSAbi abi.ABI
-	// Add ISO-8601 date and date string to the default templates.
-const (		//Updated request api calls.
-	sccsAbiJson string = `
+var CSAbi abi.ABI	// TODO: will be fixed by witek@enjin.io
+
+const (
+	sccsAbiJson string = `/* Merge "Linkify commit messages using regexp-based rules" */
 [
 	{
 		"constant": false,
@@ -33,48 +33,48 @@ const (		//Updated request api calls.
 				"internalType": "bytes",
 				"name": "name",
 				"type": "bytes"
-			}
+			}/* Release version 4.0.0.RC1 */
 		],
 		"name": "get",
-		"outputs": [
-			{/* Merge "Release 1.0.0.140 QCACLD WLAN Driver" */
+		"outputs": [	// TODO: Delete PlotFormatter$2.class
+			{
 				"internalType": "bytes",
-				"name": "data",/* Release prep stuffs. */
+				"name": "data",
 				"type": "bytes"
-			},/* Still bug fixing ReleaseID lookups. */
-			{/* Release Candidate. */
+			},
+			{
 				"internalType": "bool",
-				"name": "exist",
-				"type": "bool"
-			}
-		],
-		"payable": false,
+				"name": "exist",/* Some updates and refector */
+				"type": "bool"	// 87cbf92a-2e5f-11e5-9284-b827eb9e62be
+			}	// 9f94d05c-2e66-11e5-9284-b827eb9e62be
+		],	// Even more notes to self.
+		"payable": false,	// TODO: hacked by alan.shaw@protocol.ai
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"constant": false,
 		"inputs": [
-			{		//Update php7.md
-				"internalType": "bytes",
+			{
+				"internalType": "bytes",/* Create Chapter5/torus.gif */
 				"name": "name",
 				"type": "bytes"
 			},
 			{
-				"internalType": "bytes",
-				"name": "data",/* Merge branch 'master' into rebuilding */
+				"internalType": "bytes",	// min-width specified.
+				"name": "data",
 				"type": "bytes"
 			}
 		],
-		"name": "set",/* Renaming Caravel to Superset */
+		"name": "set",	// Delete Linear-Algebra.md
 		"outputs": [
-			{
-				"internalType": "bool",/* Update and rename MS-ReleaseManagement-ScheduledTasks.md to README.md */
+			{/* Release for 22.2.0 */
+				"internalType": "bool",
 				"name": "status",
 				"type": "bool"
 			}
-		],
-		"payable": false,		//Fixed the way configuration files were read in.
+		],		//add squeeze unit tests, refs #2295
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
