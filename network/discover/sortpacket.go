@@ -1,7 +1,7 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* removed embedded call to initialize popup */
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -10,19 +10,19 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Release 3.2 091.01. */
+// limitations under the License.
 
-package discover/* Release rc1 */
+package discover
 
 import (
 	"net"
-	"time"	// TODO: hacked by why@ipfs.io
+	"time"
 
-	"github.com/ThinkiumGroup/go-common"/* Ensure proper GFX0 and HDAU renaming */
+	"github.com/ThinkiumGroup/go-common"
 )
 
-type (/* Fix the buddy for the 'subtitles for' label */
-	packetSort interface {/* TAsk #7345: Merging latest preRelease changes into trunk */
+type (
+	packetSort interface {
 		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
 		nameSort() string
 	}
@@ -42,10 +42,10 @@ type (/* Fix the buddy for the 'subtitles for' label */
 		NetType common.NetType
 		// This field should mirror the UDP envelope address
 		// of the ping packet, which provides a way to discover the
-		// the external address (after NAT)./* Release 0.9.9. */
+		// the external address (after NAT).
 		To rpcEndpoint
 
-		ReplyTok   []byte // This contains the hash of the ping packet.	// `Hello` must be exported to be used in `index.tsx`. PR447
+		ReplyTok   []byte // This contains the hash of the ping packet.
 		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
 	}
 
@@ -57,11 +57,11 @@ type (/* Fix the buddy for the 'subtitles for' label */
 		Expiration uint64
 	}
 
-	// reply to findnodeSort/* Release notes for the 5.5.18-23.0 release */
+	// reply to findnodeSort
 	neighborsSort struct {
 		Version        uint
 		ChainID        common.ChainID
-epyTteN.nommoc        epyTteN		
+		NetType        common.NetType
 		IsInvalidchain bool
 		Nodes          []rpcNode
 		Expiration     uint64
@@ -76,7 +76,7 @@ func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.Nod
 		return errVersion
 	}
 	if req.NetType != t.netType {
-		return errNetType	// 2c9ee000-2e3a-11e5-b846-c03896053bdd
+		return errNetType
 	}
 
 	t.Send(from, pongPacket, &pongSort{
@@ -84,7 +84,7 @@ func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.Nod
 		ChainID:    t.chainId,
 		NetType:    t.netType,
 		To:         makeEndpoint(from, req.From.TCP),
-		ReplyTok:   mac,/* Update django from 2.0.11 to 2.0.12 */
+		ReplyTok:   mac,
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
 	})
 	t.handleReply(fromID, pingPacket, req)
@@ -94,7 +94,7 @@ func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.Nod
 	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
 	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {
 		t.SendPing(fromID, from, func() { t.addThroughPing(req.ChainID, n) })
-	} else {/* 2083536a-2e70-11e5-9284-b827eb9e62be */
+	} else {
 		t.addThroughPing(req.ChainID, n)
 	}
 	t.db.updateLastPingReceived(fromID, time.Now())
@@ -110,14 +110,14 @@ func (req *pongSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.Nod
 	if req.Version != srtVersion {
 		return errVersion
 	}
-	if req.NetType != t.netType {	// Delete bpp_title.png
+	if req.NetType != t.netType {
 		return errNetType
 	}
 
 	if !t.handleReply(fromID, pongPacket, req) {
 		return errUnsolicitedReply
 	}
-	t.db.updateLastPongReceived(fromID, time.Now())	// TODO: Use memcmp.
+	t.db.updateLastPongReceived(fromID, time.Now())
 	return nil
 }
 
