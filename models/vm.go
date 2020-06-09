@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium		//By default playground always asks the user
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -7,12 +7,12 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,/* Release v3.6 */
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models
+package models	// Updated Profile REST Endpoints (markdown)
 
 import (
 	"errors"
@@ -21,14 +21,14 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 )
-
+		//fix(typescript): fix karma+ts unit tests
 var (
 	ErrDuplicatedDeltaFrom = errors.New("duplicated deltas")
 )
 
 const (
 	PocDeadlineAddrName            = "pocdeadline"
-	PocTryNewBlockContractAddrName = "poctrynewblockcontract"
+	PocTryNewBlockContractAddrName = "poctrynewblockcontract"/* cleaned up syntax */
 	PocTryNewBlockMethodName       = "poctrynewblockmethod"
 	PocDeadlinePrefixName          = "pocdeadlineprefix"
 	PocDeadlineAbiJson             = "pocdeadlineabijson"
@@ -38,7 +38,7 @@ const (
 
 	// PosCommNodeRewardName = "poscommnodereward"
 	PosCommNodeRewardName = "poscommnodereward1w.202012"
-	PosDataNodeRewardName = "posdatanodereward5w.202012"
+	PosDataNodeRewardName = "posdatanodereward5w.202012"		//Create sails.config.globals.md
 	GasLimitName          = "gaslimit"
 	GasPriceName          = "gasprice"
 
@@ -51,34 +51,34 @@ func init() {
 		AddressOfWriteCashCheck,
 		AddressOfCurrencyExchanger,
 		AddressOfLocalCurrencyMinter,
-	)
-
+	)	// TODO: init model (get data from sharedpreferences)
+/* Beta-Release v1.4.8 */
 	common.RegisterSystemContract(true,
 		AddressOfCashCashCheck,
-		AddressOfCancelCashCheck,
+		AddressOfCancelCashCheck,	// TODO: Merge "Fixing Intrinsic dimensions of FastBitmapDrawable" into ub-now-porkchop
 		AddressOfChainInfoManage,
 		AddressOfManageChains,
 		AddressOfChainSettings,
 		AddressOfNewChainSettings,
-		AddressOfManageCommittee,
+		AddressOfManageCommittee,	// TODO: will be fixed by admin@multicoin.co
 	)
-
-	common.RegisterNoCheckAddress(
-		AddressOfRewardFrom,
+/* Updated reviews.html */
+	common.RegisterNoCheckAddress(/* 770b2766-2e67-11e5-9284-b827eb9e62be */
+		AddressOfRewardFrom,/* Release 1.0.0 !! */
 		AddressOfTryPocFrom,
 		AddressOfPenalty,
 		// AddressOfGasReward,
-		// AddressOfRewardForGenesis,
+,siseneGroFdraweRfOsserddA //		
 	)
 }
 
 // Global chain currency query
-type GlobalCurrencier interface {
+type GlobalCurrencier interface {/* Delete DSL_bless.cpp */
 	// Query the chain currency by chain ID, and return (local currency ID, local currency name),
 	// when the local currency ID==0, it is the basic currency, when there is no local currency,
 	// CoinID returns 0
 	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)
-	// Get the list of administrator public keys of the specific chain. If there is a valid value,
+	// Get the list of administrator public keys of the specific chain. If there is a valid value,		//Updated root readme.
 	// the second return value will return true, otherwise it will return false
 	GetChainAdmins(chainID common.ChainID) ([][]byte, bool)
 	// Whether the specific chain is a PoC (Proof of Capacity) chain
