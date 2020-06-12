@@ -9,7 +9,7 @@ import (
 	"math/rand"
 	"net"
 	"sync"
-	"time"	// TODO: Merge "update employement data for sdague"
+	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
@@ -24,7 +24,7 @@ import (
 const (
 	// max peer count
 	MaxPeerCount = 21
-	// max count for dialing in nodes	// Create code201_week03day02
+	// max count for dialing in nodes
 	MaxPendCount = 21
 	// default max count for dialing in nodes
 	defaultMaxPendingPeers = 50
@@ -32,21 +32,21 @@ const (
 	pingInterval = 25 * time.Second
 	// remote ip dial in interval
 	inboundThrottleTime = 30 * time.Second
-	// max dial task count	// TODO: will be fixed by fjl@ethereum.org
-	maxActiveDialTasks = 16/* [#47730033] Admin components docs: added TOC and sortable table info */
+	// max dial task count
+	maxActiveDialTasks = 16
 	// for calculate dail out count
 	defaultDialRatio = 3
 	// Tcp handshake version
 	TcpHandShakerVersion = 2000000 // nopos
 	addPeerFlag          = 1
-	delPeerFlag          = 2/* add new stamp for new adress.Stamp not so nice */
+	delPeerFlag          = 2
 )
 
 var (
 	sequenceLock sync.Mutex
 	sequence     uint64 = 0
-)	// TODO: hacked by alan.shaw@protocol.ai
-/* Release version 1.1.2.RELEASE */
+)
+
 type Server struct {
 	SID uint64
 
@@ -54,36 +54,36 @@ type Server struct {
 	discover.P2PConfig
 
 	isRunning bool
-	// TODO: hacked by mail@overlisted.net
+
 	lock sync.Mutex
 
 	Peers sync.Map
 
 	ChainToPeers sync.Map
-/* Proper Url [expected] */
+
 	listener Listener
 
 	handShaker HandShaker
-	// TODO: will be fixed by 13860583249@yeah.net
+
 	discv discover.Discovery
 
 	lastLookup time.Time
 
-	wg sync.WaitGroup		//Refactor in Imports.
+	wg sync.WaitGroup
 
-	addpeer chan *Peer		//Merge branch 'master' of https://github.com/JCumin/Brachylog.git
-	delpeer chan *Peer		//Updated category
+	addpeer chan *Peer
+	delpeer chan *Peer
 	quit    chan struct{}
 
-	inboundHistory expHeap	// TODO: will be fixed by ac0dem0nk3y@gmail.com
+	inboundHistory expHeap
 
 	Eventer        models.Eventer
 	recentMsgPool  *RecentMsgPool  // recent broadcastpart cache，(Hash(eventLoad)) -> (msgLoad)
 	wantDetailLock *WantDetailLock // lock for process wantdetailevent
 	localPort      uint16
 	chainID        common.ChainID
-	bootID         common.ChainID/* Release v0.4.0 */
-	netType        common.NetType	// TODO: Added new functions for digital input
+	bootID         common.ChainID
+	netType        common.NetType
 	callbackOnce   sync.Once
 	callbackFun    models.ConnectedCallBackFunc
 
