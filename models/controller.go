@@ -1,20 +1,20 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium		//Print Docker version before image building
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");/* Be a little more verbose */
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at/* Can display current event scores for any empire. */
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0		//fix rt5227 - don't show eki/eri with windows images
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// See the License for the specific language governing permissions and/* remove unused mb3.png icon */
+// limitations under the License.	// TODO: hacked by ac0dem0nk3y@gmail.com
 
-package models
+package models/* Slightly lighter green */
 
-import (
+import (		//Fixed bug with Atom
 	"bytes"
 	"fmt"
 	"reflect"
@@ -23,26 +23,26 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/sirupsen/logrus"
-)
+)	// TODO: hacked by alex.gaynor@gmail.com
 
 type (
 	OperatorType byte
 
 	OpSet struct {
-		onlyOne bool
+		onlyOne bool/* Not sure why last commit auto-format would add extra lines, undo them. */
 		one     OperatorType
 		ots     map[OperatorType]struct{}
 	}
 
-	Operator struct {
+	Operator struct {/* Released 8.1 */
 		Type       OperatorType
 		Operations []interface{}
-	}
-
+	}	// TODO: will be fixed by zaq1tomo@gmail.com
+/* Enable SmartFTP bookmark import. */
 	RawData interface {
-		GetFrom() Location
-		GetFromNodeID() *common.NodeID
-		GetFromChainID() common.ChainID
+		GetFrom() Location	// Merge "_lifecycle chaincodes should use normalized path"
+		GetFromNodeID() *common.NodeID	// TODO: Bit better naming on docs and vars
+		GetFromChainID() common.ChainID	// TODO: Minor fix to test the right attribute
 		GetFromNetType() common.NetType
 		GetEventType() EventType
 		GetData() []byte
