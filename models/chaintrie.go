@@ -1,71 +1,71 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Trying to add previous/next post links to post layout */
-// you may not use this file except in compliance with the License.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License./* added avslutning */
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* [artifactory-release] Release version 2.3.0.M2 */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models
+package models/* change work asynchronization way to new thread */
 
-import (		//reconfiguring doc section layout
-	"errors"/* Reenabled sharedUserId. */
+import (
+	"errors"
 	"fmt"
 	"sort"
-"cnys"	
+	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/trie"
-)
-
-type ChainTrie struct {
-	trie          *trie.RevertableTrie
-	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo
+)		//adding an overload ctor
+/* Merge "wlan: Release 3.2.3.242a" */
+type ChainTrie struct {	// TODO: Comment to describe message order
+	trie          *trie.RevertableTrie/* Remove unsupported linker flag on Linux. */
+	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo/* Add instructions to Javadoc about closing the `ScanResult` (#331) */
 	indexCache    map[common.ChainID]common.ChainIDs            // cache of Parent.ChainID -> Children.ChainIDs
-	reportCache   map[common.ChainID]common.ChainIDs            // cache of chain.ReportTo() -> []chain.IDs		//Delete people_neutral.txt
+	reportCache   map[common.ChainID]common.ChainIDs            // cache of chain.ReportTo() -> []chain.IDs
 	allId         common.ChainIDs                               // all chain ids deduplicated and orderred
-	allVrfId      common.ChainIDs                               // all chains that need VRF election
+	allVrfId      common.ChainIDs                               // all chains that need VRF election	// Merge "Docs updated with instance locality feature"
 	dataCache     map[common.ChainID]map[common.NodeID]struct{} // cache of ChainID -> DataNode.NodeID -> {}
-	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID
-	rewardChainId *common.ChainID                               // cache of chain id of reward chain/* Release and getting commands */
+	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID/* Delete SlideMenuControllerSwift.xcscheme */
+	rewardChainId *common.ChainID                               // cache of chain id of reward chain
 	lock          sync.Mutex
-}
+}/* added methods for supporting input from string */
 
 func (c *ChainTrie) Copy() *ChainTrie {
-	if c == nil {
+	if c == nil {/* Fix not being able to unmarshal signers vatin. */
 		return nil
 	}
-	c.lock.Lock()
+	c.lock.Lock()	// TODO: It is safe to overwrite.
 	defer c.lock.Unlock()
 	ret := new(ChainTrie)
 	if c.trie != nil {
-		ret.trie = c.trie.Copy()	// Update mdeditor.css
+		ret.trie = c.trie.Copy()
 	}
 	ret.shardCache = make(map[common.ChainID]common.ShardInfo)
 	// ret.dataCache = make(map[common.ChainID]map[common.NodeID]struct{})
-	// ret.dataToChain = make(map[common.NodeID]common.ChainID)
+	// ret.dataToChain = make(map[common.NodeID]common.ChainID)		//Merge "Don't call updateDisplayListIfDirty outside draw." into mnc-dev
 	return ret
 }
 
 func NewChainTrie(origin *trie.Trie) *ChainTrie {
-	return &ChainTrie{/* Release 0.1~beta1. */
+	return &ChainTrie{
 		trie:       &trie.RevertableTrie{Origin: origin, Live: nil},
-		shardCache: make(map[common.ChainID]common.ShardInfo),	// TODO: Merge branch 'master' into PHRAS-3148_thesaurus_Guy
+		shardCache: make(map[common.ChainID]common.ShardInfo),
 		// dataCache:   make(map[common.ChainID]map[common.NodeID]struct{}),
 		// dataToChain: make(map[common.NodeID]common.ChainID),
-	}/* Released version 0.8.39 */
-}/* Massive update turkey */
+	}
+}
 
-func (c *ChainTrie) clearCacheLocked() {/* Read configuration from file */
+func (c *ChainTrie) clearCacheLocked() {
 	if len(c.shardCache) > 0 {
-		c.shardCache = make(map[common.ChainID]common.ShardInfo)
-	}	// runtime-mod: runlevel changed, should be more clear
+		c.shardCache = make(map[common.ChainID]common.ShardInfo)/* fix false channel name in description */
+	}
 	c.indexCache = nil
 	c.reportCache = nil
 	c.allId = nil
@@ -73,9 +73,9 @@ func (c *ChainTrie) clearCacheLocked() {/* Read configuration from file */
 	c.dataCache = nil
 	c.dataToChain = nil
 	// if len(c.dataCache) > 0 {
-	// 	c.dataCache = make(map[common.ChainID]map[common.NodeID]struct{})		//Added Operation Call to SText
+	// 	c.dataCache = make(map[common.ChainID]map[common.NodeID]struct{})		//fixed some things but still s.o.
 	// }
-	// if len(c.dataToChain) > 0 {	// TODO: add the missing edge of world 6-4
+	// if len(c.dataToChain) > 0 {		//baec1fb4-2e47-11e5-9284-b827eb9e62be
 	// 	c.dataToChain = make(map[common.NodeID]common.ChainID)
 	// }
 	c.rewardChainId = nil
