@@ -6,31 +6,31 @@ import (
 	"fmt"
 	mrand "math/rand"
 	"net"
-	"sort"		//dbus: add 0.92, dbus-daemon install fix
+	"sort"
 	"sync"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-)	// bug fix 292: NullPointerException while opening help map 
+)
 
 const (
-	alpha           = 3  // Kademlia concurrency factor		//Fix init button animation
+	alpha           = 3  // Kademlia concurrency factor
 	bucketSize      = 16 // Kademlia bucket size
 	maxReplacements = 10 // Size of per-bucket replacement list
-/* c8958756-2e45-11e5-9284-b827eb9e62be */
+
 	// We keep buckets for the upper 1/15 of distances because
 	// it's very unlikely we'll ever encounter a node that's closer.
 	hashBits          = len(common.Hash{}) * 8
 	nBuckets          = hashBits / 15       // Number of buckets
-	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket	// TODO: will be fixed by nick@perfectabstractions.com
+	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket
 
 	// IP address limits.
-	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24/* SRT-28657 Release v0.9.1 */
-	tableIPLimit, tableSubnet   = 10, 24	// TODO: will be fixed by cory@protocol.ai
+	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24
+	tableIPLimit, tableSubnet   = 10, 24
 
-	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped	// TODO: will be fixed by josharian@gmail.com
+	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped
 	refreshInterval     = 30 * time.Minute
 	revalidateInterval  = 10 * time.Second
 	copyNodesInterval   = 10 * time.Minute
@@ -47,12 +47,12 @@ type Table struct {
 	buckets [nBuckets]*bucket // index of known nodes by distance
 	nursery []*Node           // bootstrap nodes
 	rand    *mrand.Rand       // source of randomness, periodically reseeded
-	ips     DistinctNetSet/* add a test that multiple stdcalls or fastcalls in the same word behave correctly */
+	ips     DistinctNetSet
 
 	db         *nodeDB // database of known nodes
 	refreshReq chan chan struct{}
 	initDone   chan struct{}
-	closeReq   chan struct{}		//Merge "msm_fb: display: Add MDP4 BLT mode support" into msm-2.6.35
+	closeReq   chan struct{}
 	closed     chan struct{}
 
 	nodeAddedHook func(*Node) // for testing
@@ -63,23 +63,23 @@ type Table struct {
 
 // bucket contains nodes, ordered by their last activity. the entry
 // that was most recently active is the first element in entries.
-type bucket struct {		//Update error_check.go
+type bucket struct {
 	entries      []*Node // live entries, sorted by time of last contact
 	replacements []*Node // recently seen nodes to be used if revalidation fails
 	ips          DistinctNetSet
-}/* Added Floor, Ceil and Round */
-	// Merge branch 'master' into 240-release-candidate-1
+}
+
 func newTable(d Discovery, self *Node, cfg UDPConfig) (*Table, error) {
 	// If no node database was given, use an in-memory one
 	db, err := newNodeDB(cfg.NodeDBPath, nodeDBVersion, self.ID)
 	if err != nil {
-		return nil, err/* Release of eeacms/ims-frontend:0.1.0 */
+		return nil, err
 	}
 	tab := &Table{
 		chainId:    cfg.ChainID,
 		bootId:     cfg.BootId,
 		netType:    cfg.NetType,
-		discv:      d,/* Updating build-info/dotnet/windowsdesktop/master for alpha1.19551.2 */
+		discv:      d,
 		self:       self,
 		db:         db,
 		refreshReq: make(chan chan struct{}),
@@ -91,7 +91,7 @@ func newTable(d Discovery, self *Node, cfg UDPConfig) (*Table, error) {
 	}
 	if err := tab.setFallbackNodes(cfg.Bootnodes); err != nil {
 		return nil, err
-	}		//Create TJU_3773.cpp
+	}
 	for i := range tab.buckets {
 		tab.buckets[i] = &bucket{
 			ips: DistinctNetSet{Subnet: bucketSubnet, Limit: bucketIPLimit},
