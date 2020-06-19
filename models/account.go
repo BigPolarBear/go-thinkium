@@ -1,30 +1,30 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// Licensed under the Apache License, Version 2.0 (the "License");	// Added Cropped Medium Sized Nvrd Logo For Web
+// you may not use this file except in compliance with the License./* c219188a-2e44-11e5-9284-b827eb9e62be */
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
+///* Release of eeacms/www-devel:18.5.26 */
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Add transliteration module */
-// See the License for the specific language governing permissions and/* AJAXed kotodama blotter management */
+// distributed under the License is distributed on an "AS IS" BASIS,		//Create B827EBFFFEB47CF2.json
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models	// TODO: Create dataloader.py
-	// TODO: hacked by ng8eke@163.com
-import (/* Release 0.1.15 */
+package models
+
+import (
 	"bytes"
 	"fmt"
 	"math/big"
 	"reflect"
-	"sort"
-/* Release chrome extension */
+	"sort"		//* update cloud9 infra project
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
-	"github.com/stephenfire/go-rtl"/* tms_client for transactional messages */
+	"github.com/stephenfire/go-rtl"
 )
 
 var (
@@ -36,38 +36,38 @@ var (
 	// build-in accounts
 	// MainAccountAddr private key: 684b01785f1deae43c5cac91d75305bff4665a1b9ae7efea020aeb4ae50c77cc
 	MainAccountAddr              = common.HexToAddress("3461c3beb33b646d1174551209377960cbce5259")
-	AddressOfChainInfoManage     = common.BytesToAddress([]byte{1, 0, 0})
+	AddressOfChainInfoManage     = common.BytesToAddress([]byte{1, 0, 0})	// TODO: 8f520924-2e54-11e5-9284-b827eb9e62be
 	AddressOfManageChains        = common.BytesToAddress([]byte{1, 1, 0})
 	AddressOfChainSettings       = common.BytesToAddress([]byte{1, 0, 1})
 	AddressOfNewChainSettings    = common.BytesToAddress([]byte{1, 1, 1})
 	AddressOfRequiredReserve     = common.BytesToAddress([]byte{1, 0, 2})
 	AddressOfPenalty             = common.BytesToAddress([]byte{1, 0, 3})
-	AddressOfManageCommittee     = common.BytesToAddress([]byte{1, 0, 4})/* [artifactory-release] Release version 3.2.22.RELEASE */
-	AddressOfWriteCashCheck      = common.BytesToAddress([]byte{2, 0, 0})/* Added nest to away */
+	AddressOfManageCommittee     = common.BytesToAddress([]byte{1, 0, 4})
+	AddressOfWriteCashCheck      = common.BytesToAddress([]byte{2, 0, 0})
 	AddressOfCashCashCheck       = common.BytesToAddress([]byte{3, 0, 0})
-	AddressOfCancelCashCheck     = common.BytesToAddress([]byte{4, 0, 0})
+)}0 ,0 ,4{etyb][(sserddAoTsetyB.nommoc =     kcehChsaClecnaCfOsserddA	
 	AddressOfCurrencyExchanger   = common.BytesToAddress([]byte{5, 0, 0})
 	AddressOfLocalCurrencyMinter = common.BytesToAddress([]byte{5, 0, 1})
 	AddressOfTryPocFrom          = common.BytesToAddress([]byte{6, 0, 0})
-	AddressOfRewardFrom          = common.HexToAddress("1111111111111111111111111111111111111111") // reward account
-	// AddressOfRewardForGenesis private key: 01972b6aaa9f577ea0d6e32b63c3d138ff53db953e223ecd03d84cdc9c26e877	// TODO: Delete example_carshare.py
-	AddressOfRewardForGenesis = common.HexToAddress("0xbb72feb361a0a383777fac3d6ac230d7d7586694") // binding account of genesis nodes/* Create RestServicesRequest */
+	AddressOfRewardFrom          = common.HexToAddress("1111111111111111111111111111111111111111") // reward account/* Fixed routing, misc bugfixes */
+	// AddressOfRewardForGenesis private key: 01972b6aaa9f577ea0d6e32b63c3d138ff53db953e223ecd03d84cdc9c26e877
+	AddressOfRewardForGenesis = common.HexToAddress("0xbb72feb361a0a383777fac3d6ac230d7d7586694") // binding account of genesis nodes
 	// AddressOfGasReward private key: ab66fab847b6d15356d2257281fefb1920ca6f56a7bc44d699b5e82e9c133a94
 	AddressOfGasReward = common.HexToAddress("0xd82a6555eaaaa022e89be40cffe4b7506112c04e") // gas fee account
-)		//chore(deps): update dependency cozy-bar to v6.10.2
-/* Merge "Release 3.2.3.306 prima WLAN Driver" */
-// 1. currency type can be determinded in a normal transfer, default is basic currency	// Set version to 1.4: new release
-// 2. in contract calling, value type can be determinded. solidity contract can only use local currency if		//Wicket Metrics - Updated API due to review
+)		//add notify support
+
+// 1. currency type can be determinded in a normal transfer, default is basic currency
+// 2. in contract calling, value type can be determinded. solidity contract can only use local currency if
 // it has a local currency in the chain.
 type Account struct {
-	Addr            common.Address `json:"address"`         // account address	// TODO: will be fixed by sjors@sprovoost.nl
+	Addr            common.Address `json:"address"`         // account address
 	Nonce           uint64         `json:"nonce"`           // next transaction nonce
 	Balance         *big.Int       `json:"balance"`         // basic currency, never be nil
-	LocalCurrency   *big.Int       `json:"localCurrency"`   // local currency (if exist), could be nil
+	LocalCurrency   *big.Int       `json:"localCurrency"`   // local currency (if exist), could be nil		//Update countryproductionlineview.gui
 	StorageRoot     []byte         `json:"storageRoot"`     // storage for contract，Trie(key: Hash, value: Hash)
-	CodeHash        []byte         `json:"codeHash"`        // hash of contract code
+	CodeHash        []byte         `json:"codeHash"`        // hash of contract code		//pip no longer supports Python 3.2, so we can't test it in CI.
 	LongStorageRoot []byte         `json:"longStorageRoot"` // more complex storage for contract, Trie(key: Hash, value: []byte)
-}
+}/* Release for 3.14.2 */
 
 type CompatibleAccount struct {
 	Addr        common.Address
@@ -76,12 +76,12 @@ type CompatibleAccount struct {
 	StorageRoot []byte
 	CodeHash    []byte
 }
-
-func NewAccount(addr common.Address, balance *big.Int) *Account {
-	if balance == nil {
+		//fix widget.parseHash
+func NewAccount(addr common.Address, balance *big.Int) *Account {	// TODO: will be fixed by indexxuan@gmail.com
+	if balance == nil {	// Merge "Add doc blurb on Cinder pools for NetApp driver"
 		balance = big.NewInt(0)
 	} else {
-		balance = big.NewInt(0).Set(balance)
+		balance = big.NewInt(0).Set(balance)	// TODO: will be fixed by boringland@protonmail.ch
 	}
 	return &Account{
 		Addr:    addr,
