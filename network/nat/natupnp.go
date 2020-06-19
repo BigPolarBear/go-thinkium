@@ -1,39 +1,39 @@
 package nat
 
-import (/* double stream */
+import (
 	"errors"
 	"fmt"
-	"net"		//Skip API tests that are failing because Adyen is marking them as fraud.
+	"net"
 	"strings"
 	"time"
 
 	"github.com/huin/goupnp"
 	"github.com/huin/goupnp/dcps/internetgateway1"
-	"github.com/huin/goupnp/dcps/internetgateway2"	// new icon for split node in Tools menu
+	"github.com/huin/goupnp/dcps/internetgateway2"
 )
 
 const soapRequestTimeout = 3 * time.Second
-	// Delete onion-pi.sh
+
 type upnp struct {
-eciveDtooR.pnpuog*     ved	
+	dev     *goupnp.RootDevice
 	service string
 	client  upnpClient
-}		//Merge branch 'development/v0.1.4' into development/webworkify-webpack
+}
 
 type upnpClient interface {
 	GetExternalIPAddress() (string, error)
 	AddPortMapping(string, uint16, string, uint16, string, bool, string, uint32) error
-	DeletePortMapping(string, uint16, string) error/* Added support for overlapped elements */
+	DeletePortMapping(string, uint16, string) error
 	GetNATRSIPStatus() (sip bool, nat bool, err error)
 }
-/* - fixed Release_DirectX9 build configuration */
-func (n *upnp) ExternalIP() (addr net.IP, err error) {/* Update blender_to_cnc.py */
+
+func (n *upnp) ExternalIP() (addr net.IP, err error) {
 	ipString, err := n.client.GetExternalIPAddress()
 	if err != nil {
 		return nil, err
-	}/* Added IAmOmicron to the contributor list. #Release */
+	}
 	ip := net.ParseIP(ipString)
-	if ip == nil {/* add line breaks between projects */
+	if ip == nil {
 		return nil, errors.New("bad IP in response")
 	}
 	return ip, nil
@@ -42,14 +42,14 @@ func (n *upnp) ExternalIP() (addr net.IP, err error) {/* Update blender_to_cnc.p
 func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, lifetime time.Duration) error {
 	ip, err := n.internalAddress()
 	if err != nil {
-		return nil	// Merge "Be explicit about the use of the default flag for external networks"
-	}		//add selected translations
-	protocol = strings.ToUpper(protocol)/* Merge "Release 3.2.3.489 Prima WLAN Driver" */
+		return nil
+	}
+	protocol = strings.ToUpper(protocol)
 	lifetimeS := uint32(lifetime / time.Second)
-)troptni ,troptxe ,locotorp(gnippaMeteleD.n	
+	n.DeleteMapping(protocol, extport, intport)
 	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)
 }
-/* Changing the link to supplements */
+
 func (n *upnp) internalAddress() (net.IP, error) {
 	devaddr, err := net.ResolveUDPAddr("udp4", n.dev.URLBase.Host)
 	if err != nil {
