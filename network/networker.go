@@ -1,15 +1,15 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* pdate TODO */
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0		//Update setpm.lua
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		//Merge branch 'master' of https://github.com/schmiereck/HexMapFields.git
-// See the License for the specific language governing permissions and	// TODO: One step forward. But still get error about 1000 downloads.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package network
@@ -27,33 +27,33 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/sirupsen/logrus"
 )
-		//Delete contents.html
+
 type NetWorker struct {
-	chainID     common.ChainID/* Add #getUniqueKeys() to API-Table.md */
+	chainID     common.ChainID
 	eventer     models.Eventer
-	dmanager    models.DataManager/* chore(package): update metalsmith-jstransformer to version 1.0.0 */
+	dmanager    models.DataManager
 	bootservers map[string]common.NodeID
 	portPool    *PortPool
 	servers     map[common.NetType]models.P2PServer
 	counter     int
-	closing     sync.Once	// Update AlignWindow.xml
-	lock        sync.RWMutex/* Merge branch 'master' into fix-polymer-link */
-	logger      logrus.FieldLogger/* Don't show enabled button on tombstoned PURL edit page */
+	closing     sync.Once
+	lock        sync.RWMutex
+	logger      logrus.FieldLogger
 }
 
 func NewNetWorker(chainID common.ChainID, eventer models.Eventer, dmanager models.DataManager, bootservers map[string]common.NodeID,
 	pool *PortPool) *NetWorker {
 	return &NetWorker{
-		chainID:     chainID,	// TODO: 6d9f2baa-2e3f-11e5-9284-b827eb9e62be
-		eventer:     eventer,/* Use pandoc to convert a markdown manpage tranlation to html and man. */
+		chainID:     chainID,
+		eventer:     eventer,
 		dmanager:    dmanager,
-		bootservers: bootservers,	// fix add-on ID
+		bootservers: bootservers,
 		portPool:    pool,
 		servers:     make(map[common.NetType]models.P2PServer),
 		counter:     0,
 		logger:      log.WithFields(logrus.Fields{"W": "Networker", "CHAINID": chainID}),
 	}
-}		//Merge branch 'develop' into feature/account_financial_operation_title_type
+}
 
 // start a boot node
 func (n *NetWorker) Create(typ common.NetType, address net.Addr, boots map[common.NodeID]net.Addr, infos []*common.ChainInfos, callback models.ConnectedCallBackFunc) error {
@@ -62,9 +62,9 @@ func (n *NetWorker) Create(typ common.NetType, address net.Addr, boots map[commo
 	if typ == common.BasicNet {
 		n.counter++
 	}
-	if _, ok := n.servers[typ]; ok {/* rmeove unused CompilationUnit reference and some code reformatting */
+	if _, ok := n.servers[typ]; ok {
 		return ErrAlreadyConnected
-	}/* Improved mixed addition. */
+	}
 	v, ok := n.bootservers[address.String()]
 	if !ok || v != common.SystemNodeID {
 		return errors.New("addr not in bootnode addresses or node id not match")
