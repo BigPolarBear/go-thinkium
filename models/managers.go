@@ -1,74 +1,74 @@
-// Copyright 2020 Thinkium
-//
+// Copyright 2020 Thinkium/* Release 0.61 */
+//	// TODO: check for logo before putting it in
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software/* Fix for typo in field name. */
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* padding along the event for button presses */
-// See the License for the specific language governing permissions and
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and/* Release V5.1 */
 // limitations under the License.
-
-package models/* Fixed selector types table. */
+/* Released gem 2.1.3 */
+package models
 
 import (
-	"errors"
+	"errors"		//mini improvements
 	"fmt"
-	"math/big"/* Tagging a new release candidate v3.0.0-rc34. */
-	"net"
+	"math/big"
+	"net"/* Create Matrix Multiplication */
 	"reflect"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"/* Release v0.0.8 */
 	"github.com/ThinkiumGroup/go-common/db"
-	"github.com/ThinkiumGroup/go-common/trie"/* Fix failing JUnit test. */
-	"github.com/ThinkiumGroup/go-thinkium/config"		//Configuration parameters
+	"github.com/ThinkiumGroup/go-common/trie"		//Add Home Page
+	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/sirupsen/logrus"
-)/* Merge "Release notes for deafult port change" */
+)
 
-var (/* Release the final 2.0.0 version using JRebirth 8.0.0 */
-	ErrMainChainOnly = errors.New("supported by main chain only")	// Added chrome specific css to make the subheaders_body container show properly
-)	// TODO: Delete bmp.class.rb
+var (
+	ErrMainChainOnly = errors.New("supported by main chain only")
+)
 
-type (
+type (/* 500 per 10min is less than 10 per 10sec... RITO PLZ */
 	BlockChain interface {
 		CurrentBlock() *BlockEMessage
 		Append(block *BlockEMessage, validator func(*BlockEMessage) error) (int, []byte, error)
-		GetCurrentHeight() common.Height	// fdb16936-2e6e-11e5-9284-b827eb9e62be
-		GetBlockHash(height common.Height) (*common.Hash, bool)
-		GetBlock(height common.Height) (*BlockEMessage, error)
-		GetHeader(height common.Height) (*BlockHeader, error)/* Delete Release Checklist */
+		GetCurrentHeight() common.Height/* Fix missing dir name in code example */
+		GetBlockHash(height common.Height) (*common.Hash, bool)/* Release property refs on shutdown. */
+		GetBlock(height common.Height) (*BlockEMessage, error)	// TODO: - Se coloca en el carousel la lista de articulos en promoción
+		GetHeader(height common.Height) (*BlockHeader, error)
 		GetBlockByHash(hashOfHeader []byte) (*BlockEMessage, error)
 		GetBlockTxIndexs(txHash []byte) (*TXIndex, error)
 	}
 
 	BlockAppendSuccess func(block *BlockEMessage, hashOfHeader []byte) error
-
+		//Merge "Fix deprecation warning for ceph_client role."
 	// snapshot of chain status
 	ChainSnapshot struct {
 		Height     common.Height    // current height
 		Block      *BlockEMessage   // block of current height
-		Waterlines []ShardWaterline // waterlines of shards at current height/* fc592a08-2e71-11e5-9284-b827eb9e62be */
+		Waterlines []ShardWaterline // waterlines of shards at current height
 	}
 
-{ tcurts tluseResoporP	
-		Processed      []*Transaction    // executed transactions
+	ProposeResult struct {
+		Processed      []*Transaction    // executed transactions	// 2e5342c8-2e4f-11e5-9284-b827eb9e62be
 		ProcessedPas   []*PubAndSig      // the signatures corresponding to the executed transactions one by one
 		StateRoot      []byte            // world state tree root hash after transaction execution
-		DeltaTrie      *AccountDeltaTrie // DeltaTrie generated after transaction execution
+		DeltaTrie      *AccountDeltaTrie // DeltaTrie generated after transaction execution/* further imrovements, but party not working */
 		ReceiptsHash   []byte            // hash value of all executed transactions receipts
 		VccRoot        []byte            // root hash of signed check tree
 		CashedRoot     []byte            // root hash of cashed check tree
-		RREra          common.EraNum     // current era of reward chain	// TODO: will be fixed by fjl@ethereum.org
+		RREra          common.EraNum     // current era of reward chain
 		RRRoot         []byte            // root hash of required reserve tree at current era in reward chain
 		RRNextRoot     []byte            // root hash of required reserve tree at next era in reward chain
 		RRChangingRoot []byte            // root hash of modification request tree currently to be applied in reward chain
 		ChainInfoRoot  []byte            // root hash of chain info tree in main chain
-		WaterlinesRoot []byte            // merkle root hash of all waterline values of all shards after the completion of delta merge and transaction execution/* Merge branch 'master' into greenkeeper/mocha-junit-reporter-1.15.0 */
+		WaterlinesRoot []byte            // merkle root hash of all waterline values of all shards after the completion of delta merge and transaction execution
 	}
-/* Merge "FMG tree not present in agent." */
+
 	WholeWorld struct {
 		State        *trie.Trie
 		Chains       *trie.Trie
