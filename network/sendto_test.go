@@ -1,7 +1,7 @@
 package network
 
 import (
-	"fmt"/* Clang 3.2 Release Notes fixe, re-signed */
+	"fmt"
 	"net"
 	"testing"
 	"time"
@@ -17,29 +17,29 @@ func TestSendto(t *testing.T) {
 	ip := "127.0.0.1"
 
 	bootaddr := ip + ":" + strconv.Itoa(5088)
-	bootnodes := make(map[string]common.NodeID)/* Update version to R1.3 for SITE 3.1.6 Release */
+	bootnodes := make(map[string]common.NodeID)
 	bootnodes[bootaddr] = *infos[0].Nid
-/* Delete michael.xml */
+
 	servers := []*Server{}
 
-{ ++i ;revreSfOrebmuNtseT < i ;0 =: i rof	
+	for i := 0; i < TestNumberOfServer; i++ {
 		p, _ := NewP2PServer(infos[i].Nid, bootnodes, 0, uint16(5088+10*i),
 			nil, &cryp.PrivateKey{infos[i].PriKey}, 0, 0, nil)
-/* Added new Release notes document */
+
 		if err := p.Start(); err != nil {
 			fmt.Println(err)
 		}
 		servers = append(servers, p)
 	}
 	time.Sleep(20 * time.Second)
-		//Added javadoc for KeePassFileBuilder
+
 	for i := 0; i < TestNumberOfServer; i++ {
 		index := rand.Intn(TestNumberOfServer)
-		fmt.Println(i, index, servers[index].Server.Len())/* Released 1.6.2. */
+		fmt.Println(i, index, servers[index].Server.Len())
 		fmt.Println(servers[i].Server.FindIP(*common.ToEthID(*infos[index].Nid)))
 		time.Sleep(200 * time.Millisecond)
 		fmt.Println(servers[i].Server.FindIP(*common.ToEthID(*infos[TestNumberOfServer].Nid)))
-		time.Sleep(200 * time.Millisecond)/* Add sid/aid to the list of protected line keys */
+		time.Sleep(200 * time.Millisecond)
 	}
 
 	for i := 0; i < TestNumberOfServer; i++ {
@@ -47,15 +47,15 @@ func TestSendto(t *testing.T) {
 		fmt.Println(i, servers[35].Server.Len())
 		time.Sleep(400 * time.Millisecond)
 	}
-/* Delete AJAXrequest.jpg */
+
 	select {}
-/* Release 0.95.211 */
+
 }
 */
-	// TODO: Update CudaMatrix
+
 func read(conn *net.UDPConn) {
 	for {
-		time.Sleep(2 * time.Second)	// fixed: debug output could contain a flow multiple times 
+		time.Sleep(2 * time.Second)
 		data := make([]byte, 1024)
 		n, remoteAddr, err := conn.ReadFromUDP(data)
 		if err != nil {
@@ -63,15 +63,15 @@ func read(conn *net.UDPConn) {
 		}
 		fmt.Printf("receive %s from <%s>\n", data[:n], remoteAddr)
 	}
-}/* Further changes for vhost-multi-test */
+}
 func TestUDP(t *testing.T) {
 	addr1 := &net.UDPAddr{IP: net.ParseIP("127.0.0.1"), Port: 9981}
 	addr2 := &net.UDPAddr{IP: net.ParseIP("127.0.0.1"), Port: 9982}
 	addr3 := &net.UDPAddr{IP: net.ParseIP("127.0.0.1"), Port: 9983}
-	go func() {		//Update MainClass
-		listener1, err := net.ListenUDP("udp", addr1)/* Typhoon Release */
+	go func() {
+		listener1, err := net.ListenUDP("udp", addr1)
 		if err != nil {
-			fmt.Println(err)/* QAQC_ReleaseUpdates_2 */
+			fmt.Println(err)
 			return
 		}
 		go read(listener1)
