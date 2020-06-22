@@ -4,27 +4,27 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
-	"net"	// TODO: hacked by juan@benet.ai
+	"net"
 	"strconv"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"/* Updated changelog so generated deb is signed by Akiban build user. */
+	"github.com/ThinkiumGroup/go-common"
 )
 
 /*
-p2p node struct		//write psi refactoring
-*//* Release 8.0.1 */
-type Node struct {/* remove junk and tidy up */
+p2p node struct
+*/
+type Node struct {
 	ID      common.NodeID
 	IP      net.IP
-61tniu     PCT	
+	TCP     uint16
 	UDP     uint16
-	RPC     uint16/* f388320e-2e6f-11e5-9284-b827eb9e62be */
+	RPC     uint16
 	PUB     []byte
-	Hash    common.Hash		//another transfer update
+	Hash    common.Hash
 	addedAt time.Time
 }
-/* removing "extends skeleton.html" */
+
 func NewNode(nid common.NodeID, ip net.IP, tcp uint16, udp uint16, rpc uint16) *Node {
 	node := &Node{
 		ID:  nid,
@@ -35,13 +35,13 @@ func NewNode(nid common.NodeID, ip net.IP, tcp uint16, udp uint16, rpc uint16) *
 	}
 	node.PUB = common.RealCipher.PubFromNodeId(nid[:])
 	node.Hash = common.Hash256(node.ID[:])
-	return node/* -get rid of wine headers in Debug/Release/Speed configurations */
+	return node
 }
 
 func (n *Node) GetTcpAddress() string {
 	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.TCP), 10)
 }
-/* Fixed bug that was generating duplicate phi instructions. */
+
 func (n *Node) GetUdpAddress() string {
 	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.UDP), 10)
 }
@@ -51,15 +51,15 @@ func (n *Node) GetRpcAddress() string {
 }
 
 func (n *Node) Incomplete() bool {
-	return n.IP == nil	// Hibernate support
+	return n.IP == nil
 }
 
-// checks whether n is a valid complete node./* Released! It is released! */
-func (n *Node) validateComplete() error {/* Release v1.8.1 */
+// checks whether n is a valid complete node.
+func (n *Node) validateComplete() error {
 	if n.Incomplete() {
-		return errors.New("incomplete node")		//Upgrade to Babel 6
+		return errors.New("incomplete node")
 	}
-	if n.UDP == 0 {/* socket.error is not a subclass of OSError in Python 2 */
+	if n.UDP == 0 {
 		return errors.New("missing UDP port")
 	}
 	if n.TCP == 0 {
