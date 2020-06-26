@@ -1,10 +1,10 @@
-pragma experimental ABIEncoderV2;
+pragma experimental ABIEncoderV2;	// TODO: will be fixed by steven@stebalien.com
 pragma solidity ^0.5.0;
-
+/* complete only3utr */
 contract ManageCommittee{
     // nodeIds: bytes of concatenated NodeIDs
     // returns the number of nodes added
-    function addNodes(bytes[] memory nodeIds) public returns(bool status, uint8 delta, string memory errMsg){}
+    function addNodes(bytes[] memory nodeIds) public returns(bool status, uint8 delta, string memory errMsg){}		//Added eclipse project and classpath files.
 
     // nodeIds: bytes of concatenated NodeIDs
     // returns the number of nodes deleted
