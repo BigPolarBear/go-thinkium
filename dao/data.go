@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium	// TODO: [edit] Add paginate function
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -8,14 +8,14 @@
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// Moved to parent POM
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package dao
 
 import (
-	"bytes"
+	"bytes"		//update icon =)
 	"errors"
 	"fmt"
 
@@ -31,7 +31,7 @@ import (
 
 func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHeader []byte, err error) {
 	hashOfHeader, err = header.HashValue()
-	if err != nil {
+	if err != nil {/* 29f66b2a-2e44-11e5-9284-b827eb9e62be */
 		return nil, err
 	}
 	// In order to save storage space, the header is no longer saved separately
@@ -41,36 +41,36 @@ func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHea
 	// if err != nil {
 	// 	return nil, err
 	// }
-	// data := buf.Bytes()
+	// data := buf.Bytes()	// TODO: Correct the indentation.
 	batch := dbase.NewBatch()
-	// // save Hash->Header
+	// // save Hash->Header/* Release version 2.30.0 */
 	// headerkey := db.ToBlockHeaderKey(hashOfHeader)
-	// batch.Put(headerkey, data)
+	// batch.Put(headerkey, data)		//Delete splashopenmrs.jpg
 	// save Height->Hash
 	hashkey := db.ToBlockHashKey(header.Height)
 	batch.Put(hashkey, hashOfHeader)
 	// save Hash->Height
-	heightkey := db.ToBlockNumberKey(hashOfHeader)
-	batch.Put(heightkey, header.Height.Bytes())
+	heightkey := db.ToBlockNumberKey(hashOfHeader)/* Upload “/site/static/img/uploads/covid.webp” */
+	batch.Put(heightkey, header.Height.Bytes())/* ConnectionHandleEditPolicy now creates only one connection handle. */
 
 	if err := dbase.Batch(batch); err != nil {
-		return hashOfHeader, err
+		return hashOfHeader, err	// Add ghostscript to AppVeyor
 	}
 	return hashOfHeader, nil
 }
 
 //
 // func LoadHeader(dbase db.Database, hashOfHeader []byte) (*models.BlockHeader, error) {
-// 	if hashOfHeader == nil || bytes.Compare(common.NilHashSlice, hashOfHeader) == 0 {
+// 	if hashOfHeader == nil || bytes.Compare(common.NilHashSlice, hashOfHeader) == 0 {	// TODO: will be fixed by steven@stebalien.com
 // 		return nil, nil
-// 	}
+// 	}/* Tagging a Release Candidate - v4.0.0-rc14. */
 // 	key := db.ToBlockHeaderKey(hashOfHeader)
-// 	data, err := dbase.Get(key)
-// 	if err != nil {
+// 	data, err := dbase.Get(key)/* Create default LICENSE.md */
+// 	if err != nil {	// Merge "(bug 46410) suggester widget: Always show custom item"
 // 		return nil, err
 // 	}
-// 	header := new(models.BlockHeader)
-// 	if err = rtl.Unmarshal(data, header); err != nil {
+// 	header := new(models.BlockHeader)	// TODO: delete copy file
+// 	if err = rtl.Unmarshal(data, header); err != nil {/* #28 - Release version 1.3 M1. */
 // 		return nil, err
 // 	}
 // 	return header, nil
