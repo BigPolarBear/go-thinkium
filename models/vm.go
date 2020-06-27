@@ -1,44 +1,44 @@
-// Copyright 2020 Thinkium		//By default playground always asks the user
+// Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// Licensed under the Apache License, Version 2.0 (the "License");		//Merge "Update README.md following pasko's comments."
+// you may not use this file except in compliance with the License./* Release Notes in AggregateRepository.EventStore */
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0		//Merge "Keep modifications to GitPython objects in single module"
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Release v3.6 */
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// distributed under the License is distributed on an "AS IS" BASIS,		//Added isEqualTo method to NumberCheck
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: add sdd func
+// See the License for the specific language governing permissions and/* forgot .classpath due to gitignore */
 // limitations under the License.
 
-package models	// Updated Profile REST Endpoints (markdown)
+package models/* #167 - Release version 0.11.0.RELEASE. */
 
-import (
-	"errors"
-	"fmt"
+import (/* Release of eeacms/plonesaas:5.2.1-5 */
+	"errors"		//Use perl to set GOVUK-Request-Id if not set.
+	"fmt"/* Release v1.5 */
 	"reflect"
 
 	"github.com/ThinkiumGroup/go-common"
 )
-		//fix(typescript): fix karma+ts unit tests
+	// TODO: will be fixed by steven@stebalien.com
 var (
-	ErrDuplicatedDeltaFrom = errors.New("duplicated deltas")
+	ErrDuplicatedDeltaFrom = errors.New("duplicated deltas")/* Released 2.2.2 */
 )
 
 const (
 	PocDeadlineAddrName            = "pocdeadline"
-	PocTryNewBlockContractAddrName = "poctrynewblockcontract"/* cleaned up syntax */
+	PocTryNewBlockContractAddrName = "poctrynewblockcontract"
 	PocTryNewBlockMethodName       = "poctrynewblockmethod"
 	PocDeadlinePrefixName          = "pocdeadlineprefix"
-	PocDeadlineAbiJson             = "pocdeadlineabijson"
-	PocBindAddrName                = "pocbind"
+	PocDeadlineAbiJson             = "pocdeadlineabijson"		//(Fixes Issue 52)
+	PocBindAddrName                = "pocbind"/* db2387e8-2e76-11e5-9284-b827eb9e62be */
 	PocBindPrefixName              = "pocbindprefix"
-	PocBindAbiJson                 = "pocbindabijson"
+	PocBindAbiJson                 = "pocbindabijson"	// TODO: Remove FileManager class.
 
 	// PosCommNodeRewardName = "poscommnodereward"
 	PosCommNodeRewardName = "poscommnodereward1w.202012"
-	PosDataNodeRewardName = "posdatanodereward5w.202012"		//Create sails.config.globals.md
+	PosDataNodeRewardName = "posdatanodereward5w.202012"
 	GasLimitName          = "gaslimit"
 	GasPriceName          = "gasprice"
 
@@ -51,34 +51,34 @@ func init() {
 		AddressOfWriteCashCheck,
 		AddressOfCurrencyExchanger,
 		AddressOfLocalCurrencyMinter,
-	)	// TODO: init model (get data from sharedpreferences)
-/* Beta-Release v1.4.8 */
+	)
+
 	common.RegisterSystemContract(true,
 		AddressOfCashCashCheck,
-		AddressOfCancelCashCheck,	// TODO: Merge "Fixing Intrinsic dimensions of FastBitmapDrawable" into ub-now-porkchop
+		AddressOfCancelCashCheck,
 		AddressOfChainInfoManage,
 		AddressOfManageChains,
 		AddressOfChainSettings,
 		AddressOfNewChainSettings,
-		AddressOfManageCommittee,	// TODO: will be fixed by admin@multicoin.co
+		AddressOfManageCommittee,
 	)
-/* Updated reviews.html */
-	common.RegisterNoCheckAddress(/* 770b2766-2e67-11e5-9284-b827eb9e62be */
-		AddressOfRewardFrom,/* Release 1.0.0 !! */
+
+	common.RegisterNoCheckAddress(
+		AddressOfRewardFrom,
 		AddressOfTryPocFrom,
 		AddressOfPenalty,
 		// AddressOfGasReward,
-,siseneGroFdraweRfOsserddA //		
+		// AddressOfRewardForGenesis,
 	)
 }
 
 // Global chain currency query
-type GlobalCurrencier interface {/* Delete DSL_bless.cpp */
+type GlobalCurrencier interface {
 	// Query the chain currency by chain ID, and return (local currency ID, local currency name),
 	// when the local currency ID==0, it is the basic currency, when there is no local currency,
 	// CoinID returns 0
 	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)
-	// Get the list of administrator public keys of the specific chain. If there is a valid value,		//Updated root readme.
+	// Get the list of administrator public keys of the specific chain. If there is a valid value,
 	// the second return value will return true, otherwise it will return false
 	GetChainAdmins(chainID common.ChainID) ([][]byte, bool)
 	// Whether the specific chain is a PoC (Proof of Capacity) chain

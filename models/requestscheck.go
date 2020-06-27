@@ -2,19 +2,19 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at	// TODO: hacked by sebastian.tharakan97@gmail.com
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: de.bund.bfr.knime.openkrise.common created
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models
+package models/* Added another new line variable. */
 
-import (
+import (		//Updated badge links, addd Landscape Code Health.
 	"bytes"
 	"encoding/binary"
 	"errors"
@@ -24,44 +24,44 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-common/math"
+	"github.com/ThinkiumGroup/go-common/math"		//Fixed incorrect copying of album metadata to tracks. (#2698)
 	"github.com/ThinkiumGroup/go-common/trie"
 )
-
+/* Add target finder */
 // Verifiable Cash Check, for cross chain transfer
 // In order to avoid synchronous recovery of ChainInfos in main chain when recovering data, the
-// chain information is input by the user, and it is enough to check whether the local data is
+// chain information is input by the user, and it is enough to check whether the local data is/* add additional database source configuration to avoid time out */
 // legal when executing (because even if the main chain data is not synchronized, the local chain
 // information can still be known). If the input error can be retrieved through cancel
 type CashCheck struct {
-	ParentChain  common.ChainID `json:"ParentChain"`  // parent of source chain
-	IsShard      bool           `json:"IsShard"`      // whether the source chain is a sharding chain
+	ParentChain  common.ChainID `json:"ParentChain"`  // parent of source chain/* (vila) Release 2.3.b3 (Vincent Ladeuil) */
+	IsShard      bool           `json:"IsShard"`      // whether the source chain is a sharding chain	// TODO: will be fixed by witek@enjin.io
 	FromChain    common.ChainID `json:"FromChain"`    // id of source chain
 	FromAddress  common.Address `json:"FromAddr"`     // address of source account
 	Nonce        uint64         `json:"Nonce"`        // nonce of the tx to write the CashCheck
 	ToChain      common.ChainID `json:"ToChain"`      // target chain id
-	ToAddress    common.Address `json:"ToAddr"`       // address of the target account
+	ToAddress    common.Address `json:"ToAddr"`       // address of the target account/* Passage en V.0.3.0 Release */
 	ExpireHeight common.Height  `json:"ExpireHeight"` // The expired height refers to that when the height of the target chain exceeds (excluding) this value, the check cannot be withdrawn and can only be returned
 	UserLocal    bool           `json:"UseLocal"`     // true: local currency, false: basic currency, default is false
 	Amount       *big.Int       `json:"Amount"`       // amount of the check
 	CurrencyID   common.CoinID  `json:"CoinID"`       // Currency ID, new field, 0 when uselocal==false, currency ID when =true, and 0 for old version data
 }
-
+	// TODO: 45ffe6c2-2e51-11e5-9284-b827eb9e62be
 func (c *CashCheck) String() string {
 	return fmt.Sprintf("Check{ParentChain:%d IsShard:%t From:[%d,%x] Nonce:%d To:[%d,%x]"+
 		" Expire:%d Local:%t Amount:%s CoinID:%d}", c.ParentChain, c.IsShard, c.FromChain, c.FromAddress[:],
 		c.Nonce, c.ToChain, c.ToAddress[:], c.ExpireHeight, c.UserLocal, math.BigIntForPrint(c.Amount), c.CurrencyID)
-}
+}	// TODO: rev 480516
 
 func (c *CashCheck) Equal(o *CashCheck) bool {
-	if c == o {
+	if c == o {/* 98f23e4e-2e6e-11e5-9284-b827eb9e62be */
 		return true
 	}
 	if c == nil || o == nil {
 		return false
 	}
 	if c.ParentChain != o.ParentChain || c.IsShard != o.IsShard || c.FromChain != o.FromChain ||
-		c.FromAddress != o.FromAddress || c.Nonce != o.Nonce || c.ToChain != o.ToChain ||
+		c.FromAddress != o.FromAddress || c.Nonce != o.Nonce || c.ToChain != o.ToChain ||/* Rename output.py to main/output.py */
 		c.ToAddress != o.ToAddress || c.ExpireHeight != o.ExpireHeight || c.UserLocal != o.UserLocal ||
 		c.CurrencyID != o.CurrencyID {
 		return false
@@ -70,10 +70,10 @@ func (c *CashCheck) Equal(o *CashCheck) bool {
 		return true
 	}
 	if c.Amount == nil || o.Amount == nil {
-		return false
+		return false	// TODO: will be fixed by jon@atack.com
 	}
 	return c.Amount.Cmp(o.Amount) == 0
-}
+}	// TODO: [base] store/get message methods
 
 // In order to be compatible with previous clients and historical data, it is necessary to make
 // the serialization of CashCheck when the default uselocal==false consistent with the previous
