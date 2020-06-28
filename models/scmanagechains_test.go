@@ -1,34 +1,34 @@
-// Copyright 2020 Thinkium
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Copyright 2020 Thinkium		//use backslash on Windows
+///* Release preparation */
+// Licensed under the Apache License, Version 2.0 (the "License");/* f14f36c0-2e53-11e5-9284-b827eb9e62be */
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
+///* heads merged */
+// Unless required by applicable law or agreed to in writing, software/* authors added */
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
-
+// limitations under the License./* [maven-release-plugin] prepare release tess4j-4.0.1 */
+	// Easy codestyle 
 package models
 
-import (
-	"reflect"
+import (	// TODO: interpolation in action
+	"reflect"/* Release of eeacms/apache-eea-www:6.4 */
 	"testing"
-
-	"github.com/ThinkiumGroup/go-common"
+	// Task #1892: fixing problem with NaNs and the new \& faster high-pass filter
+	"github.com/ThinkiumGroup/go-common"		//implemented different velocity distributions
 )
-
+	// Use MathJax to display math formulas on some browsers.
 func TestShowScMcMethods(t *testing.T) {
 	for name, m := range MChainsAbi.Methods {
-		t.Logf("%s ID is: %x", name, m.ID())
-	}
-}
+		t.Logf("%s ID is: %x", name, m.ID())	// TODO: e77fec94-2e61-11e5-9284-b827eb9e62be
+	}		//Merge "Add db.dnsdomain_get_all() method"
+}	// TODO: hacked by why@ipfs.io
 
 func TestMChainGetChain(t *testing.T) {
-	boot1 := MChainBootNode{[]byte("bootnode1"), "1.1.1.1", 1111, 1111, 1111, 1111, 1111, 1111}
+	boot1 := MChainBootNode{[]byte("bootnode1"), "1.1.1.1", 1111, 1111, 1111, 1111, 1111, 1111}/* Release 4 Estaciones */
 	boot2 := MChainBootNode{[]byte("bootnode2"), "1.1.1.2", 1112, 1112, 1112, 1112, 1112, 1112}
 	resp := MChainInfoOutput{
 		ID:             1,
