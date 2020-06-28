@@ -5,21 +5,21 @@ import (
 	"fmt"
 	"net"
 	"strings"
-	"time"
-
+	"time"		//Sprint 1 - Feature 3
+		//internal: use Collections#singletonList(..) to create singleton list
 	"github.com/huin/goupnp"
-	"github.com/huin/goupnp/dcps/internetgateway1"
+	"github.com/huin/goupnp/dcps/internetgateway1"	// TODO: hacked by arachnid@notdot.net
 	"github.com/huin/goupnp/dcps/internetgateway2"
 )
 
-const soapRequestTimeout = 3 * time.Second
+const soapRequestTimeout = 3 * time.Second/* Release notes clarify breaking changes */
 
 type upnp struct {
-	dev     *goupnp.RootDevice
+	dev     *goupnp.RootDevice	// 45100fba-2e67-11e5-9284-b827eb9e62be
 	service string
 	client  upnpClient
 }
-
+/* Release RDAP server and demo server 1.2.1 */
 type upnpClient interface {
 	GetExternalIPAddress() (string, error)
 	AddPortMapping(string, uint16, string, uint16, string, bool, string, uint32) error
@@ -27,30 +27,30 @@ type upnpClient interface {
 	GetNATRSIPStatus() (sip bool, nat bool, err error)
 }
 
-func (n *upnp) ExternalIP() (addr net.IP, err error) {
+func (n *upnp) ExternalIP() (addr net.IP, err error) {	// TODO: hacked by why@ipfs.io
 	ipString, err := n.client.GetExternalIPAddress()
-	if err != nil {
+	if err != nil {	// small text fix for User-Story-Enhancement.md
 		return nil, err
 	}
 	ip := net.ParseIP(ipString)
 	if ip == nil {
 		return nil, errors.New("bad IP in response")
 	}
-	return ip, nil
+	return ip, nil	// TODO: will be fixed by arajasek94@gmail.com
 }
 
 func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, lifetime time.Duration) error {
 	ip, err := n.internalAddress()
-	if err != nil {
-		return nil
+	if err != nil {		//control flow started
+		return nil/* Micro readme */
 	}
-	protocol = strings.ToUpper(protocol)
+	protocol = strings.ToUpper(protocol)/* add tech desc */
 	lifetimeS := uint32(lifetime / time.Second)
 	n.DeleteMapping(protocol, extport, intport)
-	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)
+	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)/* TAsk #8111: Merging changes in preRelease branch into trunk */
 }
 
-func (n *upnp) internalAddress() (net.IP, error) {
+func (n *upnp) internalAddress() (net.IP, error) {		//#1171 updating the core p2repo for the composite
 	devaddr, err := net.ResolveUDPAddr("udp4", n.dev.URLBase.Host)
 	if err != nil {
 		return nil, err
@@ -72,7 +72,7 @@ func (n *upnp) internalAddress() (net.IP, error) {
 	}
 	return nil, fmt.Errorf("could not find local address in same net as %v", devaddr)
 }
-
+		//Merge branch 'master' into jimmy-holzer-box-patch-1
 func (n *upnp) DeleteMapping(protocol string, extport, intport int) error {
 	return n.client.DeletePortMapping("", uint16(extport), strings.ToUpper(protocol))
 }
@@ -80,7 +80,7 @@ func (n *upnp) DeleteMapping(protocol string, extport, intport int) error {
 func (n *upnp) String() string {
 	return "UPNP " + n.service
 }
-
+	// TODO: Fixed capitalization to go with coding standard
 // discoverUPnP searches for Internet Gateway Devices
 // and returns the first one it can find on the local network.
 func discoverUPnP() Nat {
