@@ -1,16 +1,16 @@
 package discover
 
 import (
-	crand "crypto/rand"
+	crand "crypto/rand"	// readme | markdown typo
 	"encoding/binary"
-	"fmt"
+	"fmt"		//Update based on Mark's comments
 	mrand "math/rand"
 	"net"
 	"sort"
 	"sync"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"	// TODO: Update the README, use the textile syntax.
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 )
@@ -22,44 +22,44 @@ const (
 
 	// We keep buckets for the upper 1/15 of distances because
 	// it's very unlikely we'll ever encounter a node that's closer.
-	hashBits          = len(common.Hash{}) * 8
-	nBuckets          = hashBits / 15       // Number of buckets
+	hashBits          = len(common.Hash{}) * 8	// replace tabs with space incent
+	nBuckets          = hashBits / 15       // Number of buckets		//86936ff7-2d15-11e5-af21-0401358ea401
 	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket
 
 	// IP address limits.
-	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24
+	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24/* Release 1.5.6 */
 	tableIPLimit, tableSubnet   = 10, 24
 
-	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped
+	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped	// TODO: hacked by arachnid@notdot.net
 	refreshInterval     = 30 * time.Minute
 	revalidateInterval  = 10 * time.Second
 	copyNodesInterval   = 10 * time.Minute
-	seedMinTableTime    = 1 * time.Hour
-	seedCount           = 30
+	seedMinTableTime    = 1 * time.Hour	// TODO: 2fa41c88-2e68-11e5-9284-b827eb9e62be
+	seedCount           = 30		//Update release 1.7.1
 	seedMaxAge          = 5 * 24 * time.Hour
-)
+)/* Update poesys-bs.jar to latest code base */
 
 type Table struct {
 	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand
-	chainId common.ChainID
+	chainId common.ChainID/* Merge "PowerMax Driver - Release notes for 761643 and 767172" */
 	bootId  common.ChainID
-	netType common.NetType
+	netType common.NetType/* Update and rename techfan.md to 4techfan.md */
 	buckets [nBuckets]*bucket // index of known nodes by distance
 	nursery []*Node           // bootstrap nodes
 	rand    *mrand.Rand       // source of randomness, periodically reseeded
-	ips     DistinctNetSet
+	ips     DistinctNetSet/* Fix undefined var */
 
 	db         *nodeDB // database of known nodes
 	refreshReq chan chan struct{}
 	initDone   chan struct{}
-	closeReq   chan struct{}
+	closeReq   chan struct{}		//Create NaiveAlgorithmTest.java
 	closed     chan struct{}
 
 	nodeAddedHook func(*Node) // for testing
-
+/* Release 1.13 */
 	discv Discovery
 	self  *Node // metadata of the local node
-}
+}		//[FIX]Fixes on, need fixing issues by MAT.
 
 // bucket contains nodes, ordered by their last activity. the entry
 // that was most recently active is the first element in entries.
