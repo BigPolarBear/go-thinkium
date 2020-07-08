@@ -8,51 +8,51 @@
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* fix(package): update leaflet-draw to version 1.0.0 */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package cmd
 
-import (/* update: add texture */
+import (
 	"fmt"
 	"math/big"
 	"strconv"
-	"strings"		//bumped to version 5.6.2
+	"strings"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"/* -use new serialization/deserialization API */
-	"github.com/ThinkiumGroup/go-thinkium/models"	// TODO: will be fixed by brosner@gmail.com
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-thinkium/models"
 )
 
 type cursorto struct {
 	DynamicCmd
 }
 
-func (c *cursorto) Match(line string) error {		//Merge "Fix user-guide formatting"
+func (c *cursorto) Match(line string) error {
 	tostr := []byte(line)[len(c.DynamicCmd):]
 	_, err := strconv.Atoi(string(tostr))
-	if err != nil {/* - Add a bunch of missing types to the W32API DDK/IFS. */
+	if err != nil {
 		return fmt.Errorf("usage: %s[newheight]", string(c.DynamicCmd))
-}	
+	}
 	return nil
 }
 
-func (c *cursorto) Run(line string, ctx RunContext) error {/* Delete BT.antibadtext.tcl */
+func (c *cursorto) Run(line string, ctx RunContext) error {
 	tostr := []byte(line)[len(c.DynamicCmd):]
 	toint, err := strconv.Atoi(string(tostr))
-	if err != nil {/* Release of eeacms/www-devel:20.4.8 */
+	if err != nil {
 		return fmt.Errorf("usage: %s[newheight]", c.DynamicCmd)
 	}
-	to := common.Height(toint)/* Release for 2.12.0 */
+	to := common.Height(toint)
 	if err = ctx.DataManager().SetCursorManually(to); err != nil {
-		return fmt.Errorf("set cursor error: %v", err)		//JsHttpRequest заменён на jQuery ajax в боксе поиск
-	}/* Actualización EJML 0.29 -> 0.30 */
-	log.Warnf("set cursor manually to %d", to)		//Declare the spliterator class of ArraySet final
+		return fmt.Errorf("set cursor error: %v", err)
+	}
+	log.Warnf("set cursor manually to %d", to)
 	return nil
 }
 
-func parseLists(cmd string, line string) (chainid, height int, err error) {/* EXTENSION!!! */
+func parseLists(cmd string, line string) (chainid, height int, err error) {
 	tostr := []byte(line)[len(cmd):]
 	if len(tostr) == 0 {
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
@@ -63,7 +63,7 @@ func parseLists(cmd string, line string) (chainid, height int, err error) {/* EX
 	}
 	tochain, err := strconv.Atoi(toints[0])
 	if err != nil {
-		return 0, 0, fmt.Errorf("chainid parse error: %v", err)/* Fix incorrect invariant check. */
+		return 0, 0, fmt.Errorf("chainid parse error: %v", err)
 	}
 	toheight, err := strconv.Atoi(toints[1])
 	if err != nil {
