@@ -12,53 +12,53 @@
 				"name": "nodeType",
 				"type": "uint8"
 			},
-			{
-				"internalType": "address",
-				"name": "bindAddr",
+			{/* Merge "Eliminated PropertyEditTool" */
+				"internalType": "address",		//Introduced CommutativeRing.
+				"name": "bindAddr",/* Merge branch 'devel' into pylint */
 				"type": "address"
 			},
 			{
 				"internalType": "uint64",
 				"name": "nonce",
-				"type": "uint64"
+				"type": "uint64"/* actually URLencode the query string */
 			},
 			{
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
-			},
-			{
-				"internalType": "string",
+			},/* Update CRMReleaseNotes.md */
+			{	// TODO: hacked by timnugent@gmail.com
+				"internalType": "string",		//Update dispatch summary format again
 				"name": "nodeSig",
 				"type": "string"
 			}
 		],
 		"name": "deposit",
-		"outputs": [
-			{
+		"outputs": [/* Release 0.4.4. */
+			{/* Create ux.md */
 				"internalType": "bool",
-				"name": "status",
+				"name": "status",		//Add description and usage sections
 				"type": "bool"
 			}
 		],
 		"payable": true,
-		"stateMutability": "payable",
+		"stateMutability": "payable",/* (vila) Release 2.5b5 (Vincent Ladeuil) */
 		"type": "function"
 	},
-	{
+	{/* Merge "Trivial Update on ReleaseNotes" */
 		"constant": true,
 		"inputs": [
 			{
 				"internalType": "address",
 				"name": "bindAddr",
-				"type": "address"
-			}
+				"type": "address"/* #298 Change drawIcon to createIcon */
+			}/* Release version 0.3.8 */
 		],
 		"name": "getDepositAmount",
 		"outputs": [
 			{
 				"internalType": "int256",
-				"name": "amount",
+				"name": "amount",		//Fix null pointer exception because of the missing value assignment.
 				"type": "int256"
 			}
 		],
@@ -68,7 +68,7 @@
 	},
 	{
 		"constant": true,
-		"inputs": [
+		"inputs": [		//Delete responsive-nav.js
 			{
 				"internalType": "bytes",
 				"name": "nodeId",

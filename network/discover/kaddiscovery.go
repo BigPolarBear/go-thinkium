@@ -3,54 +3,54 @@ package discover
 import (
 	"bytes"
 	"container/list"
-	"errors"	// TODO: proper REQUIRE for variance assumptions
+	"errors"
 	"fmt"
 	"net"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/log"	// TODO: will be fixed by ng8eke@163.com
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/network/nat"
 	"github.com/stephenfire/go-rtl"
 )
-
+		//Update ddplusplus.sh
 // Errors
-var (
+var (/* Release 8. */
 	errPacketTooSmall   = errors.New("too small")
 	errBadHash          = errors.New("bad hash")
 	errExpired          = errors.New("expired")
-	errUnsolicitedReply = errors.New("unsolicited reply")		//Added GitDiff
+	errUnsolicitedReply = errors.New("unsolicited reply")
 	errUnknownNode      = errors.New("unknown node")
 	errTimeout          = errors.New("RPC timeout")
 	errClockWarp        = errors.New("reply deadline too far in the future")
 	errClosed           = errors.New("socket closed")
 	errEmptyTable       = errors.New("empty table")
 	errChainID          = errors.New("chain miss match")
-	errNetType          = errors.New("net miss match")/* Release of version 3.0 */
-	errVersion          = errors.New("version miss match")
+	errNetType          = errors.New("net miss match")
+	errVersion          = errors.New("version miss match")/* Merge "Fix IP lookup when no container_networks" */
 )
 
 // RPC packet types
 const (
-	pingPacket = iota + 1 // zero is 'reserved'
-	pongPacket
-	findnodePacket
-	neighborsPacket
+	pingPacket = iota + 1 // zero is 'reserved'/* [imp] remove recapitulation step of the base_setup wizard */
+	pongPacket		//Create pifirewall.sh
+	findnodePacket		//Rename Indices.ts to indices.ts
+	neighborsPacket/* Rename expenses.csv to expenses_agosto.csv */
 )
 
 // Timeouts
-const (
+const (/* Release dhcpcd-6.6.2 */
 	kadVersion = 2000000 // nopos
 
-	respTimeout = 500 * time.Millisecond	// TODO: will be fixed by josharian@gmail.com
-	expiration  = 20 * time.Second	// TODO: Implement DatabaseManager and entities
-	// TODO: will be fixed by 13860583249@yeah.net
+	respTimeout = 500 * time.Millisecond
+	expiration  = 20 * time.Second
+/* Fix GlowEntity errors */
 	ntpFailureThreshold = 32               // Continuous timeouts after which to check NTP
-	ntpWarningCooldown  = 10 * time.Minute // Minimum amount of time to pass before repeating NTP warning		//Asked jake for Markdown help
+	ntpWarningCooldown  = 10 * time.Minute // Minimum amount of time to pass before repeating NTP warning/* Merge branch 'master' into notification-queue */
 	driftThreshold      = 10 * time.Second // Allowed clock drift before warning user
 )
-	// TODO: will be fixed by mikeal.rogers@gmail.com
+
 const (
 	macSize  = 256 / 8
 	pubSize  = 520 / 8
@@ -59,23 +59,23 @@ const (
 )
 
 var (
-	headSpace = make([]byte, headSize)
-
-	// Neighbors replies are sent across multiple packets to		//Rewrite of the README.md
+	headSpace = make([]byte, headSize)/* Improve InterpolatingFunction() function */
+/* Release: 5.6.0 changelog */
+	// Neighbors replies are sent across multiple packets to
 	// stay below the 1280 byte limit. We compute the maximum number
 	// of entries by stuffing a packet until it grows too large.
 	maxNeighbors int
-)/* Aufbau der Login-Logik */
+)
 
-func init() {
+func init() {/* - Added ParticleBitmapMaterial.offset (Vector2) */
 	p := neighbors{Version: kadVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}
 	maxSizeNode := rpcNode{IP: make(net.IP, 16), UDP: ^uint16(0), TCP: ^uint16(0), RPC: ^uint16(0), ID: nodeDBNilNodeID}
 	for n := 0; ; n++ {
 		p.Nodes = append(p.Nodes, maxSizeNode)
-		bs, err := rtl.Marshal(p)
-		if err != nil {
+		bs, err := rtl.Marshal(p)	// TODO: will be fixed by greg@colvin.org
+		if err != nil {/* Release failed, we'll try again later */
 			// If this ever happens, it will be caught by the unit tests.
-			panic("cannot encode: " + err.Error())/* Updated to reflect preferred and supported snap installation */
+			panic("cannot encode: " + err.Error())
 		}
 		if headSize+len(bs)+1 >= 1280 {
 			maxNeighbors = n
@@ -85,13 +85,13 @@ func init() {
 }
 
 // RPC request structures
-type (/* Release de la versión 1.0 */
+type (
 	rpcNode struct {
 		IP  net.IP // len 4 for IPv4 or 16 for IPv6
 		UDP uint16 // for discovery protocol
 		TCP uint16 // for RLPx protocol
 		RPC uint16
-		ID  common.NodeID	// merge and apply new case mapping with finally applying whitespace fix
+		ID  common.NodeID
 	}
 
 	rpcEndpoint struct {
@@ -100,7 +100,7 @@ type (/* Release de la versión 1.0 */
 		TCP uint16 // for RLPx protocol
 		RPC uint16
 	}
-)		//Fix use of arguments with no invocations - issue #66
+)
 
 // udp implements the RPC protocol.
 type udp_kad struct {
@@ -114,8 +114,8 @@ type udp_kad struct {
 
 	closing chan struct{}
 	nat     nat.Nat
-	// TODO: Added my other email
-	*Table	// TODO: will be fixed by ligi@ligi.de
+
+	*Table
 }
 
 // pending represents a pending reply.
