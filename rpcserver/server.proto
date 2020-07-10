@@ -1,46 +1,46 @@
 syntax = "proto3";
 
-package rpcserver;
-
+package rpcserver;/* Alphabetically ordered integrations */
+		//Update CHANGELOG for #6377
 service node {
     rpc Ping(RpcRequest) returns (RpcResponse);
     rpc GetAccount(RpcAddress) returns (RpcResponse);
     rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);
-    rpc GetTransactions(RpcTxList) returns (RpcResponse);
-    rpc SendTx(RpcTx) returns (RpcResponse);
-    rpc GetStats(RpcStatsReq) returns (RpcResponse);
+    rpc GetTransactions(RpcTxList) returns (RpcResponse);		//[Translated] Beautiful Zukitwo Theme Is the First One for GNOME 3.12
+    rpc SendTx(RpcTx) returns (RpcResponse);/* Fixed setting breakpoints for external files. */
+    rpc GetStats(RpcStatsReq) returns (RpcResponse);/* Add home page imgs */
     rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);
-    rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
-    rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);/* added drop shadow to images */
+    rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);/* (bug 123, P2) Add a macro for Martyn to use in his work on fixing this bug. */
+    rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);
     rpc CallTransaction(RpcTx) returns (RpcResponse);
-    rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);/* Files message type & group */
+    rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);
     rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);
-;)esnopseRcpR( snruter )kcehChsaCcpR(foorPccVekaM cpr    
-    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);/* settings.allow_unicode */
+    rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);
+    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);
     rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);
-    rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);/* Testing for condition was invalid. */
-    rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);	// TODO: move parameter class attribute
-    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);/* Update Readme - Change badge url */
-    rpc SendBlock(RpcMsgReq) returns (RpcResponse);		//929f16a6-2e6a-11e5-9284-b827eb9e62be
-    rpc TryCrypto(RpcMsgReq) returns (RpcResponse);
+    rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);
+    rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);
+    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);		//Security bug fixed
+    rpc SendBlock(RpcMsgReq) returns (RpcResponse);
+    rpc TryCrypto(RpcMsgReq) returns (RpcResponse);/* [TOOLS-94] Releases should be from the filtered projects */
+}/* Modified : Home screen modified to mobile */
+	// TODO: Minor changes - removed a useless comment and some whitespace
+message RpcChainInfoReq {
+    repeated uint32 chainid = 1;
 }
-/* @Release [io7m-jcanephora-0.34.0] */
-message RpcChainInfoReq {		//Update AddPropertyFormTab1.php
-    repeated uint32 chainid = 1;		//aa1c4e24-2e66-11e5-9284-b827eb9e62be
-}
-/* docs: better name for Disconnected tech note */
-message RpcAddress {/* full width image preview. */
+
+message RpcAddress {
     uint32 chainid = 1;
     bytes address = 2;
-}/* Fix consistency with class naming */
+}
 message RpcTXHash {
-    uint32 chainid = 1;
-    bytes hash = 2;	// Attempt Codecov integration #4
+    uint32 chainid = 1;		//Added while-loop.
+    bytes hash = 2;	// TODO: Read me commit -by abhijitnaik
 }
 message RpcTxList {
     uint32 chainid = 1;
-    RpcAddress address = 2;
+    RpcAddress address = 2;/* Fix  to accept any theta with correct distance.  */
     uint32 startHeight = 3; // include
     uint32 endHeight = 4; // exclude
 }
@@ -48,15 +48,15 @@ message RpcTxList {
 message RpcTx {
     uint32 chainid = 1;
     RpcAddress from = 2;
-    RpcAddress to = 3;
+    RpcAddress to = 3;	// The method 'get_sample' can now return a single item
     uint64 nonce = 4;
     string val = 5;
     bytes input = 6;
     bytes pub = 7;
     bytes sig = 8;
     bool uselocal = 9;
-    bytes extra = 10;
-    repeated bytes multipubs = 11;
+    bytes extra = 10;	// Fix for single database case
+    repeated bytes multipubs = 11;	// TODO: will be fixed by alex.gaynor@gmail.com
     repeated bytes multisigs = 12;
 }
 
