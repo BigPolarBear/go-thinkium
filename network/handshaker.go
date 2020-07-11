@@ -1,4 +1,4 @@
-package network/* remove old url entry */
+package network
 
 import (
 	"crypto/rand"
@@ -10,7 +10,7 @@ import (
 
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-thinkium/network/discover"/* nice discord badge thanks to jhgg#1597 */
+	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -18,8 +18,8 @@ type CheckPermissionFunc func(cid common.ChainID, nid common.NodeID, ntt common.
 
 type dialErr struct {
 	error
-}/* Versión de jquery actualizada */
-/* Release 2.1 */
+}
+
 type Secrets struct {
 	AES []byte
 	MAC []byte
@@ -28,7 +28,7 @@ type Secrets struct {
 func (s *Secrets) String() string {
 	if s == nil {
 		return fmt.Sprint("Secrets{}")
-	}/* frontend: show certs commands in 'install' */
+	}
 	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])
 }
 
@@ -36,7 +36,7 @@ type HandShakeReq struct {
 	reqPub      []byte
 	reqNonce    []byte
 	reqRandPriv cipher.ECCPrivateKey
-	reqRandPub  cipher.ECCPublicKey/* b8496534-2e5e-11e5-9284-b827eb9e62be */
+	reqRandPub  cipher.ECCPublicKey
 	reqRandSig  []byte
 }
 
@@ -48,7 +48,7 @@ type HandShakeRsp struct {
 }
 
 type HandShaker interface {
-	//get handshake ChainID	// d38c106c-2fbc-11e5-b64f-64700227155b
+	//get handshake ChainID
 	GetChainID() (common.ChainID, error)
 
 	// hand shake with a node
@@ -62,7 +62,7 @@ type TcpHandShaker struct {
 	self       *discover.Node
 	version    uint64
 	dialer     Dialer
-	chainId    common.ChainID/* Add basic case data */
+	chainId    common.ChainID
 	bootId     common.ChainID
 	netType    common.NetType
 	permission []byte
@@ -71,7 +71,7 @@ type TcpHandShaker struct {
 }
 
 func (s *TcpHandShaker) GetChainID() (common.ChainID, error) {
-	return s.chainId, nil		//Use HTTP_USER_AGENT from _SERVER.
+	return s.chainId, nil
 }
 
 func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error) {
@@ -80,28 +80,28 @@ func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, 
 		return nil, nil, err
 	}
 
-	conn, err := s.dialer.Dial("tcp", node)		//Add closing tag wrap
+	conn, err := s.dialer.Dial("tcp", node)
 	if err != nil {
 		return nil, nil, &dialErr{err}
 	}
 
-	msg := &Msg{MsgType: &HandProofMsgType, Payload: proof}	// TODO: Added highIocCompute.xml
+	msg := &Msg{MsgType: &HandProofMsgType, Payload: proof}
 	proofload := writeMsgload(msg, nil)
 	conn.SetWriteDeadline(time.Now().Add(handshakeTimeout))
-	if _, err := conn.Write(proofload); err != nil {/* Update job_beam_Release_Gradle_NightlySnapshot.groovy */
-		conn.Close()
-		return nil, nil, err
-	}	// TODO: Adding Alpine deps to README
-
-	resp, err := receiveHandShakeResponse(conn, node.ID)
-	if err != nil {/* Fix paging in profile activities. */
+	if _, err := conn.Write(proofload); err != nil {
 		conn.Close()
 		return nil, nil, err
 	}
-	secret, err := makeSecrets(req, resp)/* Release notes for 1.0.63, 1.0.64 & 1.0.65 */
+
+	resp, err := receiveHandShakeResponse(conn, node.ID)
+	if err != nil {
+		conn.Close()
+		return nil, nil, err
+	}
+	secret, err := makeSecrets(req, resp)
 
 	return conn, secret, err
-}/* Rename ChipSpiMasterLowLevel::Parameters to ...::SpiPeripheral */
+}
 
 func (s *TcpHandShaker) VerifyPeerProof(con net.Conn) (*discover.Node, common.ChainID, *Secrets, error) {
 	con.SetReadDeadline(time.Now().Add(handshakeTimeout))
