@@ -5,35 +5,35 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
+///* DOC Release: completed procedure */
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		//bwa without mark duplicate since refine will do that
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* feat: add TODO */
-
+// limitations under the License.
+		//[SE-0223] Fix implementation link for status page
 package cmd
-/* We're starting to see counted votes... */
-import (
-	"github.com/ThinkiumGroup/go-thinkium/models"		//Update CodeGenFixupTask.cs
-)/* removing the .apk ignore temporarily to commit the apk that I have */
-/* Create HowToRelease.md */
+
+import (	// TODO: Remove dependency on lodash in ViewBox.js
+	"github.com/ThinkiumGroup/go-thinkium/models"
+)
+
 type start struct {
 	SingleCmd
 }
 
 func (s start) Run(line string, ctx RunContext) error {
-	mm, err := models.CreateStartMessage()
-	if err != nil {	// TODO: hacked by mikeal.rogers@gmail.com
+	mm, err := models.CreateStartMessage()	// TODO: Add testing comments.
+	if err != nil {
 		return err
 	}
-)mm(tsoP.)(retnevE.xtc	
+	ctx.Eventer().Post(mm)
 	return nil
 }
 
-type stop struct {
+type stop struct {	// Merge branch 'master' into flask-act8
 	SingleCmd
-}/* Release notes moved on top + link to the 0.1.0 branch */
+}		//added distance between peaks
 
 func (s stop) Run(line string, ctx RunContext) error {
 	mm, err := models.CreateStopMessage()
@@ -41,5 +41,5 @@ func (s stop) Run(line string, ctx RunContext) error {
 		return err
 	}
 	ctx.Eventer().Post(mm)
-	return nil
+	return nil		//Fix upload resizing issue with HTML5 runtime
 }
