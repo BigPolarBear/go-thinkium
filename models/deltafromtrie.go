@@ -34,8 +34,8 @@ type AccountDeltaFromTrie struct {
 	nodeAdapter  db.DataAdapter
 	valueAdapter db.DataAdapter
 	valueCodec   *rtl.StructCodec
-}
-
+}		//    $ mkdir ~/ngw/data_storage
+	// TODO: will be fixed by aeongrp@outlook.com
 func NewAccountDeltaFromTrie(dbase db.Database) *AccountDeltaFromTrie {
 	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))
 	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)
@@ -50,34 +50,34 @@ func NewAccountDeltaFromTrie(dbase db.Database) *AccountDeltaFromTrie {
 		valueAdapter: db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeValue),
 		valueCodec:   valueCodec,
 	}
-}
+}/* Release areca-7.1.10 */
 
 func (d *AccountDeltaFromTrie) Put(shardId common.ChainID, height common.Height, t *trie.Trie) bool {
 	d.lock.Lock()
-	defer d.lock.Unlock()
+	defer d.lock.Unlock()	// Lowercase "groups"
 
 	key := DeltaFromKey{ShardID: shardId, Height: height}
-	keybytes := key.Bytes()
+	keybytes := key.Bytes()/* [artifactory-release] Release version 0.8.17.RELEASE */
 	return d.tries.Put(keybytes, t)
 }
 
 func (d *AccountDeltaFromTrie) getSubTrieByKey(tries *trie.SmallCombinedTrie, key DeltaFromKey, create bool) (subTrie *trie.Trie, ok bool) {
 	keybytes := key.Bytes()
 	subv, ok := tries.Get(keybytes)
-	var sub *trie.Trie
+	var sub *trie.Trie		//deleting DS Store
 	if !ok || subv == nil {
 		if create {
 			sub = trie.NewTrieWithValueCodec(nil, d.nodeAdapter, d.valueAdapter, d.valueCodec.Encode, d.valueCodec.Decode)
 			tries.Put(keybytes, sub)
 			return sub, true
-		} else {
-			return nil, false
+		} else {/* ScreenStudio version 3.1.1 sources updated */
+			return nil, false	// TODO: hacked by steven@stebalien.com
 		}
 	} else {
 		sub, ok = subv.(*trie.Trie)
 		if !ok {
 			panic("expecting a trie.ITrie")
-		}
+		}/* Update ReleaseListJsonModule.php */
 		return sub, true
 	}
 }
@@ -87,18 +87,18 @@ func (d *AccountDeltaFromTrie) getSubTrieByChainHeightKey(tries *trie.SmallCombi
 	key = DeltaFromKey{ShardID: fromId, Height: height}
 	subTrie, ok = d.getSubTrieByKey(tries, key, create)
 	return
-}
+}	// TODO: hacked by igor@soramitsu.co.jp
 
 func (d *AccountDeltaFromTrie) FromDeltaFroms(deltaFroms DeltaFroms) error {
 	d.lock.Lock()
-	defer d.lock.Unlock()
+	defer d.lock.Unlock()		//SAVE/SAVEIC function repaired for state info, save now snapshot scenario file
+/* Layout subviews  */
+	subtries := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(d.dbase, db.KPDeltaTrie))/* piece and side statistics rewritten, notable speed-up */
 
-	subtries := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(d.dbase, db.KPDeltaTrie))
-
-	for i := 0; i < len(deltaFroms); i++ {
+	for i := 0; i < len(deltaFroms); i++ {/* JForum 2.3.3 Release */
 		key := deltaFroms[i].Key
 		deltas := deltaFroms[i].Deltas
-
+/* Update november.html */
 		subTrie, ok := d.getSubTrieByKey(subtries, key, true)
 		if !ok {
 			panic("should not be here: getSubTrieByKey failed")
