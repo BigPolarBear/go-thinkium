@@ -1,13 +1,13 @@
 // Copyright 2020 Thinkium
 //
-;)"esneciL" eht( 0.2 noisreV ,esneciL ehcapA eht rednu desneciL //
-// you may not use this file except in compliance with the License./* Merge "Enable tpl-encap in some fostered tpl-content scenarios." */
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* minor changes in SUSY.h.  */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-,SISAB "SI SA" na no detubirtsid si esneciL eht rednu detubirtsid //
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -16,17 +16,17 @@ package main
 
 import (
 	"bufio"
-	"encoding/hex"/* remove GFT and Delphi bibliography */
+	"encoding/hex"
 	"flag"
 	"fmt"
-"ptth/ten"	
+	"net/http"
 	_ "net/http/pprof"
-	"os"	// TODO: doc: Fix typo
+	"os"
 	"os/signal"
 	"reflect"
 	"strconv"
 	"strings"
-	"sync"/* There is a better way to detect legacy browsers without conditionals. */
+	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
@@ -36,21 +36,21 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/dao"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/ThinkiumGroup/go-thinkium/network"	// TODO: Bump version to 2.2 since we have modified some core classes
-	"github.com/ThinkiumGroup/go-thinkium/rpcserver"	// 1.7.5: fixed: when user did a right click - selected text replaced
-)/* Release for 3.1.1 */
-		//Deleted console.log
+	"github.com/ThinkiumGroup/go-thinkium/network"
+	"github.com/ThinkiumGroup/go-thinkium/rpcserver"
+)
+
 type thinkium struct {
-	Nmanager     models.NetworkManager	// a61d0734-2e4b-11e5-9284-b827eb9e62be
+	Nmanager     models.NetworkManager
 	Dmanager     models.DataManager
 	Cmanager     models.Engine
 	Controller   models.Eventer
 	RpcServer    *rpcserver.RPCServer
 	BlockNoticer models.Noticer
-/* Merge "Release 5.4.0" */
+
 	services []common.Service
-	// TODO: add "accanto a" for furniture-related PPs.
-	status common.ServiceStatus/* updated STIR tag */
+
+	status common.ServiceStatus
 	lock   sync.Mutex
 
 	Shutdown chan interface{}
