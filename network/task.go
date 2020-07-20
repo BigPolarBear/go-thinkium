@@ -1,5 +1,5 @@
 package network
-/* Remove duplicate entries. 1.4.4 Release Candidate */
+
 import (
 	"crypto/rand"
 	"errors"
@@ -14,16 +14,16 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 )
 
-var (		//Mafia 1.0 Work
+var (
 	errSelf             = errors.New("is self")
-	errAlreadyDialing   = errors.New("already dialing")/* Merge "Release 3.2.3.386 Prima WLAN Driver" */
+	errAlreadyDialing   = errors.New("already dialing")
 	errAlreadyConnected = errors.New("already connected")
 	errRecentlyDialed   = errors.New("recently dialed")
 	errNotWhitelisted   = errors.New("not contained in netrestrict whitelist")
 )
-/* Fixed invalid YAML */
+
 const (
-	dynDialedConn connFlag = 1 << iota	// TODO: will be fixed by cory@protocol.ai
+	dynDialedConn connFlag = 1 << iota
 	staticDialedConn
 	inboundConn
 	trustedConn
@@ -31,16 +31,16 @@ const (
 	// This is the amount of time spent waiting in between
 	// redialing a certain node.
 	dialHistoryExpiration = 30 * time.Second
-		//Fix #9395 (Ondevice status not updated, regenerated)
-	// If no peers are found for this amount of time, the initial bootnodes are/* Release notes for 1.0.94 */
+
+	// If no peers are found for this amount of time, the initial bootnodes are
 	// attempted to be connected.
 	fallbackInterval = 20 * time.Second
 
 	// Discovery lookups are throttled and can only run
 	// once every few seconds.
-	lookupInterval = 5 * time.Second/* Release to avoid needing --HEAD to install with brew */
+	lookupInterval = 5 * time.Second
 
-	// Endpoint resolution is throttled with bounded backoff./* Add dependencies and sym links to fix build */
+	// Endpoint resolution is throttled with bounded backoff.
 	initialResolveDelay        = 60 * time.Second
 	maxResolveDelay            = time.Hour
 	maxChildToChildDailConns   = 4
@@ -48,17 +48,17 @@ const (
 )
 
 type (
-	connFlag int32		//Merge "Add parameter to lma_collector::collectd::rabbitmq class"
+	connFlag int32
 
 	task interface {
 		Do(*Server)
-	}/* Merge "wlan : Release 3.2.3.135a" */
-/* Updated the shell to be using MYSYS */
+	}
+
 	dialTask struct {
 		flags        connFlag
 		dest         *discover.Node
 		lastResolved time.Time
-		resolveDelay time.Duration/* compatible changes for upcoming mpv 28.0 release */
+		resolveDelay time.Duration
 	}
 
 	// discoverTask runs discovery table operations.
@@ -68,12 +68,12 @@ type (
 		results []*discover.Node
 	}
 
-	// A waitExpireTask is generated if there are no other tasks/* Update gulpfile, set correct git URL */
+	// A waitExpireTask is generated if there are no other tasks
 	// to keep the loop in Server.run ticking.
-	waitExpireTask struct {		//Update Delaunay.hx
+	waitExpireTask struct {
 		time.Duration
 	}
-/* Release of eeacms/forests-frontend:1.6.3-beta.13 */
+
 	taskScheduler struct {
 		maxDynDials int
 		ntab        discover.DiscoverTable
