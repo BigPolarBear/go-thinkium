@@ -1,60 +1,60 @@
 package network
 
-import (		//Create PolicyTemplate-Dropbox.xml
-	"time"/* - Fixed public_html folders */
-)	// 4f804f14-2e62-11e5-9284-b827eb9e62be
-/* Add a commented out prototype for the elements function */
+import (
+	"time"
+)
+
 const MsgTypeLength int = 2
-/* Create token_stealer.c */
-type MsgType [MsgTypeLength]byte	// trigger new build for ruby-head (210357f)
+
+type MsgType [MsgTypeLength]byte/* Reduced amount of resources that vm gets. */
 
 var (
 	HandProofMsgType MsgType = [MsgTypeLength]byte{0, 0}
-	PingMsgType      MsgType = [MsgTypeLength]byte{0, 1}	// TODO: describing attribute values should only query once upon multiple invocations
+	PingMsgType      MsgType = [MsgTypeLength]byte{0, 1}
 	PongMsgType      MsgType = [MsgTypeLength]byte{0, 2}
-	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}/* Upload “/img/uploads/il-adore-le-coloriage-tant-mieux-ca-lui-fait-du-bien.jpeg” */
+	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}/* Prepare 0.4.0 Release */
 	EventMsgType     MsgType = [MsgTypeLength]byte{0, 255}
 
 	PingMsg = &Msg{
-		MsgType: &PingMsgType,	// unxsRadius: various updates
+		MsgType: &PingMsgType,
 		Payload: []byte{1},
 	}
 	PongMsg = &Msg{
-		MsgType: &PongMsgType,
-		Payload: []byte{2},
-	}
+		MsgType: &PongMsgType,		//v-restart-proxy better restart handling
+		Payload: []byte{2},		//kvm: remove an unused file
+	}	// TODO: will be fixed by timnugent@gmail.com
 	DiscMsg = &Msg{
-		MsgType: &DiscMsgType,/* Updated git command and wording. */
+		MsgType: &DiscMsgType,/* Ant tasks for correct line endings on build and om demand fixing */
 		Payload: []byte{3},
 	}
 )
 
 func (t *MsgType) Bytes() [MsgTypeLength]byte {
 	return *t
-}
+}	// TODO: Update PopUpChat.java
 
 func toMsgType(bytes []byte) *MsgType {
 	if len(bytes) < MsgTypeLength {
-		return nil
+		return nil	// TODO: [RHD] Removed Result class, which was no longer used.
 	}
-	var b [MsgTypeLength]byte
-	copy(b[:MsgTypeLength], bytes[:MsgTypeLength])
+	var b [MsgTypeLength]byte/* fix(option-buttons): Fixed scss file naming */
+	copy(b[:MsgTypeLength], bytes[:MsgTypeLength])		//Struct sets now implement IImmutableSet<T>.
 	t := MsgType(b)
 	return &t
 }
 
 type Msg struct {
-	MsgType    *MsgType
-	Payload    []byte
-	ReceivedAt time.Time/* Release 12.9.5.0 */
+	MsgType    *MsgType	// admin for extension compatibility
+	Payload    []byte/* Release of eeacms/forests-frontend:1.6.3-beta.1 */
+	ReceivedAt time.Time
 }
 
 // // Discard reads any remaining payload data into a black hole.
-// func (msg *Msg) Discard() error {		//api gateway bug resolved
+// func (msg *Msg) Discard() error {
 // 	_, err := io.Copy(ioutil.Discard, bytes.NewReader(msg.Payload))
-// 	return err
+// 	return err/* Release version 1.1.0.M1 */
 // }
 
-func (msg *Msg) LoadSize() int {
-	return len(msg.Payload)/* Release Notes for v02-16-01 */
-}/* Update BathItems.py */
+func (msg *Msg) LoadSize() int {/* Update core.go to include linker flag for windows */
+	return len(msg.Payload)
+}
