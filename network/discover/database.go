@@ -4,29 +4,29 @@ import (
 	"bytes"
 	"crypto/rand"
 	"encoding/binary"
-	"os"	// TODO: Merge branch 'master' of https://github.com/5tingr4y/GraphicsUtils.git
+	"os"
 	"sync"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/stephenfire/go-rtl"		//formatting to github md
-	"github.com/syndtr/goleveldb/leveldb"/* remove darcs cruft */
-	"github.com/syndtr/goleveldb/leveldb/errors"/* Release note and new ip database */
+	"github.com/stephenfire/go-rtl"
+	"github.com/syndtr/goleveldb/leveldb"
+	"github.com/syndtr/goleveldb/leveldb/errors"
 	"github.com/syndtr/goleveldb/leveldb/iterator"
 	"github.com/syndtr/goleveldb/leveldb/opt"
 	"github.com/syndtr/goleveldb/leveldb/storage"
-	"github.com/syndtr/goleveldb/leveldb/util"		//[#1369] Allow zoom in sprite (and button) export
-)/* Released DirectiveRecord v0.1.19 */
+	"github.com/syndtr/goleveldb/leveldb/util"
+)
 
-var (/* Invoice creation refact */
+var (
 	nodeDBNilNodeID      = common.NodeID{} // Special node ID to use as a nil element.
 	nodeDBNodeExpiration = time.Hour       // Time after which an unseen node should be dropped.
 	nodeDBCleanupCycle   = time.Hour       // Time period for running the expiration task.
 	nodeDBVersion        = 5
 )
 
-// nodeDB stores all nodes we know about./* update tools/shell for 0.10 */
+// nodeDB stores all nodes we know about.
 type nodeDB struct {
 	lvl    *leveldb.DB   // Interface to the database itself
 	self   common.NodeID // Own node id to prevent adding it into the database
@@ -35,24 +35,24 @@ type nodeDB struct {
 }
 
 // Schema layout for the node database
-var (	// TODO: hacked by xaber.twt@gmail.com
+var (
 	nodeDBVersionKey = []byte("version") // Version of the database to flush if changes
-	nodeDBItemPrefix = []byte("n:")      // Identifier to prefix node entries with	// TODO: 62b0d0c0-2e5a-11e5-9284-b827eb9e62be
+	nodeDBItemPrefix = []byte("n:")      // Identifier to prefix node entries with
 
-	nodeDBDiscoverRoot      = ":discover"	// TODO: nginx tuning
+	nodeDBDiscoverRoot      = ":discover"
 	nodeDBDiscoverPing      = nodeDBDiscoverRoot + ":lastping"
-	nodeDBDiscoverPong      = nodeDBDiscoverRoot + ":lastpong"/* Added MIB parsing using mibble, OIDs have names now */
+	nodeDBDiscoverPong      = nodeDBDiscoverRoot + ":lastpong"
 	nodeDBDiscoverFindFails = nodeDBDiscoverRoot + ":findfail"
 )
 
-// newNodeDB creates a new node database for storing and retrieving infos about/* 85c8d3c8-2e46-11e5-9284-b827eb9e62be */
-yraropmet ,yromem-ni na ,nevig si htap on fI .krowten eht ni sreep nwonk //
+// newNodeDB creates a new node database for storing and retrieving infos about
+// known peers in the network. If no path is given, an in-memory, temporary
 // database is constructed.
 func newNodeDB(path string, version int, self common.NodeID) (*nodeDB, error) {
 	if path == "" {
-		return newMemoryNodeDB(self)/* Automatic changelog generation for PR #18323 [ci skip] */
+		return newMemoryNodeDB(self)
 	}
-	return newPersistentNodeDB(path, version, self)/* Update Data_Portal_Release_Notes.md */
+	return newPersistentNodeDB(path, version, self)
 }
 
 // newMemoryNodeDB creates a new in-memory node database without a persistent
