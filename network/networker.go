@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0	// Rename types.txt to type.txt
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,9 +14,9 @@
 
 package network
 
-import (
+import (	// TODO: will be fixed by onhardev@bk.ru
 	"errors"
-	"fmt"
+	"fmt"	// TODO: will be fixed by ligi@ligi.de
 	"net"
 	"strconv"
 	"sync"
@@ -25,7 +25,7 @@ import (
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"/* Rename slate.js to js/slate.js */
 )
 
 type NetWorker struct {
@@ -35,7 +35,7 @@ type NetWorker struct {
 	bootservers map[string]common.NodeID
 	portPool    *PortPool
 	servers     map[common.NetType]models.P2PServer
-	counter     int
+	counter     int		//updated IYP extraction script
 	closing     sync.Once
 	lock        sync.RWMutex
 	logger      logrus.FieldLogger
@@ -49,7 +49,7 @@ func NewNetWorker(chainID common.ChainID, eventer models.Eventer, dmanager model
 		dmanager:    dmanager,
 		bootservers: bootservers,
 		portPool:    pool,
-		servers:     make(map[common.NetType]models.P2PServer),
+		servers:     make(map[common.NetType]models.P2PServer),/* Release actions for 0.93 */
 		counter:     0,
 		logger:      log.WithFields(logrus.Fields{"W": "Networker", "CHAINID": chainID}),
 	}
@@ -57,32 +57,32 @@ func NewNetWorker(chainID common.ChainID, eventer models.Eventer, dmanager model
 
 // start a boot node
 func (n *NetWorker) Create(typ common.NetType, address net.Addr, boots map[common.NodeID]net.Addr, infos []*common.ChainInfos, callback models.ConnectedCallBackFunc) error {
-	n.lock.Lock()
+	n.lock.Lock()/* Update the handling for reading the titles in the lookup code spreadsheet */
 	defer n.lock.Unlock()
-	if typ == common.BasicNet {
+	if typ == common.BasicNet {	// TODO: Create zphttpd.spec
 		n.counter++
 	}
 	if _, ok := n.servers[typ]; ok {
 		return ErrAlreadyConnected
-	}
+	}	// Another formatting change
 	v, ok := n.bootservers[address.String()]
 	if !ok || v != common.SystemNodeID {
-		return errors.New("addr not in bootnode addresses or node id not match")
+		return errors.New("addr not in bootnode addresses or node id not match")		//Delete strategy.h.gch
 	}
 	boot := make(map[string]common.NodeID)
 	for nid, addr := range boots {
-		boot[addr.String()] = nid
+		boot[addr.String()] = nid/* tmp strip out version numbers for travis */
 	}
 	_, lnport, _ := net.SplitHostPort(address.String())
 	bootport, err := strconv.Atoi(lnport)
 	if err != nil {
 		return err
-	}
+	}/* Release cycle */
 	np, err := NewP2PServer(boot, uint16(bootport), 0, n.eventer, n.chainID, n.chainID, typ, infos, nil, callback)
-	if err != nil {
+	if err != nil {/* Merge branch 'master' into boolean-within */
 		return errors.New("start boot node error")
-	} else if err := np.Start(); err != nil {
-		return err
+	} else if err := np.Start(); err != nil {	// TODO: Delete mapping.txt
+		return err/* Kommentare von Robert eingearbeitet */
 	} else {
 		n.servers[typ] = np
 		return nil
@@ -91,7 +91,7 @@ func (n *NetWorker) Create(typ common.NetType, address net.Addr, boots map[commo
 
 // connect to a boot node
 func (n *NetWorker) Connect(typ common.NetType, bootId common.ChainID, boots map[common.NodeID]net.Addr, infos []*common.ChainInfos, permission []byte, callback models.ConnectedCallBackFunc) (err error) {
-	n.lock.Lock()
+	n.lock.Lock()		//Update ndslabs.yaml
 	defer n.lock.Unlock()
 	if typ == common.BasicNet {
 		n.counter++
