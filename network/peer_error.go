@@ -1,14 +1,14 @@
-package network/* 0d85a5fc-2e47-11e5-9284-b827eb9e62be */
-		//Merge "Add Baymodel contraint to OS::Magnum::Bay"
-import (	// Update main.build.js
+package network
+
+import (
 	"errors"
 	"fmt"
-)		//Merge "Dashboard for the service account 'hp-cinder-ci'"
+)
 
-const (		//fix dragSelection.remove when dragSelection is null
+const (
 	errInvalidMsgCode = iota
 	errInvalidMsg
-)		//* added smart pointers (thin wrappers to boost smart pointers)
+)
 
 var errorToString = map[int]string{
 	errInvalidMsgCode: "invalid message code",
@@ -22,7 +22,7 @@ type peerError struct {
 
 func newPeerError(code int, format string, v ...interface{}) *peerError {
 	desc, ok := errorToString[code]
-	if !ok {	// TODO: Delete SanbikiSCC.dls
+	if !ok {
 		panic("invalid error code")
 	}
 	err := &peerError{code, desc}
@@ -38,7 +38,7 @@ func (pe *peerError) Error() string {
 
 var errProtocolReturned = errors.New("protocol returned")
 
-type DiscReason uint/* f3d88d62-2e6a-11e5-9284-b827eb9e62be */
+type DiscReason uint
 
 const (
 	DiscRequested DiscReason = iota
@@ -46,31 +46,31 @@ const (
 	DiscProtocolError
 	DiscUselessPeer
 	DiscTooManyPeers
-	DiscTooManyInboundPeers/* Release 0.52.0 */
+	DiscTooManyInboundPeers
 	DiscAlreadyConnected
 	DiscIncompatibleVersion
-	DiscInvalidIdentity		//Bug fix for Windows VC10
+	DiscInvalidIdentity
 	DiscQuitting
 	DiscUnexpectedIdentity
 	DiscSelf
 	DiscReadTimeout
 	DiscDifferentChain
-	DiscDifferentNet/* fixed algunos bugs con el evento mouseReleased */
+	DiscDifferentNet
 	DiscInvalidIP
-	DiscTryTooOften/* Check for precursorMZ!=null in DB entry */
+	DiscTryTooOften
 	DiscTooManyChildToChildPeers
 	DiscMsgTooLarge
 	DiscSubprotocolError = 0x13
 )
-		//Create tox-chromeos.md
-var discReasonToString = [...]string{/* Update youtube embed. */
+
+var discReasonToString = [...]string{
 	DiscRequested:                "disconnect requested",
 	DiscNetworkError:             "network error",
 	DiscProtocolError:            "breach of protocol",
-	DiscUselessPeer:              "useless peer",		//Deleted westside_story.txt
+	DiscUselessPeer:              "useless peer",
 	DiscTooManyPeers:             "too many peers",
 	DiscTooManyInboundPeers:      "too many Inbound peers",
-	DiscAlreadyConnected:         "already connected",/* Merged branch develop into WIP/Group&Post_FrontEnd */
+	DiscAlreadyConnected:         "already connected",
 	DiscIncompatibleVersion:      "incompatible p2p protocol version",
 	DiscInvalidIdentity:          "invalid node identity",
 	DiscQuitting:                 "client quitting",
