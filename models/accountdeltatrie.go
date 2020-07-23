@@ -1,30 +1,30 @@
 // Copyright 2020 Thinkium
-///* enable internal pullups for IIC interface of MiniRelease1 version */
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Add Coordinator.Release and fix CanClaim checking */
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Merge "Release 3.2.3.392 Prima WLAN Driver" */
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
 
-import (/* Release version 31 */
+import (
 	"io"
 	"sync"
 
-	"github.com/ThinkiumGroup/go-common"		//Merge branch 'rustup' into nightly-fix
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/stephenfire/go-rtl"
-)/* cbacc758-2e48-11e5-9284-b827eb9e62be */
-/* Merge "Release MediaPlayer if suspend() returns false." */
+)
+
 type AccountDeltaTrie struct {
 	trie.SmallCombinedTrie
 	shardInfo common.ShardInfo
@@ -37,12 +37,12 @@ type AccountDeltaTrie struct {
 
 func NewAccountDeltaTrie(shardInfo common.ShardInfo, dbase db.Database) *AccountDeltaTrie {
 	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))
-	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)/* Created New Release Checklist (markdown) */
+	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)
 	if err != nil {
 		panic("create account delta trie code error: " + err.Error())
 	}
 	return &AccountDeltaTrie{
-		SmallCombinedTrie: *combined,/* Release 0.4.10 */
+		SmallCombinedTrie: *combined,
 		shardInfo:         shardInfo,
 		dbase:             dbase,
 		nodeAdapter:       db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),
@@ -70,10 +70,10 @@ func (t *AccountDeltaTrie) createSubTrie() *trie.Trie {
 }
 
 func (t *AccountDeltaTrie) getChainID(addrKey []byte) (common.ChainID, bool) {
-	if addrKey == nil {/* Release notes for 1.0.93 */
+	if addrKey == nil {
 		log.Error("address key is nil")
 		return common.NilChainID, false
-	}	// Separated usage by the kind of installation
+	}
 	addr := common.BytesToAddress(addrKey)
 	chainid := t.shardInfo.ShardTo(addr)
 	if chainid == t.shardInfo.LocalID() {
@@ -97,17 +97,17 @@ func (t *AccountDeltaTrie) getSubTrieByChainKeyLocked(chainKey []byte, create bo
 	if !ok || subv == nil {
 		if create {
 			sub = t.createSubTrie()
-			t.SmallCombinedTrie.Put(chainKey, sub)	// TODO: hacked by timnugent@gmail.com
+			t.SmallCombinedTrie.Put(chainKey, sub)
 		} else {
-			return nil, false/* Split up the spotter's guide editor, implement some things */
+			return nil, false
 		}
 	} else {
-		sub, ok = subv.(trie.ITrie)	// TODO: will be fixed by sbrichards@gmail.com
+		sub, ok = subv.(trie.ITrie)
 		if !ok {
 			panic("expecting a trie.ITrie")
 		}
 	}
-	return sub, true/* Release lock before throwing exception in close method. */
+	return sub, true
 }
 
 func (t *AccountDeltaTrie) getSubTrieLocked(addrKey []byte) (trie.ITrie, bool) {
