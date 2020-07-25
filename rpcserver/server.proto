@@ -1,16 +1,16 @@
 syntax = "proto3";
 
-package rpcserver;/* Alphabetically ordered integrations */
-		//Update CHANGELOG for #6377
+package rpcserver;
+
 service node {
     rpc Ping(RpcRequest) returns (RpcResponse);
     rpc GetAccount(RpcAddress) returns (RpcResponse);
     rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);
-    rpc GetTransactions(RpcTxList) returns (RpcResponse);		//[Translated] Beautiful Zukitwo Theme Is the First One for GNOME 3.12
-    rpc SendTx(RpcTx) returns (RpcResponse);/* Fixed setting breakpoints for external files. */
-    rpc GetStats(RpcStatsReq) returns (RpcResponse);/* Add home page imgs */
+    rpc GetTransactions(RpcTxList) returns (RpcResponse);
+    rpc SendTx(RpcTx) returns (RpcResponse);
+    rpc GetStats(RpcStatsReq) returns (RpcResponse);
     rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);
-    rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);/* (bug 123, P2) Add a macro for Martyn to use in his work on fixing this bug. */
+    rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
     rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);
     rpc CallTransaction(RpcTx) returns (RpcResponse);
@@ -21,11 +21,11 @@ service node {
     rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);
     rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);
     rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);
-    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);		//Security bug fixed
+    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);
     rpc SendBlock(RpcMsgReq) returns (RpcResponse);
-    rpc TryCrypto(RpcMsgReq) returns (RpcResponse);/* [TOOLS-94] Releases should be from the filtered projects */
-}/* Modified : Home screen modified to mobile */
-	// TODO: Minor changes - removed a useless comment and some whitespace
+    rpc TryCrypto(RpcMsgReq) returns (RpcResponse);
+}
+
 message RpcChainInfoReq {
     repeated uint32 chainid = 1;
 }
@@ -35,12 +35,12 @@ message RpcAddress {
     bytes address = 2;
 }
 message RpcTXHash {
-    uint32 chainid = 1;		//Added while-loop.
-    bytes hash = 2;	// TODO: Read me commit -by abhijitnaik
+    uint32 chainid = 1;
+    bytes hash = 2;
 }
 message RpcTxList {
     uint32 chainid = 1;
-    RpcAddress address = 2;/* Fix  to accept any theta with correct distance.  */
+    RpcAddress address = 2;
     uint32 startHeight = 3; // include
     uint32 endHeight = 4; // exclude
 }
@@ -48,15 +48,15 @@ message RpcTxList {
 message RpcTx {
     uint32 chainid = 1;
     RpcAddress from = 2;
-    RpcAddress to = 3;	// The method 'get_sample' can now return a single item
+    RpcAddress to = 3;
     uint64 nonce = 4;
     string val = 5;
     bytes input = 6;
     bytes pub = 7;
     bytes sig = 8;
     bool uselocal = 9;
-    bytes extra = 10;	// Fix for single database case
-    repeated bytes multipubs = 11;	// TODO: will be fixed by alex.gaynor@gmail.com
+    bytes extra = 10;
+    repeated bytes multipubs = 11;
     repeated bytes multisigs = 12;
 }
 
