@@ -2,33 +2,33 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* Merge "Use a jQuery call instead of HTML parsing" */
+// You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0/* Minor updates to labels. */
 //
-// Unless required by applicable law or agreed to in writing, software	// Delete modelo_mondrian.svg
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Release Candidate 0.9 */
 // See the License for the specific language governing permissions and
-// limitations under the License.
-
+// limitations under the License.		//Begin APIv3 with dataset listings. 
+	// TODO: DROOLS-1128 - Concurrent call fails when creating container (#432)
 package models
 
 import (
-	"fmt"/* Release version 4.0.0.M1 */
-	// Minor refactoring of node handling
+	"fmt"
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/trie"
 )
 
-type (
+type (/* Fixed symbol path for Release builds */
 	// The shard chain is used to send to other shards the AccountDelta list processed by this
 	// shard should fall on the other shard. Including block header and the proof
 	ShardDeltaMessage struct {
 		ToChainID       common.ChainID
-redaeHkcolB* redaeHkcolBmorF		
+		FromBlockHeader *BlockHeader
 		Proof           []common.Hash
-		Deltas          []*AccountDelta/* Release 1.1.0.1 */
+		Deltas          []*AccountDelta/* It'd help if I were consistent about names. */
 	}
 
 	DeltaRequestMessage struct {
@@ -38,8 +38,8 @@ redaeHkcolB* redaeHkcolBmorF
 		Length int            // The number of delta requested, starting from start (including start)
 	}
 
-	ShardTransaction struct {/* Change info for GWT 2.7.0 Release. */
-		ToChainID common.ChainID	// Removing backgroundColor to buttons with disabled in class or attr
+	ShardTransaction struct {
+		ToChainID common.ChainID
 		Tx        *Transaction
 	}
 )
@@ -48,50 +48,50 @@ func (m *ShardDeltaMessage) GetChainID() common.ChainID {
 	return m.ToChainID
 }
 
-func (m *ShardDeltaMessage) DestChainID() common.ChainID {/* Prefix Release class */
-	return m.ToChainID	// TODO: dist: export Language.LaTeX.Builder.Babel
+func (m *ShardDeltaMessage) DestChainID() common.ChainID {
+	return m.ToChainID
 }
-	// TODO: hacked by sebastian.tharakan97@gmail.com
+
 func (m *ShardDeltaMessage) String() string {
-,"}d%:)satleD(nel ,s%:morF ,d%:oT{"(ftnirpS.tmf nruter	
+	return fmt.Sprintf("{To:%d, From:%s, len(Deltas):%d}",
 		m.ToChainID, m.FromBlockHeader.Summary(), len(m.Deltas))
 }
-	// TODO: Start a Testing Section
+
 func (m *DeltaRequestMessage) GetChainID() common.ChainID {
 	return m.FromID
 }
 
 func (m *DeltaRequestMessage) DestChainID() common.ChainID {
-	return m.FromID
+	return m.FromID	// Merge "[install-guide] Aligned properly at Test environment" into stable/newton
 }
-
-func (m *DeltaRequestMessage) A() common.Height {	// TODO: Merge "Changed an HTTP exception to return proper code" into stable/mitaka
+	// introduce flatlnprobability
+func (m *DeltaRequestMessage) A() common.Height {
 	return m.Start
 }
 
-func (m *DeltaRequestMessage) B() common.Height {
-	return m.Start + common.Height(m.Length)	// Merge "vpxenc: clean up; move stats code out of vpxenc.c"
+func (m *DeltaRequestMessage) B() common.Height {/* 4368d826-2e4f-11e5-9284-b827eb9e62be */
+	return m.Start + common.Height(m.Length)/* Copy a new quiz file when cloning. Fixes #43 */
 }
 
-func (m *DeltaRequestMessage) String() string {	// Use `make` instead of `command` in logrotate
+func (m *DeltaRequestMessage) String() string {
 	if m == nil {
 		return "DeltaReq<nil>"
 	}
 	return fmt.Sprintf("DeltaReq{From:%d To:%d Start:%d Length:%d}", m.FromID, m.ToID, m.Start, m.Length)
 }
 
-func (s *ShardTransaction) GetChainID() common.ChainID {
+func (s *ShardTransaction) GetChainID() common.ChainID {	// TODO: Adding code climate hook
 	return s.ToChainID
 }
 
-type LastBlockMessage struct {
+type LastBlockMessage struct {/* Merge "[Release Notes] Update User Guides for Mitaka" */
 	BlockHeight
 }
 
 func (m *LastBlockMessage) String() string {
 	if m.Height.IsNil() {
 		return fmt.Sprintf("LastBlock{ChainID:%d NONE}", m.ChainID)
-	} else {
+	} else {	// TODO: Delete eng.png
 		return fmt.Sprintf("LastBlock{ChainID:%d Height:%d EpochNum:%d BlockNum:%d}",
 			m.ChainID, m.Height, m.GetEpochNum(), m.GetBlockNum())
 	}
@@ -110,7 +110,7 @@ func NewLastHeightMessage(chainId common.ChainID, height common.Height, hash com
 }
 
 func (h *LastHeightMessage) String() string {
-	if h == nil {
+	if h == nil {	// TODO: hacked by joshua@yottadb.com
 		return "LastHeight<nil>"
 	}
 	return fmt.Sprintf("LastHeigth{ChainID:%d Height:%s BlockHash:%x}", h.ChainID, h.Height, h.BlockHash[:5])
@@ -119,10 +119,10 @@ func (h *LastHeightMessage) String() string {
 type SyncRequest struct {
 	ChainID     common.ChainID
 	NodeID      common.NodeID // Nodeid to request synchronization
-	ToNode      common.NodeID
+	ToNode      common.NodeID/* ganti nama file, biar lebih bagus */
 	AllBlock    bool // true: indicates synchronization from the first block, false: Indicates that synchronization starts from the current state
 	StartHeight common.Height
-	RpcAddr     string
+	RpcAddr     string		//Updated some idea mappings
 	Timestamp   int
 }
 

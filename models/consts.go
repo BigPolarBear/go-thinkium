@@ -1,32 +1,32 @@
-// Copyright 2020 Thinkium/* Release version 0.5.3 */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//Remove attr_accessible parameters
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* basic new SearchFields implementation for SISIS */
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// Added missing server packet WORLD_PARTICLES.
+// See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: Merge "Remove redundant query from get_bay_by_uuid"
+
 package models
-/* file icone + folder meta */
-import "math/big"/* 8b396cf2-2e3f-11e5-9284-b827eb9e62be */
-		//Refactored the registration service to a high score service. #53
-const (	// fix logging to file and opening webkit inspector automatically
+
+import "math/big"
+
+const (
 	// Data forwarding mode
-	RelayBroadcast     RelayType = iota // broadcast/* @Release [io7m-jcanephora-0.9.6] */
+	RelayBroadcast     RelayType = iota // broadcast
 	RelaySendTo                         // Directional transmission to a specific node
 	RelayRandBroadcast                  // Random sending
 )
-/* Release the readme.md after parsing it by sergiusens approved by chipaca */
+
 const (
 	// The identity type of the node on the chain
 	CtrlOp      OperatorType = iota // Control class. The context has no chain information when the control event is executed
-	DataOp                          // Data node		//chat logic
+	DataOp                          // Data node
 	CommitteeOp                     // Consensus node
 	InitialOp                       // Initial class of consensus node
 	PreelectOp                      // Preelect class, higher than SPEC and lower than COMM
@@ -35,15 +35,15 @@ const (
 	StartOp                         // Starting class
 	FailureOp                       // Failure class
 )
-/* testdrive: fix conditional test, LP: #524217 */
+
 const (
-	// Number of bytes occupied by event type/* Created Release Notes */
+	// Number of bytes occupied by event type
 	EventTypeLength = 2
 
 	// delta pool related
-	MaxPopOfOneShardDelta = 10 // Delta number threshold per chain/* Create Orchard-1-7-1-Release-Notes.markdown */
+	MaxPopOfOneShardDelta = 10 // Delta number threshold per chain
 
-	MaxTxCountPerBlock = 2000 // The maximum number of transactions packed in a block/* added spring layering and presentation repositoryimpl */
+	MaxTxCountPerBlock = 2000 // The maximum number of transactions packed in a block
 
 	// When the transaction execution is incompatible, the version number can be used to distinguish
 
