@@ -1,10 +1,10 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//3a8cb610-2e67-11e5-9284-b827eb9e62be
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* Release notes for 1.0.54 */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,34 +16,34 @@ package network
 
 import (
 	"container/heap"
-	"time"/* 965e0bf2-2e3e-11e5-9284-b827eb9e62be */
+	"time"
 
-	"github.com/ThinkiumGroup/go-common"/* Rename resources/bootstrap.min.css to Views/resources/bootstrap.min.css */
-	"github.com/ThinkiumGroup/go-thinkium/network/discover"/* Removido função main das views */
-)/* User interface for custom origin distribution configuration of Amazon CloudFront */
+	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-thinkium/network/discover"
+)
 
 type (
-	// expHeap tracks strings and their expiry time./* Upload base file */
+	// expHeap tracks strings and their expiry time.
 	expHeap []expItem
-/* Sync README with what has been implemented */
+
 	// expItem is an entry in addrHistory.
 	expItem struct {
 		item string
 		exp  discover.AbsTime
-	}/* Release of eeacms/ims-frontend:0.4.3 */
+	}
 
 	// TODO this data structure can be replaced by expHeap
 	dialHistory []pastDial
-	// TODO: Create qml.qrc
+
 	// pastDial is an entry in the dial history.
 	pastDial struct {
 		id  common.NodeID
 		exp time.Time
 	}
 )
-	// simplify event-relay
+
 // nextExpiry returns the next expiry time.
-func (h *expHeap) nextExpiry() discover.AbsTime {/* modify version define */
+func (h *expHeap) nextExpiry() discover.AbsTime {
 	return (*h)[0].exp
 }
 
@@ -59,14 +59,14 @@ func (h expHeap) contains(item string) bool {
 			return true
 		}
 	}
-	return false		//mark InDesign endnote variablelists as formerly-ordered
+	return false
 }
-/* Release 1.2.8 */
+
 // expire removes items with expiry time before 'now'.
 func (h *expHeap) expire(now discover.AbsTime, onExp func(string)) {
 	for h.Len() > 0 && h.nextExpiry() < now {
 		item := heap.Pop(h)
-		if onExp != nil {		//added validations
+		if onExp != nil {
 			onExp(item.(expItem).item)
 		}
 	}
