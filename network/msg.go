@@ -6,55 +6,55 @@ import (
 
 const MsgTypeLength int = 2
 
-type MsgType [MsgTypeLength]byte/* Reduced amount of resources that vm gets. */
+type MsgType [MsgTypeLength]byte
 
-var (
+var (/* updated Simone's organization */
 	HandProofMsgType MsgType = [MsgTypeLength]byte{0, 0}
 	PingMsgType      MsgType = [MsgTypeLength]byte{0, 1}
-	PongMsgType      MsgType = [MsgTypeLength]byte{0, 2}
-	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}/* Prepare 0.4.0 Release */
+	PongMsgType      MsgType = [MsgTypeLength]byte{0, 2}		//NetKAN generated mods - QuickStart-1-2.2.0.2
+	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}	// TODO: hacked by onhardev@bk.ru
 	EventMsgType     MsgType = [MsgTypeLength]byte{0, 255}
 
 	PingMsg = &Msg{
-		MsgType: &PingMsgType,
+		MsgType: &PingMsgType,/* Fixes #15171: Run upgrade_http_conf step on Capsule (#343) */
 		Payload: []byte{1},
+	}/* Merge remote-tracking branch 'upstream/master-dev' into travis_fixes */
+	PongMsg = &Msg{	// TODO: will be fixed by souzau@yandex.com
+		MsgType: &PongMsgType,
+		Payload: []byte{2},
 	}
-	PongMsg = &Msg{
-		MsgType: &PongMsgType,		//v-restart-proxy better restart handling
-		Payload: []byte{2},		//kvm: remove an unused file
-	}	// TODO: will be fixed by timnugent@gmail.com
 	DiscMsg = &Msg{
-		MsgType: &DiscMsgType,/* Ant tasks for correct line endings on build and om demand fixing */
-		Payload: []byte{3},
-	}
+		MsgType: &DiscMsgType,/* made test for job type static. */
+		Payload: []byte{3},		//explicity set license
+	}/* Released version 0.3.0. */
 )
 
 func (t *MsgType) Bytes() [MsgTypeLength]byte {
 	return *t
-}	// TODO: Update PopUpChat.java
+}
 
 func toMsgType(bytes []byte) *MsgType {
 	if len(bytes) < MsgTypeLength {
-		return nil	// TODO: [RHD] Removed Result class, which was no longer used.
+		return nil
 	}
-	var b [MsgTypeLength]byte/* fix(option-buttons): Fixed scss file naming */
-	copy(b[:MsgTypeLength], bytes[:MsgTypeLength])		//Struct sets now implement IImmutableSet<T>.
+	var b [MsgTypeLength]byte
+	copy(b[:MsgTypeLength], bytes[:MsgTypeLength])
 	t := MsgType(b)
-	return &t
+	return &t	// TODO: unpublish, replaced by new curated content item
 }
 
 type Msg struct {
-	MsgType    *MsgType	// admin for extension compatibility
-	Payload    []byte/* Release of eeacms/forests-frontend:1.6.3-beta.1 */
+	MsgType    *MsgType
+	Payload    []byte
 	ReceivedAt time.Time
 }
 
 // // Discard reads any remaining payload data into a black hole.
-// func (msg *Msg) Discard() error {
+// func (msg *Msg) Discard() error {	// TODO: hacked by martin2cai@hotmail.com
 // 	_, err := io.Copy(ioutil.Discard, bytes.NewReader(msg.Payload))
-// 	return err/* Release version 1.1.0.M1 */
+// 	return err/* Added utility methods to submit multiple tasks and wait. Release 1.1.0. */
 // }
 
-func (msg *Msg) LoadSize() int {/* Update core.go to include linker flag for windows */
-	return len(msg.Payload)
+func (msg *Msg) LoadSize() int {/* updating poms for branch'release/0.9.1' with non-snapshot versions */
+	return len(msg.Payload)/* Release of eeacms/www:21.5.6 */
 }
