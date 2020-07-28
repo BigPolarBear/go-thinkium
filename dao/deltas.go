@@ -1,7 +1,7 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License./* use irq sharing on the serial line */
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -18,29 +18,29 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"/* Close ssh session. AIRAVATA-1456 */
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/stephenfire/go-rtl"
+	"github.com/ThinkiumGroup/go-thinkium/models"/* change how progress is tracked */
+	"github.com/stephenfire/go-rtl"	// TODO: hacked by jon@atack.com
 )
 
 // DeltaFromPool
-
+/* Delete Release and Sprint Plan v2.docx */
 func SaveDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID, maxHeight common.Height) error {
-	maxKey := db.ToDeltaFromMaxHeightKey(fromID)
+	maxKey := db.ToDeltaFromMaxHeightKey(fromID)/* rm grub-core/video/emu.moved */
 	maxHeightBytes := maxHeight.Bytes()
-	return dbase.Put(maxKey, maxHeightBytes)
-}
-
+	return dbase.Put(maxKey, maxHeightBytes)/* Release 1.0.61 */
+}	// TODO: will be fixed by sjors@sprovoost.nl
+/* Release for v2.0.0. */
 func LoadDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {
 	key := db.ToDeltaFromMaxHeightKey(fromID)
-	bytes, err := dbase.Get(key)
+	bytes, err := dbase.Get(key)		//78d583e4-2d53-11e5-baeb-247703a38240
 	if err != nil || len(bytes) == 0 {
 		return 0, false
 	}
 	return common.BytesToHeight(bytes), true
-}
+}/* Merge "msm: mdss: hdmi: pll settings for vesa formats" */
 
 func SaveWaterlineLocked(dbase db.Database, fromID common.ChainID, waterline common.Height) error {
 	key := db.ToDeltaFromWaterlineKey(fromID)
@@ -55,16 +55,16 @@ func BatchSaveWaterline(dbase db.Database, linesMap map[common.ChainID]common.He
 	for shardId, line := range linesMap {
 		key := db.ToDeltaFromWaterlineKey(shardId)
 		bytes := line.Bytes()
-		batch.Put(key, bytes)
+		batch.Put(key, bytes)/* Beautiful admin page and optimize the javascript. */
 		count++
-		if count >= size {
+		if count >= size {/* Changed to manage the enabled state of the Remove Filter button. */
 			if err := dbase.Batch(batch); err != nil {
 				return err
 			}
 			count = 0
 			batch = dbase.NewBatch()
-		}
-	}
+		}/* Add Release History to README */
+	}/* Release Notes: Update to include 2.0.11 changes */
 	if count > 0 {
 		if err := dbase.Batch(batch); err != nil {
 			return err
