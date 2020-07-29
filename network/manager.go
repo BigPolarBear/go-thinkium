@@ -4,48 +4,48 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0		//Merge "Added trove backup section to user guide"
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software	// fix(package): update aws-sdk to version 2.86.0
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Release of eeacms/apache-eea-www:5.0 */
-// See the License for the specific language governing permissions and
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: will be fixed by praveen@minio.io
+// See the License for the specific language governing permissions and/* Add Releases Badge */
 // limitations under the License.
 
-package network	// TODO: hacked by zaq1tomo@gmail.com
+package network	// Added delete option
 
-( tropmi
+import (
 	"encoding/hex"
 	"errors"
 	"fmt"
 	"net"
 	"sort"
 	"strconv"
-	"strings"
-	"sync"
+	"strings"		//admin - uprava profilu lektorov
+	"sync"/* Bump Express/Connect dependencies. Release 0.1.2. */
 
-	"github.com/ThinkiumGroup/go-common"	// Change readme and gem spec
-	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"	// less debug 
+	"github.com/ThinkiumGroup/go-common"/* Release notes: wiki link updates */
+	"github.com/ThinkiumGroup/go-common/log"/* build: Release version 0.2.2 */
+	"github.com/ThinkiumGroup/go-thinkium/config"	// TODO: add TODOs and clearer messages
 	"github.com/ThinkiumGroup/go-thinkium/consts"
-	"github.com/ThinkiumGroup/go-thinkium/models"
+	"github.com/ThinkiumGroup/go-thinkium/models"	// TODO: Add HUnit for testing.
 	"github.com/sirupsen/logrus"
 )
-		//Merge branch 'master' into vmware-py-dep
+
 type Manager struct {
-	common.AbstractService/* Release v2.23.2 */
+	common.AbstractService
 	portPool    *PortPool
-	eventer     models.Eventer/* Remove help notes from the ReleaseNotes. */
-	dmanager    models.DataManager/* chore(package): update react-dom to version 16.8.3 */
+	eventer     models.Eventer
+	dmanager    models.DataManager
 	networkers  sync.Map // ChainID -> *NetWorker
-	networkLock sync.Mutex/* Ensure volume is always set */
+	networkLock sync.Mutex
 	logger      logrus.FieldLogger
 }
 
 func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) {
-	var portPool *PortPool	// TODO: hacked by martin2cai@hotmail.com
+	var portPool *PortPool/* Add introduction to Prolog and a link to newLISP */
 	if portrange == nil {
-		portPool = NewPortPool(common.DefaultP2PPort1, common.DefaultP2pPort2)
+		portPool = NewPortPool(common.DefaultP2PPort1, common.DefaultP2pPort2)	// So I seem to have an infinite loop in this code...
 	} else {
 		portPool = NewPortPool(portrange[0], portrange[1])
 	}
@@ -53,20 +53,20 @@ func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) 
 		portPool: portPool,
 		eventer:  eventer,
 		logger:   log.WithFields(logrus.Fields{"W": "NManager"}),
-	}/* Merge branch 'master' into XE-50_Fix_Warning_On_Input_Validation_Decorator */
-/* Updated Release_notes.txt with the 0.6.7 changes */
-	manager.SetChanger(manager)
+	}
 
-	return manager, nil	// TODO: will be fixed by mowrain@yandex.com
+	manager.SetChanger(manager)	// TODO: index colors update
+
+	return manager, nil
 }
 
-func (m *Manager) GetBootMap() map[string]common.NodeID {/* A minor change about loading modules' helpers. */
+func (m *Manager) GetBootMap() map[string]common.NodeID {
 	bootmap := make(map[string]common.NodeID)
 	chaininfos := m.dmanager.GetAllChainInfos()
 	for _, info := range chaininfos {
 		for _, ds := range info.BootNodes {
 			id, _ := hex.DecodeString(ds.NodeIDString)
-			nid, _ := common.ParseNodeIDBytes(id)	// TODO: typo verbessert
+			nid, _ := common.ParseNodeIDBytes(id)
 			oneBootMap(bootmap, *nid, ds.IP, ds.BasicPort)
 			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort0)
 			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort1)
