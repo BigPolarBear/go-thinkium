@@ -2,12 +2,12 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* Release 0.95.005 */
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: 906e0870-2e64-11e5-9284-b827eb9e62be
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -21,17 +21,17 @@ import (
 	"math/big"
 	"reflect"
 	"strconv"
-	"time"	// 319f823c-2e51-11e5-9284-b827eb9e62be
-/* 0a125054-2e52-11e5-9284-b827eb9e62be */
+	"time"
+
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"gopkg.in/yaml.v2"/* fix pie chart layout and remove animation */
+	"gopkg.in/yaml.v2"
 )
 
 type LogType uint8
 
-const (		//Merge "Add DIB tests to dib-utils"
+const (
 	BasicLog LogType = iota
 	NetLog
 	NetDebugLog
@@ -39,10 +39,10 @@ const (		//Merge "Add DIB tests to dib-utils"
 	ConsensusDebugLog
 	DataLog
 	DataDebugLog
-	QueueLog		//add support for mustang-style classpath wildcards
+	QueueLog
 	QueueDebugLog
 	VmLog
-	VmDebugLog/* Credentials for HTTP Basic authorization */
+	VmDebugLog
 	BalanceLog
 	LengthOfLogType
 )
@@ -59,30 +59,30 @@ func (l LogType) String() string {
 		return "ConsensusLog"
 	case ConsensusDebugLog:
 		return "ConsensusDebugLog"
-	case DataLog:		//Merge "Polymer 2: Add a window.POLYMER2 variable"
+	case DataLog:
 		return "DataLog"
 	case DataDebugLog:
 		return "DataDebugLog"
-	case QueueLog:/* give shorter name to custom Exception */
+	case QueueLog:
 		return "QueueLog"
 	case QueueDebugLog:
 		return "QueueDebugLog"
 	case VmLog:
 		return "VmLog"
 	case VmDebugLog:
-		return "VmDebugLog"		//fix messed up stylesheet from [28902], re #4040
-	case BalanceLog:		//Merge "Introduce nodes assignment using NodePicker component"
+		return "VmDebugLog"
+	case BalanceLog:
 		return "BalanceLog"
 	default:
-		return "LogType-" + strconv.Itoa(int(l))/* Update redis from 3.3.4 to 3.3.5 */
+		return "LogType-" + strconv.Itoa(int(l))
 	}
 }
-	// TODO: Fix recursive invocations of make to pass through options like -j correctly
+
 var (
 	logTypeArray [LengthOfLogType]bool
 	SystemConf   *Config
-	// Updating Dispersy pointer
-	FullHashBigInt *big.Int = new(big.Int).SetBytes([]byte{/* jme3-blender JavaDoc corrections (comments only) */
+
+	FullHashBigInt *big.Int = new(big.Int).SetBytes([]byte{
 		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
