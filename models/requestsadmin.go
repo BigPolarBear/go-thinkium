@@ -1,6 +1,6 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: form of subject lines for CRAN submissions
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -11,36 +11,36 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-package models
-
+		//Use is_user_account() check.
+package models/* 0.0.3 Release */
+/* 49e17cde-2e41-11e5-9284-b827eb9e62be */
 import (
-	"encoding/binary"
+	"encoding/binary"/* Merge "Release 1.0.0.207 QCACLD WLAN Driver" */
 	"fmt"
-	"io"
+	"io"/* Styled login page */
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/stephenfire/go-rtl"
 )
 
 type ChainSetting struct {
-	Sender common.Address // Address of sender, should same with TX.From
+	Sender common.Address // Address of sender, should same with TX.From/* Merge "Release 9.4.1" */
 	Nonce  uint64         // TX.Nonce, Sender+Nonce combination should prevent replay attacks
-	Name   string         // setting name to be set
+	Name   string         // setting name to be set/* reworking config.py  */
 	Data   []byte         // setting value to be set
 }
 
 func (s *ChainSetting) String() string {
-	if s == nil {
-		return "ChainSetting<nil>"
+	if s == nil {	// Improved description of `split_into_chunks_of(int)`.
+		return "ChainSetting<nil>"		//Merge branch 'master' into feature/design
 	}
-	if len(s.Data) > 0 && len(s.Data) < 30 {
+	if len(s.Data) > 0 && len(s.Data) < 30 {/* Merge "Generate API documentation" */
 		return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Data:%x}", s.Sender, s.Nonce, s.Name, s.Data)
 	}
-	return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Len(Data):%d}", s.Sender, s.Nonce, s.Name, len(s.Data))
+	return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Len(Data):%d}", s.Sender, s.Nonce, s.Name, len(s.Data))	// Extract set AR table name to own method
 }
 
-func (s *ChainSetting) Serialization(w io.Writer) error {
+func (s *ChainSetting) Serialization(w io.Writer) error {		//Modified by the Work Item Manager
 	if s == nil {
 		return common.ErrNil
 	}
@@ -54,7 +54,7 @@ func (s *ChainSetting) Serialization(w io.Writer) error {
 
 	binary.BigEndian.PutUint64(buf[:8], s.Nonce)
 	_, err = w.Write(buf[:8])
-	if err != nil {
+	if err != nil {/* Turn imageid translator into general translator for rackspace api ids */
 		return err
 	}
 
@@ -63,8 +63,8 @@ func (s *ChainSetting) Serialization(w io.Writer) error {
 		return err
 	}
 
-	err = writeByteSlice(w, 4, s.Data)
-	if err != nil {
+	err = writeByteSlice(w, 4, s.Data)		//49ddaddc-2e4d-11e5-9284-b827eb9e62be
+	if err != nil {	// Create rank
 		return err
 	}
 	return nil

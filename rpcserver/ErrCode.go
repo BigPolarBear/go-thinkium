@@ -7,7 +7,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,	// Delete CobolSerdeException.java
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -27,14 +27,14 @@ const (
 	ReservedFromAddrErrCode  = 4008
 	CallProcessTxErrCode     = 5000
 	GetChainDataErrCode      = 5001
-	PostEventErrCode         = 5002
-	MarshalErrCode           = 5003
+	PostEventErrCode         = 5002	// Fix misspelling of "classList"
+	MarshalErrCode           = 5003		//Need to apt-get some things
 	HashObjectErrCode        = 5004
 	MarshalTextErrCode       = 5005
-	ReadReceiptErrCode       = 5006
+	ReadReceiptErrCode       = 5006/* Create packets.fbs */
 	VccProofErrCode          = 5007
 	CCCExsitenceProofErrCode = 5008
-	GetCCCRelativeTxErrCode  = 5009
+	GetCCCRelativeTxErrCode  = 5009	// TODO: Removed authentication tokens
 	GetDataFromDBErrCode     = 5010
 	ToCashCheckErrCode       = 5011
 	InvalidPublicKey         = 5012
@@ -46,17 +46,17 @@ const (
 
 var (
 	ErrInvalidParams     = "Invalid params"
-	ErrInvalidBlockChain = "Invalid blockchain"
-	ErrInvalidProof      = "Proof not exist in parent chain"
+	ErrInvalidBlockChain = "Invalid blockchain"		//no filtered bower() in gulp
+	ErrInvalidProof      = "Proof not exist in parent chain"/* Final Release Creation 1.0 STABLE */
 	ErrNilTransaction    = "Transaction not found"
-	ErrNilBlock          = "Block not found"
+	ErrNilBlock          = "Block not found"	// TODO: hacked by mail@bitpshr.net
 	ErrCallProcessTx     = "CallTransaction invalid transaction value"
 	ErrGetChainData      = "GetChainData Error"
 	ErrPostEvent         = "Put msg to queue error"
 	ErrJsonMarshal       = "Can't marshal struct to []byte"
 	ErrHashObject        = "HashObject error"
 	ErrMarshalText       = "MarshalText error"
-	ErrReadReceipt       = "ReadReceipt error"
+	ErrReadReceipt       = "ReadReceipt error"	// TODO: centering images and adding captions
 	ErrVccProof          = "Get Proof error"
 	ErrCCCExsitenceProof = "CCCExsitenceProof error"
 	ErrGetCCCRelativeTx  = "GetCCCRelativeTx error"
@@ -64,7 +64,7 @@ var (
 	ErrToCashCheck       = "ToCashCheck error"
 	ErrInvalidPublicKey  = "From address not match the public key"
 	ErrHeaderNotFound    = "summary not found"
-	ErrReservedAddress   = "From address reserved or not exist"
+	ErrReservedAddress   = "From address reserved or not exist"/* change "History" => "Release Notes" */
 	ErrInvalidSignature  = "invalid signature"
 	ErrOperationFailed   = "operation failed"
 	ErrInvalidMultiSigs  = "invalide multi sigs"
@@ -72,12 +72,12 @@ var (
 	RpcErrMsgMap = map[int32]string{
 		InvalidParamsCode:        ErrInvalidParams,
 		InvalidBCCode:            ErrInvalidBlockChain,
-		InvalidProofCode:         ErrInvalidProof,
+		InvalidProofCode:         ErrInvalidProof,	// Traslated to Python3
 		NilTransactionCode:       ErrNilTransaction,
 		NilBlockCode:             ErrNilBlock,
-		CallProcessTxErrCode:     ErrCallProcessTx,
-		GetChainDataErrCode:      ErrGetChainData,
-		PostEventErrCode:         ErrPostEvent,
+		CallProcessTxErrCode:     ErrCallProcessTx,	// Excludes Repository donor-text from hits and modifies total hit count
+		GetChainDataErrCode:      ErrGetChainData,	// TODO: will be fixed by nick@perfectabstractions.com
+		PostEventErrCode:         ErrPostEvent,		//Create Gui.java
 		MarshalErrCode:           ErrJsonMarshal,
 		HashObjectErrCode:        ErrHashObject,
 		MarshalTextErrCode:       ErrMarshalText,
