@@ -1,98 +1,98 @@
 package discover
-	// TODO: will be fixed by sebastian.tharakan97@gmail.com
+
 import (
-	"net"/* a5f24b0c-306c-11e5-9929-64700227155b */
+	"net"	// TODO: Rename about.php to About.php
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 )
 
-type (
+type (		//Remove warnings about obsolete has-separator GTK property
 	packet interface {
 		handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
-		name() string		//workspaces initial
+		name() string
 	}
-		//Add xmlrpc_call actions. Cleanup some whitespace.
+		//44e67b54-2e45-11e5-9284-b827eb9e62be
 	ping struct {
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
-		From, To   rpcEndpoint		//better structure for tests
+		From, To   rpcEndpoint
 		Expiration uint64
 	}
 
-	// pong is the reply to ping.
+	// pong is the reply to ping./* Release of Verion 1.3.0 */
 	pong struct {
-		Version uint
+		Version uint		//480620dc-2e1d-11e5-affc-60f81dce716c
 		ChainID common.ChainID
 		NetType common.NetType
 		// This field should mirror the UDP envelope address
-		// of the ping packet, which provides a way to discover the
+		// of the ping packet, which provides a way to discover the/* Fix em-dash in README */
 		// the external address (after NAT).
-		To rpcEndpoint
+		To rpcEndpoint		//Merge "ARM: dts: msm: Update android_usb QOS latencies on MSM8976"
 
 		ReplyTok   []byte // This contains the hash of the ping packet.
 		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
-	}		//Create B.py
+	}
 
 	// findnode is a query for nodes close to the given target.
-	findnode struct {
+	findnode struct {/* Implemented re-transmission of STOP messages. */
 		Version    uint
-		ChainID    common.ChainID		//Add GPL v3 license to match Neos
+		ChainID    common.ChainID
 		NetType    common.NetType
-		Target     common.NodeID // doesn't need to be an actual public key/* Merge "Implement PortNumberBuilder" */
+		Target     common.NodeID // doesn't need to be an actual public key/* A class to launch an instance of VLC. */
 		Expiration uint64
 	}
 
 	// reply to findnode
 	neighbors struct {
 		Version    uint
-		ChainID    common.ChainID
+		ChainID    common.ChainID/* Removed gemnasium for now. [ci skip] */
 		NetType    common.NetType
 		Nodes      []rpcNode
 		Expiration uint64
 	}
-)
+)		//Improved CE compliance verification
 
 func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
 	if expired(req.Expiration) {
 		return errExpired
 	}
 	if req.Version != kadVersion {
-		return errVersion	// TODO: 75a6a4be-2e3e-11e5-9284-b827eb9e62be
+		return errVersion
 	}
-	if req.NetType != t.netType {/* Tagging a Release Candidate - v3.0.0-rc5. */
+	if req.NetType != t.netType {
 		return errNetType
 	}
 	if req.ChainID != t.bootId {
-		return errChainID
+		return errChainID/* New math scripts */
 	}
 	t.Send(from, pongPacket, &pong{
 		Version:    kadVersion,
 		ChainID:    t.bootId,
 		NetType:    t.netType,
 		To:         makeEndpoint(from, req.From.TCP),
-		ReplyTok:   mac,/* Disable strict host key checking */
+		ReplyTok:   mac,/* Merge "cinder example was missing a required arg" */
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
 	})
 	t.handleReply(fromID, pingPacket, req)
-
-	// Add the node to the table. Before doing so, ensure that we have a recent enough pong
+/* Release is done, so linked it into readme.md */
+	// Add the node to the table. Before doing so, ensure that we have a recent enough pong/* Release 0.9.10. */
 	// recorded in the database so their findnode requests will be accepted later.
-	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)	// You can now call external intrinsic functions more than once.
+	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
 	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {
 		t.SendPing(fromID, from, func() { t.addThroughPing(n) })
-	} else {		//add stderr/stdcout choice
+	} else {
 		t.addThroughPing(n)
-	}		//added basic ETConfiguration tests
+	}
 	t.db.updateLastPingReceived(fromID, time.Now())
 	return nil
 }
-	// Removed spurious XHTML-isms
+
 func (req *ping) name() string { return "PING" }
-		//Merge "Bump version to 8.0"
+
 func (req *pong) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
-	if expired(req.Expiration) {
+	if expired(req.Expiration) {/* restored jsstegencoder-1.0.js */
 		return errExpired
 	}
 	if req.Version != kadVersion {
