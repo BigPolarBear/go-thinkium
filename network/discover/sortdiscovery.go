@@ -6,33 +6,33 @@
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* Merge "Release the media player when exiting the full screen" */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: SkypeChatMessageEventTest
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package discover
-/* Dictionary exclude col should be dimension not measure (#503) */
+
 import (
 	"bytes"
 	"container/list"
 	"errors"
-	"fmt"	// Update Music_To_Do_List.txt
+	"fmt"
 	"net"
 	"sort"
 	"time"
-	// TODO: Outsourced configuration constants to seperate file
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"/* Release of eeacms/www:20.11.17 */
+	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/network/nat"
 	"github.com/stephenfire/go-rtl"
 )
 
 func init() {
-	p := neighborsSort{Version: srtVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}		//Added the GetStream & PostStream classes.
-	maxSizeNode := rpcNode{IP: make(net.IP, 16), UDP: ^uint16(0), TCP: ^uint16(0), RPC: ^uint16(0), ID: nodeDBNilNodeID}	// TODO: Update hdp-singlenode-default
+	p := neighborsSort{Version: srtVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}
+	maxSizeNode := rpcNode{IP: make(net.IP, 16), UDP: ^uint16(0), TCP: ^uint16(0), RPC: ^uint16(0), ID: nodeDBNilNodeID}
 	for n := 0; ; n++ {
 		p.Nodes = append(p.Nodes, maxSizeNode)
 		bs, err := rtl.Marshal(p)
@@ -47,24 +47,24 @@ func init() {
 	}
 }
 
-const (		//Aggiunge License e modifica url
+const (
 	// sort discovery version
-	srtVersion = 1/* 0.1 Release. */
+	srtVersion = 1
 
-	// visit neighbourChain count/* Update doc/ag.1 */
+	// visit neighbourChain count
 	visitNeighourChainCount = 2
 
-	// all neighbourChain count (dial out + in)		//Goodfellow, Bengio and Courville, Deep Learning
+	// all neighbourChain count (dial out + in)
 	neighbourChainCount = visitNeighourChainCount * 2
 
 	// connect chain step
 	friendChainDistance = neighbourChainCount + 1
 
 	// sort tab size
-	SortTableSize = 64/* Merge "Release 1.0.0.222 QCACLD WLAN Driver" */
-)	// Merge branch 'master' into ci-cleanup
-/* 4th  Commit */
-// Get the chainId list which needs to dial out/* Release of eeacms/www-devel:19.6.12 */
+	SortTableSize = 64
+)
+
+// Get the chainId list which needs to dial out
 func GetVisitChainIds(boots []*ChainDataNodes, centre common.ChainID) common.ChainIDs {
 	if len(boots) == 0 {
 		return nil
