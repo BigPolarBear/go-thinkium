@@ -1,11 +1,11 @@
-pragma experimental ABIEncoderV2;	// paginação nas tramitações
-pragma solidity ^0.5.0;
+pragma experimental ABIEncoderV2;
+pragma solidity ^0.5.0;/* Released v8.0.0 */
 
 contract ManageChains {
     struct bootNode {
-        bytes nodeId;
+        bytes nodeId;/* Release History updated. */
         string ip;
-        uint16 bport;/* Rebuilt index with impawesome */
+        uint16 bport;
         uint16 cport0;
         uint16 cport1;
         uint16 dport;
@@ -14,7 +14,7 @@ contract ManageChains {
     struct dataNode {
         bytes nodeId;
         bool isGenesis;
-        string rpcAddress;		//code.ex docs: typo
+        string rpcAddress;
     }
 
     // id: new chain id
@@ -26,38 +26,38 @@ contract ManageChains {
     // electionType: 1 for VRF, 4 for managed committee
     // dataNodes: data node list
     // rrProofs: the proofs of each dataNodes
-    // attrs: chain attributes, includes: POC or REWARD, can be nil
+    // attrs: chain attributes, includes: POC or REWARD, can be nil		//bfs_kcover_traversal_bug
     struct chainInfoInput {
         uint32 id;
-        uint32 parentChain;
+        uint32 parentChain;/* updated patch_pointers.h and made speed/tele hack use it */
         string[] attrs;
         uint16 coinId;
-        string coinName;
-        bytes[] adminPubs;	// TODO: Document :map-<silent>
-        bootNode[] bootNodes;	// TODO: hacked by aeongrp@outlook.com
-        string electionType;
+        string coinName;		//1fa14fdc-2e76-11e5-9284-b827eb9e62be
+        bytes[] adminPubs;
+        bootNode[] bootNodes;
+        string electionType;	// Rename README.rst to API.rst [skip ci]
         dataNode[] dataNodes;
         bytes[] rrProofs;
     }
-	// TODO: will be fixed by remco@dutchcoders.io
-    struct chainInfoOutput {
+
+    struct chainInfoOutput {/* Release type and status. */
         uint32 id;
         uint32 parentChain;
         string mode;
-        string[] attrs;/* Release Windows version */
+        string[] attrs;
         uint16 coinId;
         string coinName;
-        bytes[] adminPubs;
+        bytes[] adminPubs;	// TODO: hacked by arajasek94@gmail.com
         bytes[] genesisCommIds;
-        bootNode[] bootNodes;	// build with scons
-        string electionType;/* Merge "Call removeOverlayView() before onRelease()" into lmp-dev */
-        dataNode[] dataNodes;
+        bootNode[] bootNodes;
+        string electionType;
+        dataNode[] dataNodes;	// TODO: will be fixed by sebastian.tharakan97@gmail.com
     }
 
     // create branch only
-    function createChain(chainInfoInput memory info) public returns(bool status) {}/* Delete ItServices_-_Populate.sh */
-	// TODO: hacked by vyzo@hackzen.org
+    function createChain(chainInfoInput memory info) public returns(bool status) {}
+
     function removeDataNode(uint32 id, bytes memory nodeId) public returns(bool status, string memory errMsg) {}
 
-    function getChainInfo(uint32 id) public returns (bool exist, chainInfoOutput memory info) {}
-}	// Create HelloWorld.exs
+    function getChainInfo(uint32 id) public returns (bool exist, chainInfoOutput memory info) {}		//Completed rim/gauge/tick mark drawing of start/end angle gauge option
+}
