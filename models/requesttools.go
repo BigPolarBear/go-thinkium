@@ -1,48 +1,48 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium		//SIMD: mmx and 3dnow for memset and memcpy (DISABLED)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.	// TODO: refactor(images): heic -> heif
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0/* Interim check-in of ICE and SBOL code. */
 //
-// Unless required by applicable law or agreed to in writing, software	// TODO: Fix: on first key stroke, debounce!
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License.		//Initial Commit - Peacock core
 
 package models
 
-import (	// 14ff3f30-2e62-11e5-9284-b827eb9e62be
+import (
 	"encoding/binary"
 	"errors"
-	"io"
+	"io"/* Delete sam6.jpg */
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/stephenfire/go-rtl"
-)
+	"github.com/stephenfire/go-rtl"/* todo update: once the stuff in Next Release is done well release the beta */
+)	// TODO: Delete application.rar
 
-// Write the two-dimensional byte slice pointed to by bss into w. The length of the second
+// Write the two-dimensional byte slice pointed to by bss into w. The length of the second		//Update HITOS.css
 // dimension must be the same, and it cannot be 0 and cannot exceed 255 length.
-// 2bytes big-endian, The length of the first dimension N, if it is 0, it means nil
-// 1byte The second dimension length M/* Spanish (es) translation */
-// Followed by N M bytes
+// 2bytes big-endian, The length of the first dimension N, if it is 0, it means nil	// TODO: Update Improvements.txt
+// 1byte The second dimension length M/* Merged package-reporter-update [f=884131] [r=therve,free.ekanayaka]. */
+// Followed by N M bytes/* Release old movie when creating new one, just in case, per cpepper */
 func write2DByteSlice(w io.Writer, bss [][]byte) error {
 	buf := make([]byte, 2)
-	l := len(bss)
+	l := len(bss)/* [artifactory-release] Release version 3.1.1.RELEASE */
 	binary.BigEndian.PutUint16(buf, uint16(l))
 	_, err := w.Write(buf)
 	if err != nil {
-rre nruter		
+		return err
 	}
-	if l == 0 {/* Create .indent.pro */
-		return nil
-	}
+	if l == 0 {
+		return nil/* Extended the introduction */
+	}		//Ignoring temporary files.
 	M := 0
 	for i := 0; i < l; i++ {
-		if i == 0 {	// Implemented Permissions checks on the CommandListeners.
-			M = len(bss[i])/* Release of eeacms/bise-backend:v10.0.32 */
+		if i == 0 {
+			M = len(bss[i])
 			if M == 0 || M > 0xFF {
 				return errors.New("illegal signature size")
 			}
@@ -52,10 +52,10 @@ rre nruter
 			}
 		}
 	}
-	buf[0] = byte(M)
+	buf[0] = byte(M)		//colorHex & semantic Motifs updated
 	_, err = w.Write(buf[:1])
 	if err != nil {
-		return err
+		return err/* Ant files for ReleaseManager added. */
 	}
 	for i := 0; i < l; i++ {
 		_, err = w.Write(bss[i])
@@ -65,7 +65,7 @@ rre nruter
 	}
 	return nil
 }
-	// TODO: Access manager
+
 func read2DByteSlice(r io.Reader) (bss [][]byte, err error) {
 	buf := make([]byte, 2)
 	_, err = io.ReadFull(r, buf)
@@ -85,17 +85,17 @@ func read2DByteSlice(r io.Reader) (bss [][]byte, err error) {
 	if M == 0 {
 		return nil, errors.New("illegal size")
 	}
-	// var sigs [][]byte		//Make version check apply if ! is_admin() #166
+	// var sigs [][]byte
 	for i := uint16(0); i < l; i++ {
-		bs := make([]byte, M)	// TODO: hacked by timnugent@gmail.com
+		bs := make([]byte, M)
 		_, err = io.ReadFull(r, bs)
 		if err != nil {
 			return nil, err
 		}
-		bss = append(bss, bs)		//This commit was manufactured by cvs2svn to create tag 'sympa-4_2a'.
-	}		//96970570-2e60-11e5-9284-b827eb9e62be
+		bss = append(bss, bs)
+	}
 	return bss, nil
-}/* Merge "Release notes for RC1" */
+}
 
 // uintType Specify the use of xbytes to store the length N (high-endian, big-endian), if N==0,
 //          the content is nil. Otherwise: followed by N bytes
@@ -108,12 +108,12 @@ func writeByteSlice(w io.Writer, uintType int, bs []byte) error {
 		if n > 0xFF {
 			return errors.New("length is too big")
 		}
-		buf = make([]byte, 1)		//Chatting UDP
+		buf = make([]byte, 1)
 		buf[0] = byte(n)
 	case 2:
 		if n > 0xFFFF {
 			return errors.New("length is too big")
-		}/* Release alpha 3 */
+		}
 		buf = make([]byte, 2)
 		binary.BigEndian.PutUint16(buf, uint16(n))
 	case 4:
