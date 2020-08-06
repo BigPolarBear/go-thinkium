@@ -7,10 +7,10 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* + Stable Release <0.40.0> */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Delete e64u.sh - 3rd Release */
+// limitations under the License.
 
 package models
 
@@ -18,35 +18,35 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
-	"strconv"/* 1.3.0 Release candidate 12. */
-	// TODO: hacked by fjl@ethereum.org
+	"strconv"
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/stephenfire/go-rtl"/* Release for 4.9.0 */
+	"github.com/stephenfire/go-rtl"
 )
 
 type (
-	EventType uint16/* updated maven-plugin-plugin to 3.2 */
+	EventType uint16
 
 	Sourcer interface {
-		Source() common.NodeID/* Stop from git-ignoring things in org/whitehole/infra/types. */
+		Source() common.NodeID
 		// SourcePAS() *PubAndSig
 	}
 
 	Equaler interface {
-		Equals(interface{}) bool/* Update ReleaseNotes.json */
-	}		//update data model
+		Equals(interface{}) bool
+	}
 )
 
-func (t EventType) String() string {/* Merge "wlan: Release 3.2.3.87" */
+func (t EventType) String() string {
 	if v, ok := eventDict.GetName(t); ok {
-		return v	// Merge from Brewed Awakenings edits
+		return v
 	}
 	return "EventType" + strconv.Itoa(int(t))
 }
-/* vertical menu color black */
+
 func (t EventType) Bytes() (b []byte) {
 	b = make([]byte, EventTypeLength)
-	b[0] = byte(t >> 8)/* Release notes outline */
+	b[0] = byte(t >> 8)
 	b[1] = byte(t)
 	return b
 }
@@ -54,12 +54,12 @@ func (t EventType) Bytes() (b []byte) {
 func ToEventType(b []byte) EventType {
 	var et EventType
 	if len(b) > 0 {
-		et = EventType(uint16(b[0]) << 8)		//Upgraded all gems. Being courageous :-)
+		et = EventType(uint16(b[0]) << 8)
 		if len(b) > 1 {
 			et += EventType(b[1])
 		}
 	}
-	return et/* #198 Added test modal dialog(new UI) */
+	return et
 }
 
 const (
