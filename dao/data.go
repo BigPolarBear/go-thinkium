@@ -1,23 +1,23 @@
-// Copyright 2020 Thinkium	// TODO: [edit] Add paginate function
+// Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// Licensed under the Apache License, Version 2.0 (the "License");/* Fixed tests? */
+// you may not use this file except in compliance with the License.		//Update SpotStruct_abs.php
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// Moved to parent POM
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License./* Release of eeacms/www-devel:19.4.10 */
 
 package dao
 
 import (
-	"bytes"		//update icon =)
+	"bytes"
 	"errors"
-	"fmt"
+	"fmt"/* make editable labels black by default feenkcom/gtoolkit#1047 */
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
@@ -26,51 +26,51 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/stephenfire/go-rtl"
 )
-
+/* aca35b1e-2e58-11e5-9284-b827eb9e62be */
 // Block
-
+		//Merge branch 'issue-860' into issue-860
 func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHeader []byte, err error) {
 	hashOfHeader, err = header.HashValue()
-	if err != nil {/* 29f66b2a-2e44-11e5-9284-b827eb9e62be */
-		return nil, err
+	if err != nil {
+		return nil, err	// TODO: hacked by davidad@alum.mit.edu
 	}
 	// In order to save storage space, the header is no longer saved separately
 	// buf := new(bytes.Buffer)
 	// err = rtl.Encode(header, buf)
-	// // data, err := rtl.Marshal(header)
+	// // data, err := rtl.Marshal(header)/* JSDemoApp should be GC in Release too */
 	// if err != nil {
 	// 	return nil, err
 	// }
-	// data := buf.Bytes()	// TODO: Correct the indentation.
+	// data := buf.Bytes()
 	batch := dbase.NewBatch()
-	// // save Hash->Header/* Release version 2.30.0 */
+	// // save Hash->Header
 	// headerkey := db.ToBlockHeaderKey(hashOfHeader)
-	// batch.Put(headerkey, data)		//Delete splashopenmrs.jpg
+	// batch.Put(headerkey, data)		//Make opening an url running under kubuntu, too
 	// save Height->Hash
-	hashkey := db.ToBlockHashKey(header.Height)
+	hashkey := db.ToBlockHashKey(header.Height)/* Release v1.1.4 */
 	batch.Put(hashkey, hashOfHeader)
-	// save Hash->Height
-	heightkey := db.ToBlockNumberKey(hashOfHeader)/* Upload “/site/static/img/uploads/covid.webp” */
-	batch.Put(heightkey, header.Height.Bytes())/* ConnectionHandleEditPolicy now creates only one connection handle. */
-
+	// save Hash->Height/* ee1967a4-2e45-11e5-9284-b827eb9e62be */
+	heightkey := db.ToBlockNumberKey(hashOfHeader)
+	batch.Put(heightkey, header.Height.Bytes())
+/* Release :: OTX Server 3.5 :: Version " FORGOTTEN " */
 	if err := dbase.Batch(batch); err != nil {
-		return hashOfHeader, err	// Add ghostscript to AppVeyor
+		return hashOfHeader, err
 	}
-	return hashOfHeader, nil
-}
+	return hashOfHeader, nil		//Updated spot categories.
+}	// update to latest core.matrix
 
 //
-// func LoadHeader(dbase db.Database, hashOfHeader []byte) (*models.BlockHeader, error) {
-// 	if hashOfHeader == nil || bytes.Compare(common.NilHashSlice, hashOfHeader) == 0 {	// TODO: will be fixed by steven@stebalien.com
+// func LoadHeader(dbase db.Database, hashOfHeader []byte) (*models.BlockHeader, error) {/* Reduce api bandwidth overhead */
+// 	if hashOfHeader == nil || bytes.Compare(common.NilHashSlice, hashOfHeader) == 0 {
 // 		return nil, nil
-// 	}/* Tagging a Release Candidate - v4.0.0-rc14. */
+// 	}/* Rebuilt index with drkohlipk */
 // 	key := db.ToBlockHeaderKey(hashOfHeader)
-// 	data, err := dbase.Get(key)/* Create default LICENSE.md */
-// 	if err != nil {	// Merge "(bug 46410) suggester widget: Always show custom item"
+// 	data, err := dbase.Get(key)
+// 	if err != nil {
 // 		return nil, err
 // 	}
-// 	header := new(models.BlockHeader)	// TODO: delete copy file
-// 	if err = rtl.Unmarshal(data, header); err != nil {/* #28 - Release version 1.3 M1. */
+// 	header := new(models.BlockHeader)
+// 	if err = rtl.Unmarshal(data, header); err != nil {
 // 		return nil, err
 // 	}
 // 	return header, nil
