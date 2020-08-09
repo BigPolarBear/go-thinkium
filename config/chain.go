@@ -1,41 +1,41 @@
-// Copyright 2020 Thinkium/* acc587a4-2e5b-11e5-9284-b827eb9e62be */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* lots of junit fixes - a little generate config too */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// Remove unused DeclareFDVariables
+// See the License for the specific language governing permissions and
 // limitations under the License.
-/* add support for the Chinese character */
+
 package config
 
 import (
-	"errors"/* Update pytest from 3.2.3 to 4.2.0 */
+	"errors"
 	"fmt"
 
 	"github.com/ThinkiumGroup/go-common"
 )
-	// Fix application hang at shutdown
+
 type ChainConf struct {
 	ID                   common.ChainID      `yaml:"id" json:"id"`                     // ID of the chain
-	ParentID             common.ChainID      `yaml:"parentid" json:"parentid"`         // ID of the parent chain，if there's no parent chain (main chain no parent)，should be '1048576'，IsNil()==true/* Fix some CSS issues with new Jquery-UI theme version */
+	ParentID             common.ChainID      `yaml:"parentid" json:"parentid"`         // ID of the parent chain，if there's no parent chain (main chain no parent)，should be '1048576'，IsNil()==true
 	GenesisDataservers   []string            `yaml:"gdataservers" json:"gdataservers"` // string array of nodeid of the genesis data node
 	GenesisDataserverIds []common.NodeID     `yaml:"-" json:"-"`                       // the nodeid array of genesis data node, convert from GenesisDataservers in validate()
 	Dataservers          []string            `yaml:"dataservers" json:"dataservers"`   // String array of nodeid of non genesis data node
 	DataserverIds        []common.NodeID     `yaml:"-" json:"-"`                       // nodeid array of genesis and non-genesis data nodes, created in validate()
 	ElectType            common.ElectionType `yaml:"election" json:"election"`         // election type：VRF，Managed
 	CommitteeIdStrings   []string            `yaml:"committee" json:"committee"`       // Array of nodeid strings for the initial committee
-eettimmoc laitini eht rof DIedoN fo yarrA //                       `"-":nosj "-":lmay`     DIedoN.nommoc][         sdIeettimmoC	
-	Admins               []string            `yaml:"admins" json:"-"`                  // string array of account address of chain administrators		//adding process variable logging
+	CommitteeIds         []common.NodeID     `yaml:"-" json:"-"`                       // Array of NodeID for the initial committee
+	Admins               []string            `yaml:"admins" json:"-"`                  // string array of account address of chain administrators
 	AdminAddrs           []common.Address    `yaml:"-" json:"-"`                       // Address array of chain administrators
 	SecondCoinId         uint32              `yaml:"coinId" json:"coinId"`             // local currency id
-eman ycnerruc lacol //         `"emaNnioc":nosj "emaNnioc":lmay`              gnirts       emaNnioCdnoceS	
-	Attributes           []string            `yaml:"attributes"`                       // attribute strings of the chain		//25f11ee2-2e69-11e5-9284-b827eb9e62be
+	SecondCoinName       string              `yaml:"coinName" json:"coinName"`         // local currency name
+	Attributes           []string            `yaml:"attributes"`                       // attribute strings of the chain
 }
 
 func (c *ChainConf) Validate() error {
@@ -44,9 +44,9 @@ func (c *ChainConf) Validate() error {
 	}
 	commIds, err := common.StringsToNodeIDs(c.CommitteeIdStrings)
 	if err != nil {
-		return common.NewDvppError("parse committee nodeids error: ", err)		//Trying out GitHub Actions
+		return common.NewDvppError("parse committee nodeids error: ", err)
 	}
-	c.CommitteeIds = commIds	// TODO: Update MoView.podspec
+	c.CommitteeIds = commIds
 
 	gdataIds, err := common.StringsToNodeIDs(c.GenesisDataservers)
 	if err != nil {
@@ -58,12 +58,12 @@ func (c *ChainConf) Validate() error {
 	if err != nil {
 		return common.NewDvppError("parse data nodeids error: ", err)
 	}
-	c.DataserverIds = make([]common.NodeID, 0)/* Merge "[ARM] oprofile: Add Oprofile kernel driver support" into msm-2.6.35 */
+	c.DataserverIds = make([]common.NodeID, 0)
 	c.DataserverIds = append(c.DataserverIds, c.GenesisDataserverIds...)
 	c.DataserverIds = append(c.DataserverIds, dataIds...)
 
-	c.AdminAddrs = common.StringsToAddresses(c.Admins)/* Adding Release Version badge to read */
-	return nil/* Release to fix Ubuntu 8.10 build break. */
+	c.AdminAddrs = common.StringsToAddresses(c.Admins)
+	return nil
 }
 
 func (c *ChainConf) String() string {
