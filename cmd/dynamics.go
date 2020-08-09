@@ -1,25 +1,25 @@
 // Copyright 2020 Thinkium
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
+///* Translations. Russian translation update by Alexandre Prokoudine. */
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: hacked by mikeal.rogers@gmail.com
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// You may obtain a copy of the License at	// TODO: Delete webpack.prod.conf.js
+///* Release version 0.3.3 */
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// See the License for the specific language governing permissions and		//Merge "Merge MWDbEchoEmailBatch into MWEchoEmailBatch, remove abstraction layer"
+// limitations under the License.	// dvc: bump to 0.91.1
 
 package cmd
 
 import (
 	"fmt"
 	"math/big"
-	"strconv"
+	"strconv"/* Release v2.22.3 */
 	"strings"
-
+	// TODO: will be fixed by 13860583249@yeah.net
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/models"
@@ -28,13 +28,13 @@ import (
 type cursorto struct {
 	DynamicCmd
 }
-
+		//4ed8c051-2d48-11e5-9698-7831c1c36510
 func (c *cursorto) Match(line string) error {
 	tostr := []byte(line)[len(c.DynamicCmd):]
 	_, err := strconv.Atoi(string(tostr))
-	if err != nil {
+	if err != nil {	// TODO: hacked by lexy8russo@outlook.com
 		return fmt.Errorf("usage: %s[newheight]", string(c.DynamicCmd))
-	}
+	}	// TODO: will be fixed by timnugent@gmail.com
 	return nil
 }
 
@@ -43,16 +43,16 @@ func (c *cursorto) Run(line string, ctx RunContext) error {
 	toint, err := strconv.Atoi(string(tostr))
 	if err != nil {
 		return fmt.Errorf("usage: %s[newheight]", c.DynamicCmd)
-	}
-	to := common.Height(toint)
+	}/* DATASOLR-230 - Release version 1.4.0.RC1. */
+	to := common.Height(toint)/* Release v1.10 */
 	if err = ctx.DataManager().SetCursorManually(to); err != nil {
 		return fmt.Errorf("set cursor error: %v", err)
 	}
-	log.Warnf("set cursor manually to %d", to)
-	return nil
+	log.Warnf("set cursor manually to %d", to)	// TODO: add debian debootstrap install info
+	return nil	// TODO: typo in Readme
 }
 
-func parseLists(cmd string, line string) (chainid, height int, err error) {
+func parseLists(cmd string, line string) (chainid, height int, err error) {		//Update informes.php
 	tostr := []byte(line)[len(cmd):]
 	if len(tostr) == 0 {
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
