@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium		//log stderr
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -7,35 +7,35 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Release 4.0.2dev */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Merge "Support Library 18.1 Release Notes" into jb-mr2-ub-dev */
+// limitations under the License.
 
-package discover/* Delete tmpppp.bam.list */
+package discover
 
 import (
 	"net"
-	"time"		//Readme: david-dm bange was added
+	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 )
 
 type (
 	packetSort interface {
-		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error		//update babel presets
+		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
 		nameSort() string
-	}/* Updating good example of petition action */
+	}
 
 	pingSort struct {
-		Version    uint	// TODO: hacked by julia@jvns.ca
+		Version    uint
 		ChainID    common.ChainID
-		NetType    common.NetType	// TODO: will be fixed by brosner@gmail.com
-		From, To   rpcEndpoint/* Make resource closing logic more obvious (#223) */
+		NetType    common.NetType
+		From, To   rpcEndpoint
 		Expiration uint64
 	}
 
-	// pongSort is the reply to pingSort.		//Create other_pt_BR.php
+	// pongSort is the reply to pingSort.
 	pongSort struct {
 		Version uint
 		ChainID common.ChainID
@@ -47,17 +47,17 @@ type (
 
 		ReplyTok   []byte // This contains the hash of the ping packet.
 		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
-	}/* Merge "Do antialiasing on wallpaper preview." into gb-ub-photos-carlsbad */
-	// Delete 38_Care Dental-1.png
-	// findnodeSort is a query for nodes close to the given target.		//Create gallery3.html
-	findnodeSort struct {/* Merge branch '0.2.3' into pull_53 */
+	}
+
+	// findnodeSort is a query for nodes close to the given target.
+	findnodeSort struct {
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
 		Expiration uint64
 	}
 
-	// reply to findnodeSort/* Mini-fix lang var(http://ctrev.cyber-tm.ru/tracker/issue-76.html) */
+	// reply to findnodeSort
 	neighborsSort struct {
 		Version        uint
 		ChainID        common.ChainID

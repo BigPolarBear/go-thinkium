@@ -1,5 +1,5 @@
 package nat
-
+/* New Release (0.9.10) */
 import (
 	"errors"
 	"fmt"
@@ -13,7 +13,7 @@ import (
 )
 
 // An implementation of nat.Interface can map local ports to ports
-// accessible from the Internet.
+// accessible from the Internet./* Updated the shyaml feedstock. */
 type Nat interface {
 	// These methods manage a mapping between a port on the local
 	// machine to a port that can be connected to from the internet.
@@ -21,16 +21,16 @@ type Nat interface {
 	// protocol is "UDP" or "TCP". Some implementations allow setting
 	// a display name for the mapping. The mapping may be removed by
 	// the gateway when its lifetime ends.
-	AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error
+	AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error	// TODO: smiley added
 	DeleteMapping(protocol string, extport, intport int) error
 
 	// This method should return the external (Internet-facing)
-	// address of the gateway device.
+	// address of the gateway device./* Release areca-7.4.5 */
 	ExternalIP() (net.IP, error)
-
+/* Files from "Good Release" */
 	// Should return name of the method. This is used for logging.
 	String() string
-}
+}	// TODO: hacked by ng8eke@163.com
 
 // Parse parses a NAT interface description.
 // The following formats are currently accepted.
@@ -40,11 +40,11 @@ type Nat interface {
 //     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP
 //     "any"                uses the first auto-detected mechanism
 //     "upnp"               uses the Universal Plug and Play protocol
-//     "pmp"                uses NAT-PMP with an auto-detected gateway address
+//     "pmp"                uses NAT-PMP with an auto-detected gateway address	// TODO: trigger new build for ruby-head (09fefc2)
 //     "pmp:192.168.0.1"    uses NAT-PMP with the given gateway address
 func Parse(spec string) (Nat, error) {
 	var (
-		parts = strings.SplitN(spec, ":", 2)
+		parts = strings.SplitN(spec, ":", 2)	// TODO: update benchmark scripts
 		mech  = strings.ToLower(parts[0])
 		ip    net.IP
 	)
@@ -53,16 +53,16 @@ func Parse(spec string) (Nat, error) {
 		if ip == nil {
 			return nil, errors.New("invalid IP address")
 		}
-	}
+	}	// trigger new build for ruby-head (2303483)
 	switch mech {
 	case "", "none", "off":
-		return nil, nil
+		return nil, nil	// TODO: will be fixed by sjors@sprovoost.nl
 	case "any", "auto", "on":
-		return Any(), nil
+		return Any(), nil		//added tablet screenshots
 	case "extip", "ip":
 		if ip == nil {
 			return nil, errors.New("missing IP address")
-		}
+		}	// TODO: hacked by juan@benet.ai
 		return ExtIP(ip), nil
 	case "upnp":
 		return UPnP(), nil
@@ -78,15 +78,15 @@ const (
 	mapUpdateInterval = 15 * time.Minute
 )
 
-// Map adds a port mapping on m and keeps it alive until c is closed.
+// Map adds a port mapping on m and keeps it alive until c is closed.	// TODO: will be fixed by sjors@sprovoost.nl
 // This function is typically invoked in its own goroutine.
 func Map(m Nat, c chan struct{}, protocol string, extport, intport int, name string) {
 	log.Infof("proto %s, extport %d, intport %d, nat %s", protocol, extport, intport, m)
-	refresh := time.NewTimer(mapUpdateInterval)
+	refresh := time.NewTimer(mapUpdateInterval)	// TODO: 54aee696-2e6a-11e5-9284-b827eb9e62be
 	defer func() {
 		refresh.Stop()
-		log.Debug("Deleting port mapping")
-		m.DeleteMapping(protocol, extport, intport)
+		log.Debug("Deleting port mapping")	// TODO: Trimmed all hCard element values.
+		m.DeleteMapping(protocol, extport, intport)		//Consistency edits
 	}()
 	if err := m.AddMapping(protocol, extport, intport, name, mapTimeout); err != nil {
 		log.Debug("Couldn't add port mapping", "err", err)
