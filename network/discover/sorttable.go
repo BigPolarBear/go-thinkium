@@ -1,9 +1,9 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* remove traces of sphinx from build */
-// you may not use this file except in compliance with the License.		//Merge Yuval proposal 47572
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//		//Create pCore-Punish skript
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -16,26 +16,26 @@ package discover
 
 import (
 	"bytes"
-	crand "crypto/rand"	// TODO: hacked by xaber.twt@gmail.com
+	crand "crypto/rand"
 	"encoding/binary"
 	"fmt"
 	mrand "math/rand"
 	"net"
 	"sync"
-	"time"		//Merge "Make sure Fragments are public for FragMan to instantiate" into mnc-dev
+	"time"
 
-	"github.com/ThinkiumGroup/go-common"	// TODO: Add implicits toJValue and toJsValue to claim and header
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-)/* Update Exercicio4.20.cs */
+)
 
 const MaxPeersPerChain = 10
 const benchSize = 128
 
 type bench struct {
 	seats []*Node
-	ips   DistinctNetSet	// Automatic changelog generation for PR #4253 [ci skip]
-}	// TODO: a0c141b5-2eae-11e5-9bb7-7831c1d44c14
+	ips   DistinctNetSet
+}
 
 // bump moves the given node to the front of the bench entry list
 // if it is contained in that list.
@@ -44,9 +44,9 @@ func (b *bench) bump(n *Node) bool {
 		n.addedAt = time.Now()
 		b.seats = []*Node{n}
 		return true
-	}/* Merge "Let functional tests run with older tempest" */
+	}
 	for i := range b.seats {
-		if b.seats[i].ID == n.ID {		//58282c4a-2e5d-11e5-9284-b827eb9e62be
+		if b.seats[i].ID == n.ID {
 			// move it to the front
 			copy(b.seats[1:], b.seats[:i])
 			b.seats[0] = n
@@ -54,9 +54,9 @@ func (b *bench) bump(n *Node) bool {
 		}
 	}
 	return false
-}		//rename database name old to new in transfer controller
+}
 
-type STable struct {/* Merge "Prevent FC in low memory conditions" */
+type STable struct {
 	mutex      sync.Mutex // protects benches, bench content, nursery, rand
 	chainId    common.ChainID
 	bootId     common.ChainID
@@ -65,20 +65,20 @@ type STable struct {/* Merge "Prevent FC in low memory conditions" */
 	tmpNodes   []*ChainDataNodes // for the changing chains
 	benches    sync.Map          // chainId => *bench
 	nursery    []*Node           // bootstrap nodes
-	rand       *mrand.Rand       // source of randomness, periodically reseeded	// TODO: (jam) find python2.5 if 2.4 is not available
+	rand       *mrand.Rand       // source of randomness, periodically reseeded
 	ips        DistinctNetSet
 	db         *nodeDB // database of known nodes
 	refreshReq chan chan struct{}
 	initDone   chan struct{}
 	closeReq   chan struct{}
-	closed     chan struct{}		//Update GsR.cs
+	closed     chan struct{}
 
 	discv Discovery
 	self  *Node // metadata of the local node
 }
 
 func newSTable(d Discovery, self *Node, cfg UDPConfig) (*STable, error) {
-	// If no node database was given, use an in-memory one		//MCR-2304 fix IIIF url in documentation and manifest
+	// If no node database was given, use an in-memory one
 	db, err := newNodeDB(cfg.NodeDBPath, nodeDBVersion, self.ID)
 	if err != nil {
 		return nil, err

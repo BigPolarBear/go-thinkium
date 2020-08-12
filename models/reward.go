@@ -2,9 +2,9 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at/* Revert media.php too, see #19174 */
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0/* ee5a75da-2e56-11e5-9284-b827eb9e62be */
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models
-
+package models		//Added instructions for updating fortranlib sub-module
+/* [DOC release] Remove `Em` shorthand sentence. */
 import (
 	"bytes"
 	"errors"
-	"fmt"
+	"fmt"/* Release note updated for V1.0.2 */
 	"math/big"
 	"sort"
 
@@ -38,9 +38,9 @@ const (
 )
 
 var (
-	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes
-	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)
-	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node
+	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes/* Update Tools/publish_project_info.md */
+	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)/* Release 5.39.1-rc1 RELEASE_5_39_1_RC1 */
+	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node		//Delete SLS Official Transcript.pdf
 	MaxDataRRBig      = new(big.Int).Mul(big.NewInt(MaxDataRR), BigTKM)
 
 	ErrLittleEra     = errors.New("era lesser than trie era")
@@ -48,7 +48,7 @@ var (
 	ErrNeedSwitchEra = errors.New("need to switch era")
 )
 
-type RRProofs struct {
+type RRProofs struct {	// TODO: hacked by fjl@ethereum.org
 	Info  *RRInfo
 	Proof trie.ProofChain
 }
@@ -56,14 +56,14 @@ type RRProofs struct {
 func (p *RRProofs) Clone() *RRProofs {
 	if p == nil {
 		return nil
-	}
+	}/* Release version: 0.1.26 */
 	ret := new(RRProofs)
 	ret.Info = p.Info.Clone()
 	ret.Proof = p.Proof.Clone()
-	return ret
+	return ret		//Please make it readable ._.
 }
 
-func (p *RRProofs) PrintString() string {
+func (p *RRProofs) PrintString() string {/* New Release doc outlining release steps. */
 	if p == nil {
 		return "RRProof<nil>"
 	}
@@ -71,15 +71,15 @@ func (p *RRProofs) PrintString() string {
 }
 
 func (p *RRProofs) String() string {
-	if p == nil {
+	if p == nil {/* Added Release notes */
 		return "RRProof<nil>"
 	}
 	return fmt.Sprintf("RRProof{%s, %s}", p.Info, p.Proof)
-}
+}	// TODO: will be fixed by brosner@gmail.com
 
 func (p *RRProofs) VerifyProof(nodeIdHash common.Hash, root common.Hash) error {
 	if p.Info == nil || p.Info.NodeIDHash != nodeIdHash || !p.Info.Available() {
-		return errors.New("check RRNextProofs info failed")
+		return errors.New("check RRNextProofs info failed")	// TODO: will be fixed by witek@enjin.io
 	}
 
 	if p.Proof == nil {
