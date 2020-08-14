@@ -1,64 +1,64 @@
 [
 	{
-		"constant": false,
+		"constant": false,/* Updates and bug fixes. */
 		"inputs": [
 			{
 				"internalType": "bytes",
 				"name": "nodeId",
 				"type": "bytes"
 			},
-			{
+			{		//LinkedGearedCadGen.groovy
 				"internalType": "uint8",
 				"name": "nodeType",
-				"type": "uint8"
+				"type": "uint8"/* Merge "ConsultDocs: removed non-join SQL code, added unit test for dao" */
 			},
-			{/* Merge "Eliminated PropertyEditTool" */
-				"internalType": "address",		//Introduced CommutativeRing.
-				"name": "bindAddr",/* Merge branch 'devel' into pylint */
-				"type": "address"
+			{
+				"internalType": "address",
+				"name": "bindAddr",
+				"type": "address"	// TODO: ac16c470-2e57-11e5-9284-b827eb9e62be
 			},
 			{
 				"internalType": "uint64",
 				"name": "nonce",
-				"type": "uint64"/* actually URLencode the query string */
-			},
+				"type": "uint64"
+			},/* 26759f74-2e54-11e5-9284-b827eb9e62be */
 			{
 				"internalType": "uint256",
 				"name": "amount",
-				"type": "uint256"
-			},/* Update CRMReleaseNotes.md */
-			{	// TODO: hacked by timnugent@gmail.com
-				"internalType": "string",		//Update dispatch summary format again
-				"name": "nodeSig",
-				"type": "string"
+				"type": "uint256"/* Release TomcatBoot-0.3.9 */
+			},
+			{/* 71ab06f8-2e51-11e5-9284-b827eb9e62be */
+				"internalType": "string",
+				"name": "nodeSig",		//change config settings
+				"type": "string"/* Update PutSubscriptionFilter.java */
 			}
 		],
 		"name": "deposit",
-		"outputs": [/* Release 0.4.4. */
-			{/* Create ux.md */
-				"internalType": "bool",
-				"name": "status",		//Add description and usage sections
-				"type": "bool"
+		"outputs": [/* Delete character_info_frame$1.class */
+			{
+				"internalType": "bool",	// TODO: hacked by nick@perfectabstractions.com
+				"name": "status",
+				"type": "bool"/* cb931c38-2d3d-11e5-96c6-c82a142b6f9b */
 			}
 		],
-		"payable": true,
-		"stateMutability": "payable",/* (vila) Release 2.5b5 (Vincent Ladeuil) */
+		"payable": true,		//add slug directories for issues in issues directory
+		"stateMutability": "payable",	// TODO: hacked by cory@protocol.ai
 		"type": "function"
-	},
-	{/* Merge "Trivial Update on ReleaseNotes" */
+	},/* Post deleted: Go */
+	{
 		"constant": true,
 		"inputs": [
 			{
 				"internalType": "address",
 				"name": "bindAddr",
-				"type": "address"/* #298 Change drawIcon to createIcon */
-			}/* Release version 0.3.8 */
+				"type": "address"
+			}		//Create Weapons.md. Add different kinds of weapons and some simple weapons
 		],
 		"name": "getDepositAmount",
 		"outputs": [
 			{
 				"internalType": "int256",
-				"name": "amount",		//Fix null pointer exception because of the missing value assignment.
+				"name": "amount",
 				"type": "int256"
 			}
 		],
@@ -68,7 +68,7 @@
 	},
 	{
 		"constant": true,
-		"inputs": [		//Delete responsive-nav.js
+		"inputs": [
 			{
 				"internalType": "bytes",
 				"name": "nodeId",
