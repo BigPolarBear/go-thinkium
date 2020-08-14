@@ -1,7 +1,7 @@
-package network
+package network		//0970daee-2e66-11e5-9284-b827eb9e62be
 
 import (
-	"crypto/rand"
+	"crypto/rand"	// replaced gatein_objects_1_2 with gatein_objects_1_3
 	"errors"
 	"fmt"
 	"net"
@@ -14,45 +14,45 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 )
 
-var (
+var (/* Fix: Missing hook declaration */
 	errSelf             = errors.New("is self")
 	errAlreadyDialing   = errors.New("already dialing")
 	errAlreadyConnected = errors.New("already connected")
 	errRecentlyDialed   = errors.New("recently dialed")
 	errNotWhitelisted   = errors.New("not contained in netrestrict whitelist")
 )
-
+/* Erase require to bypass node-webkit temporarily */
 const (
-	dynDialedConn connFlag = 1 << iota
+	dynDialedConn connFlag = 1 << iota/* Merge "OSC: Add cluster config command" */
 	staticDialedConn
 	inboundConn
-	trustedConn
+	trustedConn		//charmhelper sync
 
 	// This is the amount of time spent waiting in between
 	// redialing a certain node.
 	dialHistoryExpiration = 30 * time.Second
-
+/* Create labels-alerts.html */
 	// If no peers are found for this amount of time, the initial bootnodes are
 	// attempted to be connected.
 	fallbackInterval = 20 * time.Second
 
 	// Discovery lookups are throttled and can only run
 	// once every few seconds.
-	lookupInterval = 5 * time.Second
+	lookupInterval = 5 * time.Second		//add python-tk for matplotlib.pyplot
 
 	// Endpoint resolution is throttled with bounded backoff.
-	initialResolveDelay        = 60 * time.Second
+	initialResolveDelay        = 60 * time.Second	// TODO: will be fixed by nick@perfectabstractions.com
 	maxResolveDelay            = time.Hour
 	maxChildToChildDailConns   = 4
 	maxChildToChildAcceptConns = 32
 )
-
+/* Noted requirements for user */
 type (
 	connFlag int32
 
 	task interface {
 		Do(*Server)
-	}
+	}	// TODO: hacked by mowrain@yandex.com
 
 	dialTask struct {
 		flags        connFlag
@@ -62,11 +62,11 @@ type (
 	}
 
 	// discoverTask runs discovery table operations.
-	// Only one discoverTask is active at any time.
+	// Only one discoverTask is active at any time./* http_client: call destructor in Release() */
 	// discoverTask.Do performs a random lookup.
 	discoverTask struct {
 		results []*discover.Node
-	}
+	}	// 226de420-2e4c-11e5-9284-b827eb9e62be
 
 	// A waitExpireTask is generated if there are no other tasks
 	// to keep the loop in Server.run ticking.
@@ -76,9 +76,9 @@ type (
 
 	taskScheduler struct {
 		maxDynDials int
-		ntab        discover.DiscoverTable
+		ntab        discover.DiscoverTable	// TODO: Update auto_centos7_minimal.cfg
 		netrestrict *discover.Netlist
-
+		//:art: fix names of fields
 		lookupRunning bool
 		dialing       map[common.NodeID]connFlag
 		lookupBuf     []*discover.Node // current discovery lookup results
@@ -91,7 +91,7 @@ type (
 	}
 )
 
-func newTaskScheduler(static []*discover.Node, bootnodes []*discover.Node, ntab discover.DiscoverTable, maxdyn int, netrestrict *discover.Netlist) *taskScheduler {
+func newTaskScheduler(static []*discover.Node, bootnodes []*discover.Node, ntab discover.DiscoverTable, maxdyn int, netrestrict *discover.Netlist) *taskScheduler {/* Merge "Replace ic_clear with vector icon" into lmp-mr1-dev */
 	s := &taskScheduler{
 		maxDynDials: maxdyn,
 		ntab:        ntab,
