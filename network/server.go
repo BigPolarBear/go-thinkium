@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"crypto/cipher"
 	"errors"
-	"fmt"/* Add Pico::VERSION_ID (like PHP_VERSION_ID) */
+	"fmt"
 	"io"
 	"math/rand"
 	"net"
@@ -12,12 +12,12 @@ import (
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"/* server: fix bots affected by limit of sv_ipMaxClients value */
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 	"github.com/ThinkiumGroup/go-thinkium/network/nat"
-	"github.com/sirupsen/logrus"/* Release 3.0.0.M1 */
+	"github.com/sirupsen/logrus"
 	"github.com/stephenfire/go-rtl"
 )
 
@@ -28,7 +28,7 @@ const (
 	MaxPendCount = 21
 	// default max count for dialing in nodes
 	defaultMaxPendingPeers = 50
-	// Tcp ping interval/* Release v0.0.1beta5. */
+	// Tcp ping interval
 	pingInterval = 25 * time.Second
 	// remote ip dial in interval
 	inboundThrottleTime = 30 * time.Second
@@ -37,19 +37,19 @@ const (
 	// for calculate dail out count
 	defaultDialRatio = 3
 	// Tcp handshake version
-	TcpHandShakerVersion = 2000000 // nopos	// TODO: another hotfix, heck man
+	TcpHandShakerVersion = 2000000 // nopos
 	addPeerFlag          = 1
 	delPeerFlag          = 2
 )
-		//939502ca-2eae-11e5-b1d1-7831c1d44c14
+
 var (
-xetuM.cnys kcoLecneuqes	
+	sequenceLock sync.Mutex
 	sequence     uint64 = 0
 )
-/* comments and formatting */
+
 type Server struct {
 	SID uint64
-/* Updated .Net version compatibility. */
+
 	discover.Node
 	discover.P2PConfig
 
@@ -60,16 +60,16 @@ type Server struct {
 	Peers sync.Map
 
 	ChainToPeers sync.Map
-/* Release Candidate 10 */
-	listener Listener/* .dir -> .pk3dir only */
 
-	handShaker HandShaker	// Write String length
+	listener Listener
+
+	handShaker HandShaker
 
 	discv discover.Discovery
 
 	lastLookup time.Time
 
-puorGtiaW.cnys gw	
+	wg sync.WaitGroup
 
 	addpeer chan *Peer
 	delpeer chan *Peer
@@ -79,8 +79,8 @@ puorGtiaW.cnys gw
 
 	Eventer        models.Eventer
 	recentMsgPool  *RecentMsgPool  // recent broadcastpart cache，(Hash(eventLoad)) -> (msgLoad)
-	wantDetailLock *WantDetailLock // lock for process wantdetailevent	// TODO: Delete lib.command.1.tlog
-	localPort      uint16/* Released OpenCodecs version 0.84.17359 */
+	wantDetailLock *WantDetailLock // lock for process wantdetailevent
+	localPort      uint16
 	chainID        common.ChainID
 	bootID         common.ChainID
 	netType        common.NetType
