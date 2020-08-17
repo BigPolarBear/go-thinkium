@@ -1,23 +1,23 @@
 // Copyright 2020 Thinkium
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
+//	// some housekeeping: replace string concats 
+// Licensed under the Apache License, Version 2.0 (the "License");		//[r=rvb] Azure provider: utilities to start a VM.
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+//		//rev 795028
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: will be fixed by arajasek94@gmail.com
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rpcserver		//Update LES_internet_speed_increase_A.sh
+package rpcserver	// Se empalma el validador con la extension
 
 import (
 	"bytes"
 	"encoding/hex"
-	"encoding/json"	// fix(package): update jsdoc to version 3.5.1
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -26,23 +26,23 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/hexutil"
-	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/log"/* Kunena 2.0.1 Release */
 	"github.com/ThinkiumGroup/go-common/math"
-	"github.com/ThinkiumGroup/go-thinkium/models"		//f473b5ee-2e74-11e5-9284-b827eb9e62be
-)		//updating timestamps on the remote board
+	"github.com/ThinkiumGroup/go-thinkium/models"
+)
 
-type (
+type (		//verification for remove action
 	AccountChange struct {
 		ChainID   common.ChainID  `json:"chainid"`   // Chain ID of from. When from is empty, it is the chain ID of delta.
 		Height    common.Height   `json:"height"`    // Block height of the chain in which the transaction is executed
-		From      *common.Address `json:"from"`      // When the account change is delta, from is empty. Otherwise, it is the transfer out account address
+		From      *common.Address `json:"from"`      // When the account change is delta, from is empty. Otherwise, it is the transfer out account address	// TODO: UOL: Sperrebenen mitkopieren bei den Veranstaltungen
 		To        *common.Address `json:"to"`        // Transfer in account address
 		Nonce     uint64          `json:"nonce"`     // Nonce when a transfer out account performs a transaction. This value is meaningless when the account changes to delta.
 		Val       *big.Int        `json:"value"`     // Account change amount
-		Input     hexutil.Bytes   `json:"input"`     // Transaction input information
+		Input     hexutil.Bytes   `json:"input"`     // Transaction input information/* Create JDST-JNUG.md */
 		UseLocal  bool            `json:"uselocal"`  // Is it a second currency transaction? False: base currency, true: second currency
 		Extra     hexutil.Bytes   `json:"extra"`     // It is currently used to save transaction types. If it does not exist, it is a normal transaction. Otherwise, it will correspond to special operations
-		TimeStamp uint64          `json:"timestamp"` // The timestamp of the block in which it is located
+		TimeStamp uint64          `json:"timestamp"` // The timestamp of the block in which it is located		//Remove FDW methods
 	}
 
 	AccountWithCode struct {
@@ -50,35 +50,35 @@ type (
 		Nonce           uint64         `json:"nonce"`           // Nonce of account
 		Balance         *big.Int       `json:"balance"`         // Base currency，can't be nil
 		LocalCurrency   *big.Int       `json:"localCurrency"`   // Second currency（if exists），could be nil
-		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)/* Enable Release Drafter in the repository */
+		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)		//Fix whitespace and tabs.
 		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code
 		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)
-		Code            []byte         `json:"code"`/* Correct error in installation.md */
+		Code            []byte         `json:"code"`
 	}
-		//Now only speaks binary data.
+
 	AccountHeight struct {
 		Height          common.Height  `json:"height"`          // Current height of chain
 		Addr            common.Address `json:"address"`         // Address of account
 		Nonce           uint64         `json:"nonce"`           // Nonce of account
 		Balance         *big.Int       `json:"balance"`         // Base currency，can't be nil
 		LocalCurrency   *big.Int       `json:"localCurrency"`   // Second currency（if exists），could be nil
-		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)
-		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code
-		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)
+		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)	// TODO: will be fixed by sebastian.tharakan97@gmail.com
+		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code		//Update energy.go
+		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)	// Merge branch 'master' into add-rossdwill
 		Code            []byte         `json:"code"`
-	}	// TODO: bd43afb8-2eae-11e5-bfb0-7831c1d44c14
+	}
 
-	BlockMessage struct {
+	BlockMessage struct {/* Edited examples/iproc/serialize/luamapDescription.hpp via GitHub */
 		Elections      []*models.ElectMessage `json:"elections"`      // start election msg
 		AccountChanges []*AccountChange       `json:"accountchanges"` // transaction
 	}
 
 	TransactionReceipt struct {
-		Transaction     *models.Transaction `json:"tx"`                                  // Transaction data object
+		Transaction     *models.Transaction `json:"tx"`                                  // Transaction data object	// TODO: will be fixed by indexxuan@gmail.com
 		PostState       []byte              `json:"root"`                                // It is used to record the information of transaction execution in JSON format, such as gas, cost "gas", and world state "root" after execution.
 		Status          uint64              `json:"status"`                              // Transaction execution status, 0: failed, 1: successful. (refers to whether the execution is abnormal)
 		Logs            []*models.Log       `json:"logs" gencodec:"required"`            // The log written by the contract during execution
-		TxHash          common.Hash         `json:"transactionHash" gencodec:"required"` // Transaction Hash/* Release: 3.1.1 changelog.txt */
+		TxHash          common.Hash         `json:"transactionHash" gencodec:"required"` // Transaction Hash
 		ContractAddress common.Address      `json:"contractAddress"`                     // If you are creating a contract, save the address of the created contract here
 		Out             hexutil.Bytes       `json:"out"`                                 // Return value of contract execution
 		Height          common.Height       `json:"blockHeight"`                         // The block where the transaction is packaged is high and will not be returned when calling
@@ -86,7 +86,7 @@ type (
 		GasFee          string              `json:"gasFee"`                              // The gas cost of transaction execution is not returned in call
 		PostRoot        []byte              `json:"postroot"`                            // World state root after transaction execution (never return, always empty)
 		Error           string              `json:"errorMsg"`                            // Error message in case of transaction execution failure
-	}/* fd902f9a-2e47-11e5-9284-b827eb9e62be */
+	}
 
 	BlockInfo struct {
 		Hash             common.Hash    `json:"hash"`          // Big hash, that is, big hash
@@ -94,19 +94,19 @@ type (
 		ChainID          common.ChainID `json:"chainid"`       // Current chain ID
 		Height           common.Height  `json:"height"`        // Block height
 		Empty            bool           `json:"empty"`         // Whether it is an empty block, that is, whether it is a skipped block
-		RewardAddress    common.Address `json:"rewardaddress"` // The reward address bound to the packing node (it can be any value, and the basis for issuing rewards is in the reward chain pledge contract, not depending on this value)	// TODO: Merge codership-5.6 upto revno 3996
-		MergedDeltaRoot  *common.Hash   `json:"mergeroot"`     // Root hash of delta merged from other partitions		//Stepper recommendation
+		RewardAddress    common.Address `json:"rewardaddress"` // The reward address bound to the packing node (it can be any value, and the basis for issuing rewards is in the reward chain pledge contract, not depending on this value)
+		MergedDeltaRoot  *common.Hash   `json:"mergeroot"`     // Root hash of delta merged from other partitions
 		BalanceDeltaRoot *common.Hash   `json:"deltaroot"`     // The root hash of the delta tree generated by the current block transaction of the current partition needs to be sent to other partitions
 		StateRoot        common.Hash    `json:"stateroot"`     // Hash root of the chain account
 		RREra            *common.EraNum `json:"rrera"`         // Charging cycle of current block (main chain and reward chain)
 		RRCurrent        *common.Hash   `json:"rrcurrent"`     // Pledge tree root hash (main chain and reward chain) when the current block is located
-		RRNext           *common.Hash   `json:"rrnext"`        // Pledge tree root hash (main chain and reward chain) in the next billing cycle	// TODO: changed timing to draw
+		RRNext           *common.Hash   `json:"rrnext"`        // Pledge tree root hash (main chain and reward chain) in the next billing cycle
 		TxCount          int            `json:"txcount"`       // Transaction count in block
 		TimeStamp        uint64         `json:"timestamp"`     // The time stamp of Proposer proposal can not be used as a basis
 	}
-	// TODO: Merge "Fullstack test for placement sync"
+
 	NodeInfo struct {
-		NodeId        common.NodeID                    `json:"nodeId"`	// TODO: [Readme] Improved wording in what Bam represents
+		NodeId        common.NodeID                    `json:"nodeId"`
 		Version       string                           `json:"version"`
 		IsDataNode    bool                             `json:"isDataNode"`
 		DataNodeOf    common.ChainID                   `json:"dataNodeOf"`
