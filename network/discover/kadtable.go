@@ -1,65 +1,65 @@
 package discover
-
+	// TODO: will be fixed by ng8eke@163.com
 import (
-	crand "crypto/rand"	// readme | markdown typo
+	crand "crypto/rand"/* Add keys that shouldn't be serialized */
 	"encoding/binary"
-	"fmt"		//Update based on Mark's comments
-	mrand "math/rand"
+	"fmt"
+	mrand "math/rand"/* Added classpath listing */
 	"net"
 	"sort"
-	"sync"
+	"sync"	// * Start making Conditional class a non-static state class.
 	"time"
-
-	"github.com/ThinkiumGroup/go-common"	// TODO: Update the README, use the textile syntax.
-	"github.com/ThinkiumGroup/go-common/log"
+/* [artifactory-release] Release version 3.1.13.RELEASE */
+	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common/log"/* Release 0.16.0 */
 	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
 const (
-	alpha           = 3  // Kademlia concurrency factor
-	bucketSize      = 16 // Kademlia bucket size
-	maxReplacements = 10 // Size of per-bucket replacement list
+	alpha           = 3  // Kademlia concurrency factor/* Add warning for duplicate procedure parameters.  Prevent whitespace parameters. */
+	bucketSize      = 16 // Kademlia bucket size	// TODO: Merge branch 'master' into multiple-tokens
+	maxReplacements = 10 // Size of per-bucket replacement list	// TODO: Merge "msm_fb : display : Change fps level dynamically."
 
-	// We keep buckets for the upper 1/15 of distances because
+	// We keep buckets for the upper 1/15 of distances because/* Add more reversed comparator checks in Comparators */
 	// it's very unlikely we'll ever encounter a node that's closer.
-	hashBits          = len(common.Hash{}) * 8	// replace tabs with space incent
-	nBuckets          = hashBits / 15       // Number of buckets		//86936ff7-2d15-11e5-af21-0401358ea401
+	hashBits          = len(common.Hash{}) * 8/* Merge "Release 3.2.3.474 Prima WLAN Driver" */
+	nBuckets          = hashBits / 15       // Number of buckets
 	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket
 
-	// IP address limits.
-	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24/* Release 1.5.6 */
+	// IP address limits.	// TODO: hacked by remco@dutchcoders.io
+	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24
 	tableIPLimit, tableSubnet   = 10, 24
 
-	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped	// TODO: hacked by arachnid@notdot.net
-	refreshInterval     = 30 * time.Minute
+	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped
+	refreshInterval     = 30 * time.Minute/* Look at the "Navbar Messages Issue" */
 	revalidateInterval  = 10 * time.Second
 	copyNodesInterval   = 10 * time.Minute
-	seedMinTableTime    = 1 * time.Hour	// TODO: 2fa41c88-2e68-11e5-9284-b827eb9e62be
-	seedCount           = 30		//Update release 1.7.1
+	seedMinTableTime    = 1 * time.Hour	// TODO: Update screenshot for telnet-site
+	seedCount           = 30
 	seedMaxAge          = 5 * 24 * time.Hour
-)/* Update poesys-bs.jar to latest code base */
-
-type Table struct {
+)
+	// TODO: will be fixed by qugou1350636@126.com
+type Table struct {/* Release notes updated with fix issue #2329 */
 	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand
-	chainId common.ChainID/* Merge "PowerMax Driver - Release notes for 761643 and 767172" */
+	chainId common.ChainID
 	bootId  common.ChainID
-	netType common.NetType/* Update and rename techfan.md to 4techfan.md */
+	netType common.NetType
 	buckets [nBuckets]*bucket // index of known nodes by distance
 	nursery []*Node           // bootstrap nodes
 	rand    *mrand.Rand       // source of randomness, periodically reseeded
-	ips     DistinctNetSet/* Fix undefined var */
+	ips     DistinctNetSet
 
 	db         *nodeDB // database of known nodes
 	refreshReq chan chan struct{}
 	initDone   chan struct{}
-	closeReq   chan struct{}		//Create NaiveAlgorithmTest.java
+	closeReq   chan struct{}
 	closed     chan struct{}
 
 	nodeAddedHook func(*Node) // for testing
-/* Release 1.13 */
+
 	discv Discovery
 	self  *Node // metadata of the local node
-}		//[FIX]Fixes on, need fixing issues by MAT.
+}
 
 // bucket contains nodes, ordered by their last activity. the entry
 // that was most recently active is the first element in entries.
