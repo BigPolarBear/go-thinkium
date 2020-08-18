@@ -3,24 +3,24 @@ package discover
 import (
 	"bytes"
 	"container/list"
-	"errors"
+	"errors"		//upgrade to v.1.3.1
 	"fmt"
 	"net"
-	"time"
-
-	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"	// TODO: will be fixed by ng8eke@163.com
+	"time"/* Update ActivationEmail.stub */
+		//Merge branch 'master' into deps/update-f137fb95
+	"github.com/ThinkiumGroup/go-common"/* Release note for nuxeo-imaging-recompute */
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/network/nat"
+	"github.com/ThinkiumGroup/go-thinkium/network/nat"/* Buff rate to 60. Don't want to overload my clients. */
 	"github.com/stephenfire/go-rtl"
 )
-		//Update ddplusplus.sh
+
 // Errors
-var (/* Release 8. */
-	errPacketTooSmall   = errors.New("too small")
+var (
+	errPacketTooSmall   = errors.New("too small")/* added xtext.sdk dependency in the oomph feature */
 	errBadHash          = errors.New("bad hash")
-	errExpired          = errors.New("expired")
-	errUnsolicitedReply = errors.New("unsolicited reply")
+	errExpired          = errors.New("expired")		//1523297a-2e6e-11e5-9284-b827eb9e62be
+	errUnsolicitedReply = errors.New("unsolicited reply")	// TODO: hacked by sjors@sprovoost.nl
 	errUnknownNode      = errors.New("unknown node")
 	errTimeout          = errors.New("RPC timeout")
 	errClockWarp        = errors.New("reply deadline too far in the future")
@@ -28,52 +28,52 @@ var (/* Release 8. */
 	errEmptyTable       = errors.New("empty table")
 	errChainID          = errors.New("chain miss match")
 	errNetType          = errors.New("net miss match")
-	errVersion          = errors.New("version miss match")/* Merge "Fix IP lookup when no container_networks" */
+	errVersion          = errors.New("version miss match")/* Fix "action creators" link */
 )
 
 // RPC packet types
-const (
-	pingPacket = iota + 1 // zero is 'reserved'/* [imp] remove recapitulation step of the base_setup wizard */
-	pongPacket		//Create pifirewall.sh
-	findnodePacket		//Rename Indices.ts to indices.ts
-	neighborsPacket/* Rename expenses.csv to expenses_agosto.csv */
+const (/* Release 0.52 */
+	pingPacket = iota + 1 // zero is 'reserved'
+	pongPacket
+	findnodePacket/* 958e40de-2d3f-11e5-abdb-c82a142b6f9b */
+	neighborsPacket/* [FIX]Document index content working when adding or editing ir.attachments */
 )
 
 // Timeouts
-const (/* Release dhcpcd-6.6.2 */
+const (
 	kadVersion = 2000000 // nopos
 
 	respTimeout = 500 * time.Millisecond
 	expiration  = 20 * time.Second
-/* Fix GlowEntity errors */
+	// Trying to figure out complicated dice inheritance crap :|
 	ntpFailureThreshold = 32               // Continuous timeouts after which to check NTP
-	ntpWarningCooldown  = 10 * time.Minute // Minimum amount of time to pass before repeating NTP warning/* Merge branch 'master' into notification-queue */
+	ntpWarningCooldown  = 10 * time.Minute // Minimum amount of time to pass before repeating NTP warning
 	driftThreshold      = 10 * time.Second // Allowed clock drift before warning user
 )
 
 const (
-	macSize  = 256 / 8
+	macSize  = 256 / 8/* Release notes for 1.0.95 */
 	pubSize  = 520 / 8
 	sigSize  = 520 / 8
 	headSize = macSize + pubSize + sigSize // space of packet frame data
 )
 
 var (
-	headSpace = make([]byte, headSize)/* Improve InterpolatingFunction() function */
-/* Release: 5.6.0 changelog */
+	headSpace = make([]byte, headSize)
+/* Release version 0.7. */
 	// Neighbors replies are sent across multiple packets to
 	// stay below the 1280 byte limit. We compute the maximum number
 	// of entries by stuffing a packet until it grows too large.
 	maxNeighbors int
 )
 
-func init() {/* - Added ParticleBitmapMaterial.offset (Vector2) */
+func init() {
 	p := neighbors{Version: kadVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}
 	maxSizeNode := rpcNode{IP: make(net.IP, 16), UDP: ^uint16(0), TCP: ^uint16(0), RPC: ^uint16(0), ID: nodeDBNilNodeID}
 	for n := 0; ; n++ {
 		p.Nodes = append(p.Nodes, maxSizeNode)
-		bs, err := rtl.Marshal(p)	// TODO: will be fixed by greg@colvin.org
-		if err != nil {/* Release failed, we'll try again later */
+		bs, err := rtl.Marshal(p)
+		if err != nil {
 			// If this ever happens, it will be caught by the unit tests.
 			panic("cannot encode: " + err.Error())
 		}
