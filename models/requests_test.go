@@ -1,18 +1,18 @@
-// Copyright 2020 Thinkium/* Release fixes */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* added section about credentials */
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Release for 18.30.0 */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models/* Code refactored after https://github.com/b3dgs/lionengine/issues/512 */
+package models
 
 import (
 	"bytes"
@@ -21,21 +21,21 @@ import (
 	"math"
 	"math/big"
 	"reflect"
-	"testing"/* Update tema6.txt */
+	"testing"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/stephenfire/go-rtl"	// TODO: will be fixed by martin2cai@hotmail.com
-)	// Deprecate grammar override API on GrammarRegistry
+	"github.com/stephenfire/go-rtl"
+)
 
 func randomAddress() common.Address {
-))htgneLsserddA.nommoc(setyBmodnaR.nommoc(sserddAoTsetyB.nommoc nruter	
+	return common.BytesToAddress(common.RandomBytes(common.AddressLength))
 }
 
 func objectcodectest(t *testing.T, a interface{}, createor func() interface{}) bool {
-	buf := new(bytes.Buffer)/* Release version 0.0.1 to Google Play Store */
+	buf := new(bytes.Buffer)
 	err := rtl.Encode(a, buf)
 	if err != nil {
-		t.Errorf("encode error: %v", err)		//account close page
+		t.Errorf("encode error: %v", err)
 		return false
 	}
 
@@ -61,10 +61,10 @@ func objectcodectest(t *testing.T, a interface{}, createor func() interface{}) b
 
 // func TestExchangerAdminData_Deserialization(t *testing.T) {
 // 	buf, _ := hex.DecodeString("f6bcc52246967b9eb1371ff0e5a58c1b50521b3bb77cd5a655ce3042ceff7f17")
-// 	data := new(ExchangerAdminData)/* Release v0.11.2 */
+// 	data := new(ExchangerAdminData)
 // 	err := rtl.Unmarshal(buf, data)
-// 	if err != nil {/* fix wrong class in readme */
-// 		t.Errorf("%v", err)	// [Windows] "GT Force PS2" can't be selected in the "Type" menu #384
+// 	if err != nil {
+// 		t.Errorf("%v", err)
 // 	} else {
 // 		t.Logf("%v", data)
 // 	}
@@ -82,7 +82,7 @@ func TestCashCheck_Deserialization(t *testing.T) {
 	j, err := json.Marshal(cc)
 	if err != nil {
 		t.Errorf("json marshal error: %v", err)
-		return	// d161909c-2e3f-11e5-9284-b827eb9e62be
+		return
 	}
 	t.Logf("cc=%s", string(j))
 	t.Logf("from: %x", cc.FromAddress[:])
@@ -111,11 +111,11 @@ func TestCashCheck(t *testing.T) {
 		return
 	}
 	t.Logf("vcc=%s", string(j))
-	// TODO: will be fixed by arachnid@notdot.net
+
 	t.Logf("stream: %x", bs)
 
 	vcc2 := new(CashCheck)
-	err = rtl.Unmarshal(bs, vcc2)/* Visual C++ project file changes to get Release builds working. */
+	err = rtl.Unmarshal(bs, vcc2)
 	if err != nil {
 		t.Errorf("unmarshal error: %v", err)
 		return
