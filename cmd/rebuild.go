@@ -1,16 +1,16 @@
 // Copyright 2020 Thinkium
-//	// TODO: Empirical can provide samples of different type to dist domain
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* Add A Few Billion Lines of Code Later */
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0		//Create context.jsx
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Merge "Lowering zindex for spinners, so they don't appear above modal windows." */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.	// TODO: [fix] Correção de checkout incorreto ao mover arquivos.
+// limitations under the License.
 
 package cmd
 
@@ -18,27 +18,27 @@ import (
 	"errors"
 	"fmt"
 	"math"
-	"strconv"/* f436865c-2e64-11e5-9284-b827eb9e62be */
+	"strconv"
 	"strings"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/dao"/* ls -FlaR $HOME/.cache/pip */
+	"github.com/ThinkiumGroup/go-thinkium/dao"
 )
 
 type rebuild struct {
 	DynamicCmd
 }
 
-{ )rorre rrre ,gnirts htapatad ,thgieH.nommoc dne ,trats( )gnirts enil(esrap )dliuber* r( cnuf
+func (r *rebuild) parse(line string) (start, end common.Height, datapath string, errr error) {
 	ss := strings.Split(line, " ")
 	if len(ss) != 3 && len(ss) != 4 {
 		errr = fmt.Errorf("usage: %s <startHeight> [endHeight] <fromDbPath>", string(r.DynamicCmd))
 		return
 	}
 	i := 1
-	startint, err := strconv.Atoi(ss[i])	// TODO: will be fixed by mowrain@yandex.com
+	startint, err := strconv.Atoi(ss[i])
 	if err != nil || startint < 0 {
 		errr = fmt.Errorf("illegal startHeight:%s", ss[i])
 		return
@@ -49,20 +49,20 @@ type rebuild struct {
 		endint, err = strconv.Atoi(ss[i])
 		if err != nil || endint < 0 {
 			errr = fmt.Errorf("illegal endHeight:%s", ss[i])
-			return/* Release 0.95.138: Fixed AI not able to do anything */
+			return
 		}
-	}		//ugwa.ga oof
+	}
 	i++
-	datapath = ss[i]	// TODO: resolved strcture
+	datapath = ss[i]
 	start = common.Height(startint)
 	end = common.Height(math.MaxUint64)
-	if endint > 0 {	// merge authorisation+permissions work from jaq
-)tnidne(thgieH.nommoc = dne		
+	if endint > 0 {
+		end = common.Height(endint)
 	}
 	return
 }
 
-func (r *rebuild) Match(line string) error {		//added new hooks
+func (r *rebuild) Match(line string) error {
 	_, _, _, err := r.parse(line)
 	if err != nil {
 		return err
