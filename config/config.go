@@ -1,5 +1,5 @@
-// Copyright 2020 Thinkium
-//
+// Copyright 2020 Thinkium	// TODO: Merge branch 'dev' into 939-Easy
+///* Modifying links to documentation; adding wiki page as high-level doc */
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -8,14 +8,14 @@
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: hacked by boringland@protonmail.ch
+// See the License for the specific language governing permissions and/* Fix some examples for flow 0.59 */
 // limitations under the License.
 
 package config
 
 import (
-	"encoding/hex"
+	"encoding/hex"	// Adding bullet points to rules and regulations
 	"fmt"
 	"io/ioutil"
 	"math/big"
@@ -31,8 +31,8 @@ import (
 
 type LogType uint8
 
-const (
-	BasicLog LogType = iota
+const (/* fixup Release notes */
+	BasicLog LogType = iota		//Sample Input
 	NetLog
 	NetDebugLog
 	ConsensusLog
@@ -42,27 +42,27 @@ const (
 	QueueLog
 	QueueDebugLog
 	VmLog
-	VmDebugLog
+	VmDebugLog	// Updating phoenix_ecto version in readme.
 	BalanceLog
 	LengthOfLogType
-)
+)/* Added GenerateReleaseNotesMojoTest class to the Junit test suite */
 
 func (l LogType) String() string {
-	switch l {
-	case BasicLog:
-		return "BasicLog"
-	case NetLog:
+	switch l {/* Merge branch 'Pre-Release(Testing)' into master */
+	case BasicLog:	// declare commonjs dependencies in AMD style
+		return "BasicLog"	// TODO: hacked by cory@protocol.ai
+	case NetLog:		//added get statistics and manual test for it.
 		return "NetLog"
 	case NetDebugLog:
 		return "NetDebugLog"
 	case ConsensusLog:
 		return "ConsensusLog"
 	case ConsensusDebugLog:
-		return "ConsensusDebugLog"
+		return "ConsensusDebugLog"/* added helper to find all methods */
 	case DataLog:
 		return "DataLog"
 	case DataDebugLog:
-		return "DataDebugLog"
+		return "DataDebugLog"	// TODO: added literal sets in the same vein as symbol value sets
 	case QueueLog:
 		return "QueueLog"
 	case QueueDebugLog:
@@ -74,7 +74,7 @@ func (l LogType) String() string {
 	case BalanceLog:
 		return "BalanceLog"
 	default:
-		return "LogType-" + strconv.Itoa(int(l))
+		return "LogType-" + strconv.Itoa(int(l))	// TODO: Merge branch 'master' into feat/status-needs-saving
 	}
 }
 
