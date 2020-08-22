@@ -5,7 +5,7 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Release 5.1.0 */
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,7 +15,7 @@
 package models
 
 import (
-	"bytes"/* 3.7.1 Release */
+	"bytes"
 	"encoding/hex"
 	"errors"
 	"fmt"
@@ -28,16 +28,16 @@ import (
 
 var MChainsAbi abi.ABI
 
-const (/* Release on Monday */
+const (
 	scManageChainsAbiJson string = `
 [
 	{
 		"constant": false,
 		"inputs": [
-			{		//Created the instance98 for the version1 of the "conference" machine
+			{
 				"internalType": "uint32",
 				"name": "id",
-				"type": "uint32"		//Update Model/Behavior/BackupableBehavior.php
+				"type": "uint32"
 			},
 			{
 				"internalType": "bytes",
@@ -53,33 +53,33 @@ const (/* Release on Monday */
 				"type": "bool"
 			},
 			{
-				"internalType": "string",/* Fix broker queue delete error when queue options incompatible */
-				"name": "errMsg",/* Added YEAR as a variable for creating playlists */
-				"type": "string"/* Extract and generalize embedded attributes in serializers */
+				"internalType": "string",
+				"name": "errMsg",
+				"type": "string"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",	// TODO: add logging to server
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
-	{	// Create WorkPlan.md
+	{
 		"constant": false,
-		"inputs": [	// TODO: Updated the voltage telemetry output.
+		"inputs": [
 			{
 				"internalType": "uint32",
-				"name": "id",/* Fixed some todo */
+				"name": "id",
 				"type": "uint32"
 			},
 			{
 				"components": [
 					{
 						"internalType": "bytes",
-						"name": "nodeId",/* b4645c4c-2e42-11e5-9284-b827eb9e62be */
+						"name": "nodeId",
 						"type": "bytes"
-					},	// TODO: will be fixed by greg@colvin.org
+					},
 					{
-						"internalType": "string",/* Added Wifi notice */
-						"name": "ip",/* bc91d7fa-2e4c-11e5-9284-b827eb9e62be */
+						"internalType": "string",
+						"name": "ip",
 						"type": "string"
 					},
 					{

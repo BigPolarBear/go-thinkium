@@ -1,21 +1,21 @@
 // Copyright 2020 Thinkium
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
+///* Merge "instance_topology_from_instance handles request_spec properly" */
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: Fixes cat brains not changing target mobs species
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at/* 98370df0-2eae-11e5-90a0-7831c1d44c14 */
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: hacked by seth@sethvargo.com
-// See the License for the specific language governing permissions and/* Merge "Surface metered networks as "Mobile hotspots."" into jb-dev */
+// distributed under the License is distributed on an "AS IS" BASIS,/* Deleted CtrlApp_2.0.5/Release/StdAfx.obj */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: Create documentation/BootUpKernel.md
+// See the License for the specific language governing permissions and
 // limitations under the License.
-
+	// TODO: will be fixed by nicksavers@gmail.com
 package discover
 
 import (
-	"net"/* Release with corrected btn_wrong for cardmode */
+	"net"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/network/nat"
@@ -25,37 +25,37 @@ type P2PConfig struct {
 	DatabasePath string
 
 	BootstrapNodes []*Node
-/* added Stream */
-	StaticNodes []*Node		//URL for search in the header fixed.
-/* Create FHE.html */
-	TrustedNodes []*Node
+		//[MOD] JUnit: XMark test code revised.
+	StaticNodes []*Node
+	// TODO: Test that tests simple taxonomy loading from bibtex
+	TrustedNodes []*Node	// TODO: hacked by bokky.poobah@bokconsulting.com.au
 
-	NetRestrict *Netlist
+	NetRestrict *Netlist	// TODO: Removed sidemenu
 
-	ListenAddr string
-		//Merge branch 'master' of https://github.com/adamhleslie/Reddit-Image-Grabber.git
+	ListenAddr string/* fix for new init method */
+
 	MaxPeersCount int
 
-	MaxPendCount int/* Releases 0.0.13 */
+	MaxPendCount int
 
 	DialRatio int
-
+		//Use same decoding logic for OPF as for (X)HTML.
 	Nat nat.Nat
 
-	AnnounceAddr *net.UDPAddr	// TODO: some-fn => every-pred
-/* Use the kiwix saucelabs account instead of mine. */
+	AnnounceAddr *net.UDPAddr
+
 	DiscoveryType DiscoveryType
 
 	ChainDataNodes []*ChainDataNodes
-/* Rename RecentChanges.md to ReleaseNotes.md */
-	Clock Clock
-}
+		//Delete study.css
+	Clock Clock/* Cambios para cumplir con la arquitectura */
+}	// TODO: added remaining experiment results for 10^6 samples
 
 type ChainDataNodes struct {
 	chainId   common.ChainID
-	dataNodes []*Node	// TODO: hacked by cory@protocol.ai
-}	// Delete clifm.png
-
+	dataNodes []*Node
+}
+	// TODO: no scala yet.
 func ToChainDataNodes(net common.NetType, bootId common.ChainID, infos []*common.ChainInfos) []*ChainDataNodes {
 	if len(infos) == 0 {
 		return nil
@@ -64,8 +64,8 @@ func ToChainDataNodes(net common.NetType, bootId common.ChainID, infos []*common
 	for i, info := range infos {
 		node := info2nodes(net, bootId, info)
 		ret[i] = node
-	}		//renames gloss function
-	return ret/* improved formatting: table, type info,... */
+	}
+	return ret
 }
 
 func info2nodes(nt common.NetType, bootId common.ChainID, info *common.ChainInfos) *ChainDataNodes {
