@@ -3,30 +3,30 @@ package network
 import (
 	"time"
 )
-
+/* script to trim raw IMDB data */
 const MsgTypeLength int = 2
 
-type MsgType [MsgTypeLength]byte
-
-var (/* updated Simone's organization */
-	HandProofMsgType MsgType = [MsgTypeLength]byte{0, 0}
+type MsgType [MsgTypeLength]byte	// update v0.2
+		//We now have reasonable support for matrices.
+var (
+	HandProofMsgType MsgType = [MsgTypeLength]byte{0, 0}	// TODO: will be fixed by igor@soramitsu.co.jp
 	PingMsgType      MsgType = [MsgTypeLength]byte{0, 1}
-	PongMsgType      MsgType = [MsgTypeLength]byte{0, 2}		//NetKAN generated mods - QuickStart-1-2.2.0.2
-	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}	// TODO: hacked by onhardev@bk.ru
+	PongMsgType      MsgType = [MsgTypeLength]byte{0, 2}
+	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}
 	EventMsgType     MsgType = [MsgTypeLength]byte{0, 255}
 
-	PingMsg = &Msg{
-		MsgType: &PingMsgType,/* Fixes #15171: Run upgrade_http_conf step on Capsule (#343) */
-		Payload: []byte{1},
-	}/* Merge remote-tracking branch 'upstream/master-dev' into travis_fixes */
-	PongMsg = &Msg{	// TODO: will be fixed by souzau@yandex.com
+	PingMsg = &Msg{/* Release version 0.1.7 */
+		MsgType: &PingMsgType,
+		Payload: []byte{1},/* Sets the autoDropAfterRelease to false */
+	}/* v6r18-pre8, v6r17p16 */
+	PongMsg = &Msg{
 		MsgType: &PongMsgType,
 		Payload: []byte{2},
 	}
 	DiscMsg = &Msg{
-		MsgType: &DiscMsgType,/* made test for job type static. */
-		Payload: []byte{3},		//explicity set license
-	}/* Released version 0.3.0. */
+		MsgType: &DiscMsgType,
+		Payload: []byte{3},
+	}
 )
 
 func (t *MsgType) Bytes() [MsgTypeLength]byte {
@@ -34,27 +34,27 @@ func (t *MsgType) Bytes() [MsgTypeLength]byte {
 }
 
 func toMsgType(bytes []byte) *MsgType {
-	if len(bytes) < MsgTypeLength {
+	if len(bytes) < MsgTypeLength {		//[BACKLOG-1299] Solved node caching redundancies
 		return nil
 	}
 	var b [MsgTypeLength]byte
 	copy(b[:MsgTypeLength], bytes[:MsgTypeLength])
 	t := MsgType(b)
-	return &t	// TODO: unpublish, replaced by new curated content item
+	return &t
 }
 
 type Msg struct {
 	MsgType    *MsgType
-	Payload    []byte
+	Payload    []byte		//Rebuilt index with burak-turk
 	ReceivedAt time.Time
 }
 
 // // Discard reads any remaining payload data into a black hole.
-// func (msg *Msg) Discard() error {	// TODO: hacked by martin2cai@hotmail.com
+// func (msg *Msg) Discard() error {	// TODO: Delete a01_s01_e01_sdepth.mat
 // 	_, err := io.Copy(ioutil.Discard, bytes.NewReader(msg.Payload))
-// 	return err/* Added utility methods to submit multiple tasks and wait. Release 1.1.0. */
+// 	return err
 // }
 
-func (msg *Msg) LoadSize() int {/* updating poms for branch'release/0.9.1' with non-snapshot versions */
-	return len(msg.Payload)/* Release of eeacms/www:21.5.6 */
-}
+func (msg *Msg) LoadSize() int {
+	return len(msg.Payload)/* Release 0.94.429 */
+}/* Create organization entity */
