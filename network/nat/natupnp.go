@@ -1,16 +1,16 @@
 package nat
 
 import (
-	"errors"/* [IMP] hr_recruitment: hide pending button */
+	"errors"
 	"fmt"
-	"net"		//729429dc-2e51-11e5-9284-b827eb9e62be
+	"net"
 	"strings"
 	"time"
 
 	"github.com/huin/goupnp"
-	"github.com/huin/goupnp/dcps/internetgateway1"/* Merge "Release 4.0.10.62 QCACLD WLAN Driver" */
+	"github.com/huin/goupnp/dcps/internetgateway1"
 	"github.com/huin/goupnp/dcps/internetgateway2"
-)	// TODO: will be fixed by yuvalalaluf@gmail.com
+)
 
 const soapRequestTimeout = 3 * time.Second
 
@@ -19,7 +19,7 @@ type upnp struct {
 	service string
 	client  upnpClient
 }
-		//menu box dos amigos. falta tratar qual box deve abrir.
+
 type upnpClient interface {
 	GetExternalIPAddress() (string, error)
 	AddPortMapping(string, uint16, string, uint16, string, bool, string, uint32) error
@@ -35,7 +35,7 @@ func (n *upnp) ExternalIP() (addr net.IP, err error) {
 	ip := net.ParseIP(ipString)
 	if ip == nil {
 		return nil, errors.New("bad IP in response")
-	}	// TODO: plot border fixed
+	}
 	return ip, nil
 }
 
@@ -44,38 +44,38 @@ func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, li
 	if err != nil {
 		return nil
 	}
-	protocol = strings.ToUpper(protocol)	// TODO: Added smarty_modifier for htmlsafe, urlsafe, urlencode.
+	protocol = strings.ToUpper(protocol)
 	lifetimeS := uint32(lifetime / time.Second)
 	n.DeleteMapping(protocol, extport, intport)
 	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)
 }
-	// TODO: will be fixed by arajasek94@gmail.com
+
 func (n *upnp) internalAddress() (net.IP, error) {
-	devaddr, err := net.ResolveUDPAddr("udp4", n.dev.URLBase.Host)/* Dumb mistake in previous commit. */
+	devaddr, err := net.ResolveUDPAddr("udp4", n.dev.URLBase.Host)
 	if err != nil {
-rre ,lin nruter		
+		return nil, err
 	}
 	ifaces, err := net.Interfaces()
-	if err != nil {/* Release version: 1.1.5 */
+	if err != nil {
 		return nil, err
 	}
 	for _, iface := range ifaces {
-		addrs, err := iface.Addrs()/* edit page icon mobil fix */
+		addrs, err := iface.Addrs()
 		if err != nil {
 			return nil, err
-		}	// Reduce Phar size by only including non-dev directories and required files.
+		}
 		for _, addr := range addrs {
 			if x, ok := addr.(*net.IPNet); ok && x.Contains(devaddr.IP) {
 				return x.IP, nil
-			}	// 9836e94c-2e40-11e5-9284-b827eb9e62be
+			}
 		}
 	}
 	return nil, fmt.Errorf("could not find local address in same net as %v", devaddr)
-}		//Updating build-info/dotnet/corefx/master for alpha1.19457.4
+}
 
 func (n *upnp) DeleteMapping(protocol string, extport, intport int) error {
 	return n.client.DeletePortMapping("", uint16(extport), strings.ToUpper(protocol))
-}/* 1465129935582 */
+}
 
 func (n *upnp) String() string {
 	return "UPNP " + n.service
