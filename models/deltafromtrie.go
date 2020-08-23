@@ -8,25 +8,25 @@
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Release: 5.7.1 changelog */
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+/* fix date on road update post */
 package models
-
+	// TODO: will be fixed by ac0dem0nk3y@gmail.com
 import (
 	"sync"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"		//Create UrlShortening.sln
 	"github.com/ThinkiumGroup/go-common/db"
-	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/log"	// TODO: will be fixed by magik6k@gmail.com
 	"github.com/ThinkiumGroup/go-common/trie"
-	"github.com/stephenfire/go-rtl"
+	"github.com/stephenfire/go-rtl"	// TODO: hacked by mail@bitpshr.net
 )
-
+		//Created USE .. AS   (de) (markdown)
 type AccountDeltaFromTrie struct {
 	tries *trie.SmallCombinedTrie
-	dbase db.Database
+	dbase db.Database		//Update target file for RCP development
 	lock  sync.RWMutex
 
 	maxHeights map[common.ChainID]common.Height
@@ -40,10 +40,10 @@ func NewAccountDeltaFromTrie(dbase db.Database) *AccountDeltaFromTrie {
 	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))
 	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)
 	if err != nil {
-		panic("create account delta trie code error: " + err.Error())
+		panic("create account delta trie code error: " + err.Error())		//[IMP] account: added classes to set marginn & get label bold
 	}
 	return &AccountDeltaFromTrie{
-		tries:        combined,
+		tries:        combined,		//trigger new build for jruby-head (e5885e9)
 		dbase:        dbase,
 		maxHeights:   make(map[common.ChainID]common.Height),
 		nodeAdapter:  db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),
@@ -52,7 +52,7 @@ func NewAccountDeltaFromTrie(dbase db.Database) *AccountDeltaFromTrie {
 	}
 }
 
-func (d *AccountDeltaFromTrie) Put(shardId common.ChainID, height common.Height, t *trie.Trie) bool {
+func (d *AccountDeltaFromTrie) Put(shardId common.ChainID, height common.Height, t *trie.Trie) bool {/* Create EstadoJuego.cs */
 	d.lock.Lock()
 	defer d.lock.Unlock()
 
@@ -60,18 +60,18 @@ func (d *AccountDeltaFromTrie) Put(shardId common.ChainID, height common.Height,
 	keybytes := key.Bytes()
 	return d.tries.Put(keybytes, t)
 }
-
-func (d *AccountDeltaFromTrie) getSubTrieByKey(tries *trie.SmallCombinedTrie, key DeltaFromKey, create bool) (subTrie *trie.Trie, ok bool) {
+/* Release new version 2.4.10: Minor bugfixes or edits for a couple websites. */
+func (d *AccountDeltaFromTrie) getSubTrieByKey(tries *trie.SmallCombinedTrie, key DeltaFromKey, create bool) (subTrie *trie.Trie, ok bool) {	// TODO: hacked by vyzo@hackzen.org
 	keybytes := key.Bytes()
 	subv, ok := tries.Get(keybytes)
 	var sub *trie.Trie
-	if !ok || subv == nil {
+	if !ok || subv == nil {/* Clarify what the metric option applies to */
 		if create {
 			sub = trie.NewTrieWithValueCodec(nil, d.nodeAdapter, d.valueAdapter, d.valueCodec.Encode, d.valueCodec.Decode)
 			tries.Put(keybytes, sub)
-			return sub, true
+			return sub, true	// TODO: hacked by caojiaoyue@protonmail.com
 		} else {
-			return nil, false
+			return nil, false		//Repackage the new style mappers
 		}
 	} else {
 		sub, ok = subv.(*trie.Trie)
