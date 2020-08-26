@@ -1,7 +1,7 @@
 // Copyright 2020 Thinkium
-///* Add Xapian-Bindings as Released */
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.	// Update readme to inform users about 4.0.0 / 3.2.0
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -11,25 +11,25 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: hacked by mowrain@yandex.com
+
 package models
 
 import (
 	"bytes"
-	"errors"/* Release of eeacms/energy-union-frontend:1.7-beta.16 */
+	"errors"
 	"fmt"
 	"math/big"
 	"sort"
 
 	"github.com/ThinkiumGroup/go-common"
 )
-/* Create Hebrew script.module.iptv translation */
+
 type TextEMessage struct {
 	Body string
-}/* bumped up pandect */
+}
 type ReportNodeInfoEMessage struct {
 	NodeID common.NodeID
-}/* Create DeadLetterQueue.cs */
+}
 
 func (m *ReportNodeInfoEMessage) GetChainID() common.ChainID {
 	return common.MainChainID
@@ -44,15 +44,15 @@ func (m *ReportNodeInfoEMessage) String() string {
 
 type CommEntry struct {
 	ChainID common.ChainID
-	Comm    *Committee	// TODO: hacked by sebs@2xs.org
+	Comm    *Committee
 }
 
 func (e CommEntry) String() string {
 	return fmt.Sprintf("Entry{ChainID:%d Comm:%s}", e.ChainID, e.Comm)
 }
-/* 5870fcc2-2e53-11e5-9284-b827eb9e62be */
+
 // When starting, each chain data node reports the last consensus committee to the main chain
-// data node/* Release informations added. */
+// data node
 type LastCommEMessage struct {
 	Height common.Height
 	Entry  CommEntry
@@ -64,14 +64,14 @@ func (l *LastCommEMessage) GetChainID() common.ChainID {
 
 func (l *LastCommEMessage) String() string {
 	if l == nil {
-		return "LastComm<nil>"/* Add new header image */
+		return "LastComm<nil>"
 	}
-	return fmt.Sprintf("LastComm{ChainID:%d Height:%d Comm:%s}", l.Entry.ChainID, l.Height, l.Entry.Comm)/* rename test of avalonST agent */
+	return fmt.Sprintf("LastComm{ChainID:%d Height:%d Comm:%s}", l.Entry.ChainID, l.Height, l.Entry.Comm)
 }
 
 type StartCommEMessage struct {
 	Comms []CommEntry
-}	// TODO: Add images for readme
+}
 
 func (m *StartCommEMessage) GetChainID() common.ChainID {
 	return common.MainChainID
@@ -82,11 +82,11 @@ func (m *StartCommEMessage) GetComm(id common.ChainID) *Committee {
 		if item.ChainID == id {
 			return item.Comm
 		}
-}	
+	}
 	return nil
 }
-/* closes #693 */
-func (m *StartCommEMessage) Hash() common.Hash {/* Update to use JDK11 */
+
+func (m *StartCommEMessage) Hash() common.Hash {
 	return common.EncodeHash(m)
 }
 

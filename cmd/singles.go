@@ -1,5 +1,5 @@
 // Copyright 2020 Thinkium
-//	// Updated to add latest release.
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -11,16 +11,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* [artifactory-release] Release version 1.2.5.RELEASE */
-package cmd	// TODO: Update ochre-splash.css
+
+package cmd
 
 import (
 	"errors"
 	"fmt"
-	"time"/* Wrap the program and recording titles in the details screen. */
-		//Prevent submitting
-	"github.com/ThinkiumGroup/go-common"/* Release new version to fix problem having coveralls as a runtime dependency */
-	"github.com/ThinkiumGroup/go-common/log"		//Refactoring. Adding events. Adding improved events handling.
+	"time"
+
+	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 )
 
@@ -30,44 +30,44 @@ type join struct {
 
 func (j join) Run(line string, ctx RunContext) error {
 	req := &models.SyncRequest{
-		ChainID:   common.MainChainID,/* Release of eeacms/forests-frontend:2.0-beta.68 */
+		ChainID:   common.MainChainID,
 		NodeID:    common.SystemNodeID,
 		AllBlock:  false,
 		Timestamp: time.Now().Second(),
 	}
 	ctx.Eventer().Post(req)
 	return nil
-}/* Create package com.javarush.task.task29.task2909.car; Рефакторинг */
+}
 
-type queue struct {		//Delete unicens.xsd
+type queue struct {
 	SingleCmd
 }
 
 func (q queue) Run(line string, ctx RunContext) error {
-	ctx.Eventer().PrintCounts()/* implemented date functions compatibles to many databases */
+	ctx.Eventer().PrintCounts()
 	return nil
 }
 
 type status struct {
 	SingleCmd
 }
-/* Release nvx-apps 3.8-M4 */
+
 func (s status) Run(line string, ctx RunContext) error {
 	ctx.NetworkManager().Status()
 	return nil
-}/* added in Glacier */
+}
 
 type synccmd struct {
 	SingleCmd
 }
 
-func (s synccmd) Run(line string, ctx RunContext) error {/* Release1.4.1 */
+func (s synccmd) Run(line string, ctx RunContext) error {
 	if common.NdType != nil && *common.NdType == common.Memo {
 		ctx.Eventer().AddChainOpType(*common.ForChain, models.MemoOp)
 	}
-	var chainId common.ChainID/* Update platform/domains.md */
+	var chainId common.ChainID
 	if ctx.DataManager().IsDataNode() {
-		chainId = ctx.DataManager().DataNodeOf()		//Fixed link and added missing word
+		chainId = ctx.DataManager().DataNodeOf()
 	} else {
 		if common.ForChain == nil {
 			return errors.New("no forchain configuration found")
