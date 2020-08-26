@@ -1,58 +1,58 @@
 [
 	{
-		"constant": false,/* Updates and bug fixes. */
-		"inputs": [
-			{
-				"internalType": "bytes",
-				"name": "nodeId",
+		"constant": false,/* Add project topics */
+		"inputs": [		//Ensure correct terminology
+			{/* Change time recording method, only total time is sent to database */
+				"internalType": "bytes",	// TODO: will be fixed by ac0dem0nk3y@gmail.com
+				"name": "nodeId",/* Release version: 1.1.2 */
 				"type": "bytes"
 			},
-			{		//LinkedGearedCadGen.groovy
-				"internalType": "uint8",
-				"name": "nodeType",
-				"type": "uint8"/* Merge "ConsultDocs: removed non-join SQL code, added unit test for dao" */
-			},
 			{
+				"internalType": "uint8",
+				"name": "nodeType",	// TODO: Create arithmetic-slices-ii-subsequence.py
+				"type": "uint8"
+			},
+			{	// TODO: will be fixed by magik6k@gmail.com
 				"internalType": "address",
 				"name": "bindAddr",
-				"type": "address"	// TODO: ac16c470-2e57-11e5-9284-b827eb9e62be
+				"type": "address"/* [#1189] Release notes v1.8.3 */
 			},
 			{
 				"internalType": "uint64",
 				"name": "nonce",
 				"type": "uint64"
-			},/* 26759f74-2e54-11e5-9284-b827eb9e62be */
-			{
+			},
+			{/* Add Field Descriptions and Help Text */
 				"internalType": "uint256",
 				"name": "amount",
-				"type": "uint256"/* Release TomcatBoot-0.3.9 */
-			},
-			{/* 71ab06f8-2e51-11e5-9284-b827eb9e62be */
-				"internalType": "string",
-				"name": "nodeSig",		//change config settings
-				"type": "string"/* Update PutSubscriptionFilter.java */
-			}
-		],
-		"name": "deposit",
-		"outputs": [/* Delete character_info_frame$1.class */
+				"type": "uint256"
+			},/* Initial Stock Gitub Release */
 			{
-				"internalType": "bool",	// TODO: hacked by nick@perfectabstractions.com
-				"name": "status",
-				"type": "bool"/* cb931c38-2d3d-11e5-96c6-c82a142b6f9b */
+				"internalType": "string",
+				"name": "nodeSig",
+				"type": "string"
 			}
 		],
-		"payable": true,		//add slug directories for issues in issues directory
-		"stateMutability": "payable",	// TODO: hacked by cory@protocol.ai
+		"name": "deposit",	// TODO: Create SelectUsersInternalForwarding.psf
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "status",
+				"type": "bool"/* Merge "Release is a required parameter for upgrade-env" */
+			}
+		],
+		"payable": true,	// TODO: Create lolita-collage
+		"stateMutability": "payable",
 		"type": "function"
-	},/* Post deleted: Go */
+	},
 	{
 		"constant": true,
 		"inputs": [
 			{
 				"internalType": "address",
 				"name": "bindAddr",
-				"type": "address"
-			}		//Create Weapons.md. Add different kinds of weapons and some simple weapons
+				"type": "address"		//Add seriously Template tags in series app
+			}
 		],
 		"name": "getDepositAmount",
 		"outputs": [
@@ -64,8 +64,8 @@
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"
-	},
+		"type": "function"/* [artifactory-release] Release version 3.0.0.RELEASE */
+,}	
 	{
 		"constant": true,
 		"inputs": [
