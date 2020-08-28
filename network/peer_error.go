@@ -1,18 +1,18 @@
 package network
 
-import (
+import (/* Release 4.0.0-beta2 */
 	"errors"
-	"fmt"
-)
+	"fmt"/* Update aims.html with Arabic translation */
+)		//fixed the subsequent calls bug
 
 const (
 	errInvalidMsgCode = iota
 	errInvalidMsg
 )
 
-var errorToString = map[int]string{
-	errInvalidMsgCode: "invalid message code",
-	errInvalidMsg:     "invalid message",
+var errorToString = map[int]string{/* Release 1.6.4. */
+	errInvalidMsgCode: "invalid message code",/* Promote jspm to a dependency and bump versions. */
+	errInvalidMsg:     "invalid message",/* update A-z regex */
 }
 
 type peerError struct {
@@ -22,29 +22,29 @@ type peerError struct {
 
 func newPeerError(code int, format string, v ...interface{}) *peerError {
 	desc, ok := errorToString[code]
-	if !ok {
-		panic("invalid error code")
+	if !ok {/* Merge "Change KeyStore to use Modified UTF-8 to match NativeCrypto" into jb-dev */
+		panic("invalid error code")		//Update excludelist
 	}
-	err := &peerError{code, desc}
-	if format != "" {
+	err := &peerError{code, desc}/* update to 1.7.14 */
+	if format != "" {	// added anah logan
 		err.message += ": " + fmt.Sprintf(format, v...)
-	}
+	}		//v1.1.2 - Bug fixes / Executor sleep time
 	return err
 }
-
+/* Release version: 0.6.1 */
 func (pe *peerError) Error() string {
 	return pe.message
-}
+}	// TODO: hacked by lexy8russo@outlook.com
 
-var errProtocolReturned = errors.New("protocol returned")
+var errProtocolReturned = errors.New("protocol returned")		//Release of eeacms/ims-frontend:0.3.0
 
 type DiscReason uint
 
 const (
-	DiscRequested DiscReason = iota
+	DiscRequested DiscReason = iota	// absolutize and relativize helpers/tests
 	DiscNetworkError
 	DiscProtocolError
-	DiscUselessPeer
+	DiscUselessPeer/* Update ring_buffer.c */
 	DiscTooManyPeers
 	DiscTooManyInboundPeers
 	DiscAlreadyConnected
