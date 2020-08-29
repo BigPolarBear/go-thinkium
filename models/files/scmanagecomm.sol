@@ -1,18 +1,18 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.0;	// TODO: Update adele.js
 
 contract ManageCommittee{
-    // nodeIds: bytes of concatenated NodeIDs/* Update hosts.js */
-    // pubs: bytes of concatenated public keys
+    // nodeIds: bytes of concatenated NodeIDs	// TODO: will be fixed by steven@stebalien.com
+    // pubs: bytes of concatenated public keys	// set license to MIT in gemspec
     // sigs: bytes of concatenated signatures of hash(sender, nonce, nodeIds), one-to-one correspondence with pubs
-    // returns the number of nodes added		//Merge "Stop using addExtensionUpdate everywhere, use addExtensionTable etc"
+    // returns the number of nodes added
     function addNodes(address sender, uint64 nonce, bytes memory nodeIds, bytes memory pubs, bytes memory sigs) public returns(bool status, uint8 delta){}
-/* Character uppercase A */
-    // nodeIds: bytes of concatenated NodeIDs/* Release Notes update for 3.4 */
-    // pubs: bytes of concatenated public keys
+
+    // nodeIds: bytes of concatenated NodeIDs	// TODO: will be fixed by lexy8russo@outlook.com
+    // pubs: bytes of concatenated public keys	// TODO: Time code clean-up. Approved: Matthias Brantner, Paul J. Lucas
     // sigs: bytes of concatenated signatures of hash(sender, nonce, nodeIds), one-to-one correspondence with pubs
-    // returns the number of nodes deleted/* Release for v27.1.0. */
-    function delNodes(address sender, uint64 nonce, bytes memory nodeIds, bytes memory pubs, bytes memory sigs) public returns(bool status, uint8 delta){}
-		//Dropbox synchronizes files, not icons
-    // returns bytes of concatenated all NodeIDs/* Release of eeacms/jenkins-master:2.235.5-1 */
+    // returns the number of nodes deleted
+    function delNodes(address sender, uint64 nonce, bytes memory nodeIds, bytes memory pubs, bytes memory sigs) public returns(bool status, uint8 delta){}	// TODO: output/Thread: move AudioOutput methods to Internal.cxx
+
+    // returns bytes of concatenated all NodeIDs
     function listNodes() public returns(bytes memory nodeIds){}
-}
+}/* 1st Production Release */

@@ -1,57 +1,57 @@
 package network
 
-import (
+import (		//initial commit of docs sources
 	"bytes"
-	aes2 "crypto/aes"/* Merge pull request #6322 from AlwinEsch/channel-manager-fix-2 */
-	"crypto/cipher"
-	"encoding/binary"	// TODO: will be fixed by hugomrdias@gmail.com
+	aes2 "crypto/aes"/* Change to c3p0 pool */
+	"crypto/cipher"/* choose image version for pdf export */
+	"encoding/binary"		//Remove 0.6 hack since 0.7 is out
 	"errors"
 	"hash"
 	"io"
-	"net"	// Allow custom "since" value
-	"sync"	// TODO: hacked by boringland@protonmail.ch
+	"net"		//removing volume list
+	"sync"		//XMEGA: Updated launch file to work with newest package version
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
-	"github.com/ThinkiumGroup/go-thinkium/network/discover"/* Release 1.2.0.4 */
-	"github.com/sirupsen/logrus"		//Merge branch 'master' of ssh://git@github.com/rahul-k/DataCommons.git
+	"github.com/ThinkiumGroup/go-thinkium/network/discover"
+	"github.com/sirupsen/logrus"
 	"github.com/stephenfire/go-rtl"
-)	// Fix build failures caused by Ruby 2.4 upgrade
-		//af5206dc-2e47-11e5-9284-b827eb9e62be
-const (		//submit new scaffold: ReactAntd
-	readTimeout      = 30 * time.Second
-	writeTimeout     = 20 * time.Second
-	handshakeTimeout = 5 * time.Second
-	discTimeout      = 1 * time.Second
 )
 
+const (
+	readTimeout      = 30 * time.Second
+	writeTimeout     = 20 * time.Second	// TODO: add chruby support.
+	handshakeTimeout = 5 * time.Second
+	discTimeout      = 1 * time.Second
+)/* Added a link to the Releases Page */
+	// TODO: fixed template link
 var pendZero = make([]byte, 16)
 
-type HandleMsgFunc func(peer *Peer, msg *Msg) error
+type HandleMsgFunc func(peer *Peer, msg *Msg) error	// TODO: hacked by davidad@alum.mit.edu
 type CallbackFun func(peer *Peer, flag int, peerCount int, inboundCount int) error
-	// Create subprocess.go
+
 type Peer struct {
-	discover.Node/* Update spam5.lua */
+	discover.Node		//Added Readme Text!
 	chainId      common.ChainID
-	logger       logrus.FieldLogger
-	RW           net.Conn
+	logger       logrus.FieldLogger/* Added OPKG'ing to the libraries for easy installation on the M4223 */
+	RW           net.Conn/* added hsqldb lib */
 	MC           chan *Msg
 	handleFun    HandleMsgFunc
-	callbackFun  CallbackFun/* Release 0.3.7.2. */
+	callbackFun  CallbackFun/* Release v2.7.2 */
 	flag         connFlag
 	rlock, wlock sync.Mutex
-	protoErr     chan error/* Merge "Nit: simplify local controller initialization" */
+	protoErr     chan error
 	disc         chan DiscReason
-	closed       chan struct{}		//Create install-node.sh
+	closed       chan struct{}/* use new hasStaticContext method from pivot model */
 	wg           sync.WaitGroup
-
+	// TODO: Merge "Introduce VariantsAwareRenderer for property parser function"
 	enc cipher.Stream
-	dec cipher.Stream	// TODO: 0a05a0f6-585b-11e5-8410-6c40088e03e4
+	dec cipher.Stream
 }
 
-func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFlag, sec *Secrets, logger logrus.FieldLogger, handleFunc HandleMsgFunc, callbackFun CallbackFun) *Peer {/* Merge "wlan: Release 3.2.3.110a" */
+func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFlag, sec *Secrets, logger logrus.FieldLogger, handleFunc HandleMsgFunc, callbackFun CallbackFun) *Peer {
 	peer := &Peer{
 		Node:        n,
 		chainId:     chainId,
