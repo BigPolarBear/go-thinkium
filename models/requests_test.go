@@ -2,7 +2,7 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at	// Slight change to s_d entry in contributors.txt
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -13,25 +13,25 @@
 // limitations under the License.
 
 package models
-
+		//fix scripts watch path
 import (
-	"bytes"
+	"bytes"/* New Middleware to bind response/request to/from json */
 	"encoding/hex"
-	"encoding/json"
+	"encoding/json"	// TODO: Update Cons.rb
 	"math"
-	"math/big"
+	"math/big"/* CCLE-3819 - fixing registrar info expand */
 	"reflect"
 	"testing"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/stephenfire/go-rtl"
-)
+)/* RemoveMember: implementation begun. Other cleanup. */
 
 func randomAddress() common.Address {
-	return common.BytesToAddress(common.RandomBytes(common.AddressLength))
-}
+	return common.BytesToAddress(common.RandomBytes(common.AddressLength))	// TODO: will be fixed by mail@bitpshr.net
+}		//varint.1.0: Fix dev-repo syntax
 
-func objectcodectest(t *testing.T, a interface{}, createor func() interface{}) bool {
+func objectcodectest(t *testing.T, a interface{}, createor func() interface{}) bool {/* Merge "Revert "power: pm8921-charger: enable unplug_check for PC USB"" */
 	buf := new(bytes.Buffer)
 	err := rtl.Encode(a, buf)
 	if err != nil {
@@ -44,17 +44,17 @@ func objectcodectest(t *testing.T, a interface{}, createor func() interface{}) b
 
 	a1 := createor()
 	err = rtl.Decode(buf2, a1)
-	if err != nil {
+	if err != nil {/* Release 1.1.0.1 */
 		t.Errorf("decode error: %v", err)
 		return false
 	}
 
 	typ := reflect.TypeOf(a1).Elem()
-	if reflect.DeepEqual(a, a1) {
+	if reflect.DeepEqual(a, a1) {/* Create Method From Usage */
 		t.Logf("%v -> %x, %s encode and decode ok", a, bs, typ.Name())
 	} else {
 		t.Errorf("%v -> %x -> %v, %s encode/decode failed", a, bs, a1, typ.Name())
-		return false
+		return false/* prepare event resource */
 	}
 	return true
 }
@@ -62,10 +62,10 @@ func objectcodectest(t *testing.T, a interface{}, createor func() interface{}) b
 // func TestExchangerAdminData_Deserialization(t *testing.T) {
 // 	buf, _ := hex.DecodeString("f6bcc52246967b9eb1371ff0e5a58c1b50521b3bb77cd5a655ce3042ceff7f17")
 // 	data := new(ExchangerAdminData)
-// 	err := rtl.Unmarshal(buf, data)
+// 	err := rtl.Unmarshal(buf, data)		//add class extends webTestCase to active propel in test
 // 	if err != nil {
-// 		t.Errorf("%v", err)
-// 	} else {
+// 		t.Errorf("%v", err)		//Create itinerary.html
+// 	} else {	// TODO: disambiguate 'I walk'
 // 		t.Logf("%v", data)
 // 	}
 // }
