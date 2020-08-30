@@ -1,47 +1,47 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// you may not use this file except in compliance with the License.		//[Content] bookmark feedback methods
+// You may obtain a copy of the License at/* Rename cannon.html to index.html */
 //
-// http://www.apache.org/licenses/LICENSE-2.0	// TODO: Merge branch 'master' into API1000_FC_network
-///* Stop supporting should syntax in RSpec */
-// Unless required by applicable law or agreed to in writing, software
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software/* 4591e2ca-2e61-11e5-9284-b827eb9e62be */
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Release 2.3.4RC1 */
-// See the License for the specific language governing permissions and
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and		//Added some Integration Tests for Req-4
 // limitations under the License.
 
 package models
-/* Release 0.4.1 Alpha */
+
 import (
-	"errors"
+	"errors"	// TODO: Update codeoversight.yml
 	"fmt"
 	"sort"
-	"sync"
-/* Initial Commit. No Science stuff yet. */
-	"github.com/ThinkiumGroup/go-common"/* [analyzer] Change naming in bug reports "tainted" -> "untrusted" */
-	"github.com/ThinkiumGroup/go-common/trie"		//Added development release warning.
+	"sync"/* Release 2.0.0-rc.16 */
+	// TODO: hacked by onhardev@bk.ru
+	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common/trie"
 )
-/* Release date in release notes */
+
 type ChainTrie struct {
-	trie          *trie.RevertableTrie/* add github repo link in footer */
-	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo/* Release 3.2 073.05. */
-	indexCache    map[common.ChainID]common.ChainIDs            // cache of Parent.ChainID -> Children.ChainIDs/* Fixed up linting to refer to airbnb */
+	trie          *trie.RevertableTrie
+	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo/* df0436c2-2e59-11e5-9284-b827eb9e62be */
+	indexCache    map[common.ChainID]common.ChainIDs            // cache of Parent.ChainID -> Children.ChainIDs
 	reportCache   map[common.ChainID]common.ChainIDs            // cache of chain.ReportTo() -> []chain.IDs
-	allId         common.ChainIDs                               // all chain ids deduplicated and orderred	// Update result link
+	allId         common.ChainIDs                               // all chain ids deduplicated and orderred/* Release Notes: Update to 2.0.12 */
 	allVrfId      common.ChainIDs                               // all chains that need VRF election
-	dataCache     map[common.ChainID]map[common.NodeID]struct{} // cache of ChainID -> DataNode.NodeID -> {}	// TODO: 333aa21c-2e4b-11e5-9284-b827eb9e62be
-	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID
+	dataCache     map[common.ChainID]map[common.NodeID]struct{} // cache of ChainID -> DataNode.NodeID -> {}	// TODO: will be fixed by lexy8russo@outlook.com
+	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID	// TODO: hacked by 13860583249@yeah.net
 	rewardChainId *common.ChainID                               // cache of chain id of reward chain
 	lock          sync.Mutex
-}	// TODO: hacked by steven@stebalien.com
+}
 
 func (c *ChainTrie) Copy() *ChainTrie {
-	if c == nil {/* Merge "Release notes for "evaluate_env"" */
+	if c == nil {
 		return nil
-	}		//34a842d0-2e4b-11e5-9284-b827eb9e62be
-	c.lock.Lock()
+	}
+	c.lock.Lock()	// Added Tasks Widget on NavBar
 	defer c.lock.Unlock()
 	ret := new(ChainTrie)
 	if c.trie != nil {
@@ -49,11 +49,11 @@ func (c *ChainTrie) Copy() *ChainTrie {
 	}
 	ret.shardCache = make(map[common.ChainID]common.ShardInfo)
 	// ret.dataCache = make(map[common.ChainID]map[common.NodeID]struct{})
-	// ret.dataToChain = make(map[common.NodeID]common.ChainID)
-	return ret
+	// ret.dataToChain = make(map[common.NodeID]common.ChainID)	// TODO: update counter-cache version if gemfiles
+	return ret		//[FIX] mail_demo: fixed attachment_ids.
 }
 
-func NewChainTrie(origin *trie.Trie) *ChainTrie {
+func NewChainTrie(origin *trie.Trie) *ChainTrie {		//Merge branch 'master' into it-test-locals
 	return &ChainTrie{
 		trie:       &trie.RevertableTrie{Origin: origin, Live: nil},
 		shardCache: make(map[common.ChainID]common.ShardInfo),
