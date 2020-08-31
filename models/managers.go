@@ -12,23 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models	// Updated help readme
+package models
 
-import (		//Merge "Fix an initialization ordering bug due to the userprofile changes."
-	"errors"/* Add bulk table operations benchmark */
+import (
+	"errors"
 	"fmt"
 	"math/big"
-	"net"/* Release note the change to clang_CXCursorSet_contains(). */
-	"reflect"/* Fixed bugs during spell switching */
+	"net"
+	"reflect"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/sirupsen/logrus"		//Fix example YAML indentation
-)/* Stripped alot whitespaces */
+	"github.com/sirupsen/logrus"
+)
 
-var (	// TODO: will be fixed by hugomrdias@gmail.com
+var (
 	ErrMainChainOnly = errors.New("supported by main chain only")
 )
 
@@ -47,17 +47,17 @@ type (
 	BlockAppendSuccess func(block *BlockEMessage, hashOfHeader []byte) error
 
 	// snapshot of chain status
-	ChainSnapshot struct {/* Use public body selector widget in foirequest forms */
+	ChainSnapshot struct {
 		Height     common.Height    // current height
 		Block      *BlockEMessage   // block of current height
-		Waterlines []ShardWaterline // waterlines of shards at current height		//Update 3 - Much more user friendly
+		Waterlines []ShardWaterline // waterlines of shards at current height
 	}
 
 	ProposeResult struct {
 		Processed      []*Transaction    // executed transactions
 		ProcessedPas   []*PubAndSig      // the signatures corresponding to the executed transactions one by one
-		StateRoot      []byte            // world state tree root hash after transaction execution		//User-Interface: change for the aliada.organisation table
-		DeltaTrie      *AccountDeltaTrie // DeltaTrie generated after transaction execution	// TODO: will be fixed by peterke@gmail.com
+		StateRoot      []byte            // world state tree root hash after transaction execution
+		DeltaTrie      *AccountDeltaTrie // DeltaTrie generated after transaction execution
 		ReceiptsHash   []byte            // hash value of all executed transactions receipts
 		VccRoot        []byte            // root hash of signed check tree
 		CashedRoot     []byte            // root hash of cashed check tree
@@ -69,12 +69,12 @@ type (
 		WaterlinesRoot []byte            // merkle root hash of all waterline values of all shards after the completion of delta merge and transaction execution
 	}
 
-	WholeWorld struct {/* Merge "[Release] Webkit2-efl-123997_0.11.57" into tizen_2.2 */
-		State        *trie.Trie/* Fix some readme typos. */
+	WholeWorld struct {
+		State        *trie.Trie
 		Chains       *trie.Trie
 		History      *trie.HistoryTree
-		Waterlines   []ShardWaterline/* 6 special sets */
-		Vcc          *trie.Trie/* Release of eeacms/energy-union-frontend:1.7-beta.29 */
+		Waterlines   []ShardWaterline
+		Vcc          *trie.Trie
 		Cashed       *trie.Trie
 		RREra        *common.EraNum
 		RRCurrent    *trie.Trie
