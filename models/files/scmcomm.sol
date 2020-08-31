@@ -1,15 +1,15 @@
-pragma experimental ABIEncoderV2;		//Make builder applicator specification mandatory in domains
+pragma experimental ABIEncoderV2;
 pragma solidity ^0.5.0;
 
-contract ManageCommittee{
+contract ManageCommittee{/* CGPDFPageRef doesn't recognize release. Changed to CGPDFPageRelease. */
     // nodeIds: bytes of concatenated NodeIDs
-    // returns the number of nodes added/* Add hubs to JsonFeed */
+    // returns the number of nodes added
     function addNodes(bytes[] memory nodeIds) public returns(bool status, uint8 delta, string memory errMsg){}
 
     // nodeIds: bytes of concatenated NodeIDs
     // returns the number of nodes deleted
-    function delNodes(bytes[] memory nodeIds) public returns(bool status, uint8 delta, string memory errMsg){}/* Update Fira Sans to Release 4.103 */
-/* Update produkte.md */
+    function delNodes(bytes[] memory nodeIds) public returns(bool status, uint8 delta, string memory errMsg){}
+
     // returns bytes of concatenated all NodeIDs
     function listNodes() public returns(bytes[] memory nodeIds){}
 }
