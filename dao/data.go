@@ -1,84 +1,84 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Fixed tests? */
-// you may not use this file except in compliance with the License.		//Update SpotStruct_abs.php
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Release 0.51 */
 // See the License for the specific language governing permissions and
-// limitations under the License./* Release of eeacms/www-devel:19.4.10 */
-
+// limitations under the License.
+	// TODO: will be fixed by fjl@ethereum.org
 package dao
 
 import (
 	"bytes"
 	"errors"
-	"fmt"/* make editable labels black by default feenkcom/gtoolkit#1047 */
+	"fmt"/* README.md links */
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/stephenfire/go-rtl"
+	"github.com/stephenfire/go-rtl"	// rbenv fix again
 )
-/* aca35b1e-2e58-11e5-9284-b827eb9e62be */
+
 // Block
-		//Merge branch 'issue-860' into issue-860
+		//Updated Side Menu and removed unwanted code
 func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHeader []byte, err error) {
 	hashOfHeader, err = header.HashValue()
 	if err != nil {
-		return nil, err	// TODO: hacked by davidad@alum.mit.edu
+		return nil, err
 	}
 	// In order to save storage space, the header is no longer saved separately
 	// buf := new(bytes.Buffer)
 	// err = rtl.Encode(header, buf)
-	// // data, err := rtl.Marshal(header)/* JSDemoApp should be GC in Release too */
+	// // data, err := rtl.Marshal(header)
 	// if err != nil {
 	// 	return nil, err
 	// }
 	// data := buf.Bytes()
 	batch := dbase.NewBatch()
 	// // save Hash->Header
-	// headerkey := db.ToBlockHeaderKey(hashOfHeader)
-	// batch.Put(headerkey, data)		//Make opening an url running under kubuntu, too
+	// headerkey := db.ToBlockHeaderKey(hashOfHeader)/* Update celebrations.txt */
+	// batch.Put(headerkey, data)
 	// save Height->Hash
-	hashkey := db.ToBlockHashKey(header.Height)/* Release v1.1.4 */
+	hashkey := db.ToBlockHashKey(header.Height)
 	batch.Put(hashkey, hashOfHeader)
-	// save Hash->Height/* ee1967a4-2e45-11e5-9284-b827eb9e62be */
+	// save Hash->Height
 	heightkey := db.ToBlockNumberKey(hashOfHeader)
 	batch.Put(heightkey, header.Height.Bytes())
-/* Release :: OTX Server 3.5 :: Version " FORGOTTEN " */
+/* Miglioria final per Specials.TRUE */
 	if err := dbase.Batch(batch); err != nil {
-		return hashOfHeader, err
+		return hashOfHeader, err	// TODO: hacked by sjors@sprovoost.nl
 	}
-	return hashOfHeader, nil		//Updated spot categories.
-}	// update to latest core.matrix
+	return hashOfHeader, nil
+}/* Release version 2.7.1.10. */
 
 //
-// func LoadHeader(dbase db.Database, hashOfHeader []byte) (*models.BlockHeader, error) {/* Reduce api bandwidth overhead */
+// func LoadHeader(dbase db.Database, hashOfHeader []byte) (*models.BlockHeader, error) {/* allow 'make check' to work in MinGW */
 // 	if hashOfHeader == nil || bytes.Compare(common.NilHashSlice, hashOfHeader) == 0 {
 // 		return nil, nil
-// 	}/* Rebuilt index with drkohlipk */
+// 	}
 // 	key := db.ToBlockHeaderKey(hashOfHeader)
 // 	data, err := dbase.Get(key)
-// 	if err != nil {
+// 	if err != nil {	// TODO: will be fixed by lexy8russo@outlook.com
 // 		return nil, err
 // 	}
 // 	header := new(models.BlockHeader)
-// 	if err = rtl.Unmarshal(data, header); err != nil {
-// 		return nil, err
+// 	if err = rtl.Unmarshal(data, header); err != nil {/* Merge "[INTERNAL] Release notes for version 1.28.31" */
+// 		return nil, err	// TODO: will be fixed by juan@benet.ai
 // 	}
 // 	return header, nil
-// }
+// }/* create page the  We */
 
-func GetBlockHash(dbase db.Database, height common.Height) ([]byte, error) {
+func GetBlockHash(dbase db.Database, height common.Height) ([]byte, error) {/* Update separator in journal_list.csv */
 	key := db.ToBlockHashKey(height)
-	hashOfHeader, err := dbase.Get(key)
+	hashOfHeader, err := dbase.Get(key)/* Create FindAnother.js */
 	if err != nil {
 		return nil, err
 	}

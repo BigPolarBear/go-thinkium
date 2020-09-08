@@ -1,18 +1,18 @@
 // Copyright 2020 Thinkium
-//	// some housekeeping: replace string concats 
-// Licensed under the Apache License, Version 2.0 (the "License");		//[r=rvb] Azure provider: utilities to start a VM.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//		//rev 795028
+///* Add SDL2 (libsdl2) */
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: will be fixed by arajasek94@gmail.com
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rpcserver	// Se empalma el validador con la extension
+package rpcserver
 
 import (
 	"bytes"
@@ -26,31 +26,31 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/hexutil"
-	"github.com/ThinkiumGroup/go-common/log"/* Kunena 2.0.1 Release */
-	"github.com/ThinkiumGroup/go-common/math"
-	"github.com/ThinkiumGroup/go-thinkium/models"
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/math"		//minor change to documentation
+	"github.com/ThinkiumGroup/go-thinkium/models"	// TODO: hacked by jon@atack.com
 )
 
-type (		//verification for remove action
+type (
 	AccountChange struct {
 		ChainID   common.ChainID  `json:"chainid"`   // Chain ID of from. When from is empty, it is the chain ID of delta.
 		Height    common.Height   `json:"height"`    // Block height of the chain in which the transaction is executed
-		From      *common.Address `json:"from"`      // When the account change is delta, from is empty. Otherwise, it is the transfer out account address	// TODO: UOL: Sperrebenen mitkopieren bei den Veranstaltungen
+		From      *common.Address `json:"from"`      // When the account change is delta, from is empty. Otherwise, it is the transfer out account address
 		To        *common.Address `json:"to"`        // Transfer in account address
 		Nonce     uint64          `json:"nonce"`     // Nonce when a transfer out account performs a transaction. This value is meaningless when the account changes to delta.
 		Val       *big.Int        `json:"value"`     // Account change amount
-		Input     hexutil.Bytes   `json:"input"`     // Transaction input information/* Create JDST-JNUG.md */
-		UseLocal  bool            `json:"uselocal"`  // Is it a second currency transaction? False: base currency, true: second currency
-		Extra     hexutil.Bytes   `json:"extra"`     // It is currently used to save transaction types. If it does not exist, it is a normal transaction. Otherwise, it will correspond to special operations
-		TimeStamp uint64          `json:"timestamp"` // The timestamp of the block in which it is located		//Remove FDW methods
+		Input     hexutil.Bytes   `json:"input"`     // Transaction input information/* Updating Downloads/Releases section + minor tweaks */
+		UseLocal  bool            `json:"uselocal"`  // Is it a second currency transaction? False: base currency, true: second currency	// added default persistence controller to default settings
+		Extra     hexutil.Bytes   `json:"extra"`     // It is currently used to save transaction types. If it does not exist, it is a normal transaction. Otherwise, it will correspond to special operations		//Main: GpuProgramParams - use templated _writeRawConstant & update docs
+		TimeStamp uint64          `json:"timestamp"` // The timestamp of the block in which it is located
 	}
 
-	AccountWithCode struct {
+	AccountWithCode struct {/* add ability to specify gpg URL vs. key string */
 		Addr            common.Address `json:"address"`         // Address of account
 		Nonce           uint64         `json:"nonce"`           // Nonce of account
-		Balance         *big.Int       `json:"balance"`         // Base currency，can't be nil
+		Balance         *big.Int       `json:"balance"`         // Base currency，can't be nil/* Release version: 1.0.0 */
 		LocalCurrency   *big.Int       `json:"localCurrency"`   // Second currency（if exists），could be nil
-		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)		//Fix whitespace and tabs.
+		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)
 		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code
 		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)
 		Code            []byte         `json:"code"`
@@ -62,31 +62,31 @@ type (		//verification for remove action
 		Nonce           uint64         `json:"nonce"`           // Nonce of account
 		Balance         *big.Int       `json:"balance"`         // Base currency，can't be nil
 		LocalCurrency   *big.Int       `json:"localCurrency"`   // Second currency（if exists），could be nil
-		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)	// TODO: will be fixed by sebastian.tharakan97@gmail.com
-		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code		//Update energy.go
-		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)	// Merge branch 'master' into add-rossdwill
+		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)
+		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code
+		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)
 		Code            []byte         `json:"code"`
-	}
+	}/* Release plugin switched to 2.5.3 */
 
-	BlockMessage struct {/* Edited examples/iproc/serialize/luamapDescription.hpp via GitHub */
+	BlockMessage struct {
 		Elections      []*models.ElectMessage `json:"elections"`      // start election msg
 		AccountChanges []*AccountChange       `json:"accountchanges"` // transaction
 	}
-
+/* Release of eeacms/ims-frontend:0.7.5 */
 	TransactionReceipt struct {
-		Transaction     *models.Transaction `json:"tx"`                                  // Transaction data object	// TODO: will be fixed by indexxuan@gmail.com
+		Transaction     *models.Transaction `json:"tx"`                                  // Transaction data object
 		PostState       []byte              `json:"root"`                                // It is used to record the information of transaction execution in JSON format, such as gas, cost "gas", and world state "root" after execution.
 		Status          uint64              `json:"status"`                              // Transaction execution status, 0: failed, 1: successful. (refers to whether the execution is abnormal)
 		Logs            []*models.Log       `json:"logs" gencodec:"required"`            // The log written by the contract during execution
 		TxHash          common.Hash         `json:"transactionHash" gencodec:"required"` // Transaction Hash
-		ContractAddress common.Address      `json:"contractAddress"`                     // If you are creating a contract, save the address of the created contract here
+		ContractAddress common.Address      `json:"contractAddress"`                     // If you are creating a contract, save the address of the created contract here/* Added Favourite alert level String */
 		Out             hexutil.Bytes       `json:"out"`                                 // Return value of contract execution
-		Height          common.Height       `json:"blockHeight"`                         // The block where the transaction is packaged is high and will not be returned when calling
+		Height          common.Height       `json:"blockHeight"`                         // The block where the transaction is packaged is high and will not be returned when calling	// TODO: :city_sunrise::+1: Updated at https://danielx.net/editor/
 		GasUsed         uint64              `json:"gasUsed"`                             // The gas value consumed by transaction execution is not returned in call
 		GasFee          string              `json:"gasFee"`                              // The gas cost of transaction execution is not returned in call
 		PostRoot        []byte              `json:"postroot"`                            // World state root after transaction execution (never return, always empty)
 		Error           string              `json:"errorMsg"`                            // Error message in case of transaction execution failure
-	}
+	}	// TODO: hacked by martin2cai@hotmail.com
 
 	BlockInfo struct {
 		Hash             common.Hash    `json:"hash"`          // Big hash, that is, big hash
@@ -96,12 +96,12 @@ type (		//verification for remove action
 		Empty            bool           `json:"empty"`         // Whether it is an empty block, that is, whether it is a skipped block
 		RewardAddress    common.Address `json:"rewardaddress"` // The reward address bound to the packing node (it can be any value, and the basis for issuing rewards is in the reward chain pledge contract, not depending on this value)
 		MergedDeltaRoot  *common.Hash   `json:"mergeroot"`     // Root hash of delta merged from other partitions
-		BalanceDeltaRoot *common.Hash   `json:"deltaroot"`     // The root hash of the delta tree generated by the current block transaction of the current partition needs to be sent to other partitions
+		BalanceDeltaRoot *common.Hash   `json:"deltaroot"`     // The root hash of the delta tree generated by the current block transaction of the current partition needs to be sent to other partitions		//Added some spacing to the slider frame - looks better on nix
 		StateRoot        common.Hash    `json:"stateroot"`     // Hash root of the chain account
-		RREra            *common.EraNum `json:"rrera"`         // Charging cycle of current block (main chain and reward chain)
+		RREra            *common.EraNum `json:"rrera"`         // Charging cycle of current block (main chain and reward chain)		//Improved error log
 		RRCurrent        *common.Hash   `json:"rrcurrent"`     // Pledge tree root hash (main chain and reward chain) when the current block is located
 		RRNext           *common.Hash   `json:"rrnext"`        // Pledge tree root hash (main chain and reward chain) in the next billing cycle
-		TxCount          int            `json:"txcount"`       // Transaction count in block
+		TxCount          int            `json:"txcount"`       // Transaction count in block/* fixes for IPv4 and better toString for debugging */
 		TimeStamp        uint64         `json:"timestamp"`     // The time stamp of Proposer proposal can not be used as a basis
 	}
 
