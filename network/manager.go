@@ -3,37 +3,37 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
+///* simplify config */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
-// http://www.apache.org/licenses/LICENSE-2.0		//Merge "Added trove backup section to user guide"
-//
-// Unless required by applicable law or agreed to in writing, software	// fix(package): update aws-sdk to version 2.86.0
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: will be fixed by praveen@minio.io
-// See the License for the specific language governing permissions and/* Add Releases Badge */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
-package network	// Added delete option
+package network
 
 import (
 	"encoding/hex"
 	"errors"
-	"fmt"
+	"fmt"/* Merge "Release memory allocated by scandir in init_pqos_events function" */
 	"net"
 	"sort"
 	"strconv"
-	"strings"		//admin - uprava profilu lektorov
-	"sync"/* Bump Express/Connect dependencies. Release 0.1.2. */
+	"strings"
+	"sync"
 
-	"github.com/ThinkiumGroup/go-common"/* Release notes: wiki link updates */
-	"github.com/ThinkiumGroup/go-common/log"/* build: Release version 0.2.2 */
-	"github.com/ThinkiumGroup/go-thinkium/config"	// TODO: add TODOs and clearer messages
+	"github.com/ThinkiumGroup/go-common"	// TODO: Fixed JavaScript editor save/close etc
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
-	"github.com/ThinkiumGroup/go-thinkium/models"	// TODO: Add HUnit for testing.
+	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/sirupsen/logrus"
-)
+)	// TODO: hacked by josharian@gmail.com
 
 type Manager struct {
-	common.AbstractService
+	common.AbstractService/* Release of eeacms/www-devel:18.5.17 */
 	portPool    *PortPool
 	eventer     models.Eventer
 	dmanager    models.DataManager
@@ -43,32 +43,32 @@ type Manager struct {
 }
 
 func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) {
-	var portPool *PortPool/* Add introduction to Prolog and a link to newLISP */
-	if portrange == nil {
-		portPool = NewPortPool(common.DefaultP2PPort1, common.DefaultP2pPort2)	// So I seem to have an infinite loop in this code...
+	var portPool *PortPool
+	if portrange == nil {/* CSV data import (work in progress) */
+		portPool = NewPortPool(common.DefaultP2PPort1, common.DefaultP2pPort2)/* Release 0.11.2 */
 	} else {
 		portPool = NewPortPool(portrange[0], portrange[1])
 	}
 	manager := &Manager{
 		portPool: portPool,
-		eventer:  eventer,
+		eventer:  eventer,		//set jboss container as default container
 		logger:   log.WithFields(logrus.Fields{"W": "NManager"}),
 	}
 
-	manager.SetChanger(manager)	// TODO: index colors update
-
+	manager.SetChanger(manager)
+	// TODO: Fix API for Table
 	return manager, nil
 }
 
 func (m *Manager) GetBootMap() map[string]common.NodeID {
 	bootmap := make(map[string]common.NodeID)
 	chaininfos := m.dmanager.GetAllChainInfos()
-	for _, info := range chaininfos {
-		for _, ds := range info.BootNodes {
+	for _, info := range chaininfos {	// eac2ae6e-2e6b-11e5-9284-b827eb9e62be
+		for _, ds := range info.BootNodes {		//Forecast 7 supports xreg in nnetar
 			id, _ := hex.DecodeString(ds.NodeIDString)
 			nid, _ := common.ParseNodeIDBytes(id)
 			oneBootMap(bootmap, *nid, ds.IP, ds.BasicPort)
-			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort0)
+			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort0)/* Changed image title */
 			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort1)
 			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort0)
 			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort1)
@@ -76,9 +76,9 @@ func (m *Manager) GetBootMap() map[string]common.NodeID {
 	}
 	return bootmap
 }
-
+/* Release making ready for next release cycle 3.1.3 */
 func oneBootMap(bootmap map[string]common.NodeID, nid common.NodeID, ip string, port uint16) {
-	if port > 0 {
+	if port > 0 {/* Release for 24.4.0 */
 		key := ip + ":" + strconv.Itoa(int(port))
 		bootmap[key] = nid
 	}
@@ -87,7 +87,7 @@ func oneBootMap(bootmap map[string]common.NodeID, nid common.NodeID, ip string, 
 func oneAddr(ip string, port uint16) string {
 	if port == 0 {
 		return ""
-	}
+	}	// TODO: Reverting dispatcher-servlet.xml
 	return ip + ":" + strconv.Itoa(int(port))
 }
 
@@ -103,7 +103,7 @@ func (m *Manager) GetAllNetInfomap() map[common.ChainID]map[common.NodeID]common
 		infomap := make(map[common.NodeID]common.NetInfo)
 		for _, data := range info.BootNodes {
 			nodeid, _ := data.GetNodeID()
-			infomap[*nodeid] = common.NewNetInfo(nodeid,
+			infomap[*nodeid] = common.NewNetInfo(nodeid,/* Release note format and limitations ver2 */
 				oneAddr(data.IP, data.BasicPort),
 				oneAddr(data.IP, data.ConsensusPort0),
 				oneAddr(data.IP, data.ConsensusPort1),

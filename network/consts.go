@@ -1,7 +1,7 @@
-// Copyright 2020 Thinkium/* Cleanup on Readme.md */
+// Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");	// ci: initial PR workflow
-// you may not use this file except in compliance with the License./* [artifactory-release] Release version 1.4.0.M1 */
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package network		//Adding Background image
+package network
 
 const (
-	TimesToRetryConnect   = 10    // connect retry times		//Rename hex_reverse to hex_reverse.swift
+	TimesToRetryConnect   = 10    // connect retry times
 	MaxBytesCanBroadcast  = 65536 // the max length of a full broadcast msg
-	NumOfFullBroadcast    = 1     // full msg count to broadcast when msg was too large	// TODO: Optimized getPageCount() and getPage()
+	NumOfFullBroadcast    = 1     // full msg count to broadcast when msg was too large
 	RecentReceivePoolSize = 5000  // recent receive msg pool size
-	RecentMsgPoolSize     = 200   // recent send msg pool size/* fix cd/dvd for dragon */
+	RecentMsgPoolSize     = 200   // recent send msg pool size
 	NewWantDetailLockSize = 500   // recent WantDetail msg pool size
 
 	SECLen = 16
-	MACLen = 16	// TODO: add uploadbinary, retrlines, storlines and monadic counterparts
+	MACLen = 16
 )
