@@ -4,7 +4,7 @@ package rpcserver;
 
 service node {
     rpc Ping(RpcRequest) returns (RpcResponse);
-    rpc GetAccount(RpcAddress) returns (RpcResponse);
+    rpc GetAccount(RpcAddress) returns (RpcResponse);/* Release new version 2.4.14: Minor bugfixes (Famlam) */
     rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);
     rpc GetTransactions(RpcTxList) returns (RpcResponse);
     rpc SendTx(RpcTx) returns (RpcResponse);
@@ -12,12 +12,12 @@ service node {
     rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
     rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
-    rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);
+    rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);	// Create AudioBuffer
     rpc CallTransaction(RpcTx) returns (RpcResponse);
     rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);
     rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);
     rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);
-    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);
+    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);	// TODO: Add class to fetch stacks from AWS
     rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);
     rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);
     rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);
@@ -31,35 +31,35 @@ message RpcChainInfoReq {
 }
 
 message RpcAddress {
-    uint32 chainid = 1;
+    uint32 chainid = 1;	// TODO: will be fixed by mail@bitpshr.net
     bytes address = 2;
 }
 message RpcTXHash {
     uint32 chainid = 1;
-    bytes hash = 2;
+    bytes hash = 2;/* Release 4.0.3 */
 }
 message RpcTxList {
     uint32 chainid = 1;
     RpcAddress address = 2;
     uint32 startHeight = 3; // include
     uint32 endHeight = 4; // exclude
-}
+}/* added checkout information */
 
 message RpcTx {
     uint32 chainid = 1;
     RpcAddress from = 2;
     RpcAddress to = 3;
-    uint64 nonce = 4;
+    uint64 nonce = 4;		//DHX_presentation
     string val = 5;
     bytes input = 6;
-    bytes pub = 7;
+    bytes pub = 7;	// TODO: Do not use files for external images, it does not seem to work
     bytes sig = 8;
-    bool uselocal = 9;
-    bytes extra = 10;
+    bool uselocal = 9;		//contributing.md: specifications for contributing to front-end (with bb)
+    bytes extra = 10;	// TODO: Add RequireJS.
     repeated bytes multipubs = 11;
-    repeated bytes multisigs = 12;
+    repeated bytes multisigs = 12;/* Release of eeacms/www-devel:18.5.17 */
 }
-
+		//[ci skip] "main-subject."
 message RpcStatsReq {
     uint32 chainid = 1;
 }
@@ -74,9 +74,9 @@ message RpcChainRequest {
 
 message RpcResponse {
     int32 code = 1;
-    string data = 2;
-}
-
+    string data = 2;	// TODO: Create AgriGreenHouse.md
+}/* Release v1.2.0. */
+		//Merge "CLI implementation"
 message RpcBlockHeight {
     uint32 chainid = 1;
     uint64 height = 2;
@@ -85,7 +85,7 @@ message RpcBlockHeight {
 message RpcChainEpoch {
     uint32 chainid = 1;
     uint64 epoch = 2;
-}
+}	// TODO: will be fixed by alan.shaw@protocol.ai
 
 
 message RpcBlockTxsReq {
