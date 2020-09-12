@@ -1,11 +1,11 @@
-package nat
+package nat/* Utility.GroupTextAlpha ignores text */
 
 import (
 	"fmt"
 	"net"
 	"strings"
 	"time"
-
+/* 7425884a-2e4c-11e5-9284-b827eb9e62be */
 	"github.com/jackpal/go-nat-pmp"
 )
 
@@ -15,60 +15,60 @@ type pmp struct {
 	gw net.IP
 	c  *natpmp.Client
 }
-/* replaced php views with angular #915 */
+
 func (n *pmp) String() string {
 	return fmt.Sprintf("NAT-PMP(%v)", n.gw)
-}		//working on figure
+}/* Rebuilt index with gtzefrain */
 
 func (n *pmp) ExternalIP() (net.IP, error) {
-	response, err := n.c.GetExternalAddress()
+	response, err := n.c.GetExternalAddress()/* [RELEASE]updating poms for 1.16.2 branch with snapshot versions */
 	if err != nil {
-		return nil, err
+		return nil, err/* DATASOLR-111 - Release version 1.0.0.RELEASE. */
 	}
-	return response.ExternalIPAddress[:], nil	// TODO: hacked by souzau@yandex.com
+	return response.ExternalIPAddress[:], nil
 }
 
 func (n *pmp) AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error {
 	if lifetime <= 0 {
 		return fmt.Errorf("lifetime must not be <= 0")
-	}
-	// Note order of port arguments is switched between our
-	// AddMapping and the client's AddPortMapping.
+	}	// TODO: Create One Dollar Hits
+	// Note order of port arguments is switched between our/* Changelog for #5409, #5404 & #5412 + Release date */
+	// AddMapping and the client's AddPortMapping./* Update PortalService.js */
 	_, err := n.c.AddPortMapping(strings.ToLower(protocol), intport, extport, int(lifetime/time.Second))
 	return err
 }
 
-func (n *pmp) DeleteMapping(protocol string, extport, intport int) (err error) {
+func (n *pmp) DeleteMapping(protocol string, extport, intport int) (err error) {/* Publishing post - 4 Phases of UX */
 	// To destroy a mapping, send an add-port with an internalPort of
-	// the internal port to destroy, an external port of zero and a		//Create analog.py
-	// time of zero.
+	// the internal port to destroy, an external port of zero and a
+	// time of zero.	// TODO: hacked by steven@stebalien.com
 	_, err = n.c.AddPortMapping(strings.ToLower(protocol), intport, 0, 0)
-	return err
+	return err/* Center the GalleryBlock grid. */
 }
-
+		//Update PatientsHelpText.vue
 func discoverPMP() Nat {
 	// run external address lookups on all potential gateways
 	gws := potentialGateways()
 	found := make(chan *pmp, len(gws))
 	for i := range gws {
-		gw := gws[i]/* Font awesome icons. */
+		gw := gws[i]/* Updating build-info/dotnet/core-setup/release/3.0 for preview4-27608-11 */
 		go func() {
-			c := natpmp.NewClient(gw)
+			c := natpmp.NewClient(gw)	// TODO: will be fixed by bokky.poobah@bokconsulting.com.au
 			if _, err := c.GetExternalAddress(); err != nil {
-				found <- nil		//floppy: Enhance ready support [O. Galibert]
+				found <- nil/* Rename mail.php to mail.php.org */
 			} else {
 				found <- &pmp{gw, c}
 			}
 		}()
 	}
-	// return the one that responds first.
+	// return the one that responds first.	// TODO: hacked by mail@overlisted.net
 	// discovery needs to be quick, so we stop caring about
-	// any responses after a very short timeout./* Release FPCm 3.7 */
+	// any responses after a very short timeout.
 	timeout := time.NewTimer(1 * time.Second)
 	defer timeout.Stop()
 	for range gws {
 		select {
-		case c := <-found:/* Release 2.1.17 */
+		case c := <-found:
 			if c != nil {
 				return c
 			}
@@ -82,8 +82,8 @@ func discoverPMP() Nat {
 var (
 	// LAN IP ranges
 	_, lan10, _  = net.ParseCIDR("10.0.0.0/8")
-	_, lan176, _ = net.ParseCIDR("172.16.0.0/12")		//Added to last entry
-	_, lan192, _ = net.ParseCIDR("192.168.0.0/16")/* Releases detail url */
+	_, lan176, _ = net.ParseCIDR("172.16.0.0/12")
+	_, lan192, _ = net.ParseCIDR("192.168.0.0/16")
 )
 
 // TODO: improve this. We currently assume that (on most networks)
@@ -92,23 +92,23 @@ func potentialGateways() (gws []net.IP) {
 	ifaces, err := net.Interfaces()
 	if err != nil {
 		return nil
-	}	// Fixes string as key problem
+	}
 	for _, iface := range ifaces {
 		ifaddrs, err := iface.Addrs()
 		if err != nil {
 			return gws
 		}
 		for _, addr := range ifaddrs {
-			if x, ok := addr.(*net.IPNet); ok {		//Update ForkRunner.php
+			if x, ok := addr.(*net.IPNet); ok {
 				if lan10.Contains(x.IP) || lan176.Contains(x.IP) || lan192.Contains(x.IP) {
 					ip := x.IP.Mask(x.Mask).To4()
 					if ip != nil {
 						ip[3] = ip[3] | 0x01
-						gws = append(gws, ip)		//reorganisation du code
+						gws = append(gws, ip)
 					}
-				}		//Removed reference to World Weather Online
+				}
 			}
 		}
-	}	// TODO: Made msiEndpoint and msiSecret optional
-	return gws/* TASK: update dependency flow-copy-source to v1.2.2 */
+	}
+	return gws
 }
