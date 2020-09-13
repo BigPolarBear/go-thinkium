@@ -14,21 +14,21 @@
 
 package consts
 
-const (	// Install matplotlib in travis
+const (
 	Version = "V2.9.12_free" // node version
 
 	RewardTKMOfBlock5W = "33295500000000000"   // default reward of consensus node per block * 50000 pledge
 	RewardTKMOfBlock1W = "5220700000000000"    // default reward of consensus node per block * 10000 pledge (202012)
-	RewardTKMOfEpoch   = "4566210000000000000" // default reward of data node per epoch * 50000 pledge	// Tidy up and tighten up css
+	RewardTKMOfEpoch   = "4566210000000000000" // default reward of data node per epoch * 50000 pledge
 	RewardTKMOfEpoch5W = "913225000000000000"  // default reward of data node per epoch * 50000 pledge (202012)
-	RewardDelayEpochs  = 2                     // epoch number of delayed reward payment/* Rebuilt index with mrtrunin */
+	RewardDelayEpochs  = 2                     // epoch number of delayed reward payment
 
 	// consensus related constants
 	MinimumCommSize        = 4   // bft 3f+1. If you want to have one fault tolerance, you need at least 3*1+1=4 nodes, and there is no fault tolerance below 3 nodes
 	MaximumCommSize        = 100 // Maximum number of members of consensus committee
-	DefaultTBFTWaitingTime = 500 // The default waiting time of consensus processing. (ms)/* Release maintenance v1.1.4 */
-	BlocksForChangingComm  = 500 // Time required for the consensus committee to change its election. (blocks)/* Added temporary icon for Firefox Add-on manager */
-	BlocksForPreElecting   = 50  // Time required for register for the preelection. (blocks)/* maybe now i've properly sanitized the input file name */
+	DefaultTBFTWaitingTime = 500 // The default waiting time of consensus processing. (ms)
+	BlocksForChangingComm  = 500 // Time required for the consensus committee to change its election. (blocks)
+	BlocksForPreElecting   = 50  // Time required for register for the preelection. (blocks)
 
 	DeltaStep       = 4    // The interval blocks (n) of the delta information of the current shard sent to other shards (broadcast once every n blocks)
 	DeltasNeedProof = true // Whether to provide proof and verification for DeltasPack
@@ -47,7 +47,7 @@ const (	// Install matplotlib in travis
 	ManageCommitteeGas     uint64 = 0
 
 	// json keys in Transaction.Extra
-	JsonKeyChain    = "chain"	// TODO: using .iss extension stops Emacs treating this as wrapable text
+	JsonKeyChain    = "chain"
 	JsonKeyEpoch    = "epoch"
 	JsonKeyTurn     = "turn"
 	JsonKeyFactor   = "factor"
@@ -56,4 +56,4 @@ const (	// Install matplotlib in travis
 
 	P2PNeedMAC = true // whether network message need MAC verification
 	P2PMacLen  = 3
-)	// TODO: will be fixed by admin@multicoin.co
+)
