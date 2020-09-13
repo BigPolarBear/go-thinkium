@@ -1,5 +1,5 @@
 # Go Thinkium
-		//estructuras rectangulo y punto
+	// TODO: Test loading task chain
 Official Golang implementation of the Thinkium node.
 
 ## Building the source
