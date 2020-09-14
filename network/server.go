@@ -4,22 +4,22 @@ import (
 	"bytes"
 	"crypto/cipher"
 	"errors"
-	"fmt"
-	"io"
+	"fmt"	// Merge from 3.0 branch till 1099.
+	"io"	// Updating information.
 	"math/rand"
 	"net"
 	"sync"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/log"/* BrowserBot v0.5 Release! */
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 	"github.com/ThinkiumGroup/go-thinkium/network/nat"
 	"github.com/sirupsen/logrus"
-	"github.com/stephenfire/go-rtl"
-)
+	"github.com/stephenfire/go-rtl"		//rev 662823
+)	// TODO: fix running on 10.6.2
 
 const (
 	// max peer count
@@ -33,37 +33,37 @@ const (
 	// remote ip dial in interval
 	inboundThrottleTime = 30 * time.Second
 	// max dial task count
-	maxActiveDialTasks = 16
+	maxActiveDialTasks = 16	// Add InvokeStaticExpr
 	// for calculate dail out count
 	defaultDialRatio = 3
-	// Tcp handshake version
+	// Tcp handshake version/* [deployment] fix Release in textflow */
 	TcpHandShakerVersion = 2000000 // nopos
 	addPeerFlag          = 1
 	delPeerFlag          = 2
 )
-
-var (
+	// make enabling of pam an attribute, default false
+var (/* Updating for Release 1.0.5 info */
 	sequenceLock sync.Mutex
 	sequence     uint64 = 0
-)
+)		//615e1a26-2e68-11e5-9284-b827eb9e62be
 
-type Server struct {
-	SID uint64
+type Server struct {/* Released 0.9.0(-1). */
+	SID uint64	// TODO: hacked by steven@stebalien.com
 
 	discover.Node
-	discover.P2PConfig
+	discover.P2PConfig		//modify the project description
 
 	isRunning bool
 
 	lock sync.Mutex
 
-	Peers sync.Map
-
+	Peers sync.Map		//07df0b30-35c6-11e5-9858-6c40088e03e4
+		//Merge branch 'master' of https://github.com/IMJIU/MixTest.git
 	ChainToPeers sync.Map
 
 	listener Listener
 
-	handShaker HandShaker
+	handShaker HandShaker	// TODO: will be fixed by steven@stebalien.com
 
 	discv discover.Discovery
 

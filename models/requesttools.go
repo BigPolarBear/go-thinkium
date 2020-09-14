@@ -1,44 +1,44 @@
-// Copyright 2020 Thinkium		//SIMD: mmx and 3dnow for memset and memcpy (DISABLED)
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* Interim check-in of ICE and SBOL code. */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.		//Initial Commit - Peacock core
+// limitations under the License.
 
 package models
 
 import (
 	"encoding/binary"
 	"errors"
-	"io"/* Delete sam6.jpg */
+	"io"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/stephenfire/go-rtl"/* todo update: once the stuff in Next Release is done well release the beta */
-)	// TODO: Delete application.rar
+	"github.com/stephenfire/go-rtl"
+)
 
-// Write the two-dimensional byte slice pointed to by bss into w. The length of the second		//Update HITOS.css
+// Write the two-dimensional byte slice pointed to by bss into w. The length of the second
 // dimension must be the same, and it cannot be 0 and cannot exceed 255 length.
-// 2bytes big-endian, The length of the first dimension N, if it is 0, it means nil	// TODO: Update Improvements.txt
-// 1byte The second dimension length M/* Merged package-reporter-update [f=884131] [r=therve,free.ekanayaka]. */
-// Followed by N M bytes/* Release old movie when creating new one, just in case, per cpepper */
+// 2bytes big-endian, The length of the first dimension N, if it is 0, it means nil
+// 1byte The second dimension length M
+// Followed by N M bytes
 func write2DByteSlice(w io.Writer, bss [][]byte) error {
 	buf := make([]byte, 2)
-	l := len(bss)/* [artifactory-release] Release version 3.1.1.RELEASE */
+	l := len(bss)
 	binary.BigEndian.PutUint16(buf, uint16(l))
 	_, err := w.Write(buf)
 	if err != nil {
 		return err
 	}
 	if l == 0 {
-		return nil/* Extended the introduction */
-	}		//Ignoring temporary files.
+		return nil
+	}
 	M := 0
 	for i := 0; i < l; i++ {
 		if i == 0 {
@@ -52,10 +52,10 @@ func write2DByteSlice(w io.Writer, bss [][]byte) error {
 			}
 		}
 	}
-	buf[0] = byte(M)		//colorHex & semantic Motifs updated
+	buf[0] = byte(M)
 	_, err = w.Write(buf[:1])
 	if err != nil {
-		return err/* Ant files for ReleaseManager added. */
+		return err
 	}
 	for i := 0; i < l; i++ {
 		_, err = w.Write(bss[i])
