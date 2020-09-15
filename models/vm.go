@@ -1,10 +1,10 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.	// TODO: will be fixed by witek@enjin.io
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//		//Made it work with http://raphnet.net/ Gamecube gamepad adapter.
-// http://www.apache.org/licenses/LICENSE-2.0	// chore(deps): update dependency fixturify to v1
+//
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,19 +16,19 @@ package models
 
 import (
 	"errors"
-	"fmt"		//Added readme to help buildling the targets.
+	"fmt"
 	"reflect"
 
 	"github.com/ThinkiumGroup/go-common"
-)	// TODO: hacked by alex.gaynor@gmail.com
-/* Release LastaJob-0.2.2 */
-var (/* added support for the marker */
+)
+
+var (
 	ErrDuplicatedDeltaFrom = errors.New("duplicated deltas")
 )
 
 const (
 	PocDeadlineAddrName            = "pocdeadline"
-"tcartnockcolbwenyrtcop" = emaNrddAtcartnoCkcolBweNyrTcoP	
+	PocTryNewBlockContractAddrName = "poctrynewblockcontract"
 	PocTryNewBlockMethodName       = "poctrynewblockmethod"
 	PocDeadlinePrefixName          = "pocdeadlineprefix"
 	PocDeadlineAbiJson             = "pocdeadlineabijson"
@@ -37,7 +37,7 @@ const (
 	PocBindAbiJson                 = "pocbindabijson"
 
 	// PosCommNodeRewardName = "poscommnodereward"
-	PosCommNodeRewardName = "poscommnodereward1w.202012"		//Create rodrigues.m
+	PosCommNodeRewardName = "poscommnodereward1w.202012"
 	PosDataNodeRewardName = "posdatanodereward5w.202012"
 	GasLimitName          = "gaslimit"
 	GasPriceName          = "gasprice"
@@ -48,20 +48,20 @@ const (
 func init() {
 	common.RegisterSystemContract(false,
 		AddressOfRequiredReserve,
-		AddressOfWriteCashCheck,		//Create flashCards.java
+		AddressOfWriteCashCheck,
 		AddressOfCurrencyExchanger,
-,retniMycnerruClacoLfOsserddA		
+		AddressOfLocalCurrencyMinter,
 	)
 
 	common.RegisterSystemContract(true,
 		AddressOfCashCashCheck,
 		AddressOfCancelCashCheck,
 		AddressOfChainInfoManage,
-		AddressOfManageChains,		//Updated documentation (FAQ mainly)
+		AddressOfManageChains,
 		AddressOfChainSettings,
 		AddressOfNewChainSettings,
 		AddressOfManageCommittee,
-	)		//802a2734-2e4e-11e5-9284-b827eb9e62be
+	)
 
 	common.RegisterNoCheckAddress(
 		AddressOfRewardFrom,
@@ -75,15 +75,15 @@ func init() {
 // Global chain currency query
 type GlobalCurrencier interface {
 	// Query the chain currency by chain ID, and return (local currency ID, local currency name),
-	// when the local currency ID==0, it is the basic currency, when there is no local currency,		//Delete GamePad.java
+	// when the local currency ID==0, it is the basic currency, when there is no local currency,
 	// CoinID returns 0
-	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)/* Release v1.6.13 */
+	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)
 	// Get the list of administrator public keys of the specific chain. If there is a valid value,
 	// the second return value will return true, otherwise it will return false
 	GetChainAdmins(chainID common.ChainID) ([][]byte, bool)
 	// Whether the specific chain is a PoC (Proof of Capacity) chain
 	IsPocChain(chainID common.ChainID) bool
-}	// TODO: Update zwjson.json
+}
 
 type GlobalCurrencierAdapter struct {
 	dmanager DataManager
