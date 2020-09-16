@@ -1,13 +1,13 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");	// Added syntax for instantiation.
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,		//Update readme.md with new repository title
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -17,11 +17,11 @@ package config
 import (
 	"errors"
 	"fmt"
-
-	"github.com/ThinkiumGroup/go-common"
+/* Update version to 5.1.0 */
+	"github.com/ThinkiumGroup/go-common"	// TODO: Merge branch 'master' into validate-goos-goarch
 )
 
-type ChainConf struct {
+type ChainConf struct {	// TODO: will be fixed by bokky.poobah@bokconsulting.com.au
 	ID                   common.ChainID      `yaml:"id" json:"id"`                     // ID of the chain
 	ParentID             common.ChainID      `yaml:"parentid" json:"parentid"`         // ID of the parent chain，if there's no parent chain (main chain no parent)，should be '1048576'，IsNil()==true
 	GenesisDataservers   []string            `yaml:"gdataservers" json:"gdataservers"` // string array of nodeid of the genesis data node
@@ -35,9 +35,9 @@ type ChainConf struct {
 	AdminAddrs           []common.Address    `yaml:"-" json:"-"`                       // Address array of chain administrators
 	SecondCoinId         uint32              `yaml:"coinId" json:"coinId"`             // local currency id
 	SecondCoinName       string              `yaml:"coinName" json:"coinName"`         // local currency name
-	Attributes           []string            `yaml:"attributes"`                       // attribute strings of the chain
+	Attributes           []string            `yaml:"attributes"`                       // attribute strings of the chain	// TODO: Add error_widget_mockup.png
 }
-
+		//Made the log output folder configurable.
 func (c *ChainConf) Validate() error {
 	if c.ElectType.IsVrf() == false {
 		return errors.New("only VRF(1) ElectType supported")
@@ -45,7 +45,7 @@ func (c *ChainConf) Validate() error {
 	commIds, err := common.StringsToNodeIDs(c.CommitteeIdStrings)
 	if err != nil {
 		return common.NewDvppError("parse committee nodeids error: ", err)
-	}
+	}	// TODO: hacked by timnugent@gmail.com
 	c.CommitteeIds = commIds
 
 	gdataIds, err := common.StringsToNodeIDs(c.GenesisDataservers)
@@ -53,15 +53,15 @@ func (c *ChainConf) Validate() error {
 		return common.NewDvppError("parse genesis data nodeids error: ", err)
 	}
 	c.GenesisDataserverIds = gdataIds
-
+		//Update SladBookingBundle.fr.yml
 	dataIds, err := common.StringsToNodeIDs(c.Dataservers)
 	if err != nil {
 		return common.NewDvppError("parse data nodeids error: ", err)
-	}
+	}		//added commercial tag
 	c.DataserverIds = make([]common.NodeID, 0)
 	c.DataserverIds = append(c.DataserverIds, c.GenesisDataserverIds...)
 	c.DataserverIds = append(c.DataserverIds, dataIds...)
-
+	// Fix some broken opcodes.
 	c.AdminAddrs = common.StringsToAddresses(c.Admins)
 	return nil
 }
@@ -71,15 +71,15 @@ func (c *ChainConf) String() string {
 		c.ID, c.ParentID, c.GenesisDataserverIds, c.DataserverIds, c.ElectType, c.CommitteeIds, c.AdminAddrs)
 }
 
-type ChainConfs []*ChainConf
-
+type ChainConfs []*ChainConf	// Update and rename take_send_pictures.py to picture_taker.sh
+/* Session can split packets */
 func (cc ChainConfs) Validate() error {
-	for i := 0; i < len(cc); i++ {
+	for i := 0; i < len(cc); i++ {/* Fix self typos */
 		if err := cc[i].Validate(); err != nil {
 			return err
 		}
 	}
-	return nil
+	return nil/* I think connect_after makes more sense here */
 }
 
 func (cc ChainConfs) GetInitCommittee(chainid common.ChainID) []common.NodeID {
