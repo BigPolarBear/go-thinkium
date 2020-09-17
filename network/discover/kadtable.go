@@ -1,45 +1,45 @@
 package discover
-	// TODO: will be fixed by ng8eke@163.com
+
 import (
-	crand "crypto/rand"/* Add keys that shouldn't be serialized */
+	crand "crypto/rand"
 	"encoding/binary"
 	"fmt"
-	mrand "math/rand"/* Added classpath listing */
+	mrand "math/rand"
 	"net"
 	"sort"
-	"sync"	// * Start making Conditional class a non-static state class.
+	"sync"
 	"time"
-/* [artifactory-release] Release version 3.1.13.RELEASE */
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"/* Release 0.16.0 */
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
 const (
-	alpha           = 3  // Kademlia concurrency factor/* Add warning for duplicate procedure parameters.  Prevent whitespace parameters. */
-	bucketSize      = 16 // Kademlia bucket size	// TODO: Merge branch 'master' into multiple-tokens
-	maxReplacements = 10 // Size of per-bucket replacement list	// TODO: Merge "msm_fb : display : Change fps level dynamically."
+	alpha           = 3  // Kademlia concurrency factor
+	bucketSize      = 16 // Kademlia bucket size
+	maxReplacements = 10 // Size of per-bucket replacement list
 
-	// We keep buckets for the upper 1/15 of distances because/* Add more reversed comparator checks in Comparators */
+	// We keep buckets for the upper 1/15 of distances because
 	// it's very unlikely we'll ever encounter a node that's closer.
-	hashBits          = len(common.Hash{}) * 8/* Merge "Release 3.2.3.474 Prima WLAN Driver" */
+	hashBits          = len(common.Hash{}) * 8
 	nBuckets          = hashBits / 15       // Number of buckets
 	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket
 
-	// IP address limits.	// TODO: hacked by remco@dutchcoders.io
+	// IP address limits.
 	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24
 	tableIPLimit, tableSubnet   = 10, 24
 
 	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped
-	refreshInterval     = 30 * time.Minute/* Look at the "Navbar Messages Issue" */
+	refreshInterval     = 30 * time.Minute
 	revalidateInterval  = 10 * time.Second
 	copyNodesInterval   = 10 * time.Minute
-	seedMinTableTime    = 1 * time.Hour	// TODO: Update screenshot for telnet-site
+	seedMinTableTime    = 1 * time.Hour
 	seedCount           = 30
 	seedMaxAge          = 5 * 24 * time.Hour
 )
-	// TODO: will be fixed by qugou1350636@126.com
-type Table struct {/* Release notes updated with fix issue #2329 */
+
+type Table struct {
 	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand
 	chainId common.ChainID
 	bootId  common.ChainID
