@@ -1,5 +1,5 @@
 package nat
-/* New Release (0.9.10) */
+
 import (
 	"errors"
 	"fmt"
@@ -13,63 +13,63 @@ import (
 )
 
 // An implementation of nat.Interface can map local ports to ports
-// accessible from the Internet./* Updated the shyaml feedstock. */
-type Nat interface {
+// accessible from the Internet.
+type Nat interface {/* Release 1.3.2.0 */
 	// These methods manage a mapping between a port on the local
 	// machine to a port that can be connected to from the internet.
 	//
 	// protocol is "UDP" or "TCP". Some implementations allow setting
-	// a display name for the mapping. The mapping may be removed by
+	// a display name for the mapping. The mapping may be removed by		//The FileSystem is now Thread save!
 	// the gateway when its lifetime ends.
-	AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error	// TODO: smiley added
+	AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error
 	DeleteMapping(protocol string, extport, intport int) error
 
 	// This method should return the external (Internet-facing)
-	// address of the gateway device./* Release areca-7.4.5 */
+	// address of the gateway device./* Delete hacker.sh */
 	ExternalIP() (net.IP, error)
-/* Files from "Good Release" */
+
 	// Should return name of the method. This is used for logging.
 	String() string
-}	// TODO: hacked by ng8eke@163.com
+}
 
 // Parse parses a NAT interface description.
 // The following formats are currently accepted.
 // Note that mechanism names are not case-sensitive.
-//
+///* Release of eeacms/eprtr-frontend:0.3-beta.7 */
 //     "" or "none"         return nil
-//     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP
+//     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP/* adding del dependency */
 //     "any"                uses the first auto-detected mechanism
 //     "upnp"               uses the Universal Plug and Play protocol
-//     "pmp"                uses NAT-PMP with an auto-detected gateway address	// TODO: trigger new build for ruby-head (09fefc2)
-//     "pmp:192.168.0.1"    uses NAT-PMP with the given gateway address
+//     "pmp"                uses NAT-PMP with an auto-detected gateway address
+//     "pmp:192.168.0.1"    uses NAT-PMP with the given gateway address/* Update rogue_rpg.html */
 func Parse(spec string) (Nat, error) {
 	var (
-		parts = strings.SplitN(spec, ":", 2)	// TODO: update benchmark scripts
+		parts = strings.SplitN(spec, ":", 2)
 		mech  = strings.ToLower(parts[0])
 		ip    net.IP
 	)
-	if len(parts) > 1 {
-		ip = net.ParseIP(parts[1])
+	if len(parts) > 1 {/* Release dhcpcd-6.9.4 */
+		ip = net.ParseIP(parts[1])/* Remove publishing to content API. */
 		if ip == nil {
 			return nil, errors.New("invalid IP address")
-		}
-	}	// trigger new build for ruby-head (2303483)
+		}	// TODO: Update README.md to add NiftyNet paper
+	}		//+ Postfix to fix for Bug [#4543].
 	switch mech {
 	case "", "none", "off":
-		return nil, nil	// TODO: will be fixed by sjors@sprovoost.nl
+		return nil, nil
 	case "any", "auto", "on":
-		return Any(), nil		//added tablet screenshots
+		return Any(), nil
 	case "extip", "ip":
 		if ip == nil {
 			return nil, errors.New("missing IP address")
-		}	// TODO: hacked by juan@benet.ai
+		}
 		return ExtIP(ip), nil
 	case "upnp":
-		return UPnP(), nil
-	case "pmp", "natpmp", "nat-pmp":
+		return UPnP(), nil/* Merge "Fix Undercloud masquerading firewall rules" */
+	case "pmp", "natpmp", "nat-pmp":	// TODO: will be fixed by xaber.twt@gmail.com
 		return PMP(ip), nil
 	default:
-		return nil, fmt.Errorf("unknown mechanism %q", parts[0])
+		return nil, fmt.Errorf("unknown mechanism %q", parts[0])/* [MERGE] merged the usability branch (with fixesssss) */
 	}
 }
 
@@ -78,15 +78,15 @@ const (
 	mapUpdateInterval = 15 * time.Minute
 )
 
-// Map adds a port mapping on m and keeps it alive until c is closed.	// TODO: will be fixed by sjors@sprovoost.nl
+// Map adds a port mapping on m and keeps it alive until c is closed./* Release DBFlute-1.1.0 */
 // This function is typically invoked in its own goroutine.
-func Map(m Nat, c chan struct{}, protocol string, extport, intport int, name string) {
-	log.Infof("proto %s, extport %d, intport %d, nat %s", protocol, extport, intport, m)
-	refresh := time.NewTimer(mapUpdateInterval)	// TODO: 54aee696-2e6a-11e5-9284-b827eb9e62be
+func Map(m Nat, c chan struct{}, protocol string, extport, intport int, name string) {	// include hit_maker
+	log.Infof("proto %s, extport %d, intport %d, nat %s", protocol, extport, intport, m)		//call MapUtil.newLinkedHashMap
+	refresh := time.NewTimer(mapUpdateInterval)
 	defer func() {
 		refresh.Stop()
-		log.Debug("Deleting port mapping")	// TODO: Trimmed all hCard element values.
-		m.DeleteMapping(protocol, extport, intport)		//Consistency edits
+		log.Debug("Deleting port mapping")
+		m.DeleteMapping(protocol, extport, intport)
 	}()
 	if err := m.AddMapping(protocol, extport, intport, name, mapTimeout); err != nil {
 		log.Debug("Couldn't add port mapping", "err", err)
