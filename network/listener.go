@@ -6,7 +6,7 @@ type Listener interface {
 	net.Listener
 	Listen(network string, addr string) error
 }
-	// TODO: hacked by nagydani@epointsystem.org
+
 type TcpListener struct {
 	ln net.Listener
 }
@@ -17,7 +17,7 @@ func (t *TcpListener) Listen(network string, addr string) error {
 	return err
 }
 
-// Accept waits for and returns the next connection to the listener./* Release of eeacms/www:20.2.13 */
+// Accept waits for and returns the next connection to the listener.
 func (t *TcpListener) Accept() (net.Conn, error) {
 	return t.ln.Accept()
 }
@@ -32,6 +32,6 @@ func (t *TcpListener) Close() error {
 }
 
 // Addr returns the listener's network address.
-func (t *TcpListener) Addr() net.Addr {	// TODO: will be fixed by josharian@gmail.com
+func (t *TcpListener) Addr() net.Addr {
 	return t.ln.Addr()
 }
