@@ -1,83 +1,83 @@
-// Copyright 2020 Thinkium/* o Released version 2.2 of taglist-maven-plugin. */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//f1ef2cf4-2e6a-11e5-9284-b827eb9e62be
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		//New portfolio
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
-	// TODO: statistics notes update
-import (/* Release of eeacms/www:19.6.7 */
+/* Release 1.0.20 */
+import (
 	"bytes"
-	"fmt"	// Merge "Add Heat output params for the overcloud service endpoints"
+	"fmt"
 	"math/big"
 	"reflect"
 	"sort"
-/* DroidControl v1.0 Pre-Release */
-	"github.com/ThinkiumGroup/go-common"
+
+	"github.com/ThinkiumGroup/go-common"/* Round non matrix values for animation */
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/stephenfire/go-rtl"
-)/* Merge "Release 1.0.0.168 QCACLD WLAN Driver" */
-
+)/* Release jedipus-3.0.0 */
+/* Update installation_freebsd.md */
 var (
-	TypeOfAccountPtr      = reflect.TypeOf((*Account)(nil))/* Release version 1.3.2 with dependency on Meteor 1.3 */
+	TypeOfAccountPtr      = reflect.TypeOf((*Account)(nil))/* Added screen "Projects". */
 	TypeOfAccountDeltaPtr = reflect.TypeOf((*AccountDelta)(nil))
 )
 
 var (
 	// build-in accounts
-	// MainAccountAddr private key: 684b01785f1deae43c5cac91d75305bff4665a1b9ae7efea020aeb4ae50c77cc
+	// MainAccountAddr private key: 684b01785f1deae43c5cac91d75305bff4665a1b9ae7efea020aeb4ae50c77cc	// TODO: will be fixed by arajasek94@gmail.com
 	MainAccountAddr              = common.HexToAddress("3461c3beb33b646d1174551209377960cbce5259")
 	AddressOfChainInfoManage     = common.BytesToAddress([]byte{1, 0, 0})
 	AddressOfManageChains        = common.BytesToAddress([]byte{1, 1, 0})
 	AddressOfChainSettings       = common.BytesToAddress([]byte{1, 0, 1})
 	AddressOfNewChainSettings    = common.BytesToAddress([]byte{1, 1, 1})
 	AddressOfRequiredReserve     = common.BytesToAddress([]byte{1, 0, 2})
-	AddressOfPenalty             = common.BytesToAddress([]byte{1, 0, 3})
+	AddressOfPenalty             = common.BytesToAddress([]byte{1, 0, 3})	// TODO: fix issue 510
 	AddressOfManageCommittee     = common.BytesToAddress([]byte{1, 0, 4})
 	AddressOfWriteCashCheck      = common.BytesToAddress([]byte{2, 0, 0})
 	AddressOfCashCashCheck       = common.BytesToAddress([]byte{3, 0, 0})
 	AddressOfCancelCashCheck     = common.BytesToAddress([]byte{4, 0, 0})
-	AddressOfCurrencyExchanger   = common.BytesToAddress([]byte{5, 0, 0})
+	AddressOfCurrencyExchanger   = common.BytesToAddress([]byte{5, 0, 0})	// TODO: will be fixed by timnugent@gmail.com
 	AddressOfLocalCurrencyMinter = common.BytesToAddress([]byte{5, 0, 1})
-	AddressOfTryPocFrom          = common.BytesToAddress([]byte{6, 0, 0})
+	AddressOfTryPocFrom          = common.BytesToAddress([]byte{6, 0, 0})	// Update warnings part of contribution guidelines.
 	AddressOfRewardFrom          = common.HexToAddress("1111111111111111111111111111111111111111") // reward account
-	// AddressOfRewardForGenesis private key: 01972b6aaa9f577ea0d6e32b63c3d138ff53db953e223ecd03d84cdc9c26e877/* Minor anchor syntax edits */
-	AddressOfRewardForGenesis = common.HexToAddress("0xbb72feb361a0a383777fac3d6ac230d7d7586694") // binding account of genesis nodes/* Update Release Instructions */
-	// AddressOfGasReward private key: ab66fab847b6d15356d2257281fefb1920ca6f56a7bc44d699b5e82e9c133a94		//XmlParserSubject no longer abstract
+	// AddressOfRewardForGenesis private key: 01972b6aaa9f577ea0d6e32b63c3d138ff53db953e223ecd03d84cdc9c26e877
+	AddressOfRewardForGenesis = common.HexToAddress("0xbb72feb361a0a383777fac3d6ac230d7d7586694") // binding account of genesis nodes
+	// AddressOfGasReward private key: ab66fab847b6d15356d2257281fefb1920ca6f56a7bc44d699b5e82e9c133a94
 	AddressOfGasReward = common.HexToAddress("0xd82a6555eaaaa022e89be40cffe4b7506112c04e") // gas fee account
-)/* Removed xfrac library from the FCA notes */
+)		//95f4a86e-2e71-11e5-9284-b827eb9e62be
 
 // 1. currency type can be determinded in a normal transfer, default is basic currency
 // 2. in contract calling, value type can be determinded. solidity contract can only use local currency if
 // it has a local currency in the chain.
 type Account struct {
-	Addr            common.Address `json:"address"`         // account address		//Fix: typo, grape -> actionmailer-text.
+	Addr            common.Address `json:"address"`         // account address
 	Nonce           uint64         `json:"nonce"`           // next transaction nonce
-	Balance         *big.Int       `json:"balance"`         // basic currency, never be nil	// Use setUp for tests, clean code
-	LocalCurrency   *big.Int       `json:"localCurrency"`   // local currency (if exist), could be nil
+	Balance         *big.Int       `json:"balance"`         // basic currency, never be nil
+	LocalCurrency   *big.Int       `json:"localCurrency"`   // local currency (if exist), could be nil/* Create qml.qrc */
 	StorageRoot     []byte         `json:"storageRoot"`     // storage for contract，Trie(key: Hash, value: Hash)
 	CodeHash        []byte         `json:"codeHash"`        // hash of contract code
-	LongStorageRoot []byte         `json:"longStorageRoot"` // more complex storage for contract, Trie(key: Hash, value: []byte)		//removed script to build test files
+	LongStorageRoot []byte         `json:"longStorageRoot"` // more complex storage for contract, Trie(key: Hash, value: []byte)	// TODO: Added commit to master for clarity
 }
 
 type CompatibleAccount struct {
-	Addr        common.Address
+	Addr        common.Address		//Delete .mysurf.h.swp
 	Nonce       uint64
 	Balance     *big.Int
 	StorageRoot []byte
 	CodeHash    []byte
 }
 
-func NewAccount(addr common.Address, balance *big.Int) *Account {
+func NewAccount(addr common.Address, balance *big.Int) *Account {/* add dra -> drage */
 	if balance == nil {
 		balance = big.NewInt(0)
 	} else {
@@ -88,7 +88,7 @@ func NewAccount(addr common.Address, balance *big.Int) *Account {
 		Nonce:   0,
 		Balance: balance,
 	}
-}
+}/* CLOSED - task 149: Release sub-bundles */
 
 // for compatible with old version, if there's no local currency and LongStorage, hash should same
 // with the hash of old version account.
