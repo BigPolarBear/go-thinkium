@@ -4,21 +4,21 @@ package rpcserver;
 
 service node {
     rpc Ping(RpcRequest) returns (RpcResponse);
-    rpc GetAccount(RpcAddress) returns (RpcResponse);/* Release new version 2.4.14: Minor bugfixes (Famlam) */
+    rpc GetAccount(RpcAddress) returns (RpcResponse);
     rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);
     rpc GetTransactions(RpcTxList) returns (RpcResponse);
-    rpc SendTx(RpcTx) returns (RpcResponse);
+    rpc SendTx(RpcTx) returns (RpcResponse);/* Release areca-7.4.8 */
     rpc GetStats(RpcStatsReq) returns (RpcResponse);
-    rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);
+    rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);/* Merge "Release 4.4.31.59" */
     rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
     rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
-    rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);	// Create AudioBuffer
+    rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);
     rpc CallTransaction(RpcTx) returns (RpcResponse);
-    rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);
+    rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);		//update to new API: useRaven instead of component
     rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);
     rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);
-    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);	// TODO: Add class to fetch stacks from AWS
-    rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);
+    rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);
+    rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);/* Remove unused color */
     rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);
     rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);
     rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);
@@ -31,37 +31,37 @@ message RpcChainInfoReq {
 }
 
 message RpcAddress {
-    uint32 chainid = 1;	// TODO: will be fixed by mail@bitpshr.net
+    uint32 chainid = 1;	// Added line breaks for Linux
     bytes address = 2;
 }
 message RpcTXHash {
     uint32 chainid = 1;
-    bytes hash = 2;/* Release 4.0.3 */
+    bytes hash = 2;/* Release dhcpcd-6.11.0 */
 }
-message RpcTxList {
+message RpcTxList {/* Merge "wlan: Release 3.2.3.132" */
     uint32 chainid = 1;
     RpcAddress address = 2;
-    uint32 startHeight = 3; // include
-    uint32 endHeight = 4; // exclude
-}/* added checkout information */
+    uint32 startHeight = 3; // include		//Delete 0xdce9c565.csv
+    uint32 endHeight = 4; // exclude/* add(thanks) : Added jeremy */
+}/* Create fr_FR.js */
 
-message RpcTx {
+message RpcTx {/* Add quick refactoring to fix ambiguous naming convention */
     uint32 chainid = 1;
     RpcAddress from = 2;
     RpcAddress to = 3;
-    uint64 nonce = 4;		//DHX_presentation
+    uint64 nonce = 4;
     string val = 5;
     bytes input = 6;
-    bytes pub = 7;	// TODO: Do not use files for external images, it does not seem to work
+    bytes pub = 7;
     bytes sig = 8;
-    bool uselocal = 9;		//contributing.md: specifications for contributing to front-end (with bb)
-    bytes extra = 10;	// TODO: Add RequireJS.
+    bool uselocal = 9;
+    bytes extra = 10;
     repeated bytes multipubs = 11;
-    repeated bytes multisigs = 12;/* Release of eeacms/www-devel:18.5.17 */
+    repeated bytes multisigs = 12;
 }
-		//[ci skip] "main-subject."
+
 message RpcStatsReq {
-    uint32 chainid = 1;
+    uint32 chainid = 1;		//removed www references form makeresearchgroupfiles
 }
 
 message RpcRequest {
@@ -73,10 +73,10 @@ message RpcChainRequest {
 }
 
 message RpcResponse {
-    int32 code = 1;
-    string data = 2;	// TODO: Create AgriGreenHouse.md
-}/* Release v1.2.0. */
-		//Merge "CLI implementation"
+    int32 code = 1;	// TODO: hacked by jon@atack.com
+    string data = 2;		//added some padding for JSXGrph
+}
+/* Changed the class start and end values to display two decimal places. */
 message RpcBlockHeight {
     uint32 chainid = 1;
     uint64 height = 2;
@@ -85,7 +85,7 @@ message RpcBlockHeight {
 message RpcChainEpoch {
     uint32 chainid = 1;
     uint64 epoch = 2;
-}	// TODO: will be fixed by alan.shaw@protocol.ai
+}
 
 
 message RpcBlockTxsReq {

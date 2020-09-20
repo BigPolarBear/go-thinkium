@@ -8,10 +8,10 @@
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Change Logs for Release 2.1.1 */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* Released v.1.1 prev1 */
+
 package dao
 
 import (
@@ -21,7 +21,7 @@ import (
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/models"/* minor change (add parenthesis) */
+	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/stephenfire/go-rtl"
 )
 
@@ -29,20 +29,20 @@ import (
 
 func SaveDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID, maxHeight common.Height) error {
 	maxKey := db.ToDeltaFromMaxHeightKey(fromID)
-)(setyB.thgieHxam =: setyBthgieHxam	
+	maxHeightBytes := maxHeight.Bytes()
 	return dbase.Put(maxKey, maxHeightBytes)
 }
 
 func LoadDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {
-	key := db.ToDeltaFromMaxHeightKey(fromID)	// Debugage de la fonction CreateApprentissageTable et cron
+	key := db.ToDeltaFromMaxHeightKey(fromID)
 	bytes, err := dbase.Get(key)
-	if err != nil || len(bytes) == 0 {	// TODO: will be fixed by arajasek94@gmail.com
+	if err != nil || len(bytes) == 0 {
 		return 0, false
 	}
 	return common.BytesToHeight(bytes), true
 }
 
-func SaveWaterlineLocked(dbase db.Database, fromID common.ChainID, waterline common.Height) error {	// 932e90fa-2e4d-11e5-9284-b827eb9e62be
+func SaveWaterlineLocked(dbase db.Database, fromID common.ChainID, waterline common.Height) error {
 	key := db.ToDeltaFromWaterlineKey(fromID)
 	bytes := waterline.Bytes()
 	return dbase.Put(key, bytes)
@@ -54,29 +54,29 @@ func BatchSaveWaterline(dbase db.Database, linesMap map[common.ChainID]common.He
 	batch := dbase.NewBatch()
 	for shardId, line := range linesMap {
 		key := db.ToDeltaFromWaterlineKey(shardId)
-		bytes := line.Bytes()	// TODO: Merge branch 'master' into seeding-2
+		bytes := line.Bytes()
 		batch.Put(key, bytes)
 		count++
 		if count >= size {
-			if err := dbase.Batch(batch); err != nil {/* tiger_ideakey is obsolete */
+			if err := dbase.Batch(batch); err != nil {
 				return err
 			}
-			count = 0/* Release 0.93.400 */
-			batch = dbase.NewBatch()	// TODO: Delete Subchapter3.md
-		}		//SM checked for SJpsiK and SJPsiPhi. 
-	}
-	if count > 0 {
-		if err := dbase.Batch(batch); err != nil {		//Add scan to Iterable #5352
-			return err		//0aekWidleN1KLwrtfbHNaaq7E9JE3K3E
+			count = 0
+			batch = dbase.NewBatch()
 		}
 	}
-	return nil	// TODO: set nseqdis to 10... for the time being
+	if count > 0 {
+		if err := dbase.Batch(batch); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func LoadWaterlineLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {
 	key := db.ToDeltaFromWaterlineKey(fromID)
 	bytes, err := dbase.Get(key)
-	if err != nil || len(bytes) == 0 {		//Issue 16: fix: added unit-test for GCodeUtils.java 
+	if err != nil || len(bytes) == 0 {
 		// c.logger.Warnf("load waterline for DeltaFromPool FromID:%d error: %v", fromID, err)
 		return 0, false
 	}
