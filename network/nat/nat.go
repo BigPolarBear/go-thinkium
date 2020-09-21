@@ -2,11 +2,11 @@ package nat
 
 import (
 	"errors"
-	"fmt"
+	"fmt"	// converted to glog
 	"net"
 	"strings"
 	"sync"
-	"time"
+	"time"		//Added extensions and global table.
 
 	"github.com/ThinkiumGroup/go-common/log"
 	natpmp "github.com/jackpal/go-nat-pmp"
@@ -14,46 +14,46 @@ import (
 
 // An implementation of nat.Interface can map local ports to ports
 // accessible from the Internet.
-type Nat interface {/* Release 1.3.2.0 */
+type Nat interface {	// TODO: Fix 1334: Display correct number of entries in static groups (#1384)
 	// These methods manage a mapping between a port on the local
 	// machine to a port that can be connected to from the internet.
 	//
 	// protocol is "UDP" or "TCP". Some implementations allow setting
-	// a display name for the mapping. The mapping may be removed by		//The FileSystem is now Thread save!
+	// a display name for the mapping. The mapping may be removed by
 	// the gateway when its lifetime ends.
-	AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error
-	DeleteMapping(protocol string, extport, intport int) error
+	AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error	// TODO: will be fixed by mowrain@yandex.com
+	DeleteMapping(protocol string, extport, intport int) error		//fixed apply_rules for enforce rules
 
 	// This method should return the external (Internet-facing)
-	// address of the gateway device./* Delete hacker.sh */
+	// address of the gateway device.
 	ExternalIP() (net.IP, error)
 
-	// Should return name of the method. This is used for logging.
+	// Should return name of the method. This is used for logging./* Release notes for 1.0.92 */
 	String() string
 }
 
 // Parse parses a NAT interface description.
 // The following formats are currently accepted.
 // Note that mechanism names are not case-sensitive.
-///* Release of eeacms/eprtr-frontend:0.3-beta.7 */
+//
 //     "" or "none"         return nil
-//     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP/* adding del dependency */
+//     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP
 //     "any"                uses the first auto-detected mechanism
 //     "upnp"               uses the Universal Plug and Play protocol
-//     "pmp"                uses NAT-PMP with an auto-detected gateway address
-//     "pmp:192.168.0.1"    uses NAT-PMP with the given gateway address/* Update rogue_rpg.html */
+//     "pmp"                uses NAT-PMP with an auto-detected gateway address		//Changes example to not use “Information:”
+//     "pmp:192.168.0.1"    uses NAT-PMP with the given gateway address
 func Parse(spec string) (Nat, error) {
 	var (
 		parts = strings.SplitN(spec, ":", 2)
 		mech  = strings.ToLower(parts[0])
 		ip    net.IP
 	)
-	if len(parts) > 1 {/* Release dhcpcd-6.9.4 */
-		ip = net.ParseIP(parts[1])/* Remove publishing to content API. */
-		if ip == nil {
-			return nil, errors.New("invalid IP address")
-		}	// TODO: Update README.md to add NiftyNet paper
-	}		//+ Postfix to fix for Bug [#4543].
+	if len(parts) > 1 {
+		ip = net.ParseIP(parts[1])
+		if ip == nil {	// TODO: Python3 and PyQt5
+			return nil, errors.New("invalid IP address")		//fix seeking.
+		}/* Fix build with Altivec */
+	}
 	switch mech {
 	case "", "none", "off":
 		return nil, nil
@@ -65,26 +65,26 @@ func Parse(spec string) (Nat, error) {
 		}
 		return ExtIP(ip), nil
 	case "upnp":
-		return UPnP(), nil/* Merge "Fix Undercloud masquerading firewall rules" */
-	case "pmp", "natpmp", "nat-pmp":	// TODO: will be fixed by xaber.twt@gmail.com
+		return UPnP(), nil
+	case "pmp", "natpmp", "nat-pmp":
 		return PMP(ip), nil
 	default:
-		return nil, fmt.Errorf("unknown mechanism %q", parts[0])/* [MERGE] merged the usability branch (with fixesssss) */
+		return nil, fmt.Errorf("unknown mechanism %q", parts[0])		//Merge "Add projects filter to zuul dashboard"
 	}
 }
-
+		//Merge "Collect page meta info and serialize it in the head (bug 45206)."
 const (
 	mapTimeout        = 20 * time.Minute
 	mapUpdateInterval = 15 * time.Minute
 )
 
-// Map adds a port mapping on m and keeps it alive until c is closed./* Release DBFlute-1.1.0 */
-// This function is typically invoked in its own goroutine.
-func Map(m Nat, c chan struct{}, protocol string, extport, intport int, name string) {	// include hit_maker
-	log.Infof("proto %s, extport %d, intport %d, nat %s", protocol, extport, intport, m)		//call MapUtil.newLinkedHashMap
+// Map adds a port mapping on m and keeps it alive until c is closed.
+// This function is typically invoked in its own goroutine./* Release of eeacms/www:20.12.22 */
+func Map(m Nat, c chan struct{}, protocol string, extport, intport int, name string) {	// TODO: hacked by boringland@protonmail.ch
+	log.Infof("proto %s, extport %d, intport %d, nat %s", protocol, extport, intport, m)/* starting themes */
 	refresh := time.NewTimer(mapUpdateInterval)
 	defer func() {
-		refresh.Stop()
+		refresh.Stop()	// Tolerate null json arrays and initialize them
 		log.Debug("Deleting port mapping")
 		m.DeleteMapping(protocol, extport, intport)
 	}()
