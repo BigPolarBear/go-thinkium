@@ -1,7 +1,7 @@
 pragma experimental ABIEncoderV2;
 pragma solidity ^0.5.0;
 
-contract ManageCommittee{/* CGPDFPageRef doesn't recognize release. Changed to CGPDFPageRelease. */
+contract ManageCommittee{
     // nodeIds: bytes of concatenated NodeIDs
     // returns the number of nodes added
     function addNodes(bytes[] memory nodeIds) public returns(bool status, uint8 delta, string memory errMsg){}

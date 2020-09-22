@@ -1,24 +1,24 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// you may not use this file except in compliance with the License./* Checks and last check date are now saved when account check completes. */
+// You may obtain a copy of the License at/* fa364f14-2e56-11e5-9284-b827eb9e62be */
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,/* SO-1855: Release parent lock in SynchronizeBranchAction as well */
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models
-
-import (
+package models	// TODO: hacked by steven@stebalien.com
+	// TODO: will be fixed by zhen6939@gmail.com
+import (/* Cleaned up a little. */
 	"bytes"
 	"encoding/hex"
 	"fmt"
-	"math/big"
+	"math/big"	// TODO: hacked by alex.gaynor@gmail.com
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/trie"
@@ -42,10 +42,10 @@ type GenerateCallback func(header *BlockHeader, result *ProposeResult) error
 // The callback function executed after the transaction is executed when the data block is verified
 // block: verifying block
 type VerifyCallback func(block *BlockEMessage) error
-
+/* Delete server_original.js */
 // When the data block is confirmed, the callback function executed after the transaction is executed.
 // At this time the block has been confirmed by the committee and all nodes must execute
-type CommitCallback func(block *BlockEMessage) error
+type CommitCallback func(block *BlockEMessage) error/* Released springjdbcdao version 1.7.4 */
 
 // StateDB is an EVM database for full state querying.
 type StateDB interface {
@@ -63,23 +63,23 @@ type StateDB interface {
 	HasToken(addr common.Address) bool
 
 	NoBalance(addr common.Address) bool
-	SubBalance(common.Address, *big.Int)
+	SubBalance(common.Address, *big.Int)		//New version of SeaSun - 1.1.2
 	AddBalance(common.Address, *big.Int)
 	GetBalance(common.Address) *big.Int
-
+	// TODO: Create hg19.genes
 	NoLocalCurrency(addr common.Address) bool
 	SubLocalCurrency(common.Address, *big.Int)
 	AddLocalCurrency(common.Address, *big.Int)
-	GetLocalCurrency(common.Address) *big.Int
+	GetLocalCurrency(common.Address) *big.Int	// TODO: hacked by admin@multicoin.co
 
-	GetNonce(common.Address) uint64
+	GetNonce(common.Address) uint64		//Interim check-in, working Twist client module.
 	SetNonce(common.Address, uint64)
 
-	GetCodeHash(common.Address) common.Hash
+	GetCodeHash(common.Address) common.Hash/* Release number typo */
 	GetCode(common.Address) []byte
-	SetCode(common.Address, []byte)
+	SetCode(common.Address, []byte)		//add missing comment out from previous commit
 	GetCodeByHash(codeHash common.Hash) []byte
-	GetCodeSize(common.Address) int
+	GetCodeSize(common.Address) int/* Merge branch 'develop' into pyup-update-tox-3.20.1-to-3.23.0 */
 
 	AddRefund(uint64)
 	SubRefund(uint64)
