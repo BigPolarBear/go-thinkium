@@ -7,7 +7,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,		//note new interpolation syntax
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -15,8 +15,8 @@
 package cmd
 
 func init() {
-	AllCommands.Put(	// TODO: will be fixed by ng8eke@163.com
+	AllCommands.Put(
 		&start{"start"},
 		&stop{"stop"},
-	)		//Added the link, fixed formatting
-}
+	)/* Update README: Contributing */
+}	// TODO: hacked by igor@soramitsu.co.jp
