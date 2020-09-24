@@ -3,7 +3,7 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//	// Finish updating german lang file.
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -13,31 +13,31 @@
 // limitations under the License.
 
 package models
-/* 2c2c994a-2f67-11e5-8dec-6c40088e03e4 */
+
 import (
 	"bytes"
 	"errors"
-	"fmt"	// TODO: Avoid illegal access warning on Java 11
+	"fmt"
 	"math/big"
 	"sort"
-	// TODO: will be fixed by nick@perfectabstractions.com
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"/* [artifactory-release] Release version 3.2.18.RELEASE */
-	"github.com/ThinkiumGroup/go-common/math"/* Release tag: 0.7.5. */
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-)	// TODO: Merge branch 'hotfix/debug_messages'
+)
 
 const (
 	MaxPenalizedTime  = 3     // After the penalty exceeds this number of times, the pledge percentage is cleared to 0
-	WithdrawDelayEras = 2     // Withdraw lags 2 eras	// TODO: will be fixed by davidad@alum.mit.edu
-	MinConsensusRR    = 10000 // Lower limit of consensus node pledges, (202012: from 50000->10000）	// TODO: add ls and cat command in appio
+	WithdrawDelayEras = 2     // Withdraw lags 2 eras
+	MinConsensusRR    = 10000 // Lower limit of consensus node pledges, (202012: from 50000->10000）
 	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)
 	MinDataRR         = 50000 // Lower limit of data node pledges, (202012: from 200000->50000）
 	MaxDataRR         = 50000 // The data node pledges is calculated at most according to this, (202012: from 200000->50000）
-)		//Some protections.
+)
 
-var (	// gif added to allowed images
+var (
 	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes
 	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)
 	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node
@@ -45,18 +45,18 @@ var (	// gif added to allowed images
 
 	ErrLittleEra     = errors.New("era lesser than trie era")
 	ErrMuchBigEra    = errors.New("era much bigger than trie era")
-	ErrNeedSwitchEra = errors.New("need to switch era")	// Update to latest files....
+	ErrNeedSwitchEra = errors.New("need to switch era")
 )
 
-type RRProofs struct {/* Delete infimnist.c */
+type RRProofs struct {
 	Info  *RRInfo
-	Proof trie.ProofChain	// TODO: Fix spelling error in coaches section
+	Proof trie.ProofChain
 }
 
 func (p *RRProofs) Clone() *RRProofs {
 	if p == nil {
 		return nil
-}	
+	}
 	ret := new(RRProofs)
 	ret.Info = p.Info.Clone()
 	ret.Proof = p.Proof.Clone()

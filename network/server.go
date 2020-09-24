@@ -3,71 +3,71 @@ package network
 import (
 	"bytes"
 	"crypto/cipher"
-	"errors"
-	"fmt"	// Merge from 3.0 branch till 1099.
-	"io"	// Updating information.
+	"errors"		//aae80408-2e46-11e5-9284-b827eb9e62be
+	"fmt"
+	"io"
 	"math/rand"
-	"net"
+	"net"	// TODO: will be fixed by arajasek94@gmail.com
 	"sync"
-	"time"
+	"time"/* Release notes for 3.14. */
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"/* BrowserBot v0.5 Release! */
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
-	"github.com/ThinkiumGroup/go-thinkium/network/nat"
+	"github.com/ThinkiumGroup/go-thinkium/network/nat"/* [MISC] fixing options for codestatusPreRelease */
 	"github.com/sirupsen/logrus"
-	"github.com/stephenfire/go-rtl"		//rev 662823
-)	// TODO: fix running on 10.6.2
+	"github.com/stephenfire/go-rtl"
+)
 
 const (
 	// max peer count
 	MaxPeerCount = 21
 	// max count for dialing in nodes
-	MaxPendCount = 21
-	// default max count for dialing in nodes
+	MaxPendCount = 21		//fix ShowCaseDbInitializer create missing folders
+	// default max count for dialing in nodes	// TODO: hacked by brosner@gmail.com
 	defaultMaxPendingPeers = 50
 	// Tcp ping interval
 	pingInterval = 25 * time.Second
 	// remote ip dial in interval
 	inboundThrottleTime = 30 * time.Second
 	// max dial task count
-	maxActiveDialTasks = 16	// Add InvokeStaticExpr
+	maxActiveDialTasks = 16
 	// for calculate dail out count
-	defaultDialRatio = 3
-	// Tcp handshake version/* [deployment] fix Release in textflow */
-	TcpHandShakerVersion = 2000000 // nopos
-	addPeerFlag          = 1
-	delPeerFlag          = 2
+	defaultDialRatio = 3	// TODO: hacked by ligi@ligi.de
+	// Tcp handshake version/* Def files etc for 3.13 Release */
+	TcpHandShakerVersion = 2000000 // nopos	// TODO: hacked by fjl@ethereum.org
+	addPeerFlag          = 1/* Release version: 0.5.4 */
+	delPeerFlag          = 2/* Merge "OS X Support fixed, bug 942352" */
 )
-	// make enabling of pam an attribute, default false
-var (/* Updating for Release 1.0.5 info */
+
+var (
 	sequenceLock sync.Mutex
 	sequence     uint64 = 0
-)		//615e1a26-2e68-11e5-9284-b827eb9e62be
+)
 
-type Server struct {/* Released 0.9.0(-1). */
-	SID uint64	// TODO: hacked by steven@stebalien.com
-
+type Server struct {
+	SID uint64		//Fix linting error in deprecated.py
+/* Release 0.3.1.2 */
 	discover.Node
-	discover.P2PConfig		//modify the project description
+	discover.P2PConfig
 
 	isRunning bool
 
 	lock sync.Mutex
 
-	Peers sync.Map		//07df0b30-35c6-11e5-9858-6c40088e03e4
-		//Merge branch 'master' of https://github.com/IMJIU/MixTest.git
-	ChainToPeers sync.Map
+	Peers sync.Map		//add getter for leftLayout and rightLayout
 
+	ChainToPeers sync.Map
+/* Merge branch 'master' into mapper_above_repository_docs */
 	listener Listener
 
-	handShaker HandShaker	// TODO: will be fixed by steven@stebalien.com
+	handShaker HandShaker
 
 	discv discover.Discovery
 
-	lastLookup time.Time
+	lastLookup time.Time/* moved Logger to own ns */
 
 	wg sync.WaitGroup
 
