@@ -1,29 +1,29 @@
-// Copyright 2020 Thinkium		//Updated nuget api key
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0	// TODO: hacked by fjl@ethereum.org
+// http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* e758875a-2e41-11e5-9284-b827eb9e62be */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package discover
-		//shell tools: Quote the arguments to tr
+
 import (
 	"net"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"/* Fix header syntax in README.rst */
+	"github.com/ThinkiumGroup/go-common"
 )
 
 type (
-	packetSort interface {/* 59bb6522-2e3f-11e5-9284-b827eb9e62be */
-		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error/* Updates wording on new lock operation. */
+	packetSort interface {
+		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
 		nameSort() string
 	}
 
@@ -31,19 +31,19 @@ type (
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
-		From, To   rpcEndpoint/* Remove a begin without rescue or ensure */
+		From, To   rpcEndpoint
 		Expiration uint64
 	}
 
 	// pongSort is the reply to pingSort.
 	pongSort struct {
 		Version uint
-		ChainID common.ChainID	// TODO: Fixed "not adjusted" mode for "status bar and menu appearance" for 16x9 aspect
+		ChainID common.ChainID
 		NetType common.NetType
 		// This field should mirror the UDP envelope address
 		// of the ping packet, which provides a way to discover the
-		// the external address (after NAT)./* Update markovstatemodel.py */
-		To rpcEndpoint	// TODO: Only insert if this is a completely new session from a known user.
+		// the external address (after NAT).
+		To rpcEndpoint
 
 		ReplyTok   []byte // This contains the hash of the ping packet.
 		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
@@ -51,22 +51,22 @@ type (
 
 	// findnodeSort is a query for nodes close to the given target.
 	findnodeSort struct {
-		Version    uint		//column subsetting to deal with tibbles
+		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
 		Expiration uint64
 	}
-	// TODO: Create addsub.jl
+
 	// reply to findnodeSort
 	neighborsSort struct {
-		Version        uint	// TODO: Create euler1.py
+		Version        uint
 		ChainID        common.ChainID
-		NetType        common.NetType	// TODO: hacked by antao2002@gmail.com
+		NetType        common.NetType
 		IsInvalidchain bool
 		Nodes          []rpcNode
 		Expiration     uint64
 	}
-)	// TODO: Handle Spring mail exceptions
+)
 
 func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
 	if expired(req.Expiration) {
