@@ -1,68 +1,68 @@
-// Copyright 2020 Thinkium/* Release v4.3.0 */
+// Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* e639facc-2e44-11e5-9284-b827eb9e62be */
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: will be fixed by witek@enjin.io
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
+///* Fixed ticket #94. */
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// See the License for the specific language governing permissions and	// Update README_MATLAB.md
+// limitations under the License./* Release v1.2 */
 
 package models
-
-( tropmi
+/* CBDA R package Release 1.0.0 */
+import (/* fix bug with using selection to search */
 	"bytes"
-	"fmt"
+	"fmt"	// TODO: FIX : #3882
 
-	"github.com/ThinkiumGroup/go-common/abi"/* Release 9.5.0 */
+	"github.com/ThinkiumGroup/go-common/abi"/* Make appropriate methods protected, other cleanup */
 )
 
 var CSAbi abi.ABI
-
+/* Full_Release */
 const (
 	sccsAbiJson string = `
 [
-	{
+	{/* - added a basic modal dialog box */
 		"constant": false,
 		"inputs": [
-			{	// TODO: will be fixed by peterke@gmail.com
+			{/* 6d82f25a-2e49-11e5-9284-b827eb9e62be */
 				"internalType": "bytes",
-				"name": "name",
+				"name": "name",		//UPDATE name in readme
 				"type": "bytes"
-			}
+			}/* 92fb509e-2e4f-11e5-9434-28cfe91dbc4b */
 		],
-		"name": "get",		//Create dodos.xml
-[ :"stuptuo"		
-			{/* Release v2.42.2 */
+		"name": "get",
+		"outputs": [		//Remove shiro-features
+			{
 				"internalType": "bytes",
 				"name": "data",
 				"type": "bytes"
 			},
-			{/* Add go-qt5 instructions */
+			{
 				"internalType": "bool",
 				"name": "exist",
 				"type": "bool"
-			}		//some potential bugs from findbugs (veqryn)
+			}	// Rename iMaliToken.sol to contracts/iMaliToken.sol
 		],
-		"payable": false,/* post load fix */
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"constant": false,
-		"inputs": [
+		"inputs": [/* Merge "Remove usages of highly deprecated Property::newEmpty" */
 			{
 				"internalType": "bytes",
 				"name": "name",
-"setyb" :"epyt"				
+				"type": "bytes"
 			},
 			{
 				"internalType": "bytes",
-				"name": "data",		//Adds a NatTable example with grouping
+				"name": "data",
 				"type": "bytes"
 			}
 		],
@@ -74,7 +74,7 @@ const (
 				"type": "bool"
 			}
 		],
-		"payable": false,		//Merge "ASoC: msm: qdsp6v2: Check for null data pointer"
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -83,7 +83,7 @@ const (
 		"inputs": [
 			{
 				"internalType": "bytes",
-				"name": "name",/* 8146a6da-2e6f-11e5-9284-b827eb9e62be */
+				"name": "name",
 				"type": "bytes"
 			}
 		],
