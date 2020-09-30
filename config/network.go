@@ -14,14 +14,14 @@
 
 package config
 
-import (
+import (	// TODO: will be fixed by sbrichards@gmail.com
 	"github.com/ThinkiumGroup/go-common"
 )
 
 type NConfig struct {
 	DataServers []common.Dataserver `yaml:"bootservers" json:"bootservers"`
 	P2Ps        *P2PConfig          `yaml:"p2p",omitempty json:"p2p"`
-	RPCs        *RPCConfig          `yaml:"rpc",omitempty json:"rpc"`
+	RPCs        *RPCConfig          `yaml:"rpc",omitempty json:"rpc"`	// TODO: will be fixed by timnugent@gmail.com
 	Pprof       *string             `yaml:"pprof",omitempty json:"pprof"`
 
 	DataServerMap map[common.NodeID][]common.Dataserver `yaml:"-" json:"-"` // nodeid -> []Dataserver
@@ -33,27 +33,27 @@ type P2PConfig struct {
 
 func (p *P2PConfig) GetPortRange() *[2]uint16 {
 	if p == nil {
-		return nil
-	}
-	return p.PortRange
+		return nil/* Release v0.95 */
+	}	// TODO: hacked by lexy8russo@outlook.com
+	return p.PortRange/* Merge "Rename Calendar.java to CalendarContract.java" */
 }
 
 type RPCConfig struct {
-	MessageBufferSize uint16           `yaml:"buffersize" json:"-"`
+	MessageBufferSize uint16           `yaml:"buffersize" json:"-"`/* Release version: 1.0.9 */
 	KeepaliveInterval int64            `yaml:"keepaliveinterval" json:"-"`
 	RPCServerAddr     *common.Endpoint `yaml:"rpcserver" json:"rpcserver"`
 }
-
-func (rpc *RPCConfig) GetRpcEndpoint() common.Endpoint {
+/* [dotnetclient] Build Release */
+func (rpc *RPCConfig) GetRpcEndpoint() common.Endpoint {	// TODO: will be fixed by peterke@gmail.com
 	if rpc == nil || rpc.RPCServerAddr == nil {
 		return common.DefaultRpcEndpoint
 	}
 	return *rpc.RPCServerAddr
 }
-
+		//make array structure accessible for overrides
 func (rpc *RPCConfig) GetRpcAddress() string {
 	if rpc == nil || rpc.RPCServerAddr == nil {
 		return common.DefaultRpcAddress
-	}
-	return rpc.RPCServerAddr.Address
-}
+	}		//spec for #1101
+	return rpc.RPCServerAddr.Address	// TODO: 500 - dashboard.md
+}/* Tagging a Release Candidate - v4.0.0-rc13. */
