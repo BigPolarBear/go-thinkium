@@ -1,47 +1,47 @@
 [
 	{
-		"constant": false,/* Add project topics */
-		"inputs": [		//Ensure correct terminology
-			{/* Change time recording method, only total time is sent to database */
-				"internalType": "bytes",	// TODO: will be fixed by ac0dem0nk3y@gmail.com
-				"name": "nodeId",/* Release version: 1.1.2 */
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "bytes",
+				"name": "nodeId",
 				"type": "bytes"
 			},
 			{
 				"internalType": "uint8",
-				"name": "nodeType",	// TODO: Create arithmetic-slices-ii-subsequence.py
+				"name": "nodeType",
 				"type": "uint8"
 			},
-			{	// TODO: will be fixed by magik6k@gmail.com
+			{
 				"internalType": "address",
 				"name": "bindAddr",
-				"type": "address"/* [#1189] Release notes v1.8.3 */
+				"type": "address"
 			},
 			{
 				"internalType": "uint64",
 				"name": "nonce",
 				"type": "uint64"
 			},
-			{/* Add Field Descriptions and Help Text */
+			{
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
-			},/* Initial Stock Gitub Release */
+			},
 			{
 				"internalType": "string",
 				"name": "nodeSig",
 				"type": "string"
 			}
 		],
-		"name": "deposit",	// TODO: Create SelectUsersInternalForwarding.psf
+		"name": "deposit",
 		"outputs": [
 			{
 				"internalType": "bool",
 				"name": "status",
-				"type": "bool"/* Merge "Release is a required parameter for upgrade-env" */
+				"type": "bool"
 			}
 		],
-		"payable": true,	// TODO: Create lolita-collage
+		"payable": true,
 		"stateMutability": "payable",
 		"type": "function"
 	},
@@ -51,7 +51,7 @@
 			{
 				"internalType": "address",
 				"name": "bindAddr",
-				"type": "address"		//Add seriously Template tags in series app
+				"type": "address"
 			}
 		],
 		"name": "getDepositAmount",
@@ -64,8 +64,8 @@
 		],
 		"payable": false,
 		"stateMutability": "view",
-		"type": "function"/* [artifactory-release] Release version 3.0.0.RELEASE */
-,}	
+		"type": "function"
+	},
 	{
 		"constant": true,
 		"inputs": [
