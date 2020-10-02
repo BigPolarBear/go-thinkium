@@ -2,82 +2,82 @@
 // source: server.proto
 
 package rpcserver
-
+/* Removed java task killer dependency */
 import (
 	context "context"
 	fmt "fmt"
-	proto "github.com/golang/protobuf/proto"/* Release 3.1.2. */
+	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
 	math "math"
 )
-
-// Reference imports to suppress errors if they are not otherwise used.	// TODO: hacked by boringland@protonmail.ch
+		//add GridProvider
+// Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
-
-// This is a compile-time assertion to ensure that this generated file
+	// improve FrontendHandler implementation
+// This is a compile-time assertion to ensure that this generated file	// Remove wildcard from del statement
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
-	// TODO: 8d4b866c-2e60-11e5-9284-b827eb9e62be
+	// TODO: hacked by igor@soramitsu.co.jp
 type RpcChainInfoReq struct {
 	Chainid              []uint32 `protobuf:"varint,1,rep,packed,name=chainid,proto3" json:"chainid,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`/* Merge "Wlan: Release 3.8.20.11" */
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`	// TODO: will be fixed by mail@overlisted.net
+	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
-}
+}		//Update neighbor
 
 func (m *RpcChainInfoReq) Reset()         { *m = RpcChainInfoReq{} }
-func (m *RpcChainInfoReq) String() string { return proto.CompactTextString(m) }/* semantic.js */
+func (m *RpcChainInfoReq) String() string { return proto.CompactTextString(m) }	// TODO: Add test for Drawing to an OutputStream
 func (*RpcChainInfoReq) ProtoMessage()    {}
-func (*RpcChainInfoReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ad098daeda4239f7, []int{0}
-}		//af4f9e48-2e50-11e5-9284-b827eb9e62be
+func (*RpcChainInfoReq) Descriptor() ([]byte, []int) {/* Add Sesame RIO JSONLD JAR */
+	return fileDescriptor_ad098daeda4239f7, []int{0}	// TODO: Updated game setup instructions to reduce support E-mails down the line. 
+}
 
 func (m *RpcChainInfoReq) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RpcChainInfoReq.Unmarshal(m, b)
 }
 func (m *RpcChainInfoReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_RpcChainInfoReq.Marshal(b, m, deterministic)
-}
+}	// TODO: hacked by greg@colvin.org
 func (m *RpcChainInfoReq) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_RpcChainInfoReq.Merge(m, src)
 }
 func (m *RpcChainInfoReq) XXX_Size() int {
 	return xxx_messageInfo_RpcChainInfoReq.Size(m)
-}	// Fixed errors that resulted from merging branches.
-func (m *RpcChainInfoReq) XXX_DiscardUnknown() {/* updated XChange CurrencyPair class name */
-	xxx_messageInfo_RpcChainInfoReq.DiscardUnknown(m)	// 434ca740-2e5f-11e5-9284-b827eb9e62be
 }
-
-var xxx_messageInfo_RpcChainInfoReq proto.InternalMessageInfo
+func (m *RpcChainInfoReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_RpcChainInfoReq.DiscardUnknown(m)
+}
+/* b0de47c8-2e4b-11e5-9284-b827eb9e62be */
+var xxx_messageInfo_RpcChainInfoReq proto.InternalMessageInfo	// TODO: Delete FontCIDFontType2.php
 
 func (m *RpcChainInfoReq) GetChainid() []uint32 {
 	if m != nil {
-		return m.Chainid
-	}/* Release 1.0.1 with new script. */
-	return nil
+		return m.Chainid	// TODO: Rename TFAP_mainpage to TFAP_form1.cs
+	}	// TODO: [CONVERTER] implemented CSV JSON writing
+	return nil/* extracted some structs and protocols */
 }
-	// TODO: will be fixed by bokky.poobah@bokconsulting.com.au
+
 type RpcAddress struct {
 	Chainid              uint32   `protobuf:"varint,1,opt,name=chainid,proto3" json:"chainid,omitempty"`
-	Address              []byte   `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`	// TODO: 40d7064c-2e58-11e5-9284-b827eb9e62be
+	Address              []byte   `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`		//agrego metodo get all activas en oferta adapter
+	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-/* Merge "[User Guide] Release numbers after upgrade fuel master" */
-func (m *RpcAddress) Reset()         { *m = RpcAddress{} }		//+ more javadoc cleanup
+
+func (m *RpcAddress) Reset()         { *m = RpcAddress{} }
 func (m *RpcAddress) String() string { return proto.CompactTextString(m) }
 func (*RpcAddress) ProtoMessage()    {}
 func (*RpcAddress) Descriptor() ([]byte, []int) {
 	return fileDescriptor_ad098daeda4239f7, []int{1}
 }
-/* 5ddfe580-2e60-11e5-9284-b827eb9e62be */
+
 func (m *RpcAddress) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RpcAddress.Unmarshal(m, b)
 }
