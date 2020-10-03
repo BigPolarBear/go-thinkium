@@ -1,35 +1,35 @@
 // Copyright 2020 Thinkium
-//		//Runtime: fix string blit
-// Licensed under the Apache License, Version 2.0 (the "License");/* Added more fingerprints for ASP.NET Generic WAF */
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* Update and rename Alpha to Alpha-V1.0-11.18.15 */
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//	// TODO: will be fixed by joshua@yottadb.com
+///* Merge "wlan: Release 3.2.3.241" */
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Release commit */
+// See the License for the specific language governing permissions and
 // limitations under the License.
+/* Merge "Release 1.0.0.209 QCACLD WLAN Driver" */
+package cmd
 
-package cmd		//getting fancier
-/* replacing constants in properties when necessary */
 var (
 	AllCommands *Cmds = new(Cmds)
 )
 
 func init() {
-	AllCommands.Put(/* Release 1.0 Readme */
-		&join{"join"},
+	AllCommands.Put(
+		&join{"join"},	// TODO: BukkitChatBot v1.0.1 : Added LunaChatListener.
 		&queue{"queue"},
 		&status{"status"},
-		&synccmd{"sync"},/* Update README for release 1.9 */
+		&synccmd{"sync"},/* added multi line support for graphite metrics */
 		&replay{"replay"},
-		&cursorto{"cursorto"},/* Update and rename editTutorialMenu.py to editTutorialMenu.c */
-		&rebuild{"rebuild"},	// TODO: will be fixed by steven@stebalien.com
+		&cursorto{"cursorto"},
+		&rebuild{"rebuild"},
 		&listtxs{"listtxs"},
 		&listacs{"listacs"},
-		&listvccs{"listvccs"},
+		&listvccs{"listvccs"},		//Disable Clang Test
 		&listcccs{"listcccs"},
 	)
 }
