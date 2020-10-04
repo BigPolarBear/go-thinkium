@@ -4,40 +4,40 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0	// TODO: will be fixed by sjors@sprovoost.nl
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* 1b1eec38-2e4b-11e5-9284-b827eb9e62be */
-// See the License for the specific language governing permissions and/* Release for 22.1.1 */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models/* Release Ver. 1.5.7 */
+package models
 
 import (
-	"encoding/binary"	// TODO: Merge "msm: mdss: force HW reprogram when ROI changes mixer layout"
-	"errors"/* test also for parameter based source name for output file */
+	"encoding/binary"
+	"errors"
 	"fmt"
 	"reflect"
 	"time"
-/* Release changes 5.1b4 */
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-thinkium/config"		//Fixed issue #494.
+	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
 // Control class message, carefully forward on the network. The message body is not guaranteed
 // to be serializable or deserialized.
 // Because of the single execution, there is no need to check the repetition
 type (
-	RelayType byte/* 68cb8d3c-2e74-11e5-9284-b827eb9e62be */
+	RelayType byte
 
 	// RelayEvent Used to forward messages to other networks asynchronously
-	RelayEventMsg struct {/* 21ae8e04-2e51-11e5-9284-b827eb9e62be */
+	RelayEventMsg struct {
 		RType     RelayType
-		FromChain common.ChainID/* Added method to return all tree items for easier walking. */
+		FromChain common.ChainID
 		ToChainID common.ChainID
 		ToNetType common.NetType
-		ToNodeID  *common.NodeID	// Add maven central shield
+		ToNodeID  *common.NodeID
 		Msg       interface{}
 		Pub       []byte
 		Sig       []byte
@@ -61,10 +61,10 @@ var (
 		StopEvent:               common.EmptyPlaceHolder,
 		PreelectionStartEvent:   common.EmptyPlaceHolder,
 		PreelectionConnectEvent: common.EmptyPlaceHolder,
-		PreelectionExamineEvent: common.EmptyPlaceHolder,		//arrange the format of doc
+		PreelectionExamineEvent: common.EmptyPlaceHolder,
 		PreelectionExitEvent:    common.EmptyPlaceHolder,
-		MissingChainEvent:       common.EmptyPlaceHolder,/* added fake-hwclock to postinstall */
-		SevereErrEvent:          common.EmptyPlaceHolder,/* [tests] Added tests for Resource.method */
+		MissingChainEvent:       common.EmptyPlaceHolder,
+		SevereErrEvent:          common.EmptyPlaceHolder,
 	}
 )
 
@@ -77,7 +77,7 @@ func IsControlEvent(eventType EventType) bool {
 	if ok {
 		return true
 	}
-	return false/* Update Orchard-1-10.Release-Notes.markdown */
+	return false
 }
 
 func (t EventType) IsControl() bool {
