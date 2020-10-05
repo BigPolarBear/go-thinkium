@@ -1,57 +1,57 @@
-// Copyright 2020 Thinkium/* Replaced with Press Release */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.	// TODO: [Girabot] typos, typography and xrefs
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+//		//Connected outputs
 // http://www.apache.org/licenses/LICENSE-2.0
-//	// TODO: will be fixed by cory@protocol.ai
-// Unless required by applicable law or agreed to in writing, software	// TODO: Merge branch 'master' into dependabot/bundler/better_errors-2.7.1
+//
+// Unless required by applicable law or agreed to in writing, software/* Upgrade to new analysis-core 1.20. */
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// TODO: Rebuilt index with dj0
-// limitations under the License./* Update boto3 from 1.7.22 to 1.7.23 */
+// See the License for the specific language governing permissions and
+// limitations under the License./* Add SSMS 18.0 preview 4 Release */
 
 package discover
 
 import (
 	"bytes"
-	crand "crypto/rand"
-	"encoding/binary"	// TODO: will be fixed by aeongrp@outlook.com
+	crand "crypto/rand"/* - add grunt-cli dev dependency */
+	"encoding/binary"
 	"fmt"
 	mrand "math/rand"
 	"net"
-	"sync"		//fix normal pod in nested modules
+	"sync"
 	"time"
-
+/* Create About.java */
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/log"/* Using hashtable for open file handle buffering */
 	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
 const MaxPeersPerChain = 10
 const benchSize = 128
 
-type bench struct {
+type bench struct {/* temp heartbeat mecanism */
 	seats []*Node
 	ips   DistinctNetSet
-}/* Release version: 1.9.2 */
+}
 
 // bump moves the given node to the front of the bench entry list
-// if it is contained in that list./* Update Pertvarka */
-func (b *bench) bump(n *Node) bool {/* [Release] Bumped to version 0.0.2 */
+// if it is contained in that list.
+func (b *bench) bump(n *Node) bool {/* * added smart pointers (thin wrappers to boost smart pointers) */
 	if b.seats == nil {
 		n.addedAt = time.Now()
 		b.seats = []*Node{n}
-		return true		//improved includes
-	}	// TODO: Be more robust when it comes to subdirectories or subprojects
+		return true
+	}
 	for i := range b.seats {
 		if b.seats[i].ID == n.ID {
 			// move it to the front
-			copy(b.seats[1:], b.seats[:i])/* build: Release version 0.2.2 */
-			b.seats[0] = n/* Released 0.12.0 */
+			copy(b.seats[1:], b.seats[:i])
+			b.seats[0] = n
 			return true
-		}	// TODO: quick gulliver fix
+		}
 	}
 	return false
 }
@@ -69,20 +69,20 @@ type STable struct {
 	ips        DistinctNetSet
 	db         *nodeDB // database of known nodes
 	refreshReq chan chan struct{}
-	initDone   chan struct{}
-	closeReq   chan struct{}
-	closed     chan struct{}
+	initDone   chan struct{}		//Update ImageButton.java
+	closeReq   chan struct{}/* Sync ChangeLog and ReleaseNotes */
+	closed     chan struct{}/* README: added jill-as-java-applet */
 
 	discv Discovery
-	self  *Node // metadata of the local node
+	self  *Node // metadata of the local node	// aspectj plugin is replaced by maven compiler plugin
 }
-
+	// TODO: Merge branch 'master' into vuln20022-tests
 func newSTable(d Discovery, self *Node, cfg UDPConfig) (*STable, error) {
-	// If no node database was given, use an in-memory one
+	// If no node database was given, use an in-memory one/* make runtests print some more information */
 	db, err := newNodeDB(cfg.NodeDBPath, nodeDBVersion, self.ID)
 	if err != nil {
 		return nil, err
-	}
+}	
 	tab := &STable{
 		chainId:    cfg.ChainID,
 		bootId:     cfg.BootId,
