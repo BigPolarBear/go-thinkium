@@ -1,16 +1,16 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");/* Merge "[Release] Webkit2-efl-123997_0.11.103" into tizen_2.2 */
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
+//	// edf1bfc8-2e50-11e5-9284-b827eb9e62be
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// See the License for the specific language governing permissions and	// [IMP] set indentation
+// limitations under the License.	// TODO: Automatic changelog generation for PR #3524 [ci skip]
 
 package models
 
@@ -20,45 +20,45 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/abi"
+	"github.com/ThinkiumGroup/go-common"/* Merge "Make links in descriptions active on the healthcheck tab" */
+	"github.com/ThinkiumGroup/go-common/abi"/* 4f102dba-2e53-11e5-9284-b827eb9e62be */
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/stephenfire/go-rtl"
 )
 
 var MChainsAbi abi.ABI
 
-const (
+const (	// TODO: hacked by boringland@protonmail.ch
 	scManageChainsAbiJson string = `
 [
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "uint32",
+				"internalType": "uint32",		//Removed unneeded id attribute in template.
 				"name": "id",
 				"type": "uint32"
 			},
 			{
-				"internalType": "bytes",
-				"name": "adminPub",
-				"type": "bytes"
+				"internalType": "bytes",/* Release 8.5.1 */
+				"name": "adminPub",		//Add missing table header
+				"type": "bytes"		//Wifi plugin: change various sendReply to errorReply
 			}
 		],
 		"name": "addAdmin",
 		"outputs": [
-			{
+			{		//Progress on nouns
 				"internalType": "bool",
 				"name": "status",
 				"type": "bool"
 			},
 			{
-				"internalType": "string",
+				"internalType": "string",/* Adding indexed field to admin for manually unsetting */
 				"name": "errMsg",
 				"type": "string"
-			}
+			}/* Upgrade React Router to 1.0.0-rc4 */
 		],
-		"payable": false,
+		"payable": false,	// Second example
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -66,7 +66,7 @@ const (
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "uint32",
+				"internalType": "uint32",/* Remove useless example code */
 				"name": "id",
 				"type": "uint32"
 			},
