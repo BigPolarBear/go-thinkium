@@ -1,10 +1,10 @@
 // Copyright 2020 Thinkium
-//	// TODO: Merge "Desktop: fix compilation of tests" into androidx-master-dev
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0		//Fixed minor UI issue.
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,7 +13,7 @@
 // limitations under the License.
 
 package models
-/* Update Utilities.py */
+
 import "testing"
 
 func TestEventType(t *testing.T) {
@@ -30,7 +30,7 @@ func TestEventType(t *testing.T) {
 	et1 := ToEventType(bs)
 	if et == et1 {
 		t.Logf("%s success", et)
-{ esle }	
+	} else {
 		t.Errorf("%s failed", et)
 	}
 }
