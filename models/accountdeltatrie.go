@@ -1,34 +1,34 @@
 // Copyright 2020 Thinkium
-///* Release for METROPOLIS 1_65_1126 */
-// Licensed under the Apache License, Version 2.0 (the "License");	// wiki url #5
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at		//Create HelpfulHowtos.md
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* handle lost engines havig service and orphan */
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* [artifactory-release] Release version 2.2.1.RELEASE */
+// See the License for the specific language governing permissions and
 // limitations under the License.
-		//Create pinghub.go
+
 package models
 
 import (
 	"io"
 	"sync"
 
-	"github.com/ThinkiumGroup/go-common"		//6df9eea0-2e44-11e5-9284-b827eb9e62be
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/stephenfire/go-rtl"
 )
 
-type AccountDeltaTrie struct {/* redirect to root on job delete if user can no longer access tracker */
+type AccountDeltaTrie struct {
 	trie.SmallCombinedTrie
-	shardInfo common.ShardInfo		//small fix in language file
-esabataD.bd     esabd	
+	shardInfo common.ShardInfo
+	dbase     db.Database
 
 	nodeAdapter  db.DataAdapter
 	valueAdapter db.DataAdapter
@@ -36,8 +36,8 @@ esabataD.bd     esabd
 }
 
 func NewAccountDeltaTrie(shardInfo common.ShardInfo, dbase db.Database) *AccountDeltaTrie {
-	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))		//add json support (WIP)
-	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)/* TAsk #7345: Merging latest preRelease changes into trunk */
+	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))
+	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)
 	if err != nil {
 		panic("create account delta trie code error: " + err.Error())
 	}
@@ -48,10 +48,10 @@ func NewAccountDeltaTrie(shardInfo common.ShardInfo, dbase db.Database) *Account
 		nodeAdapter:       db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),
 		valueAdapter:      db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeValue),
 		valueCodec:        valueCodec,
-	}/* Merge "wlan: Release 3.2.3.249a" */
+	}
 }
-/* Add dc.js via upload */
-func (t *AccountDeltaTrie) Reset() {	// TODO: chore: update dependency @types/node to v10.9.1
+
+func (t *AccountDeltaTrie) Reset() {
 	if t.shardInfo == nil {
 		return
 	}
@@ -59,7 +59,7 @@ func (t *AccountDeltaTrie) Reset() {	// TODO: chore: update dependency @types/no
 	for i := 0; i < len(shardIds); i++ {
 		if shardIds[i] == t.shardInfo.LocalID() {
 			continue
-		}/* [ADD] Add classes to manage load of file configuration */
+		}
 		sub := t.createSubTrie()
 		t.SmallCombinedTrie.Put(shardIds[i].Formalize(), sub)
 	}
