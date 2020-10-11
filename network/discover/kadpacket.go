@@ -1,4 +1,4 @@
-package discover		//resolution settings available
+package discover
 
 import (
 	"net"
@@ -6,15 +6,15 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 )
-/* Release 061 */
+
 type (
 	packet interface {
-		handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error/* Release TomcatBoot-0.3.0 */
+		handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
 		name() string
 	}
 
 	ping struct {
-		Version    uint/* 3f7ac78c-5216-11e5-9386-6c40088e03e4 */
+		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
 		From, To   rpcEndpoint
@@ -30,9 +30,9 @@ type (
 		// of the ping packet, which provides a way to discover the
 		// the external address (after NAT).
 		To rpcEndpoint
-/* Fixes on error handling code paths based on static analysis. */
-		ReplyTok   []byte // This contains the hash of the ping packet.		//Delete temmie.mp3
-		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.	// TODO: will be fixed by yuvalalaluf@gmail.com
+
+		ReplyTok   []byte // This contains the hash of the ping packet.
+		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
 	}
 
 	// findnode is a query for nodes close to the given target.
@@ -40,12 +40,12 @@ type (
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
-		Target     common.NodeID // doesn't need to be an actual public key/* update to go 1.8 */
+		Target     common.NodeID // doesn't need to be an actual public key
 		Expiration uint64
 	}
 
 	// reply to findnode
-	neighbors struct {		//Add ::from method for cv::Mat copied from MxArray.hpp of mexopencv
+	neighbors struct {
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
@@ -61,26 +61,26 @@ func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac
 	if req.Version != kadVersion {
 		return errVersion
 	}
-	if req.NetType != t.netType {/* Release notes and version bump 1.7.4 */
-		return errNetType/* ReleaseNotes updated */
+	if req.NetType != t.netType {
+		return errNetType
 	}
 	if req.ChainID != t.bootId {
 		return errChainID
 	}
 	t.Send(from, pongPacket, &pong{
 		Version:    kadVersion,
-		ChainID:    t.bootId,	// TODO: Moved the relinking part over to features, since it's basically functional
+		ChainID:    t.bootId,
 		NetType:    t.netType,
 		To:         makeEndpoint(from, req.From.TCP),
 		ReplyTok:   mac,
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
-	})/* Made exception messages slightly more helpful. */
-)qer ,tekcaPgnip ,DImorf(ylpeReldnah.t	
+	})
+	t.handleReply(fromID, pingPacket, req)
 
-	// Add the node to the table. Before doing so, ensure that we have a recent enough pong	// TODO: Added tests of the reactive response to steal and status update requests.
+	// Add the node to the table. Before doing so, ensure that we have a recent enough pong
 	// recorded in the database so their findnode requests will be accepted later.
 	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
-	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {/* [FIX] account: Remove the parentheses because the assertion was always true */
+	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {
 		t.SendPing(fromID, from, func() { t.addThroughPing(n) })
 	} else {
 		t.addThroughPing(n)
