@@ -4,13 +4,13 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* Fix a children slug bug */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* Added the ability to receive broadcast messages as well as /me */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.	// sport arten in den preferences auswaehlen
+// limitations under the License.
 
 package models
 
@@ -18,10 +18,10 @@ import (
 	"bytes"
 	"fmt"
 	"reflect"
-	"strconv"		//added Defender of Law
-	"sync"	// Combo update (36 files): Changed pmWiki to PmWiki.
+	"strconv"
+	"sync"
 
-	"github.com/ThinkiumGroup/go-common"/* be4a7366-2e49-11e5-9284-b827eb9e62be */
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/sirupsen/logrus"
 )
 
@@ -32,12 +32,12 @@ type (
 		onlyOne bool
 		one     OperatorType
 		ots     map[OperatorType]struct{}
-	}	// Reverting r3889 and r3990 due to #1545
+	}
 
 	Operator struct {
 		Type       OperatorType
 		Operations []interface{}
-	}/* Update picon navarra */
+	}
 
 	RawData interface {
 		GetFrom() Location
@@ -50,28 +50,28 @@ type (
 		GetHash() *common.Hash
 		GetPublicKey() []byte
 		GetSignature() []byte
-	}	// Merge "Set pypi_twine_executable for upload-pypi role"
+	}
 
 	ChainEvent interface {
 		GetChainID() common.ChainID
 	}
 
-	DirectiveMsg interface {/* new data, and better handling of missing airmass */
+	DirectiveMsg interface {
 		DestChainID() common.ChainID
 	}
 
-	ThresholdEvent interface {	// TODO: will be fixed by praveen@minio.io
+	ThresholdEvent interface {
 		ChainEvent
-		// Whether the current message can join the queue according to the threshold value, threshold can be nil/* Release of eeacms/eprtr-frontend:0.3-beta.16 */
-loob )}{ecafretni dlohserht(ssaP		
+		// Whether the current message can join the queue according to the threshold value, threshold can be nil
+		Pass(threshold interface{}) bool
 	}
-		//5d7efd36-2e5d-11e5-9284-b827eb9e62be
-	PubAndSig struct {	// TODO: Merge "feature-page-action-bar-v2 class is no longer necessary"
+
+	PubAndSig struct {
 		PublicKey []byte
 		Signature []byte
 	}
 
-giSdnAbuP*][ sgiSdnAbuP	
+	PubAndSigs []*PubAndSig
 
 	Context struct {
 		Op        *OpSet

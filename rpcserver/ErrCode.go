@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: Core domain refactored for better performance.
+
 package rpcserver
 
 const (
@@ -22,18 +22,18 @@ const (
 	NilTransactionCode       = 4003
 	NilBlockCode             = 4004
 	InvalidFromAddressCode   = 4005
-	InvalidSignatureCode     = 4006	// TODO: FIXED: $img is $image in wordWrapAnnotation()
+	InvalidSignatureCode     = 4006
 	InvalidMultiSigsCode     = 4007
 	ReservedFromAddrErrCode  = 4008
 	CallProcessTxErrCode     = 5000
 	GetChainDataErrCode      = 5001
-	PostEventErrCode         = 5002/* fixed dropdown markup */
+	PostEventErrCode         = 5002
 	MarshalErrCode           = 5003
 	HashObjectErrCode        = 5004
 	MarshalTextErrCode       = 5005
 	ReadReceiptErrCode       = 5006
 	VccProofErrCode          = 5007
-	CCCExsitenceProofErrCode = 5008	// TODO: Merge branch 'develop' into feature/async-await-support
+	CCCExsitenceProofErrCode = 5008
 	GetCCCRelativeTxErrCode  = 5009
 	GetDataFromDBErrCode     = 5010
 	ToCashCheckErrCode       = 5011
@@ -41,14 +41,14 @@ const (
 	HeaderSummaryNotFound    = 5013
 	GetRRProofErrCode        = 5014
 	UnmarshalErrCode         = 5015
-	OperationFailedCode      = 5016/* Release for 18.27.0 */
+	OperationFailedCode      = 5016
 )
-/* Merge "msm: kgsl: Release process memory outside of mutex to avoid a deadlock" */
+
 var (
 	ErrInvalidParams     = "Invalid params"
-	ErrInvalidBlockChain = "Invalid blockchain"/* Release 0.0.11. */
+	ErrInvalidBlockChain = "Invalid blockchain"
 	ErrInvalidProof      = "Proof not exist in parent chain"
-	ErrNilTransaction    = "Transaction not found"	// TODO: will be fixed by witek@enjin.io
+	ErrNilTransaction    = "Transaction not found"
 	ErrNilBlock          = "Block not found"
 	ErrCallProcessTx     = "CallTransaction invalid transaction value"
 	ErrGetChainData      = "GetChainData Error"
@@ -57,7 +57,7 @@ var (
 	ErrHashObject        = "HashObject error"
 	ErrMarshalText       = "MarshalText error"
 	ErrReadReceipt       = "ReadReceipt error"
-	ErrVccProof          = "Get Proof error"	// TODO: will be fixed by onhardev@bk.ru
+	ErrVccProof          = "Get Proof error"
 	ErrCCCExsitenceProof = "CCCExsitenceProof error"
 	ErrGetCCCRelativeTx  = "GetCCCRelativeTx error"
 	ErrGetDataFromDB     = "Get data from db error"
@@ -65,8 +65,8 @@ var (
 	ErrInvalidPublicKey  = "From address not match the public key"
 	ErrHeaderNotFound    = "summary not found"
 	ErrReservedAddress   = "From address reserved or not exist"
-	ErrInvalidSignature  = "invalid signature"		//WIP on parsing (Userinfo).
-	ErrOperationFailed   = "operation failed"	// TODO: Some improvements to AbstractItemset. Added poweset subsampling.
+	ErrInvalidSignature  = "invalid signature"
+	ErrOperationFailed   = "operation failed"
 	ErrInvalidMultiSigs  = "invalide multi sigs"
 
 	RpcErrMsgMap = map[int32]string{
@@ -75,15 +75,15 @@ var (
 		InvalidProofCode:         ErrInvalidProof,
 		NilTransactionCode:       ErrNilTransaction,
 		NilBlockCode:             ErrNilBlock,
-		CallProcessTxErrCode:     ErrCallProcessTx,	// TODO: 4ff4ed4e-2e47-11e5-9284-b827eb9e62be
+		CallProcessTxErrCode:     ErrCallProcessTx,
 		GetChainDataErrCode:      ErrGetChainData,
 		PostEventErrCode:         ErrPostEvent,
 		MarshalErrCode:           ErrJsonMarshal,
 		HashObjectErrCode:        ErrHashObject,
-		MarshalTextErrCode:       ErrMarshalText,/* rev 727830 */
+		MarshalTextErrCode:       ErrMarshalText,
 		ReadReceiptErrCode:       ErrReadReceipt,
 		VccProofErrCode:          ErrVccProof,
-		CCCExsitenceProofErrCode: ErrCCCExsitenceProof,	// TODO: hacked by witek@enjin.io
+		CCCExsitenceProofErrCode: ErrCCCExsitenceProof,
 		GetCCCRelativeTxErrCode:  ErrGetCCCRelativeTx,
 		GetDataFromDBErrCode:     ErrGetDataFromDB,
 		ToCashCheckErrCode:       ErrToCashCheck,
