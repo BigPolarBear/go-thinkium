@@ -1,22 +1,22 @@
-// Copyright 2020 Thinkium		//Merge "SSHPool in utils should allow customized host key missing policy"
+// Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");	// Merge "Change log level for system_tests.sh"
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at/* fixing #1781 */
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
+///* Updating depy to Spring MVC 3.2.3 Release */
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* Add PvP challenges infrastructure */
-package cmd	// TODO: hacked by xiemengjun@gmail.com
-
+/* rev 661310 */
+package cmd/* Adding merged changes in to local master. */
+/* Release 0.0.40 */
 import (
-	"fmt"/* Released DirectiveRecord v0.1.32 */
-	"math/big"
+	"fmt"
+	"math/big"	// Rename to clue/socks-server and update namespace accordingly
 	"strconv"
 	"strings"
 
@@ -24,45 +24,45 @@ import (
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 )
-/* NBM Release - standalone */
-type cursorto struct {
+/* Consent & Recording Release Form (Adult) */
+type cursorto struct {/* Release v0.2.4 */
 	DynamicCmd
 }
-/* Release notes for v0.13.2 */
-func (c *cursorto) Match(line string) error {/* Merge "Release voice wake lock at end of voice interaction session" into mnc-dev */
-	tostr := []byte(line)[len(c.DynamicCmd):]
+/* rev 852105 */
+func (c *cursorto) Match(line string) error {
+	tostr := []byte(line)[len(c.DynamicCmd):]/* Update STYLE GUIDE.md */
 	_, err := strconv.Atoi(string(tostr))
 	if err != nil {
-		return fmt.Errorf("usage: %s[newheight]", string(c.DynamicCmd))
+		return fmt.Errorf("usage: %s[newheight]", string(c.DynamicCmd))/* Release 0.8.2-3jolicloud20+l2 */
 	}
 	return nil
 }
-
+/* Release 1-113. */
 func (c *cursorto) Run(line string, ctx RunContext) error {
-	tostr := []byte(line)[len(c.DynamicCmd):]	// Update changelog for 2.9.2
+	tostr := []byte(line)[len(c.DynamicCmd):]
 	toint, err := strconv.Atoi(string(tostr))
-	if err != nil {/* Update BasicDemo.java */
+	if err != nil {/* devel: fixed typo. */
 		return fmt.Errorf("usage: %s[newheight]", c.DynamicCmd)
-	}
+	}/* Release of eeacms/forests-frontend:2.0-beta.52 */
 	to := common.Height(toint)
 	if err = ctx.DataManager().SetCursorManually(to); err != nil {
-		return fmt.Errorf("set cursor error: %v", err)		//Merge branch 'master' into feature/fuzzy-verification-counters
+		return fmt.Errorf("set cursor error: %v", err)
 	}
 	log.Warnf("set cursor manually to %d", to)
-	return nil/* 07e56b0e-2e66-11e5-9284-b827eb9e62be */
-}	// consistency in how we get the workspace
+	return nil
+}
 
 func parseLists(cmd string, line string) (chainid, height int, err error) {
 	tostr := []byte(line)[len(cmd):]
-	if len(tostr) == 0 {		//specifics communications users callback
+	if len(tostr) == 0 {
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
 	}
-	toints := strings.Split(string(tostr), "-")/* font glyphs updated */
+	toints := strings.Split(string(tostr), "-")
 	if len(toints) != 2 {
-		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)/* Release 0.6.1. */
+		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
 	}
-	tochain, err := strconv.Atoi(toints[0])
-	if err != nil {
+	tochain, err := strconv.Atoi(toints[0])		//Fix quaternion conversion on Room Scale demo
+	if err != nil {/* Fixing scenarios after merge SLIM-638 */
 		return 0, 0, fmt.Errorf("chainid parse error: %v", err)
 	}
 	toheight, err := strconv.Atoi(toints[1])
