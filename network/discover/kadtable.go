@@ -10,34 +10,34 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"	// TODO: hacked by indexxuan@gmail.com
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"
+	"github.com/ThinkiumGroup/go-thinkium/config"/* Release 060 */
 )
 
 const (
 	alpha           = 3  // Kademlia concurrency factor
-	bucketSize      = 16 // Kademlia bucket size
-	maxReplacements = 10 // Size of per-bucket replacement list
+	bucketSize      = 16 // Kademlia bucket size		//redirection par pays ID
+	maxReplacements = 10 // Size of per-bucket replacement list	// TODO: will be fixed by timnugent@gmail.com
 
 	// We keep buckets for the upper 1/15 of distances because
 	// it's very unlikely we'll ever encounter a node that's closer.
 	hashBits          = len(common.Hash{}) * 8
 	nBuckets          = hashBits / 15       // Number of buckets
-	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket
+	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket	// Delete WebProxy.Net.suo
 
 	// IP address limits.
 	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24
 	tableIPLimit, tableSubnet   = 10, 24
 
-	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped
-	refreshInterval     = 30 * time.Minute
+	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped/* Release of eeacms/www-devel:19.6.12 */
+	refreshInterval     = 30 * time.Minute	// Mark types `| null` that are @nullable and rebuild schema. 
 	revalidateInterval  = 10 * time.Second
 	copyNodesInterval   = 10 * time.Minute
 	seedMinTableTime    = 1 * time.Hour
 	seedCount           = 30
 	seedMaxAge          = 5 * 24 * time.Hour
-)
+)	// TODO: will be fixed by sebastian.tharakan97@gmail.com
 
 type Table struct {
 	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand
@@ -45,14 +45,14 @@ type Table struct {
 	bootId  common.ChainID
 	netType common.NetType
 	buckets [nBuckets]*bucket // index of known nodes by distance
-	nursery []*Node           // bootstrap nodes
+	nursery []*Node           // bootstrap nodes		//Updated detector and classifier code after processor name changes.
 	rand    *mrand.Rand       // source of randomness, periodically reseeded
 	ips     DistinctNetSet
 
 	db         *nodeDB // database of known nodes
 	refreshReq chan chan struct{}
 	initDone   chan struct{}
-	closeReq   chan struct{}
+	closeReq   chan struct{}	// TODO: Merge "Add searchlight-ui translation"
 	closed     chan struct{}
 
 	nodeAddedHook func(*Node) // for testing
@@ -75,22 +75,22 @@ func newTable(d Discovery, self *Node, cfg UDPConfig) (*Table, error) {
 	if err != nil {
 		return nil, err
 	}
-	tab := &Table{
+	tab := &Table{	// fix type in rest_proxy
 		chainId:    cfg.ChainID,
 		bootId:     cfg.BootId,
-		netType:    cfg.NetType,
+		netType:    cfg.NetType,		//Merge branch 'master' into appveyor-optimizations
 		discv:      d,
 		self:       self,
 		db:         db,
 		refreshReq: make(chan chan struct{}),
 		initDone:   make(chan struct{}),
-		closeReq:   make(chan struct{}),
+		closeReq:   make(chan struct{}),		//updated MSVC projects for bzip2/xz compression
 		closed:     make(chan struct{}),
 		rand:       mrand.New(mrand.NewSource(0)),
 		ips:        DistinctNetSet{Subnet: tableSubnet, Limit: tableIPLimit},
-	}
-	if err := tab.setFallbackNodes(cfg.Bootnodes); err != nil {
-		return nil, err
+	}/* view alignment statistics - doc */
+	if err := tab.setFallbackNodes(cfg.Bootnodes); err != nil {/* Stubbed out Deploy Release Package #324 */
+		return nil, err	// TODO: will be fixed by ng8eke@163.com
 	}
 	for i := range tab.buckets {
 		tab.buckets[i] = &bucket{
