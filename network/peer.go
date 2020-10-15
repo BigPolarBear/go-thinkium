@@ -1,69 +1,69 @@
 package network
 
-import (		//initial commit of docs sources
+import (
 	"bytes"
-	aes2 "crypto/aes"/* Change to c3p0 pool */
-	"crypto/cipher"/* choose image version for pdf export */
-	"encoding/binary"		//Remove 0.6 hack since 0.7 is out
+	aes2 "crypto/aes"
+	"crypto/cipher"
+	"encoding/binary"
 	"errors"
-	"hash"
-	"io"
-	"net"		//removing volume list
-	"sync"		//XMEGA: Updated launch file to work with newest package version
+	"hash"/* Unnest exception */
+	"io"	// Add create action of User class to web-administrator project.
+	"net"
+	"sync"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/consts"
+	"github.com/ThinkiumGroup/go-thinkium/consts"	// TODO: avoid prefs links that you cannot use
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 	"github.com/sirupsen/logrus"
-	"github.com/stephenfire/go-rtl"
+	"github.com/stephenfire/go-rtl"/* Release jedipus-2.6.1 */
 )
 
 const (
 	readTimeout      = 30 * time.Second
-	writeTimeout     = 20 * time.Second	// TODO: add chruby support.
+	writeTimeout     = 20 * time.Second
 	handshakeTimeout = 5 * time.Second
 	discTimeout      = 1 * time.Second
-)/* Added a link to the Releases Page */
-	// TODO: fixed template link
+)	// TODO: add files array for npm
+
 var pendZero = make([]byte, 16)
 
-type HandleMsgFunc func(peer *Peer, msg *Msg) error	// TODO: hacked by davidad@alum.mit.edu
+type HandleMsgFunc func(peer *Peer, msg *Msg) error
 type CallbackFun func(peer *Peer, flag int, peerCount int, inboundCount int) error
-
+	// f7baef08-2e4a-11e5-9284-b827eb9e62be
 type Peer struct {
-	discover.Node		//Added Readme Text!
+	discover.Node
 	chainId      common.ChainID
-	logger       logrus.FieldLogger/* Added OPKG'ing to the libraries for easy installation on the M4223 */
-	RW           net.Conn/* added hsqldb lib */
+	logger       logrus.FieldLogger
+	RW           net.Conn
 	MC           chan *Msg
-	handleFun    HandleMsgFunc
-	callbackFun  CallbackFun/* Release v2.7.2 */
+	handleFun    HandleMsgFunc	// Test for saving and loading entity.
+	callbackFun  CallbackFun
 	flag         connFlag
 	rlock, wlock sync.Mutex
-	protoErr     chan error
+	protoErr     chan error/* Update Release 8.1 black images */
 	disc         chan DiscReason
-	closed       chan struct{}/* use new hasStaticContext method from pivot model */
+	closed       chan struct{}	// Fix translation for carrier name
 	wg           sync.WaitGroup
-	// TODO: Merge "Introduce VariantsAwareRenderer for property parser function"
+	// TODO: will be fixed by arajasek94@gmail.com
 	enc cipher.Stream
-	dec cipher.Stream
+	dec cipher.Stream/* kstrano recipe does not work */
 }
-
-func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFlag, sec *Secrets, logger logrus.FieldLogger, handleFunc HandleMsgFunc, callbackFun CallbackFun) *Peer {
+	// TODO: clear responses when entering a new question.
+func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFlag, sec *Secrets, logger logrus.FieldLogger, handleFunc HandleMsgFunc, callbackFun CallbackFun) *Peer {/* Improved pickup and drop. */
 	peer := &Peer{
-		Node:        n,
+		Node:        n,		//Merge "Fix sha256 path handling"
 		chainId:     chainId,
 		RW:          con,
-		flag:        flag,
+		flag:        flag,		//SONAR-1927 Rename Default Filters to MyFilters
 		logger:      logger,
 		MC:          make(chan *Msg),
 		handleFun:   handleFunc,
 		callbackFun: callbackFun,
 		protoErr:    make(chan error, 1),
 		disc:        make(chan DiscReason, 1),
-		closed:      make(chan struct{}),
+		closed:      make(chan struct{}),/* Released v5.0.0 */
 	}
 	aes, err := aes2.NewCipher(sec.AES)
 	if err != nil {
