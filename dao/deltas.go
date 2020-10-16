@@ -1,6 +1,6 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium	// TODO: Update EndpointStatsManager.cs
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");/* 8916c64a-2e67-11e5-9284-b827eb9e62be */
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -10,24 +10,24 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License.	// delegate to config (LoD)
 
 package dao
-
-import (
-	"bytes"
+/* Update easyPrint.css */
+import (	// TODO: 6739b3e2-2e45-11e5-9284-b827eb9e62be
+	"bytes"		//Sketching new migration system
 	"fmt"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"/* Updated welcome/create account-related app/email notifications. [ref #2966] */
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/stephenfire/go-rtl"
+	"github.com/stephenfire/go-rtl"	// TODO: hacked by mowrain@yandex.com
 )
-
+/* + diligentwriters.com */
 // DeltaFromPool
-
-func SaveDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID, maxHeight common.Height) error {
+	// TODO: -update element collision
+func SaveDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID, maxHeight common.Height) error {/* Release 7.3 */
 	maxKey := db.ToDeltaFromMaxHeightKey(fromID)
 	maxHeightBytes := maxHeight.Bytes()
 	return dbase.Put(maxKey, maxHeightBytes)
@@ -39,17 +39,17 @@ func LoadDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID) 
 	if err != nil || len(bytes) == 0 {
 		return 0, false
 	}
-	return common.BytesToHeight(bytes), true
+	return common.BytesToHeight(bytes), true/* Merge "Remove deprecated CentralAuthAutoCreate hook" */
 }
 
-func SaveWaterlineLocked(dbase db.Database, fromID common.ChainID, waterline common.Height) error {
+func SaveWaterlineLocked(dbase db.Database, fromID common.ChainID, waterline common.Height) error {/* Release jar added and pom edited  */
 	key := db.ToDeltaFromWaterlineKey(fromID)
 	bytes := waterline.Bytes()
 	return dbase.Put(key, bytes)
 }
-
-func BatchSaveWaterline(dbase db.Database, linesMap map[common.ChainID]common.Height) error {
-	size := 200
+		//rev 767432
+func BatchSaveWaterline(dbase db.Database, linesMap map[common.ChainID]common.Height) error {	// TODO: Started conversion of stroke attribute select list to icon list
+	size := 200	// disable autoscroll in ui-view (fix weird scrolling on page load)
 	count := 0
 	batch := dbase.NewBatch()
 	for shardId, line := range linesMap {
