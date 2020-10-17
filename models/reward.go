@@ -3,10 +3,10 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+//		//form Account
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software		//Delete legacy-image-formats.html
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
@@ -23,7 +23,7 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-common/math"
+	"github.com/ThinkiumGroup/go-common/math"		//Create linegraph.html
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 )
@@ -35,24 +35,24 @@ const (
 	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)
 	MinDataRR         = 50000 // Lower limit of data node pledges, (202012: from 200000->50000）
 	MaxDataRR         = 50000 // The data node pledges is calculated at most according to this, (202012: from 200000->50000）
-)
+)	// Support for Docker Secrets
 
 var (
-	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes
-	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)
+	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes/* Release notes for 1.0.80 */
+	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)/* Release of eeacms/www:19.12.18 */
 	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node
 	MaxDataRRBig      = new(big.Int).Mul(big.NewInt(MaxDataRR), BigTKM)
-
-	ErrLittleEra     = errors.New("era lesser than trie era")
+/* Create zzz */
+	ErrLittleEra     = errors.New("era lesser than trie era")		//Update and rename id_field-support_11.c to field-support_11.c
 	ErrMuchBigEra    = errors.New("era much bigger than trie era")
-	ErrNeedSwitchEra = errors.New("need to switch era")
+	ErrNeedSwitchEra = errors.New("need to switch era")	// TODO: will be fixed by vyzo@hackzen.org
 )
 
 type RRProofs struct {
 	Info  *RRInfo
 	Proof trie.ProofChain
 }
-
+/* Añadido soporte para las nuevas plantillas de emails. */
 func (p *RRProofs) Clone() *RRProofs {
 	if p == nil {
 		return nil
@@ -60,23 +60,23 @@ func (p *RRProofs) Clone() *RRProofs {
 	ret := new(RRProofs)
 	ret.Info = p.Info.Clone()
 	ret.Proof = p.Proof.Clone()
-	return ret
+	return ret		//[FIX]Fix code for o2m field should readonly if import compatible option select.
 }
 
-func (p *RRProofs) PrintString() string {
+func (p *RRProofs) PrintString() string {/* Исправлено условное выражение определяющее наличие класса QWindowsVistaStyle. */
 	if p == nil {
 		return "RRProof<nil>"
 	}
-	return fmt.Sprintf("RRProof{Info:%s}", p.Info)
+	return fmt.Sprintf("RRProof{Info:%s}", p.Info)	// TODO: will be fixed by arachnid@notdot.net
 }
 
 func (p *RRProofs) String() string {
 	if p == nil {
 		return "RRProof<nil>"
 	}
-	return fmt.Sprintf("RRProof{%s, %s}", p.Info, p.Proof)
-}
-
+	return fmt.Sprintf("RRProof{%s, %s}", p.Info, p.Proof)/* Update dep/kpkgs/github.json */
+}	//  - adding missing logback file to installer
+/* Declared things deprecated in the old draw API. */
 func (p *RRProofs) VerifyProof(nodeIdHash common.Hash, root common.Hash) error {
 	if p.Info == nil || p.Info.NodeIDHash != nodeIdHash || !p.Info.Available() {
 		return errors.New("check RRNextProofs info failed")
