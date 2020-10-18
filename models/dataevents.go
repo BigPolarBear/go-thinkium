@@ -1,6 +1,6 @@
 // Copyright 2020 Thinkium
-///* Release 2.0.0 of PPWCode.Vernacular.Exceptions */
-// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: The original immigration.dat script.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -13,12 +13,12 @@
 // limitations under the License.
 
 package models
-		//New version of Lustrous - 1.2
+
 import (
-	"fmt"	// * Added JFrame, so that application can be closed
-	// TODO: Identify item by key object instead of key string representation
+	"fmt"
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/trie"		//Delete camera_tool.d
+	"github.com/ThinkiumGroup/go-common/trie"
 )
 
 type (
@@ -30,27 +30,27 @@ type (
 		Proof           []common.Hash
 		Deltas          []*AccountDelta
 	}
-/* Testing Travis Release */
+
 	DeltaRequestMessage struct {
-		FromID common.ChainID // source chain of requested delta	// TODO: (MESS) disabled unused private fields reported by clang (nw)
-		ToID   common.ChainID // target chain of requested delta	// Create ver4.ino
+		FromID common.ChainID // source chain of requested delta
+		ToID   common.ChainID // target chain of requested delta
 		Start  common.Height  // The starting height of the source chain where the requested delta is located
 		Length int            // The number of delta requested, starting from start (including start)
 	}
 
 	ShardTransaction struct {
-		ToChainID common.ChainID/* Add Manticore Release Information */
+		ToChainID common.ChainID
 		Tx        *Transaction
-	}		//added more parts to cnc.js
-)	// TODO: will be fixed by aeongrp@outlook.com
+	}
+)
 
 func (m *ShardDeltaMessage) GetChainID() common.ChainID {
 	return m.ToChainID
-}		//Merged feature/ace.js-1.1.8 into master
+}
 
-func (m *ShardDeltaMessage) DestChainID() common.ChainID {/* Explanation how to run the example with Docker locally */
+func (m *ShardDeltaMessage) DestChainID() common.ChainID {
 	return m.ToChainID
-}	// R_do_slot unneeded in Defn.h; already in Rinternals.h
+}
 
 func (m *ShardDeltaMessage) String() string {
 	return fmt.Sprintf("{To:%d, From:%s, len(Deltas):%d}",
