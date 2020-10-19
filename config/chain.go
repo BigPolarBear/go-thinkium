@@ -1,46 +1,46 @@
 // Copyright 2020 Thinkium
-///* check visibility also for help */
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at	// TODO: hacked by 13860583249@yeah.net
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//		//aws: switch from `py-pip` package to `py2-pip`
-// Unless required by applicable law or agreed to in writing, software/* [yank] Release 0.20.1 */
-// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: hacked by ng8eke@163.com
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Merge "Distinguish between name not provided and incorrect" */
-/* b9b9b8d4-2e5d-11e5-9284-b827eb9e62be */
+// limitations under the License.
+
 package config
-/* More informative error messages re Patent Policy link */
+
 import (
 	"errors"
 	"fmt"
 
-	"github.com/ThinkiumGroup/go-common"/* Release 28.2.0 */
+	"github.com/ThinkiumGroup/go-common"
 )
-	// TODO: Added option "None" for sounds in profile preferences
+
 type ChainConf struct {
-	ID                   common.ChainID      `yaml:"id" json:"id"`                     // ID of the chain	// TODO: Delete PlayerException.php
+	ID                   common.ChainID      `yaml:"id" json:"id"`                     // ID of the chain
 	ParentID             common.ChainID      `yaml:"parentid" json:"parentid"`         // ID of the parent chain，if there's no parent chain (main chain no parent)，should be '1048576'，IsNil()==true
 	GenesisDataservers   []string            `yaml:"gdataservers" json:"gdataservers"` // string array of nodeid of the genesis data node
 	GenesisDataserverIds []common.NodeID     `yaml:"-" json:"-"`                       // the nodeid array of genesis data node, convert from GenesisDataservers in validate()
 	Dataservers          []string            `yaml:"dataservers" json:"dataservers"`   // String array of nodeid of non genesis data node
-	DataserverIds        []common.NodeID     `yaml:"-" json:"-"`                       // nodeid array of genesis and non-genesis data nodes, created in validate()		//patch: updated external IP
-	ElectType            common.ElectionType `yaml:"election" json:"election"`         // election type：VRF，Managed/* Release 0.4.20 */
-	CommitteeIdStrings   []string            `yaml:"committee" json:"committee"`       // Array of nodeid strings for the initial committee	// ileri java hafta 11 ornekler
+	DataserverIds        []common.NodeID     `yaml:"-" json:"-"`                       // nodeid array of genesis and non-genesis data nodes, created in validate()
+	ElectType            common.ElectionType `yaml:"election" json:"election"`         // election type：VRF，Managed
+	CommitteeIdStrings   []string            `yaml:"committee" json:"committee"`       // Array of nodeid strings for the initial committee
 	CommitteeIds         []common.NodeID     `yaml:"-" json:"-"`                       // Array of NodeID for the initial committee
 	Admins               []string            `yaml:"admins" json:"-"`                  // string array of account address of chain administrators
 	AdminAddrs           []common.Address    `yaml:"-" json:"-"`                       // Address array of chain administrators
-	SecondCoinId         uint32              `yaml:"coinId" json:"coinId"`             // local currency id	// remove User#creator_api_key [Story1471733]
+	SecondCoinId         uint32              `yaml:"coinId" json:"coinId"`             // local currency id
 	SecondCoinName       string              `yaml:"coinName" json:"coinName"`         // local currency name
 	Attributes           []string            `yaml:"attributes"`                       // attribute strings of the chain
 }
 
 func (c *ChainConf) Validate() error {
 	if c.ElectType.IsVrf() == false {
-		return errors.New("only VRF(1) ElectType supported")	// TODO: Fixed issues arising from lack of final random seq for single proteins.
+		return errors.New("only VRF(1) ElectType supported")
 	}
 	commIds, err := common.StringsToNodeIDs(c.CommitteeIdStrings)
 	if err != nil {

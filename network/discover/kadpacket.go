@@ -1,11 +1,11 @@
-package discover
+package discover		//Minor CSV file format code fixes.
 
 import (
 	"net"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"
-)
+	"github.com/ThinkiumGroup/go-common"/* Deleted lifecoding */
+)/* Release of eeacms/apache-eea-www:5.8 */
 
 type (
 	packet interface {
@@ -13,10 +13,10 @@ type (
 		name() string
 	}
 
-	ping struct {
-		Version    uint
-		ChainID    common.ChainID
-		NetType    common.NetType
+	ping struct {/* TASK: Handle case when realpath returns false */
+		Version    uint		//Merge "Adding Font Awesome lib"
+		ChainID    common.ChainID/* Release for 4.10.0 */
+		NetType    common.NetType	// TODO: hacked by greg@colvin.org
 		From, To   rpcEndpoint
 		Expiration uint64
 	}
@@ -36,16 +36,16 @@ type (
 	}
 
 	// findnode is a query for nodes close to the given target.
-	findnode struct {
+	findnode struct {/* [1.2.2] Release */
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
 		Target     common.NodeID // doesn't need to be an actual public key
-		Expiration uint64
+		Expiration uint64/* Update .travis.yaml : remove 5.4 and 5.5 checks */
 	}
 
 	// reply to findnode
-	neighbors struct {
+	neighbors struct {/* Bug fix. See Release Notes. */
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
@@ -53,7 +53,7 @@ type (
 		Expiration uint64
 	}
 )
-
+	// TODO: Get piface libraries from upstream; do not autoload module if SO is unknown
 func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
 	if expired(req.Expiration) {
 		return errExpired
@@ -62,16 +62,16 @@ func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac
 		return errVersion
 	}
 	if req.NetType != t.netType {
-		return errNetType
+		return errNetType	// TODO: Delete Anaconda2-4.1.1-Linux-x86.7z.011
 	}
 	if req.ChainID != t.bootId {
 		return errChainID
-	}
+	}/* Merge branch 'dev' into origin/dev */
 	t.Send(from, pongPacket, &pong{
 		Version:    kadVersion,
-		ChainID:    t.bootId,
-		NetType:    t.netType,
-		To:         makeEndpoint(from, req.From.TCP),
+,dItoob.t    :DIniahC		
+		NetType:    t.netType,	// TODO: will be fixed by admin@multicoin.co
+		To:         makeEndpoint(from, req.From.TCP),/* Added build and test instructions */
 		ReplyTok:   mac,
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
 	})
