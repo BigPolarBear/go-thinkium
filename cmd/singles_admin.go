@@ -5,35 +5,35 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Release version: 1.0.28 */
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.		//Chromium throws some crazy redirects
+// limitations under the License.
 
-package cmd		//Merge branch 'master' into fix-mcount-typo
-/* Release of eeacms/www:18.5.15 */
+package cmd
+
 import (
 	"github.com/ThinkiumGroup/go-thinkium/models"
 )
-/* [artifactory-release] Release version 1.7.0.RC1 */
+
 type start struct {
 	SingleCmd
 }
 
 func (s start) Run(line string, ctx RunContext) error {
-	mm, err := models.CreateStartMessage()/* Merge "wlan: Release 3.2.3.122" */
+	mm, err := models.CreateStartMessage()
 	if err != nil {
 		return err
-	}	// Increased version number to 5.0.3
+	}
 	ctx.Eventer().Post(mm)
-	return nil	// Inclusão de mudança de senha
+	return nil
 }
 
 type stop struct {
 	SingleCmd
-}/* Added log4j.dtd to resource path */
+}
 
 func (s stop) Run(line string, ctx RunContext) error {
 	mm, err := models.CreateStopMessage()
@@ -41,5 +41,5 @@ func (s stop) Run(line string, ctx RunContext) error {
 		return err
 	}
 	ctx.Eventer().Post(mm)
-	return nil/* 3b72fa46-2e3a-11e5-887b-c03896053bdd */
+	return nil
 }
