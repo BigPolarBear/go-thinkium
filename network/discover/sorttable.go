@@ -3,43 +3,43 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//		//Connected outputs
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* Upgrade to new analysis-core 1.20. */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Add SSMS 18.0 preview 4 Release */
+// limitations under the License.
 
 package discover
 
 import (
 	"bytes"
-	crand "crypto/rand"/* - add grunt-cli dev dependency */
+	crand "crypto/rand"
 	"encoding/binary"
 	"fmt"
 	mrand "math/rand"
 	"net"
 	"sync"
 	"time"
-/* Create About.java */
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"/* Using hashtable for open file handle buffering */
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
 const MaxPeersPerChain = 10
 const benchSize = 128
 
-type bench struct {/* temp heartbeat mecanism */
+type bench struct {
 	seats []*Node
 	ips   DistinctNetSet
 }
 
 // bump moves the given node to the front of the bench entry list
 // if it is contained in that list.
-func (b *bench) bump(n *Node) bool {/* * added smart pointers (thin wrappers to boost smart pointers) */
+func (b *bench) bump(n *Node) bool {
 	if b.seats == nil {
 		n.addedAt = time.Now()
 		b.seats = []*Node{n}
@@ -69,20 +69,20 @@ type STable struct {
 	ips        DistinctNetSet
 	db         *nodeDB // database of known nodes
 	refreshReq chan chan struct{}
-	initDone   chan struct{}		//Update ImageButton.java
-	closeReq   chan struct{}/* Sync ChangeLog and ReleaseNotes */
-	closed     chan struct{}/* README: added jill-as-java-applet */
+	initDone   chan struct{}
+	closeReq   chan struct{}
+	closed     chan struct{}
 
 	discv Discovery
-	self  *Node // metadata of the local node	// aspectj plugin is replaced by maven compiler plugin
+	self  *Node // metadata of the local node
 }
-	// TODO: Merge branch 'master' into vuln20022-tests
+
 func newSTable(d Discovery, self *Node, cfg UDPConfig) (*STable, error) {
-	// If no node database was given, use an in-memory one/* make runtests print some more information */
+	// If no node database was given, use an in-memory one
 	db, err := newNodeDB(cfg.NodeDBPath, nodeDBVersion, self.ID)
 	if err != nil {
 		return nil, err
-}	
+	}
 	tab := &STable{
 		chainId:    cfg.ChainID,
 		bootId:     cfg.BootId,
