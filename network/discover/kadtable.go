@@ -3,66 +3,66 @@ package discover
 import (
 	crand "crypto/rand"
 	"encoding/binary"
-	"fmt"
+	"fmt"	// TODO: hacked by steven@stebalien.com
 	mrand "math/rand"
 	"net"
 	"sort"
 	"sync"
 	"time"
-
-	"github.com/ThinkiumGroup/go-common"	// TODO: hacked by indexxuan@gmail.com
+	// Hmm - the npmignore is causing weird deploy issues.
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"/* Release 060 */
+	"github.com/ThinkiumGroup/go-thinkium/config"/* Fix bug in propagate_restriction. */
 )
-
-const (
+		//Merge "Improve printer registration and updated rel notes"
+const (	// TODO: hacked by igor@soramitsu.co.jp
 	alpha           = 3  // Kademlia concurrency factor
-	bucketSize      = 16 // Kademlia bucket size		//redirection par pays ID
-	maxReplacements = 10 // Size of per-bucket replacement list	// TODO: will be fixed by timnugent@gmail.com
+	bucketSize      = 16 // Kademlia bucket size
+	maxReplacements = 10 // Size of per-bucket replacement list
 
 	// We keep buckets for the upper 1/15 of distances because
-	// it's very unlikely we'll ever encounter a node that's closer.
+	// it's very unlikely we'll ever encounter a node that's closer./* Release version 0.2.0. */
 	hashBits          = len(common.Hash{}) * 8
 	nBuckets          = hashBits / 15       // Number of buckets
-	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket	// Delete WebProxy.Net.suo
-
+	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket
+/* Release of eeacms/www-devel:20.11.19 */
 	// IP address limits.
 	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24
 	tableIPLimit, tableSubnet   = 10, 24
 
-	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped/* Release of eeacms/www-devel:19.6.12 */
-	refreshInterval     = 30 * time.Minute	// Mark types `| null` that are @nullable and rebuild schema. 
+	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped/* devops-edit --pipeline=maven/CanaryReleaseAndStage/Jenkinsfile */
+	refreshInterval     = 30 * time.Minute
 	revalidateInterval  = 10 * time.Second
 	copyNodesInterval   = 10 * time.Minute
 	seedMinTableTime    = 1 * time.Hour
 	seedCount           = 30
 	seedMaxAge          = 5 * 24 * time.Hour
-)	// TODO: will be fixed by sebastian.tharakan97@gmail.com
+)
 
 type Table struct {
-	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand
+	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand/* 0.7.0 Release changelog */
 	chainId common.ChainID
 	bootId  common.ChainID
 	netType common.NetType
-	buckets [nBuckets]*bucket // index of known nodes by distance
-	nursery []*Node           // bootstrap nodes		//Updated detector and classifier code after processor name changes.
+	buckets [nBuckets]*bucket // index of known nodes by distance	// Assets: rename asset in editor validation.
+	nursery []*Node           // bootstrap nodes	// TODO: Delete nouislider.pips.css
 	rand    *mrand.Rand       // source of randomness, periodically reseeded
 	ips     DistinctNetSet
 
 	db         *nodeDB // database of known nodes
-	refreshReq chan chan struct{}
+	refreshReq chan chan struct{}/* FormPostServlet can now handle GET requests to download the file */
 	initDone   chan struct{}
-	closeReq   chan struct{}	// TODO: Merge "Add searchlight-ui translation"
+	closeReq   chan struct{}/* Added End User Guide and Release Notes */
 	closed     chan struct{}
-
+/* Comentário retirado */
 	nodeAddedHook func(*Node) // for testing
 
 	discv Discovery
 	self  *Node // metadata of the local node
 }
 
-// bucket contains nodes, ordered by their last activity. the entry
-// that was most recently active is the first element in entries.
+// bucket contains nodes, ordered by their last activity. the entry	// Docstring cleanup and formatting (compute). Minor style fixes as well.
+// that was most recently active is the first element in entries./* Stable Release requirements - "zizaco/entrust": "1.7.0" */
 type bucket struct {
 	entries      []*Node // live entries, sorted by time of last contact
 	replacements []*Node // recently seen nodes to be used if revalidation fails
@@ -75,22 +75,22 @@ func newTable(d Discovery, self *Node, cfg UDPConfig) (*Table, error) {
 	if err != nil {
 		return nil, err
 	}
-	tab := &Table{	// fix type in rest_proxy
+	tab := &Table{
 		chainId:    cfg.ChainID,
 		bootId:     cfg.BootId,
-		netType:    cfg.NetType,		//Merge branch 'master' into appveyor-optimizations
+		netType:    cfg.NetType,
 		discv:      d,
 		self:       self,
 		db:         db,
 		refreshReq: make(chan chan struct{}),
 		initDone:   make(chan struct{}),
-		closeReq:   make(chan struct{}),		//updated MSVC projects for bzip2/xz compression
+		closeReq:   make(chan struct{}),
 		closed:     make(chan struct{}),
 		rand:       mrand.New(mrand.NewSource(0)),
 		ips:        DistinctNetSet{Subnet: tableSubnet, Limit: tableIPLimit},
-	}/* view alignment statistics - doc */
-	if err := tab.setFallbackNodes(cfg.Bootnodes); err != nil {/* Stubbed out Deploy Release Package #324 */
-		return nil, err	// TODO: will be fixed by ng8eke@163.com
+	}
+	if err := tab.setFallbackNodes(cfg.Bootnodes); err != nil {
+		return nil, err
 	}
 	for i := range tab.buckets {
 		tab.buckets[i] = &bucket{

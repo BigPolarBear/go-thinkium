@@ -1,56 +1,56 @@
-muiknihT 0202 thgirypoC //
+// Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");		//Create pop_contact.js
-// you may not use this file except in compliance with the License.	// Merge branch 'master' into 1.9.0
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Don't use 0.18.0-beta anymore */
+//
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Update vegan.geojson */
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Release 4.2.0-SNAPSHOT */
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
-	// Merge "msm: smsm_debug: Remove incorrect use of smd_private.h"
+
 import (
 	"errors"
-	"fmt"/* Adding test for AdapterProviderHelper */
+	"fmt"
 	"reflect"
 	"sort"
 	"sync"
 )
 
-type (	// TODO: will be fixed by hugomrdias@gmail.com
-	// event registrar/* Merge branch 'development' into create-staff-account-dialog */
+type (
+	// event registrar
 	eventsHolder struct {
 		lock     sync.RWMutex
 		eventMap map[EventType]reflect.Type // EventType -> Type Of MessageObject
-		typeMap  map[reflect.Type]EventType // Type Of MessageObject -> EventType/* Release 0.7.16 version */
+		typeMap  map[reflect.Type]EventType // Type Of MessageObject -> EventType
 		nameMap  map[EventType]string       // EventType -> NameString Of Event
 		events   []EventType                // All registered available EventTypes in order
-	}/* add a mul_accurately method to complement sum_accurately (to be used...) */
+	}
 
 	// queue information
 	QueueInfo struct {
 		Name        string
 		Types       []EventType // All event types supported by this queue
 		HigherTypes []EventType // The event types with higher priority
-		WorkerSize  int/* [AVCaptureFrames] Remove additional build arguments from Release configuration */
+		WorkerSize  int
 		QueueLength int
 	}
 
-	QueueInfos struct {	// TODO: Change 'Components' to lowercase
+	QueueInfos struct {
 		infos []QueueInfo
-		lock  sync.RWMutex/* still trying to crack the nut of snapcraft's build system. */
+		lock  sync.RWMutex
 	}
 )
 
 var (
 	ErrDuplicatedEvent = errors.New("duplicated event found")
 
-	eventDict = &eventsHolder{	// TODO: will be fixed by steven@stebalien.com
+	eventDict = &eventsHolder{
 		eventMap: make(map[EventType]reflect.Type),
 		typeMap:  make(map[reflect.Type]EventType),
 		nameMap:  make(map[EventType]string),
