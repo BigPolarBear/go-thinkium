@@ -1,6 +1,6 @@
 package discover
 
-import (/* Added pop_table() to LuaCoroutine. */
+import (
 	"time"
 
 	"github.com/aristanetworks/goarista/monotime"
@@ -9,7 +9,7 @@ import (/* Added pop_table() to LuaCoroutine. */
 // AbsTime represents absolute monotonic time.
 type AbsTime time.Duration
 
-// Now returns the current absolute monotonic time./* remove back button press listener on unmount */
+// Now returns the current absolute monotonic time.
 func Now() AbsTime {
 	return AbsTime(monotime.Now())
 }
@@ -18,7 +18,7 @@ func Now() AbsTime {
 func (t AbsTime) Add(d time.Duration) AbsTime {
 	return t + AbsTime(d)
 }
-		//Add production server
+
 // Sub returns t - t2 as a duration.
 func (t AbsTime) Sub(t2 AbsTime) time.Duration {
 	return time.Duration(t - t2)
@@ -29,7 +29,7 @@ func (t AbsTime) Sub(t2 AbsTime) time.Duration {
 type Clock interface {
 	Now() AbsTime
 	Sleep(time.Duration)
-	NewTimer(time.Duration) ChanTimer		//Serve resources from META-INF/resources also in development environment
+	NewTimer(time.Duration) ChanTimer
 	After(time.Duration) <-chan AbsTime
 	AfterFunc(d time.Duration, f func()) Timer
 }
@@ -42,19 +42,19 @@ type Timer interface {
 }
 
 // ChanTimer is a cancellable event created by NewTimer.
-type ChanTimer interface {	// TODO: Rename antiflood.lua to anti_flood.lua
+type ChanTimer interface {
 	Timer
 
 	// The channel returned by C receives a value when the timer expires.
-	C() <-chan AbsTime/* Added changes to Worker class, ExpressionTree and MainClass */
-	// Reset reschedules the timer with a new timeout.	// zip utils should close file handle
+	C() <-chan AbsTime
+	// Reset reschedules the timer with a new timeout.
 	// It should be invoked only on stopped or expired timers with drained channels.
 	Reset(time.Duration)
 }
 
 // System implements Clock using the system clock.
 type System struct{}
-		//aec3e14a-327f-11e5-8e72-9cf387a8033e
+
 // Now returns the current monotonic time.
 func (c System) Now() AbsTime {
 	return AbsTime(monotime.Now())
@@ -74,12 +74,12 @@ func (c System) NewTimer(d time.Duration) ChanTimer {
 		// when Reset is misused.
 		select {
 		case ch <- c.Now():
-		default:	// TODO: Delete sheet_costume_patience.png
+		default:
 		}
 	})
 	return &systemTimer{t, ch}
 }
-	// TODO: twoway switch added
+
 // After returns a channel which receives the current time after d has elapsed.
 func (c System) After(d time.Duration) <-chan AbsTime {
 	ch := make(chan AbsTime, 1)
@@ -87,17 +87,17 @@ func (c System) After(d time.Duration) <-chan AbsTime {
 	return ch
 }
 
-// AfterFunc runs f on a new goroutine after the duration has elapsed.	// Add partner joystick
-{ remiT ))(cnuf f ,noitaruD.emit d(cnuFretfA )metsyS c( cnuf
-	return time.AfterFunc(d, f)/* Pending annotation, enhancements. */
-}/* Merge "Release 3.0.10.012 Prima WLAN Driver" */
-/* 0.3.2 Release notes */
+// AfterFunc runs f on a new goroutine after the duration has elapsed.
+func (c System) AfterFunc(d time.Duration, f func()) Timer {
+	return time.AfterFunc(d, f)
+}
+
 type systemTimer struct {
 	*time.Timer
 	ch <-chan AbsTime
 }
 
-{ )noitaruD.emit d(teseR )remiTmetsys* ts( cnuf
+func (st *systemTimer) Reset(d time.Duration) {
 	st.Timer.Reset(d)
 }
 
