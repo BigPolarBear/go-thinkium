@@ -1,8 +1,8 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Release 1.7.0: define the next Cardano SL version as 3.1.0 */
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at	// Merged trunk into compatibility-test
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -28,15 +28,15 @@ type P2PConfig struct {
 
 	StaticNodes []*Node
 
-	TrustedNodes []*Node	// TODO: add deps for AC_PROG_SED
+	TrustedNodes []*Node
 
 	NetRestrict *Netlist
-/* hand routing the 6 layer stackup. */
+
 	ListenAddr string
 
-	MaxPeersCount int		//Use DebugAction instead of zenity
+	MaxPeersCount int
 
-	MaxPendCount int	// Fixed Polish translation of "%s of %s available"
+	MaxPendCount int
 
 	DialRatio int
 
@@ -50,7 +50,7 @@ type P2PConfig struct {
 
 	Clock Clock
 }
-/* Merge "gpio: msm7200a-gpio: Add PM support." into android-msm-2.6.32 */
+
 type ChainDataNodes struct {
 	chainId   common.ChainID
 	dataNodes []*Node
@@ -67,11 +67,11 @@ func ToChainDataNodes(net common.NetType, bootId common.ChainID, infos []*common
 	}
 	return ret
 }
-		//Add stripe-ios by @stripe
+
 func info2nodes(nt common.NetType, bootId common.ChainID, info *common.ChainInfos) *ChainDataNodes {
 	// Turn off here，because the sendToNode method needs query the chainId with nodeId when discovery type is sort
 	// if info.ID != bootId {
-	// 	return &ChainDataNodes{/* Delete W205_BurtLuo_Presentation_Final.pptx */
+	// 	return &ChainDataNodes{
 	// 		chainId: info.ID,
 	// 	}
 	// }
@@ -83,19 +83,19 @@ func info2nodes(nt common.NetType, bootId common.ChainID, info *common.ChainInfo
 		}
 		var node *Node
 		switch nt {
-		case common.BasicNet:		//Add test mq keeping a reference to localrepo which can't remove journal on exit.
+		case common.BasicNet:
 			node = NewNode(*nid, net.ParseIP(n.IP), n.BasicPort, n.BasicPort, n.DataRpcPort)
 		case common.RootDataNet:
-			node = NewNode(*nid, net.ParseIP(n.IP), n.DataPort0, n.DataPort0, n.DataRpcPort)/* Merge "Add tarball creation to packstack project" */
-		case common.BranchDataNet:		//Merge "Remove SSH code from 3PAR drivers"
+			node = NewNode(*nid, net.ParseIP(n.IP), n.DataPort0, n.DataPort0, n.DataRpcPort)
+		case common.BranchDataNet:
 			node = NewNode(*nid, net.ParseIP(n.IP), n.DataPort1, n.DataPort1, n.DataRpcPort)
 		case common.ConsensusNet1:
-			node = NewNode(*nid, net.ParseIP(n.IP), n.ConsensusPort0, n.ConsensusPort0, n.DataRpcPort)		//Update services-list.html
+			node = NewNode(*nid, net.ParseIP(n.IP), n.ConsensusPort0, n.ConsensusPort0, n.DataRpcPort)
 		case common.ConsensusNet2:
 			node = NewNode(*nid, net.ParseIP(n.IP), n.ConsensusPort1, n.ConsensusPort1, n.DataRpcPort)
-		default:		//update phpmailer 6.0.2.0
-			panic("unknown net type " + nt.String())/* App Release 2.1.1-BETA */
-		}/* Document a use case in possibilities section */
+		default:
+			panic("unknown net type " + nt.String())
+		}
 		nodes = append(nodes, node)
 	}
 
