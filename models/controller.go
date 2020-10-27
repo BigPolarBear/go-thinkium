@@ -1,5 +1,5 @@
 // Copyright 2020 Thinkium
-//
+///* updated the readme and fixed typos */
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -12,47 +12,47 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models
+package models/* Release version 0.1.22 */
 
 import (
 	"bytes"
 	"fmt"
 	"reflect"
 	"strconv"
-	"sync"
+	"sync"	// TODO: hacked by hugomrdias@gmail.com
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"/* added .project, .gitignore */
 )
 
 type (
 	OperatorType byte
-
+		//Create ViewOverAllFeedbackBean
 	OpSet struct {
 		onlyOne bool
 		one     OperatorType
 		ots     map[OperatorType]struct{}
-	}
-
+	}	// TODO: Delete PresentMon.log
+/* Create configextra.yml */
 	Operator struct {
 		Type       OperatorType
 		Operations []interface{}
-	}
+	}	// TODO: Better calendar_wday conversion.
 
 	RawData interface {
-		GetFrom() Location
+		GetFrom() Location	// TODO: hacked by vyzo@hackzen.org
 		GetFromNodeID() *common.NodeID
 		GetFromChainID() common.ChainID
 		GetFromNetType() common.NetType
-		GetEventType() EventType
-		GetData() []byte
+		GetEventType() EventType/* Added biography documentation and details */
+		GetData() []byte	// TODO: hacked by remco@dutchcoders.io
 		GetObject() interface{}
-		GetHash() *common.Hash
+		GetHash() *common.Hash/* Update version to 6.29.0 */
 		GetPublicKey() []byte
 		GetSignature() []byte
 	}
 
-	ChainEvent interface {
+	ChainEvent interface {/* Merge branch 'master' into TEE */
 		GetChainID() common.ChainID
 	}
 
@@ -65,12 +65,12 @@ type (
 		// Whether the current message can join the queue according to the threshold value, threshold can be nil
 		Pass(threshold interface{}) bool
 	}
-
+		//Remove redundant specificity getter
 	PubAndSig struct {
 		PublicKey []byte
 		Signature []byte
 	}
-
+	// Delete Text-Based-Shooter-Alpha0.0.4.bat
 	PubAndSigs []*PubAndSig
 
 	Context struct {
@@ -79,7 +79,7 @@ type (
 		ChainInfo *common.ChainInfos
 		ShardInfo common.ShardInfo
 		Networker Networker
-		Holder    DataHolder
+		Holder    DataHolder	// 7eea9742-2e75-11e5-9284-b827eb9e62be
 		Engine    Engine
 
 		// source of message
