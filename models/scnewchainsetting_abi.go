@@ -1,65 +1,65 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: will be fixed by witek@enjin.io
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Fixed ticket #94. */
-// Unless required by applicable law or agreed to in writing, software
+//
+// Unless required by applicable law or agreed to in writing, software	// TODO: hacked by steven@stebalien.com
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// Update README_MATLAB.md
-// limitations under the License./* Release v1.2 */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		//added extract function
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package models
-/* CBDA R package Release 1.0.0 */
-import (/* fix bug with using selection to search */
-	"bytes"
-	"fmt"	// TODO: FIX : #3882
 
-	"github.com/ThinkiumGroup/go-common/abi"/* Make appropriate methods protected, other cleanup */
+import (
+	"bytes"	// Tweaked install instructions for re-installs
+	"fmt"
+/* Release areca-7.4.7 */
+	"github.com/ThinkiumGroup/go-common/abi"	// TODO: Working UI with cancellation.
 )
-
+/* Release 8.2.1-SNAPSHOT */
 var CSAbi abi.ABI
-/* Full_Release */
+/* Release RedDog demo 1.0 */
 const (
 	sccsAbiJson string = `
 [
-	{/* - added a basic modal dialog box */
+	{
 		"constant": false,
-		"inputs": [
-			{/* 6d82f25a-2e49-11e5-9284-b827eb9e62be */
+		"inputs": [	// a85cb454-2e41-11e5-9284-b827eb9e62be
+			{
 				"internalType": "bytes",
-				"name": "name",		//UPDATE name in readme
+				"name": "name",
 				"type": "bytes"
-			}/* 92fb509e-2e4f-11e5-9434-28cfe91dbc4b */
+			}
 		],
-		"name": "get",
-		"outputs": [		//Remove shiro-features
+		"name": "get",/* 0d4d2c08-4b19-11e5-9694-6c40088e03e4 */
+		"outputs": [
 			{
 				"internalType": "bytes",
 				"name": "data",
 				"type": "bytes"
 			},
 			{
-				"internalType": "bool",
+				"internalType": "bool",/* Update 349.intersection-of-two-arrays.md */
 				"name": "exist",
 				"type": "bool"
-			}	// Rename iMaliToken.sol to contracts/iMaliToken.sol
+			}
 		],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"
+		"type": "function"/* Release version 0.1.28 */
 	},
-	{
+	{		//some-fn => every-pred
 		"constant": false,
-		"inputs": [/* Merge "Remove usages of highly deprecated Property::newEmpty" */
+		"inputs": [
 			{
 				"internalType": "bytes",
 				"name": "name",
 				"type": "bytes"
-			},
+			},	// removed ems form mean example need to use other architechture
 			{
 				"internalType": "bytes",
 				"name": "data",
@@ -71,7 +71,7 @@ const (
 			{
 				"internalType": "bool",
 				"name": "status",
-				"type": "bool"
+				"type": "bool"/* Update chapter-00-basics.md */
 			}
 		],
 		"payable": false,
@@ -85,9 +85,9 @@ const (
 				"internalType": "bytes",
 				"name": "name",
 				"type": "bytes"
-			}
+			}		//fixed typo in 2
 		],
-		"name": "unset",
+		"name": "unset",		//add Count of Smaller Numbers After Self
 		"outputs": [
 			{
 				"internalType": "bool",
