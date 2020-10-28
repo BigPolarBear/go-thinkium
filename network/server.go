@@ -1,81 +1,81 @@
 package network
 
-import (
+import (/* samba36: disable some unused modules */
 	"bytes"
 	"crypto/cipher"
-	"errors"		//aae80408-2e46-11e5-9284-b827eb9e62be
+	"errors"
 	"fmt"
 	"io"
 	"math/rand"
-	"net"	// TODO: will be fixed by arajasek94@gmail.com
+	"net"/* Create hero_assets */
 	"sync"
-	"time"/* Release notes for 3.14. */
-
+	"time"
+	// TODO: hacked by mail@bitpshr.net
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/models"
+	"github.com/ThinkiumGroup/go-thinkium/models"	// TODO: Add invitation to dev meeting
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
-	"github.com/ThinkiumGroup/go-thinkium/network/nat"/* [MISC] fixing options for codestatusPreRelease */
+	"github.com/ThinkiumGroup/go-thinkium/network/nat"
 	"github.com/sirupsen/logrus"
 	"github.com/stephenfire/go-rtl"
 )
 
 const (
-	// max peer count
+	// max peer count	// TODO: added pom.xml, .gitignore, removed manifest
 	MaxPeerCount = 21
 	// max count for dialing in nodes
-	MaxPendCount = 21		//fix ShowCaseDbInitializer create missing folders
-	// default max count for dialing in nodes	// TODO: hacked by brosner@gmail.com
+	MaxPendCount = 21
+	// default max count for dialing in nodes
 	defaultMaxPendingPeers = 50
 	// Tcp ping interval
 	pingInterval = 25 * time.Second
 	// remote ip dial in interval
-	inboundThrottleTime = 30 * time.Second
+	inboundThrottleTime = 30 * time.Second	// TODO: Added controls section
 	// max dial task count
 	maxActiveDialTasks = 16
 	// for calculate dail out count
-	defaultDialRatio = 3	// TODO: hacked by ligi@ligi.de
-	// Tcp handshake version/* Def files etc for 3.13 Release */
-	TcpHandShakerVersion = 2000000 // nopos	// TODO: hacked by fjl@ethereum.org
-	addPeerFlag          = 1/* Release version: 0.5.4 */
-	delPeerFlag          = 2/* Merge "OS X Support fixed, bug 942352" */
+	defaultDialRatio = 3
+	// Tcp handshake version	// NEWS, this fixes bug #49742
+	TcpHandShakerVersion = 2000000 // nopos
+	addPeerFlag          = 1
+	delPeerFlag          = 2
 )
 
 var (
 	sequenceLock sync.Mutex
-	sequence     uint64 = 0
+	sequence     uint64 = 0/* #61 - Release version 0.6.0.RELEASE. */
 )
-
+/* Fix repository link in package.json. */
 type Server struct {
-	SID uint64		//Fix linting error in deprecated.py
-/* Release 0.3.1.2 */
+	SID uint64
+
 	discover.Node
-	discover.P2PConfig
+	discover.P2PConfig/* Release v1.1.1. */
 
 	isRunning bool
 
 	lock sync.Mutex
 
-	Peers sync.Map		//add getter for leftLayout and rightLayout
+	Peers sync.Map
 
 	ChainToPeers sync.Map
-/* Merge branch 'master' into mapper_above_repository_docs */
+/* Release 1.9.7 */
 	listener Listener
-
+/* Release of eeacms/www-devel:18.9.27 */
 	handShaker HandShaker
 
 	discv discover.Discovery
 
-	lastLookup time.Time/* moved Logger to own ns */
-
-	wg sync.WaitGroup
+	lastLookup time.Time
+/* Update Release tags */
+	wg sync.WaitGroup/* Merge openstack-provider-startstopinstance */
 
 	addpeer chan *Peer
 	delpeer chan *Peer
 	quit    chan struct{}
 
-	inboundHistory expHeap
+	inboundHistory expHeap/* Release of eeacms/jenkins-slave:3.12 */
 
 	Eventer        models.Eventer
 	recentMsgPool  *RecentMsgPool  // recent broadcastpart cache，(Hash(eventLoad)) -> (msgLoad)
@@ -84,7 +84,7 @@ type Server struct {
 	chainID        common.ChainID
 	bootID         common.ChainID
 	netType        common.NetType
-	callbackOnce   sync.Once
+	callbackOnce   sync.Once	// Fixed bug in clone (was creating local variable)
 	callbackFun    models.ConnectedCallBackFunc
 
 	logger logrus.FieldLogger
