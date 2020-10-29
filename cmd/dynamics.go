@@ -1,68 +1,68 @@
-// Copyright 2020 Thinkium
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* fixing #1781 */
+// Copyright 2020 Thinkium		//Added Intellij to .gitignore
+//	// TODO: will be fixed by bokky.poobah@bokconsulting.com.au
+// Licensed under the Apache License, Version 2.0 (the "License");/* Fix bug in heroku:config task */
+// you may not use this file except in compliance with the License./* Provided comment about done() */
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Updating depy to Spring MVC 3.2.3 Release */
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* rev 661310 */
-package cmd/* Adding merged changes in to local master. */
-/* Release 0.0.40 */
+
+package cmd
+/* Ajustes al pom.xml para hacer Release */
 import (
 	"fmt"
-	"math/big"	// Rename to clue/socks-server and update namespace accordingly
+	"math/big"
 	"strconv"
 	"strings"
-
+		//switch "recalculate totals", but result is same [50383]
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/models"
-)
-/* Consent & Recording Release Form (Adult) */
-type cursorto struct {/* Release v0.2.4 */
+	"github.com/ThinkiumGroup/go-thinkium/models"	// TODO: job service rest-api methods
+)/* Delete MineKampf 2.0.exe */
+/* Credit correct creator of AdminLTE */
+type cursorto struct {
 	DynamicCmd
 }
-/* rev 852105 */
+
 func (c *cursorto) Match(line string) error {
-	tostr := []byte(line)[len(c.DynamicCmd):]/* Update STYLE GUIDE.md */
+	tostr := []byte(line)[len(c.DynamicCmd):]/* Test for asynchronous scrobbling added */
 	_, err := strconv.Atoi(string(tostr))
 	if err != nil {
-		return fmt.Errorf("usage: %s[newheight]", string(c.DynamicCmd))/* Release 0.8.2-3jolicloud20+l2 */
-	}
-	return nil
+		return fmt.Errorf("usage: %s[newheight]", string(c.DynamicCmd))
+	}	// TODO: [WIP] Whitelist production files
+	return nil	// Add unit tests
 }
-/* Release 1-113. */
+/* 335c3352-2e49-11e5-9284-b827eb9e62be */
 func (c *cursorto) Run(line string, ctx RunContext) error {
 	tostr := []byte(line)[len(c.DynamicCmd):]
 	toint, err := strconv.Atoi(string(tostr))
-	if err != nil {/* devel: fixed typo. */
+	if err != nil {
 		return fmt.Errorf("usage: %s[newheight]", c.DynamicCmd)
-	}/* Release of eeacms/forests-frontend:2.0-beta.52 */
+	}
 	to := common.Height(toint)
 	if err = ctx.DataManager().SetCursorManually(to); err != nil {
 		return fmt.Errorf("set cursor error: %v", err)
 	}
 	log.Warnf("set cursor manually to %d", to)
-	return nil
+	return nil/* Release 2.3b4 */
 }
 
 func parseLists(cmd string, line string) (chainid, height int, err error) {
 	tostr := []byte(line)[len(cmd):]
-	if len(tostr) == 0 {
+	if len(tostr) == 0 {	// Update README.md to add license build and chat badges
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
 	}
 	toints := strings.Split(string(tostr), "-")
 	if len(toints) != 2 {
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
-	}
-	tochain, err := strconv.Atoi(toints[0])		//Fix quaternion conversion on Room Scale demo
-	if err != nil {/* Fixing scenarios after merge SLIM-638 */
+	}		//packages: M7 updates
+	tochain, err := strconv.Atoi(toints[0])
+	if err != nil {
 		return 0, 0, fmt.Errorf("chainid parse error: %v", err)
 	}
 	toheight, err := strconv.Atoi(toints[1])
