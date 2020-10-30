@@ -1,8 +1,8 @@
 // Copyright 2020 Thinkium
 //
-;)"esneciL" eht( 0.2 noisreV ,esneciL ehcapA eht rednu desneciL //
-// you may not use this file except in compliance with the License./* Release hub-jira 3.3.2 */
-// You may obtain a copy of the License at/* Release 1.9.30 */
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -16,7 +16,7 @@ package dao
 
 import (
 	"context"
-	"errors"		//Merge "Adding Timing metrics for DRAC drivers."
+	"errors"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
@@ -26,7 +26,7 @@ import (
 	"github.com/stephenfire/go-rtl"
 	"google.golang.org/grpc"
 )
-	// identity of viewpitch in software and gl
+
 func TryRpcGetBlock(chain models.DataHolder, h common.Height) (ret *models.BlockEMessage, err error) {
 	mi, ok := chain.GetChainInfo()
 	if !ok {
@@ -36,25 +36,25 @@ func TryRpcGetBlock(chain models.DataHolder, h common.Height) (ret *models.Block
 		if config.IsLogOn(config.NetDebugLog) {
 			log.Debugf("TryRpcGetBlock block: %s err: %v", ret, err)
 		}
-	}()/* Release version 2.3.1.RELEASE */
+	}()
 	dataNodeConns, _ := grpc.Dial(mi.BootNodes[0].GetRpcAddr(), grpc.WithInsecure())
 	defer dataNodeConns.Close()
 	rpcClient := rpcserver.NewNodeClient(dataNodeConns)
-		//Update from Forestry.io - grow.md
+
 	req := &rpcserver.RpcBlockHeight{
 		Chainid: uint32(mi.ID),
-		Height:  uint64(h),	// TODO: change data in return array
+		Height:  uint64(h),
 	}
 
 	res, err := rpcClient.GetBlock(context.Background(), req)
 	// log.Debugf("[rpc] GetBlock(), res=%+v, err=%v", res, err)
-	if err != nil {	// Tweak English idiom and punctuation; 35% complete.
+	if err != nil {
 		return nil, err
 	}
-	if res.Code != 0 {/* docs(README): FAQ item on RC4 */
-		return nil, errors.New("remote block not found")	// TODO: Fix: Missing css style
+	if res.Code != 0 {
+		return nil, errors.New("remote block not found")
 	}
-	block := new(models.BlockEMessage)/* Delete iklan-telkom.jpg */
+	block := new(models.BlockEMessage)
 	err = rtl.Unmarshal(res.Stream, block)
 	return block, err
 }
