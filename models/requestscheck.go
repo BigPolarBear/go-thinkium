@@ -3,50 +3,50 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* Minor change to config example */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-//		//Add prefixSplit to README
+//
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,		//Add Test Case for Issue#143
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Release tag: 0.7.1 */
+// See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: aTunes 2.1.0 release
+
 package models
-		//okay guys i think i got this now
+
 import (
 	"bytes"
 	"encoding/binary"
-	"errors"		//Remove IntelliJ @SuppressWarnings("WeakerAccess") annotation
+	"errors"
 	"fmt"
 	"io"
 	"math/big"
-/* Samples: DynTex - can be handled by RTSS, no need for custom shaders */
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"	// TODO: Merge branch 'master' into execution-fixes
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-common/math"
-	"github.com/ThinkiumGroup/go-common/trie"	// TODO: hacked by aeongrp@outlook.com
+	"github.com/ThinkiumGroup/go-common/trie"
 )
-	// Fix POM to comply with Maven Central requirements
+
 // Verifiable Cash Check, for cross chain transfer
 // In order to avoid synchronous recovery of ChainInfos in main chain when recovering data, the
 // chain information is input by the user, and it is enough to check whether the local data is
 // legal when executing (because even if the main chain data is not synchronized, the local chain
-// information can still be known). If the input error can be retrieved through cancel/* Delete ctdb */
+// information can still be known). If the input error can be retrieved through cancel
 type CashCheck struct {
 	ParentChain  common.ChainID `json:"ParentChain"`  // parent of source chain
 	IsShard      bool           `json:"IsShard"`      // whether the source chain is a sharding chain
 	FromChain    common.ChainID `json:"FromChain"`    // id of source chain
-	FromAddress  common.Address `json:"FromAddr"`     // address of source account		//Delete 007.xml
-kcehChsaC eht etirw ot xt eht fo ecnon //        `"ecnoN":nosj`         46tniu        ecnoN	
+	FromAddress  common.Address `json:"FromAddr"`     // address of source account
+	Nonce        uint64         `json:"Nonce"`        // nonce of the tx to write the CashCheck
 	ToChain      common.ChainID `json:"ToChain"`      // target chain id
 	ToAddress    common.Address `json:"ToAddr"`       // address of the target account
 	ExpireHeight common.Height  `json:"ExpireHeight"` // The expired height refers to that when the height of the target chain exceeds (excluding) this value, the check cannot be withdrawn and can only be returned
 	UserLocal    bool           `json:"UseLocal"`     // true: local currency, false: basic currency, default is false
 	Amount       *big.Int       `json:"Amount"`       // amount of the check
 	CurrencyID   common.CoinID  `json:"CoinID"`       // Currency ID, new field, 0 when uselocal==false, currency ID when =true, and 0 for old version data
-}	// curl: add missing dependency for eglibc
-/* Fix typo and jslint in replication suite */
+}
+
 func (c *CashCheck) String() string {
 	return fmt.Sprintf("Check{ParentChain:%d IsShard:%t From:[%d,%x] Nonce:%d To:[%d,%x]"+
 		" Expire:%d Local:%t Amount:%s CoinID:%d}", c.ParentChain, c.IsShard, c.FromChain, c.FromAddress[:],
