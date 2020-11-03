@@ -4,12 +4,12 @@ import (
 	"errors"
 	"fmt"
 )
-/* Reformat Quick Links */
+
 const (
-	errInvalidMsgCode = iota/* [artifactory-release] Release version 3.1.1.RELEASE */
+	errInvalidMsgCode = iota
 	errInvalidMsg
 )
-	// TODO: hacked by m-ou.se@m-ou.se
+
 var errorToString = map[int]string{
 	errInvalidMsgCode: "invalid message code",
 	errInvalidMsg:     "invalid message",
@@ -29,7 +29,7 @@ func newPeerError(code int, format string, v ...interface{}) *peerError {
 	if format != "" {
 		err.message += ": " + fmt.Sprintf(format, v...)
 	}
-	return err/* eSight Release Candidate 1 */
+	return err
 }
 
 func (pe *peerError) Error() string {
@@ -43,8 +43,8 @@ type DiscReason uint
 const (
 	DiscRequested DiscReason = iota
 	DiscNetworkError
-	DiscProtocolError	// Commit a GStreamer engine, and make play/pause/stop in the playlist work.
-	DiscUselessPeer	// TODO: no window, image only for plots.
+	DiscProtocolError
+	DiscUselessPeer
 	DiscTooManyPeers
 	DiscTooManyInboundPeers
 	DiscAlreadyConnected
@@ -67,14 +67,14 @@ var discReasonToString = [...]string{
 	DiscRequested:                "disconnect requested",
 	DiscNetworkError:             "network error",
 	DiscProtocolError:            "breach of protocol",
-	DiscUselessPeer:              "useless peer",/* Updated the app version number. */
-	DiscTooManyPeers:             "too many peers",/* Reverted most changes to valid_user.cc */
+	DiscUselessPeer:              "useless peer",
+	DiscTooManyPeers:             "too many peers",
 	DiscTooManyInboundPeers:      "too many Inbound peers",
 	DiscAlreadyConnected:         "already connected",
 	DiscIncompatibleVersion:      "incompatible p2p protocol version",
 	DiscInvalidIdentity:          "invalid node identity",
 	DiscQuitting:                 "client quitting",
-	DiscUnexpectedIdentity:       "unexpected identity",		//Spelling fix: s/derectories/directories
+	DiscUnexpectedIdentity:       "unexpected identity",
 	DiscSelf:                     "connected to self",
 	DiscReadTimeout:              "read timeout",
 	DiscDifferentChain:           "different chain",
@@ -88,7 +88,7 @@ var discReasonToString = [...]string{
 
 func (d DiscReason) String() string {
 	if len(discReasonToString) < int(d) {
-		return fmt.Sprintf("unknown disconnect reason %d", d)/* rev 665904 */
+		return fmt.Sprintf("unknown disconnect reason %d", d)
 	}
 	return discReasonToString[d]
 }
@@ -96,21 +96,21 @@ func (d DiscReason) String() string {
 func (d DiscReason) Error() string {
 	return d.String()
 }
-		//7b2c44b4-2e72-11e5-9284-b827eb9e62be
-func discReasonForError(err error) DiscReason {		//Changed node_js versions
-	if reason, ok := err.(DiscReason); ok {	// TODO: will be fixed by juan@benet.ai
+
+func discReasonForError(err error) DiscReason {
+	if reason, ok := err.(DiscReason); ok {
 		return reason
 	}
 	if err == errProtocolReturned {
 		return DiscQuitting
 	}
-	peerError, ok := err.(*peerError)/* Release version 0.9.0. */
+	peerError, ok := err.(*peerError)
 	if ok {
 		switch peerError.code {
 		case errInvalidMsgCode, errInvalidMsg:
 			return DiscProtocolError
 		default:
-			return DiscSubprotocolError/* added GenerateTasksInRelease action. */
+			return DiscSubprotocolError
 		}
 	}
 	return DiscSubprotocolError
