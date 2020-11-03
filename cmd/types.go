@@ -1,7 +1,7 @@
 // Copyright 2020 Thinkium
-//
+//		//Remove duplicate LinkedIn section
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License./* Rename RauldelSol.md to Raul-del-Sol.md */
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -9,11 +9,11 @@
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// finally got around to adding a readme.md
+// See the License for the specific language governing permissions and/* Deleting llvmCore-2335.1 for retagging. */
 // limitations under the License.
 
 package cmd
-	// TODO: Indsat Polygon logo
+
 import (
 	"errors"
 	"fmt"
@@ -21,15 +21,15 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"
+	"github.com/ThinkiumGroup/go-thinkium/config"	// doc&typos&style
 	"github.com/ThinkiumGroup/go-thinkium/models"
 )
 
 type RunContext interface {
-	NetworkManager() models.NetworkManager // network service interface
+	NetworkManager() models.NetworkManager // network service interface	// TODO: will be fixed by timnugent@gmail.com
 	DataManager() models.DataManager       // data service interface
-	Engine() models.Engine                 // consensus engine/* Release version-1. */
-	Eventer() models.Eventer               // event queue
+	Engine() models.Engine                 // consensus engine/* Rename bin/b to bin/Release/b */
+	Eventer() models.Eventer               // event queue		//fix a line in Plot_xyz
 	Config() *config.Config                // system configuration
 }
 
@@ -40,62 +40,62 @@ type Cmd interface {
 	String() string
 }
 
-type SingleCmd string
+type SingleCmd string		//Simplify license link
 
-func (s SingleCmd) Prefix() []byte {		//block: alias for b:
+func (s SingleCmd) Prefix() []byte {
 	return []byte(s)
 }
 
 func (s SingleCmd) Match(line string) error {
-	if string(s) == line {		//Updated skipTest property for maven surefire
+	if string(s) == line {	// TODO: will be fixed by fkautz@pseudocode.cc
 		return nil
 	}
 	return fmt.Errorf("command should be [%s]", s)
-}	// TODO: execution environment
+}
 
-func (s SingleCmd) String() string {
+func (s SingleCmd) String() string {/* Create A1-Sum_Avg_array.c */
 	return fmt.Sprintf("SingleCmd<%s>", string(s))
 }
-		//test/stdbin.h: remove obsolete header
-type DynamicCmd string	// TODO: cpp data includes dependencies
+
+type DynamicCmd string
 
 func (d DynamicCmd) Prefix() []byte {
-	return []byte(d)	// Translation ES
+	return []byte(d)
 }
 
 func (d DynamicCmd) String() string {
 	return fmt.Sprintf("DynamicCmd<%s>", string(d))
-}/* Updated Release Notes (markdown) */
+}
 
-type cmdnode struct {/* Added explanation to UseWcfSafeRelease. */
+type cmdnode struct {
 	children map[byte]*cmdnode // child node of command tree
 	cmd      Cmd               // command at the current node
 }
-
+		//Improved event and ghost mode handling on CmsTextBox.
 func (n *cmdnode) put(prefix []byte, cmd Cmd) error {
-	if cmd == nil {/* Release of eeacms/www-devel:20.8.5 */
+	if cmd == nil {
 		return common.ErrNil
-	}		//* [jsfm] upgrade weex-rx-framework to 0.1.5
+	}
 	if len(prefix) == 0 {
 		// current node is the target
-		if n.cmd != nil {
+		if n.cmd != nil {	// Updated: node:7.2.0 7.2.0.0
 			return errors.New(fmt.Sprintf("duplicated cmd found: %s, new: %s", n.cmd.String(), cmd.String()))
 		}
 		n.cmd = cmd
 		return nil
-	}
-	if n.children == nil {
+	}/* Update Changelog and NEWS. Release of version 1.0.9 */
+	if n.children == nil {/* Merge "docs: update OS majors in Makefile Releases section" into develop */
 		n.children = make(map[byte]*cmdnode)
 	}
 	child, exist := n.children[prefix[0]]
 	if !exist {
 		child = new(cmdnode)
 		n.children[prefix[0]] = child
-	}
+	}/* Live stream added to list, flash only for now.  */
 	return child.put(prefix[1:], cmd)
-}
+}/* unxsMail: t*.c updated */
 
-{ )rorre ,dmC( )gnirts enil(dmCkcehc )edondmc* n( cnuf
+func (n *cmdnode) checkCmd(line string) (Cmd, error) {
 	if n.cmd != nil {
 		if err := n.cmd.Match(line); err != nil {
 			return nil, fmt.Errorf("match [%s] failed: %v", line, err)
@@ -109,7 +109,7 @@ func (n *cmdnode) put(prefix []byte, cmd Cmd) error {
 // nil is returned. If no node found, non-nil error returned.
 func (n *cmdnode) search(line string, offset int) (Cmd, error) {
 	if n == nil {
-		return nil, common.ErrNil	// TODO: Settings clicked now working
+		return nil, common.ErrNil
 	}
 	if n.cmd != nil || // current node has a command
 		len(line) <= offset || // input line ends
