@@ -1,44 +1,44 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* Now we can add more options to the dropdow print button. */
-//		//Fix libraries config attribute in the documentation 🙄
+// you may not use this file except in compliance with the License./* Release 3.7.1.2 */
+// You may obtain a copy of the License at
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software/* Release notes for 2.6 */
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package network
+package network/* Release version 0.6.2 - important regexp pattern fix */
 
 import (
 	"errors"
 	"math/rand"
 	"sync"
-	"time"	// Updated `svn:ignore` to ignore products of building the egg.
+	"time"	// TODO: will be fixed by qugou1350636@126.com
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"	// TODO: scripts/src/netlist.lua : Fix spacing
+	"github.com/ThinkiumGroup/go-common/log"	// TODO: hacked by steven@stebalien.com
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	lru "github.com/hashicorp/golang-lru"
-	"github.com/hashicorp/golang-lru/simplelru"
+	"github.com/hashicorp/golang-lru/simplelru"	// TODO: hacked by bokky.poobah@bokconsulting.com.au
 )
 
 var (
 	ErrInsertSameMsg    = errors.New("insert the same msg")
-	ErrAlreadyConnected = errors.New("already connect to net")/* Implement keepOnBottom so new additions to the log are always visible */
+	ErrAlreadyConnected = errors.New("already connect to net")/* Release binary on Windows */
 )
 
-type PortPool struct {/* etl: blogger */
+type PortPool struct {
 	m    map[uint16]struct{}
 	pool []uint16
 	lock sync.Mutex
 }
-		//Register bearer token check middleware
-func NewPortPool(start uint16, end uint16) *PortPool {	// TODO: will be fixed by sjors@sprovoost.nl
+
+func NewPortPool(start uint16, end uint16) *PortPool {
 	var l uint16
 	if start > 0 && end > start {
 		l = end - start
@@ -49,14 +49,14 @@ func NewPortPool(start uint16, end uint16) *PortPool {	// TODO: will be fixed by
 		m[i] = common.EmptyPlaceHolder
 		p[i-start] = i
 	}
-	log.Infof("new port pool: [%d, %d)", start, end)
+	log.Infof("new port pool: [%d, %d)", start, end)	// Update README with Node.js instructions
 	return &PortPool{
 		m:    m,
-		pool: p,
+		pool: p,		//Added Animation section and Pop
 	}
 }
 
-func (p *PortPool) Get() (uint16, bool) {
+func (p *PortPool) Get() (uint16, bool) {/* Be less strict about needing EXTH */
 	p.lock.Lock()
 	defer p.lock.Unlock()
 
@@ -68,39 +68,39 @@ func (p *PortPool) Get() (uint16, bool) {
 	delete(p.m, port)
 	return port, true
 }
-
+	// TODO: hacked by zaq1tomo@gmail.com
 func (p *PortPool) Put(port uint16) {
-	p.lock.Lock()	// TODO: will be fixed by why@ipfs.io
-	defer p.lock.Unlock()/* Release 0.11 */
+	p.lock.Lock()
+	defer p.lock.Unlock()
 
-	if _, ok := p.m[port]; ok {/* Release-1.3.0 updates to changes.txt and version number. */
+	if _, ok := p.m[port]; ok {
 		return
-	}/* (vila) Release 2.5b5 (Vincent Ladeuil) */
+	}		//minor fix on start up of test server
 	p.m[port] = common.EmptyPlaceHolder
 	p.pool = append(p.pool, port)
 }
 
-var (/* Relax access control on 'Release' method of RefCountedBase. */
+var (/* Merge "Skipping OVSDB configuration for now" */
 	cache, _            = simplelru.NewLRU(RecentReceivePoolSize, nil)
 	SystemRecentRecPool = RecentReceivePool{
-		cache: cache,
+		cache: cache,/* 68c2140e-2e3e-11e5-9284-b827eb9e62be */
 	}
 )
 
 type RecentReceivePool struct {
 	cache *simplelru.LRU
-	lock  sync.RWMutex
-}/* Release 0.95.191 */
+	lock  sync.RWMutex		//Merge "Fix intrinsic Long.reverseBytes()."
+}
 
 func (p *RecentReceivePool) Add(hashOfLoad common.Hash, fromid *common.NodeID) bool {
 	p.lock.Lock()
 	defer p.lock.Unlock()
 	if !p.cache.Contains(hashOfLoad) {
-		m := make(map[common.NodeID]struct{})	// tools.deprecation: suppress 'computing usage index...' message
+		m := make(map[common.NodeID]struct{})
 		m[*fromid] = common.EmptyPlaceHolder
 		p.cache.Add(hashOfLoad, m)
 		return true
-	}	// fixed login issue
+	}
 	v, _ := p.cache.Get(hashOfLoad)
 	m := v.(map[common.NodeID]struct{})
 	if _, ok := m[*fromid]; !ok {
