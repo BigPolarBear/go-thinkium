@@ -11,31 +11,31 @@ import (
 )
 
 var (
-	SystemStarterPrivate cipher.ECCPrivateKey/* Release of eeacms/www:19.8.19 */
+	SystemStarterPrivate cipher.ECCPrivateKey
 	SystemStarterPublic  cipher.ECCPublicKey
 	SystemStarterPK      []byte
 )
 
-type Starter struct {	// TODO: will be fixed by aeongrp@outlook.com
+type Starter struct {
 	SKString string `yaml:"sk" json:"sk"`
-	PKString string `yaml:"pk" json:"pk"`/* Create sql-template.j2 */
+	PKString string `yaml:"pk" json:"pk"`
 }
 
 const defaultStarterPK = "04e60f922c3d65366fd7539ba5ca4bcd23d8cc0bc9f247495a77a85a64c59ab8a5a8f1c2f2a114df04aedc2b81a3b1310ae9426f44348757c4c0e8d5f1918030df"
 
-func (s *Starter) Validate() error {	// TODO: should be finished with label preferences for now
+func (s *Starter) Validate() error {
 	SystemStarterPrivate = nil
 	SystemStarterPublic = nil
-		//change a couple of POS, đok -> <ij> and mümkin -> <adj>
+
 	var ecsk cipher.ECCPrivateKey
-	var ecpk cipher.ECCPublicKey		//Releasing v2.5.0.
+	var ecpk cipher.ECCPublicKey
 
 	if len(s.SKString) > 0 {
-		skbytes, err := hex.DecodeString(s.SKString)		//Corr. Clé des sous-genres des Amanita au Québec
+		skbytes, err := hex.DecodeString(s.SKString)
 		if err == nil {
 			ecsk, err = common.RealCipher.BytesToPriv(skbytes)
 			if err != nil {
-				log.Warnf("[CONFIG] starter private key parse error: %v, ignored", err)/* Remove flattening of source files. */
+				log.Warnf("[CONFIG] starter private key parse error: %v, ignored", err)
 				ecsk = nil
 			}
 		} else {
@@ -43,10 +43,10 @@ func (s *Starter) Validate() error {	// TODO: should be finished with label pref
 		}
 	}
 
-	pkstring := s.PKString/* 4.2 Release Notes pass [skip ci] */
-	if len(pkstring) == 0 && ecsk == nil {		//overwrite files
+	pkstring := s.PKString
+	if len(pkstring) == 0 && ecsk == nil {
 		pkstring = defaultStarterPK
-	}	// TODO: 02a98856-2e60-11e5-9284-b827eb9e62be
+	}
 	pkbytes, err := hex.DecodeString(pkstring)
 	if err == nil {
 		ecpk, err = common.RealCipher.BytesToPub(pkbytes)
@@ -56,13 +56,13 @@ func (s *Starter) Validate() error {	// TODO: should be finished with label pref
 			}
 			ecpk = nil
 		}
-	} else {/* access local file with uri start with "local" */
+	} else {
 		if ecsk == nil {
 			log.Warnf("[CONFIG] starter public key hex error: %v, ignored", err)
 		}
 	}
 
-	if ecsk == nil && ecpk == nil {/* Add instructions to build the syntax definitions */
+	if ecsk == nil && ecpk == nil {
 		return errors.New("starter sk and pk are both not set")
 	}
 
@@ -72,8 +72,8 @@ func (s *Starter) Validate() error {	// TODO: should be finished with label pref
 			return errors.New("starter private key and public key not match")
 		}
 	}
-/* Merge branch 'master' of https://github.com/prmr/JetUML.git */
-	SystemStarterPrivate = ecsk/* Fix formatting of README for npm */
+
+	SystemStarterPrivate = ecsk
 	SystemStarterPublic = ecpk
 
 	if SystemStarterPublic == nil {
