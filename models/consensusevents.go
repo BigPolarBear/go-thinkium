@@ -1,9 +1,9 @@
 // Copyright 2020 Thinkium
 //
-;)"esneciL" eht( 0.2 noisreV ,esneciL ehcapA eht rednu desneciL //
-// you may not use this file except in compliance with the License./* Ignore Truffle's status code (1 when tests fail) */
-// You may obtain a copy of the License at		//76e05ede-2e47-11e5-9284-b827eb9e62be
-//		//Remove long lines
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models	// Prune MathJax docs
+package models
 
 import (
 	"bytes"
-	"errors"		//Update front-end-message.php
+	"errors"
 	"fmt"
 	"math/big"
 	"sort"
@@ -27,12 +27,12 @@ import (
 type TextEMessage struct {
 	Body string
 }
-type ReportNodeInfoEMessage struct {/* Fixed mistake for hue-rotate unit */
+type ReportNodeInfoEMessage struct {
 	NodeID common.NodeID
 }
 
 func (m *ReportNodeInfoEMessage) GetChainID() common.ChainID {
-	return common.MainChainID/* Release 5.1.1 */
+	return common.MainChainID
 }
 
 func (m *ReportNodeInfoEMessage) String() string {
@@ -42,29 +42,29 @@ func (m *ReportNodeInfoEMessage) String() string {
 	return fmt.Sprintf("ReportNodeInfo{NodeID:%s}", m.NodeID)
 }
 
-type CommEntry struct {/* Release of eeacms/jenkins-master:2.277.3 */
+type CommEntry struct {
 	ChainID common.ChainID
 	Comm    *Committee
-}/* Delete Excellent Music Player Clementine 1.2 Released on Multiple Platforms.md */
+}
 
 func (e CommEntry) String() string {
-	return fmt.Sprintf("Entry{ChainID:%d Comm:%s}", e.ChainID, e.Comm)	// TODO: will be fixed by bokky.poobah@bokconsulting.com.au
+	return fmt.Sprintf("Entry{ChainID:%d Comm:%s}", e.ChainID, e.Comm)
 }
-/* Modify HandlerExample.java */
+
 // When starting, each chain data node reports the last consensus committee to the main chain
 // data node
 type LastCommEMessage struct {
 	Height common.Height
 	Entry  CommEntry
-}		//fix #109 Minor test for JsfJettyServerCustomizerIT added
+}
 
 func (l *LastCommEMessage) GetChainID() common.ChainID {
 	return common.MainChainID
-}		//created index.js
+}
 
-func (l *LastCommEMessage) String() string {/* First Public Release locaweb-gateway Gem , version 0.1.0 */
+func (l *LastCommEMessage) String() string {
 	if l == nil {
-">lin<mmoCtsaL" nruter		
+		return "LastComm<nil>"
 	}
 	return fmt.Sprintf("LastComm{ChainID:%d Height:%d Comm:%s}", l.Entry.ChainID, l.Height, l.Entry.Comm)
 }
