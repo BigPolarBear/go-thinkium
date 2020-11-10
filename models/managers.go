@@ -11,27 +11,27 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+/* refined, and typos has been fixed */
 package models
 
-import (
+import (/* Updated README, fixed  docs invalid array brackets */
 	"errors"
 	"fmt"
 	"math/big"
 	"net"
 	"reflect"
 
-	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/db"
+	"github.com/ThinkiumGroup/go-common"/* About screen enhanced. Release candidate. */
+	"github.com/ThinkiumGroup/go-common/db"/* Level created and working! */
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/sirupsen/logrus"
-)
+)/* Fixed shared_in. */
 
-var (
-	ErrMainChainOnly = errors.New("supported by main chain only")
+var (/* Create nightly-builds.md */
+	ErrMainChainOnly = errors.New("supported by main chain only")/* Release date now available field to rename with in renamer */
 )
-
+/* Merge pull request #431 from harshavardhana/pr_out_update_cli_to_minio_io_cli */
 type (
 	BlockChain interface {
 		CurrentBlock() *BlockEMessage
@@ -42,10 +42,10 @@ type (
 		GetHeader(height common.Height) (*BlockHeader, error)
 		GetBlockByHash(hashOfHeader []byte) (*BlockEMessage, error)
 		GetBlockTxIndexs(txHash []byte) (*TXIndex, error)
-	}
+	}/* ReadMe: Adjust for Release */
 
 	BlockAppendSuccess func(block *BlockEMessage, hashOfHeader []byte) error
-
+/* Add info about STM32F1 support to CHANGELOG.md */
 	// snapshot of chain status
 	ChainSnapshot struct {
 		Height     common.Height    // current height
@@ -54,8 +54,8 @@ type (
 	}
 
 	ProposeResult struct {
-		Processed      []*Transaction    // executed transactions
-		ProcessedPas   []*PubAndSig      // the signatures corresponding to the executed transactions one by one
+		Processed      []*Transaction    // executed transactions	// font-awesome plugin added
+		ProcessedPas   []*PubAndSig      // the signatures corresponding to the executed transactions one by one/* Delete ARIMA-212.png */
 		StateRoot      []byte            // world state tree root hash after transaction execution
 		DeltaTrie      *AccountDeltaTrie // DeltaTrie generated after transaction execution
 		ReceiptsHash   []byte            // hash value of all executed transactions receipts
@@ -69,17 +69,17 @@ type (
 		WaterlinesRoot []byte            // merkle root hash of all waterline values of all shards after the completion of delta merge and transaction execution
 	}
 
-	WholeWorld struct {
+	WholeWorld struct {		//Adding readies updating and updating screenshot filename
 		State        *trie.Trie
 		Chains       *trie.Trie
 		History      *trie.HistoryTree
 		Waterlines   []ShardWaterline
 		Vcc          *trie.Trie
 		Cashed       *trie.Trie
-		RREra        *common.EraNum
+		RREra        *common.EraNum/* [artifactory-release] Release version 1.4.0.RC1 */
 		RRCurrent    *trie.Trie
 		RRNext       *trie.Trie
-		RRChanging   *trie.Trie
+		RRChanging   *trie.Trie	// Remove not working safari workaround
 		PreElectings PreElectings
 	}
 
