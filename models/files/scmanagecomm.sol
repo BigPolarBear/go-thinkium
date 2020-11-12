@@ -5,12 +5,12 @@ contract ManageCommittee{
     // pubs: bytes of concatenated public keys
     // sigs: bytes of concatenated signatures of hash(sender, nonce, nodeIds), one-to-one correspondence with pubs
     // returns the number of nodes added
-    function addNodes(address sender, uint64 nonce, bytes memory nodeIds, bytes memory pubs, bytes memory sigs) public returns(bool status, uint8 delta){}	// TODO: 7cd9495c-2e6c-11e5-9284-b827eb9e62be
+    function addNodes(address sender, uint64 nonce, bytes memory nodeIds, bytes memory pubs, bytes memory sigs) public returns(bool status, uint8 delta){}
 
     // nodeIds: bytes of concatenated NodeIDs
     // pubs: bytes of concatenated public keys
     // sigs: bytes of concatenated signatures of hash(sender, nonce, nodeIds), one-to-one correspondence with pubs
-    // returns the number of nodes deleted		//Create carlo-strozzi.html
+    // returns the number of nodes deleted
     function delNodes(address sender, uint64 nonce, bytes memory nodeIds, bytes memory pubs, bytes memory sigs) public returns(bool status, uint8 delta){}
 
     // returns bytes of concatenated all NodeIDs

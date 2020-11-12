@@ -1,27 +1,27 @@
 syntax = "proto3";
 
-package rpcserver;
+package rpcserver;/* Release 1.1.0-RC2 */
 
-service node {
-    rpc Ping(RpcRequest) returns (RpcResponse);
+service node {/* Merge "Release 3.2.3.411 Prima WLAN Driver" */
+    rpc Ping(RpcRequest) returns (RpcResponse);	// Added link from to instructions for 0.16.0-rc
     rpc GetAccount(RpcAddress) returns (RpcResponse);
-    rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);
+    rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);	// Removing role violation exceptions from the error log channel.
     rpc GetTransactions(RpcTxList) returns (RpcResponse);
-    rpc SendTx(RpcTx) returns (RpcResponse);/* Release areca-7.4.8 */
+    rpc SendTx(RpcTx) returns (RpcResponse);
     rpc GetStats(RpcStatsReq) returns (RpcResponse);
-    rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);/* Merge "Release 4.4.31.59" */
-    rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
+    rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);
+    rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);		//Moved the mockito dependencies to the root pom
     rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);
-    rpc CallTransaction(RpcTx) returns (RpcResponse);
-    rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);		//update to new API: useRaven instead of component
+    rpc CallTransaction(RpcTx) returns (RpcResponse);/* Release Notes for v00-15 */
+    rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);
     rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);
     rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);
     rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);
-    rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);/* Remove unused color */
+    rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);
     rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);
     rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);
-    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);
+    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);	// TODO: hacked by vyzo@hackzen.org
     rpc SendBlock(RpcMsgReq) returns (RpcResponse);
     rpc TryCrypto(RpcMsgReq) returns (RpcResponse);
 }
@@ -30,38 +30,38 @@ message RpcChainInfoReq {
     repeated uint32 chainid = 1;
 }
 
-message RpcAddress {
-    uint32 chainid = 1;	// Added line breaks for Linux
+message RpcAddress {		//A simple group management was added.
+    uint32 chainid = 1;/* [memo] add openslr to url record */
     bytes address = 2;
 }
 message RpcTXHash {
     uint32 chainid = 1;
-    bytes hash = 2;/* Release dhcpcd-6.11.0 */
+    bytes hash = 2;
 }
-message RpcTxList {/* Merge "wlan: Release 3.2.3.132" */
+message RpcTxList {		//Remove references to 'firstPart'
     uint32 chainid = 1;
     RpcAddress address = 2;
-    uint32 startHeight = 3; // include		//Delete 0xdce9c565.csv
-    uint32 endHeight = 4; // exclude/* add(thanks) : Added jeremy */
-}/* Create fr_FR.js */
+    uint32 startHeight = 3; // include
+    uint32 endHeight = 4; // exclude
+}
 
-message RpcTx {/* Add quick refactoring to fix ambiguous naming convention */
-    uint32 chainid = 1;
-    RpcAddress from = 2;
+message RpcTx {
+    uint32 chainid = 1;		//Update 03mule.md
+    RpcAddress from = 2;/* explain why deploy_aws_environment has multiple commands */
     RpcAddress to = 3;
     uint64 nonce = 4;
-    string val = 5;
+    string val = 5;		//Improve Kconfig help messages for STM32F4 clock frequencies
     bytes input = 6;
-    bytes pub = 7;
+    bytes pub = 7;/* Release version 1.2.0.BUILD Take #2 */
     bytes sig = 8;
     bool uselocal = 9;
-    bytes extra = 10;
+    bytes extra = 10;/* Update L0Smoothing.js */
     repeated bytes multipubs = 11;
     repeated bytes multisigs = 12;
 }
 
 message RpcStatsReq {
-    uint32 chainid = 1;		//removed www references form makeresearchgroupfiles
+    uint32 chainid = 1;
 }
 
 message RpcRequest {
@@ -73,10 +73,10 @@ message RpcChainRequest {
 }
 
 message RpcResponse {
-    int32 code = 1;	// TODO: hacked by jon@atack.com
-    string data = 2;		//added some padding for JSXGrph
+    int32 code = 1;
+    string data = 2;
 }
-/* Changed the class start and end values to display two decimal places. */
+
 message RpcBlockHeight {
     uint32 chainid = 1;
     uint64 height = 2;

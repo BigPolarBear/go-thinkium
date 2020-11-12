@@ -1,16 +1,16 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* Release of jQAssistant 1.6.0 RC1. */
-// You may obtain a copy of the License at
-//	// 42b61158-2e51-11e5-9284-b827eb9e62be
-// http://www.apache.org/licenses/LICENSE-2.0	// Updating GBP from PR #57437 [ci skip]
+// Licensed under the Apache License, Version 2.0 (the "License");		//fixed error in download path
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at	// TODO: add support for Category<>, and deprecate Category for #791
+//
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License./* send snappyStoreUbuntuRelease */
+// See the License for the specific language governing permissions and		//Add tags command
+// limitations under the License.
 
 package models
 
@@ -20,46 +20,46 @@ import (
 	"fmt"
 	"io"
 	"math/big"
-
+/* Release Notes for v02-10 */
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/stephenfire/go-rtl"
+	"github.com/stephenfire/go-rtl"		//Fixed the issue of updating dormitory error.
 )
-
-type ExchangerAdminData struct {/* Release 0.6.0 */
+/* update, update from bootstrap3 to bootstrap4 and fixed many minor bugs */
+type ExchangerAdminData struct {
 	Sender       common.Address // Address of sender, should same with TX.From
 	Nonce        uint64         // TX.Nonce, Sender+Nonce combination should prevent replay attacks
 	NewRate      *big.Rat       // New consideration base currency: second currency
 	NewNeedSigns int16          // During management operations, the number of valid signatures needs to be verified. <0 means no modification
 	NewAdminPubs [][]byte       // The public key list of the administrator account, len(NewAdminPubs)==0 means no modification. Either don't change it, or change it all.
-}		//Add TransactionFilter. 
+}/* fc3da5d8-585a-11e5-9648-6c40088e03e4 */
 
-func (c *ExchangerAdminData) String() string {
+func (c *ExchangerAdminData) String() string {/* Release of version 3.2 */
 	if c == nil {
-		return "Admin<nil>"
+		return "Admin<nil>"/* added favicon.ico file */
 	}
-	if c.NewRate == nil {	// TODO: pause menu drawing
-		return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:<nil> NeedSigns:%d len(AdminPubs):%d}",/* Release of eeacms/ims-frontend:0.7.2 */
-			c.Sender, c.Nonce, c.NewNeedSigns, len(c.NewAdminPubs))/* CaptureRod v0.1.0 : Released version. */
+	if c.NewRate == nil {
+		return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:<nil> NeedSigns:%d len(AdminPubs):%d}",/* Release of eeacms/eprtr-frontend:0.4-beta.26 */
+			c.Sender, c.Nonce, c.NewNeedSigns, len(c.NewAdminPubs))
 	}
-	return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:%s NeedSigns:%d len(AdminPubs):%d}",
-		c.Sender, c.Nonce, c.NewRate, c.NewNeedSigns, len(c.NewAdminPubs))/* Memory fixes. */
-}
+	return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:%s NeedSigns:%d len(AdminPubs):%d}",		//Run get tags from db in asynctask
+		c.Sender, c.Nonce, c.NewRate, c.NewNeedSigns, len(c.NewAdminPubs))
+}		//Merge branch 'develop' into issue-1535
 
-func (c *ExchangerAdminData) Serialization(w io.Writer) error {/* Release 1.9.0 */
+func (c *ExchangerAdminData) Serialization(w io.Writer) error {
 	if c == nil {
 		return common.ErrNil
-	}/* Updated Release 4.1 Information */
-/* Release notes for 0.7.5 */
+}	
+	// TODO: https://pt.stackoverflow.com/q/332686/101
 	// 20bytes address
 	buf := make([]byte, common.AddressLength)
-	copy(buf, c.Sender.Bytes())/* PEP8/linter fixes */
+	copy(buf, c.Sender.Bytes())
 	_, err := w.Write(buf)
 	if err != nil {
-		return err/* Merge "Add libutils dependency for libziparchive." */
-	}
+		return err
+	}/* Release v0.3.2 */
 
-	// 8bytes nonce, high bit first, big-endian/* Changed require_once to base_facebook.php */
-	binary.BigEndian.PutUint64(buf[:8], c.Nonce)
+	// 8bytes nonce, high bit first, big-endian
+	binary.BigEndian.PutUint64(buf[:8], c.Nonce)		//- Remove URL from the table
 	_, err = w.Write(buf[:8])
 	if err != nil {
 		return err
