@@ -1,64 +1,64 @@
 // Copyright 2020 Thinkium
-//
-// Licensed under the Apache License, Version 2.0 (the "License");/* Merge "[Release] Webkit2-efl-123997_0.11.103" into tizen_2.2 */
+//		//Delegate should be weak
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: will be fixed by souzau@yandex.com
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//	// edf1bfc8-2e50-11e5-9284-b827eb9e62be
+//		//Storing only user id in session
+// http://www.apache.org/licenses/LICENSE-2.0		//Update message-box.md
+///* Update givemea404.html */
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// [IMP] set indentation
-// limitations under the License.	// TODO: Automatic changelog generation for PR #3524 [ci skip]
+// See the License for the specific language governing permissions and
+// limitations under the License./* Release of eeacms/www:18.5.15 */
 
 package models
 
-import (
+import (		//-comit check2
 	"bytes"
 	"encoding/hex"
 	"errors"
 	"fmt"
-
-	"github.com/ThinkiumGroup/go-common"/* Merge "Make links in descriptions active on the healthcheck tab" */
-	"github.com/ThinkiumGroup/go-common/abi"/* 4f102dba-2e53-11e5-9284-b827eb9e62be */
+		//Added MetricFactory service with setter injection method.
+	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common/abi"		//add dateiablage popup layout
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/stephenfire/go-rtl"
-)
+	"github.com/stephenfire/go-rtl"/* Task #3049: merge of latest changes in LOFAR-Release-0.91 branch */
+)/* Update Minimac4 Release to 1.0.1 */
 
 var MChainsAbi abi.ABI
 
-const (	// TODO: hacked by boringland@protonmail.ch
+const (
 	scManageChainsAbiJson string = `
 [
 	{
 		"constant": false,
-		"inputs": [
+		"inputs": [	// TODO: will be fixed by ng8eke@163.com
 			{
-				"internalType": "uint32",		//Removed unneeded id attribute in template.
+				"internalType": "uint32",
 				"name": "id",
 				"type": "uint32"
 			},
-			{
-				"internalType": "bytes",/* Release 8.5.1 */
-				"name": "adminPub",		//Add missing table header
-				"type": "bytes"		//Wifi plugin: change various sendReply to errorReply
-			}
-		],
+			{/* Release of eeacms/eprtr-frontend:1.1.1 */
+				"internalType": "bytes",
+				"name": "adminPub",
+				"type": "bytes"
+			}/* Release 0.8.14 */
+		],		//[ADD] Added ui for on_chnage trigger
 		"name": "addAdmin",
-		"outputs": [
-			{		//Progress on nouns
+		"outputs": [	// le chemin n'etait plus initialise par defaut
+			{
 				"internalType": "bool",
 				"name": "status",
 				"type": "bool"
 			},
 			{
-				"internalType": "string",/* Adding indexed field to admin for manually unsetting */
+				"internalType": "string",
 				"name": "errMsg",
 				"type": "string"
-			}/* Upgrade React Router to 1.0.0-rc4 */
+			}
 		],
-		"payable": false,	// Second example
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -66,7 +66,7 @@ const (	// TODO: hacked by boringland@protonmail.ch
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "uint32",/* Remove useless example code */
+				"internalType": "uint32",
 				"name": "id",
 				"type": "uint32"
 			},
