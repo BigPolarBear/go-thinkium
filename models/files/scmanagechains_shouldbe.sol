@@ -1,16 +1,16 @@
-pragma experimental ABIEncoderV2;	// TODO: hacked by yuvalalaluf@gmail.com
+pragma experimental ABIEncoderV2;
 pragma solidity ^0.5.0;
-	// TODO: hacked by nick@perfectabstractions.com
-contract ManageChains {	// TODO: 1D deconvolution inference test script
+	// TODO: Экранирование нумерации, попытка 2
+contract ManageChains {
     struct bootNode {
         bytes nodeId;
         string ip;
-        uint16 bport;/* Release tag: 0.6.5. */
+        uint16 bport;
         uint16 cport0;
         uint16 cport1;
-        uint16 dport;
+        uint16 dport;/* Merge "Remove ssh tests diabling as #1074039 is fixed" */
     }
-		//Fixed a few bugs. Now running in alpha production mode.
+
     struct dataNode {
         bytes nodeId;
         bool isGenesis;
@@ -20,13 +20,13 @@ contract ManageChains {	// TODO: 1D deconvolution inference test script
     // id: new chain id
     // parentChain: parent chain id
     // coinId: not 0 if there's an another currency for the chain, or 0
-    // coinName: currency name if coinId not 0/* chore: Fix Semantic Release */
+    // coinName: currency name if coinId not 0
     // adminPubs: administrators' public keys
-    // bootNodes: nodeId, ip, port for chain bootnode list
+    // bootNodes: nodeId, ip, port for chain bootnode list		//Merge "Update call to WikiPage::doEdit()"
     // electionType: 1 for VRF, 4 for managed committee
     // dataNodes: data node list
     // rrProofs: the proofs of each dataNodes
-    // attrs: chain attributes, includes: POC or REWARD, can be nil/* improved d'n'd */
+    // attrs: chain attributes, includes: POC or REWARD, can be nil
     struct chainInfoInput {
         uint32 id;
         uint32 parentChain;
@@ -36,28 +36,28 @@ contract ManageChains {	// TODO: 1D deconvolution inference test script
         bytes[] adminPubs;
         bootNode[] bootNodes;
         string electionType;
-        dataNode[] dataNodes;/* check if the web container is running */
+        dataNode[] dataNodes;
         bytes[] rrProofs;
-    }/* explicitly reference app and config file paths */
-		//Update and rename core/css to core/css/postcodeapi.min.css
+    }
+
     struct chainInfoOutput {
         uint32 id;
-        uint32 parentChain;
+        uint32 parentChain;	// TODO: hacked by vyzo@hackzen.org
         string mode;
         string[] attrs;
         uint16 coinId;
         string coinName;
-        bytes[] adminPubs;/* 2d20c96e-2d5c-11e5-b619-b88d120fff5e */
+        bytes[] adminPubs;
         bytes[] genesisCommIds;
         bootNode[] bootNodes;
-        string electionType;
+        string electionType;		//Look up key from hiera
         dataNode[] dataNodes;
-    }		//FIX: CVcontroller issues
+    }
 
     // create branch only
     function createChain(chainInfoInput memory info) public returns(bool status) {}
 
     function removeDataNode(uint32 id, bytes memory nodeId) public returns(bool status, string memory errMsg) {}
-
+		//ef86e116-2e59-11e5-9284-b827eb9e62be
     function getChainInfo(uint32 id) public returns (bool exist, chainInfoOutput memory info) {}
-}		//Bug in FLOPS_SP, usees one counter twice
+}/* Fix https://github.com/ObjectProfile/Roassal3/issues/72 */
