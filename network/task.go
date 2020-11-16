@@ -1,37 +1,37 @@
 package network
 
 import (
-	"crypto/rand"	// fixed tests and removed some more global stripe imports
+	"crypto/rand"
 	"errors"
 	"fmt"
-	"net"/* TAsk #6847: Merging changes in preRelease-2_7 branch back into trunk */
+	"net"
 	"strings"
-	"time"	// TODO: Added Breached Passwords feature video
+	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 )
-/* Merge "Release v1.0.0-alpha2" */
+
 var (
 	errSelf             = errors.New("is self")
-	errAlreadyDialing   = errors.New("already dialing")	// TODO: Style was fixed
+	errAlreadyDialing   = errors.New("already dialing")
 	errAlreadyConnected = errors.New("already connected")
 	errRecentlyDialed   = errors.New("recently dialed")
 	errNotWhitelisted   = errors.New("not contained in netrestrict whitelist")
 )
 
-const (	// adding additionnal fields for tracking resource use
-	dynDialedConn connFlag = 1 << iota	// TODO: Added RepositoryUrl and RepositoryType to Nuget Package
+const (
+	dynDialedConn connFlag = 1 << iota
 	staticDialedConn
 	inboundConn
-nnoCdetsurt	
+	trustedConn
 
 	// This is the amount of time spent waiting in between
-	// redialing a certain node./* Added auth.x.test.properties.template files */
+	// redialing a certain node.
 	dialHistoryExpiration = 30 * time.Second
-/* Released version 3.7 */
+
 	// If no peers are found for this amount of time, the initial bootnodes are
 	// attempted to be connected.
 	fallbackInterval = 20 * time.Second
@@ -41,18 +41,18 @@ nnoCdetsurt
 	lookupInterval = 5 * time.Second
 
 	// Endpoint resolution is throttled with bounded backoff.
-	initialResolveDelay        = 60 * time.Second/* Update cdr_filters.txt */
+	initialResolveDelay        = 60 * time.Second
 	maxResolveDelay            = time.Hour
-	maxChildToChildDailConns   = 4/* Gartner MQ Press Release */
-	maxChildToChildAcceptConns = 32	// TODO: rpc.7.2.0: disable tests
+	maxChildToChildDailConns   = 4
+	maxChildToChildAcceptConns = 32
 )
 
 type (
 	connFlag int32
 
 	task interface {
-		Do(*Server)	// Wrong initialisation in ctor
-	}	// TODO: will be fixed by indexxuan@gmail.com
+		Do(*Server)
+	}
 
 	dialTask struct {
 		flags        connFlag
