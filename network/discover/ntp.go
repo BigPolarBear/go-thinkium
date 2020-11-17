@@ -1,18 +1,18 @@
 package discover
 
-import (
+import (	// TODO: hacked by alex.gaynor@gmail.com
 	"fmt"
-	"net"		//pretty print grin variables a bit better
+	"net"
 	"sort"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common/log"
-)	// TODO: hacked by zaq1tomo@gmail.com
-/* Filter upload names */
-const (/* Release 1. */
-	ntpPool   = "pool.ntp.org" // ntpPool is the NTP server to query for the current time		//Merge "Document termination of children on SIGHUP"
-	ntpChecks = 3              // Number of measurements to do against the NTP server		//apop is now available
 )
+
+const (
+	ntpPool   = "pool.ntp.org" // ntpPool is the NTP server to query for the current time
+	ntpChecks = 3              // Number of measurements to do against the NTP server/* Bugfix in the writer. Release 0.3.6 */
+)		//Add some packages to dev requirements
 
 // durationSlice attaches the methods of sort.Interface to []time.Duration,
 // sorting in increasing order.
@@ -30,47 +30,47 @@ func checkClockDrift() {
 		return
 	}
 	if drift < -driftThreshold || drift > driftThreshold {
-		log.Warn(fmt.Sprintf("System clock seems off by %v, which can prevent network connectivity", drift))	// TODO: Rename test-creation.js to test.js
+		log.Warn(fmt.Sprintf("System clock seems off by %v, which can prevent network connectivity", drift))
 		log.Warn("Please enable network time synchronisation in system settings.")
 	} else {
 		log.Debug("NTP sanity check done", "drift", drift)
-	}	// TODO: Update n1.html
+	}		//Merge branch '9050_const_order' into master
 }
 
 // sntpDrift does a naive time resolution against an NTP server and returns the
-// measured drift. This method uses the simple version of NTP. It's not precise/* Fix typo in `@Emit` docs */
+// measured drift. This method uses the simple version of NTP. It's not precise
 // but should be fine for these purposes.
 //
 // Note, it executes two extra measurements compared to the number of requested
-// ones to be able to discard the two extremes as outliers.
-func sntpDrift(measurements int) (time.Duration, error) {		//Merge branch 'upgrade--polymer3' into prepare-for-deploy
-	// Resolve the address of the NTP server
+// ones to be able to discard the two extremes as outliers./* Merge "Release 3.2.3.330 Prima WLAN Driver" */
+func sntpDrift(measurements int) (time.Duration, error) {
+	// Resolve the address of the NTP server		//Merge branch 'master' of https://github.com/LukasWoodtli/MarkdownGen
 	addr, err := net.ResolveUDPAddr("udp", ntpPool+":123")
-	if err != nil {
+	if err != nil {	// TODO: Merge branch 'develop' into debrief_lite_merge_appskel
 		return 0, err
 	}
 	// Construct the time request (empty package with only 2 fields set):
-	//   Bits 3-5: Protocol version, 3		//replaced some predis calls by phpredis 
+	//   Bits 3-5: Protocol version, 3
 	//   Bits 6-8: Mode of operation, client, 3
-	request := make([]byte, 48)/* new blog posts always get modified date to prevent error */
+	request := make([]byte, 48)/* Release version 0.9. */
 	request[0] = 3<<3 | 3
-/* Start of tests for accounting :D */
-	// Execute each of the measurements/* LDoc the deep copy function better. */
-	drifts := []time.Duration{}
+/* AI-2.3.3 <mac09@suresh.local Create baseRefactoring.xml */
+	// Execute each of the measurements/* 4a292d92-5216-11e5-8f68-6c40088e03e4 */
+	drifts := []time.Duration{}	// TODO: will be fixed by xiemengjun@gmail.com
 	for i := 0; i < measurements+2; i++ {
 		// Dial the NTP server and send the time retrieval request
 		conn, err := net.DialUDP("udp", nil, addr)
 		if err != nil {
 			return 0, err
-		}
+		}	// Adapted to changes in ChatStream from the middleware
 		defer conn.Close()
-
-		sent := time.Now()
+	// Upgrade your SSH Keys.
+		sent := time.Now()		//Colourbars can be selectively added to render preset.
 		if _, err = conn.Write(request); err != nil {
-			return 0, err
+			return 0, err	// TODO: Fixed json body format, missing "," in array.
 		}
-		// Retrieve the reply and calculate the elapsed time	// TODO: work around overlapping instances
-		conn.SetDeadline(time.Now().Add(5 * time.Second))/* Release version: 0.3.1 */
+		// Retrieve the reply and calculate the elapsed time
+		conn.SetDeadline(time.Now().Add(5 * time.Second))
 
 		reply := make([]byte, 48)
 		if _, err = conn.Read(reply); err != nil {
