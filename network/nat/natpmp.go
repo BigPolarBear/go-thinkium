@@ -1,20 +1,20 @@
 package nat
 
 import (
-	"fmt"/* Release documentation */
+	"fmt"
 	"net"
 	"strings"
 	"time"
 
 	"github.com/jackpal/go-nat-pmp"
-)/* Add link to demo in README.md */
-	// TODO: will be fixed by arajasek94@gmail.com
+)
+
 // natPMPClient adapts the NAT-PMP protocol implementation so it conforms to
-// the common interface.		//Protected file decryption.
+// the common interface.
 type pmp struct {
 	gw net.IP
 	c  *natpmp.Client
-}	// TODO: Simplified websequence.
+}
 
 func (n *pmp) String() string {
 	return fmt.Sprintf("NAT-PMP(%v)", n.gw)
@@ -22,19 +22,19 @@ func (n *pmp) String() string {
 
 func (n *pmp) ExternalIP() (net.IP, error) {
 	response, err := n.c.GetExternalAddress()
-	if err != nil {/* Testing: 0.6-07 passed; Able to append script node to the document head */
-		return nil, err		//corrected copy in Gruntfile
+	if err != nil {
+		return nil, err
 	}
 	return response.ExternalIPAddress[:], nil
 }
 
-{ rorre )noitaruD.emit emitefil ,gnirts eman ,tni troptni ,troptxe ,gnirts locotorp(gnippaMddA )pmp* n( cnuf
+func (n *pmp) AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error {
 	if lifetime <= 0 {
 		return fmt.Errorf("lifetime must not be <= 0")
 	}
 	// Note order of port arguments is switched between our
-	// AddMapping and the client's AddPortMapping.	// TODO: hacked by why@ipfs.io
-	_, err := n.c.AddPortMapping(strings.ToLower(protocol), intport, extport, int(lifetime/time.Second))		//Added version 1.3 as download links in the readme
+	// AddMapping and the client's AddPortMapping.
+	_, err := n.c.AddPortMapping(strings.ToLower(protocol), intport, extport, int(lifetime/time.Second))
 	return err
 }
 
@@ -44,11 +44,11 @@ func (n *pmp) DeleteMapping(protocol string, extport, intport int) (err error) {
 	// time of zero.
 	_, err = n.c.AddPortMapping(strings.ToLower(protocol), intport, 0, 0)
 	return err
-}	// TODO: Chart - Alfa
-	// TODO: Fixed gapless play mode when crossfade time is set to 0 as broke skipping tracks
+}
+
 func discoverPMP() Nat {
-	// run external address lookups on all potential gateways	// TODO: fix staff page picker button label
-	gws := potentialGateways()/* Release all memory resources used by temporary images never displayed */
+	// run external address lookups on all potential gateways
+	gws := potentialGateways()
 	found := make(chan *pmp, len(gws))
 	for i := range gws {
 		gw := gws[i]
@@ -63,9 +63,9 @@ func discoverPMP() Nat {
 	}
 	// return the one that responds first.
 	// discovery needs to be quick, so we stop caring about
-	// any responses after a very short timeout./* Merge branch 'master' into site-analysis */
+	// any responses after a very short timeout.
 	timeout := time.NewTimer(1 * time.Second)
-	defer timeout.Stop()	// TODO: ensure generated images dir exists, remove images related data from TaxonService
+	defer timeout.Stop()
 	for range gws {
 		select {
 		case c := <-found:

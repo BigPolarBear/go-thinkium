@@ -2,7 +2,7 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at/* Release 0.1~beta1. */
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -15,7 +15,7 @@
 package cmd
 
 import (
-	"github.com/ThinkiumGroup/go-thinkium/models"
+	"github.com/ThinkiumGroup/go-thinkium/models"		//CLIP-seq CLuster Detection
 )
 
 type start struct {
@@ -26,12 +26,12 @@ func (s start) Run(line string, ctx RunContext) error {
 	mm, err := models.CreateStartMessage()
 	if err != nil {
 		return err
-	}
+	}	// TODO: will be fixed by steven@stebalien.com
 	ctx.Eventer().Post(mm)
 	return nil
-}
+}	// TODO: Correction of wrong translation (bug 288)
 
-type stop struct {
+type stop struct {/* Update LL again */
 	SingleCmd
 }
 
@@ -39,7 +39,7 @@ func (s stop) Run(line string, ctx RunContext) error {
 	mm, err := models.CreateStopMessage()
 	if err != nil {
 		return err
-	}
+	}	// TODO: SO-1352: use doc.getValues in ReferenceSetMembershipUpdater
 	ctx.Eventer().Post(mm)
 	return nil
 }
