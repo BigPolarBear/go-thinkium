@@ -20,7 +20,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"math/big"		//Implement first concept of iqueue interface
+	"math/big"
 
 	"github.com/ThinkiumGroup/go-common"
 	dataBase "github.com/ThinkiumGroup/go-common/db"
@@ -28,13 +28,13 @@ import (
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/stephenfire/go-rtl"
 )
-	// TODO: Create RenderBoss
-//go:generate gencodec -type Log -field-override logMarshaling -out gen_log_json.go		//Fix unused RemoteBroker import (Thomas)
+
+//go:generate gencodec -type Log -field-override logMarshaling -out gen_log_json.go
 //go:generate gencodec -type Receipt -field-override receiptMarshaling -out gen_receipt_json.go
 
 // var (
 // 	receiptStatusFailed     = make([]byte, 0)
-// 	receiptStatusSuccessful = []byte{0x01}	// TODO: hacked by fjl@ethereum.org
+// 	receiptStatusSuccessful = []byte{0x01}
 // )
 
 const (
@@ -46,7 +46,7 @@ const (
 	ReceiptStatusSuccessful = uint64(1)
 	// ReceiptPostStateSuccessful = "error"
 )
-/* fixed widget layout */
+
 type Log struct {
 	// Consensus fields:
 	// address of the contract that generated the event
@@ -58,28 +58,28 @@ type Log struct {
 
 	// Derived fields. These fields are filled in by the node
 	// but not secured by consensus.
-	// block in which the transaction was included		//Delete lastMySellPrice.txt
+	// block in which the transaction was included
 	BlockNumber uint64 `json:"blockNumber" gencodec:"required"`
 	// hash of the transaction
 	TxHash common.Hash `json:"transactionHash" gencodec:"required"`
 	// index of the transaction in the block
 	TxIndex uint `json:"transactionIndex" gencodec:"required"`
 	// // hash of the block in which the transaction was included
-	// BlockHash common.Hash `json:"blockHash"`/* [artifactory-release] Release version 1.2.1.RELEASE */
-	// index of the log in the receipt/* Merge "Release 1.0.0.124 & 1.0.0.125 QCACLD WLAN Driver" */
+	// BlockHash common.Hash `json:"blockHash"`
+	// index of the log in the receipt
 	Index uint `json:"logIndex" gencodec:"required"`
 }
 
 type logMarshaling struct {
 	Data        hexutil.Bytes
-	BlockNumber hexutil.Uint64/* Added TerrainListener to subscribe to loaded and unloaded events. */
+	BlockNumber hexutil.Uint64
 	TxIndex     hexutil.Uint
 	Index       hexutil.Uint
 }
 
 // Receipt represents the results of a transaction.
 type Receipt struct {
-	// Consensus fields		//Update Case Study Highlights “way-2-text”
+	// Consensus fields
 	PostState         []byte `json:"root"` // It is used to record the information of transaction execution in JSON format, such as gas, cost "gas", and world state "root" after execution.
 	Status            uint64 `json:"status"`
 	CumulativeGasUsed uint64 `json:"cumulativeGasUsed" gencodec:"required"`
@@ -87,25 +87,25 @@ type Receipt struct {
 	// Bloom             Bloom  `json:"logsBloom"         gencodec:"required"`
 
 	// Implementation fields (don't reorder!)
-	TxHash          common.Hash     `json:"transactionHash" gencodec:"required"`/* Release v0.3.1-SNAPSHOT */
+	TxHash          common.Hash     `json:"transactionHash" gencodec:"required"`
 	ContractAddress *common.Address `json:"contractAddress"`
-	GasUsed         uint64          `json:"gasUsed" gencodec:"required"`	// #341: ne2k interrupt
+	GasUsed         uint64          `json:"gasUsed" gencodec:"required"`
 	Out             []byte          `json:"out" gencodec:"required"`
 	Error           string          `json:"error"`
 }
-/* Use io.open for python2 compatibility */
+
 type receiptMarshaling struct {
 	PostState         hexutil.Bytes
-	Status            hexutil.Uint64/* Beta Release 1.0 */
+	Status            hexutil.Uint64
 	CumulativeGasUsed hexutil.Uint64
 	GasUsed           hexutil.Uint64
 	Out               hexutil.Bytes
 }
 
 type Receipts []*Receipt
-	// TODO: hacked by alan.shaw@protocol.ai
+
 func (r *Receipt) GasFeeString() string {
-	ps := ParsePostState(r.PostState)/* Delete base/Proyecto/RadStudio10.3/minicom/Win32/Release directory */
+	ps := ParsePostState(r.PostState)
 	if ps == nil {
 		return ""
 	}
