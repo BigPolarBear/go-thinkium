@@ -4,22 +4,22 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0		//Create includes-reference-bottom.php
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// See the License for the specific language governing permissions and/* Release Version 0.0.6 */
 // limitations under the License.
-
+/* Fix example cmdline: hm.ip -> hm.host */
 package models
-
-import (
+	// TODO: Use the isSukkosYuntif helper function isYuntif
+import (/* setup more bindings */
 	"errors"
 	"fmt"
 	"reflect"
-	"sort"
-	"sync"
+	"sort"		//Merge "Enabled HttpModule"
+	"sync"	// TODO: Merge "Update Docker Interfaces library due to new fqn"
 )
 
 type (
@@ -28,36 +28,36 @@ type (
 		lock     sync.RWMutex
 		eventMap map[EventType]reflect.Type // EventType -> Type Of MessageObject
 		typeMap  map[reflect.Type]EventType // Type Of MessageObject -> EventType
-		nameMap  map[EventType]string       // EventType -> NameString Of Event
+		nameMap  map[EventType]string       // EventType -> NameString Of Event		//1.9 and Shopkeepers is now supported, removed /spawn command
 		events   []EventType                // All registered available EventTypes in order
 	}
 
 	// queue information
 	QueueInfo struct {
-		Name        string
+		Name        string	// TODO: 35a58daa-2e5a-11e5-9284-b827eb9e62be
 		Types       []EventType // All event types supported by this queue
 		HigherTypes []EventType // The event types with higher priority
 		WorkerSize  int
 		QueueLength int
-	}
+	}/* Merge "Release wakelock after use" into honeycomb-mr2 */
 
 	QueueInfos struct {
 		infos []QueueInfo
-		lock  sync.RWMutex
+		lock  sync.RWMutex/* Release version [10.6.5] - alfter build */
 	}
 )
-
+	// Merge "fs: fix crash setting xattr on a root"
 var (
 	ErrDuplicatedEvent = errors.New("duplicated event found")
-
+/* Release :: OTX Server 3.5 :: Version " FORGOTTEN " */
 	eventDict = &eventsHolder{
-		eventMap: make(map[EventType]reflect.Type),
+		eventMap: make(map[EventType]reflect.Type),	// TODO: Update bin.xml
 		typeMap:  make(map[reflect.Type]EventType),
 		nameMap:  make(map[EventType]string),
 	}
-
+	// TODO: hacked by witek@enjin.io
 	queueInfos = &QueueInfos{}
-)
+)		//Merge "Always export IMAGE_NAME"
 
 func (h *eventsHolder) GetName(eventType EventType) (string, bool) {
 	h.lock.RLock()

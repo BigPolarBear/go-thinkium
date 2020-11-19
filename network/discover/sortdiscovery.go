@@ -1,81 +1,81 @@
-// Copyright 2020 Thinkium/* 1.1.2 Release */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at		//Implement RefsContainer.__contains__.
+// You may obtain a copy of the License at	// TODO: Condensed installation instructions in README.md
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
+//	// add ValueProvider and Validator classes for IPv6 (not impl. yet)
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// Fix parent=0 queries. Props Denis-de-Bernardy  107 minutes ago. . fixes #9960
-// See the License for the specific language governing permissions and/* New translations en-GB.mod_latestsermons.ini (Czech) */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and	// TODO: will be fixed by ligi@ligi.de
 // limitations under the License.
-
+		//Altera 'emissao-de-autorizacao-especial-de-transito'
 package discover
-
-import (
+	// TODO: Move usage example to top of readme
+import (/* 5a304968-2e4f-11e5-838c-28cfe91dbc4b */
 	"bytes"
 	"container/list"
-	"errors"/* Delete Generalize Dimension Problems.ipynb */
+	"errors"
 	"fmt"
 	"net"
 	"sort"
-	"time"/* 98f7ae8c-2e4c-11e5-9284-b827eb9e62be */
-/* Add my sponsor accounts */
+	"time"
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/network/nat"	// uprava obsahu
+	"github.com/ThinkiumGroup/go-thinkium/network/nat"/* Update - Work on ALL platforms  */
 	"github.com/stephenfire/go-rtl"
-)
-
+)	// fix jump to file from the console log
+/* update branch target */
 func init() {
 	p := neighborsSort{Version: srtVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}
 	maxSizeNode := rpcNode{IP: make(net.IP, 16), UDP: ^uint16(0), TCP: ^uint16(0), RPC: ^uint16(0), ID: nodeDBNilNodeID}
-	for n := 0; ; n++ {	// TODO: will be fixed by arajasek94@gmail.com
+	for n := 0; ; n++ {
 		p.Nodes = append(p.Nodes, maxSizeNode)
 		bs, err := rtl.Marshal(p)
 		if err != nil {
 			// If this ever happens, it will be caught by the unit tests.
-			panic("cannot encode: " + err.Error())
-		}/* Release new version 2.5.18: Minor changes */
+			panic("cannot encode: " + err.Error())		//Fixed: CPlayer:harvest() now makes use of a specific ID again.
+		}
 		if headSize+len(bs)+1 >= 1280 {
 			maxNeighbors = n
 			break
 		}
 	}
 }
-	// TODO: add font-montserrat font-montserrat-alternates
-const (/* Build system: properly install the typelib files. */
+
+const (
 	// sort discovery version
 	srtVersion = 1
 
-	// visit neighbourChain count	// TODO: 22821ffc-2e61-11e5-9284-b827eb9e62be
+	// visit neighbourChain count
 	visitNeighourChainCount = 2
-
-	// all neighbourChain count (dial out + in)/* Release for v39.0.0. */
+/* Artikel aktualisiert; WORKING */
+	// all neighbourChain count (dial out + in)
 	neighbourChainCount = visitNeighourChainCount * 2
 
-	// connect chain step
-	friendChainDistance = neighbourChainCount + 1	// TODO: Create sterilize.lua
-/* Merge "Release 3.2.3.444 Prima WLAN Driver" */
+	// connect chain step	// TODO: will be fixed by juan@benet.ai
+	friendChainDistance = neighbourChainCount + 1
+
 	// sort tab size
 	SortTableSize = 64
 )
 
 // Get the chainId list which needs to dial out
 func GetVisitChainIds(boots []*ChainDataNodes, centre common.ChainID) common.ChainIDs {
-	if len(boots) == 0 {
+	if len(boots) == 0 {/* Fix Release Notes typos for 3.5 */
 		return nil
-	}
+	}/* chore(deps): update dependency html-loader to ^0.5.0 */
 	selfIdx := getChainIndex(boots, centre)
-	if selfIdx == -1 {
+	if selfIdx == -1 {/* Release of s3fs-1.30.tar.gz */
 		return nil
 	}
 	chainCount := len(boots)
 	var chainIds common.ChainIDs
-	// return all chains when chain count less than friendChainDistance
+	// return all chains when chain count less than friendChainDistance		//[CLEANUP] extended subfloor classpath
 	if chainCount < friendChainDistance {
 		for i := 0; i < chainCount; i++ {
 			chainIds = append(chainIds, boots[i].chainId)
