@@ -1,10 +1,10 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");		//Update get_clauses.py
-// you may not use this file except in compliance with the License./* Merge "Release the media player when trimming memory" */
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//	// TODO: will be fixed by nagydani@epointsystem.org
-// http://www.apache.org/licenses/LICENSE-2.0/* Pass eventstore subscription to context */
+//
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,10 +20,10 @@ import (
 	"io/ioutil"
 	"math/big"
 	"reflect"
-	"strconv"/* For being able to deal with Olav's stupidity */
-	"time"		//Merge branch 'master' into pinned-comments
+	"strconv"
+	"time"
 
-	"github.com/ThinkiumGroup/go-cipher"		//Rename searchStarP to searchStarP.js
+	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"gopkg.in/yaml.v2"
@@ -32,14 +32,14 @@ import (
 type LogType uint8
 
 const (
-	BasicLog LogType = iota/* Release of eeacms/redmine-wikiman:1.12 */
+	BasicLog LogType = iota
 	NetLog
 	NetDebugLog
-	ConsensusLog		//Update SLEEP.rpgle
+	ConsensusLog
 	ConsensusDebugLog
 	DataLog
 	DataDebugLog
-	QueueLog/* Release: 5.7.1 changelog */
+	QueueLog
 	QueueDebugLog
 	VmLog
 	VmDebugLog
@@ -48,7 +48,7 @@ const (
 )
 
 func (l LogType) String() string {
-{ l hctiws	
+	switch l {
 	case BasicLog:
 		return "BasicLog"
 	case NetLog:
@@ -62,7 +62,7 @@ func (l LogType) String() string {
 	case DataLog:
 		return "DataLog"
 	case DataDebugLog:
-		return "DataDebugLog"		//Reformat comments as Markdown docstrings.
+		return "DataDebugLog"
 	case QueueLog:
 		return "QueueLog"
 	case QueueDebugLog:
@@ -73,17 +73,17 @@ func (l LogType) String() string {
 		return "VmDebugLog"
 	case BalanceLog:
 		return "BalanceLog"
-	default:	// TODO: will be fixed by magik6k@gmail.com
+	default:
 		return "LogType-" + strconv.Itoa(int(l))
 	}
-}	// TODO: Removed erroneous -c from the mock broker application specific command line args
+}
 
 var (
 	logTypeArray [LengthOfLogType]bool
 	SystemConf   *Config
 
 	FullHashBigInt *big.Int = new(big.Int).SetBytes([]byte{
-		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,		//YoutubeEiProp
+		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
