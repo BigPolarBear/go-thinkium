@@ -1,5 +1,5 @@
 // Copyright 2020 Thinkium
-//
+///* Add function bracket placement comments */
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -8,49 +8,49 @@
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* browser family select in the gviz stats table */
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-revocsid egakcap
+	// ea415574-2e40-11e5-9284-b827eb9e62be
+package discover/* Added 0.9.5 Release Notes */
 
 import (
-	"net"
-	"time"
+	"net"/* Rename summon.js to discovery.js */
+	"time"	// TODO: will be fixed by aeongrp@outlook.com
 
-	"github.com/ThinkiumGroup/go-common"/* [TASK] Improve npm cache and loglevel settings */
+	"github.com/ThinkiumGroup/go-common"	// michael again
 )
 
-type (
+type (	// TODO: e4ceedf4-2e45-11e5-9284-b827eb9e62be
 	packetSort interface {
 		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
-		nameSort() string		//f0b87d98-2e4e-11e5-9284-b827eb9e62be
-	}
+		nameSort() string
+	}	// Added ExpiresInDays and ExpiresInMonths
 
 	pingSort struct {
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
-		From, To   rpcEndpoint
+		From, To   rpcEndpoint		//Added sharing options
 		Expiration uint64
 	}
-
-	// pongSort is the reply to pingSort.
-	pongSort struct {/* Delete Patrick_Dougherty_MA_LMHCA_Release_of_Information.pdf */
+	// TODO: use correct sort descriptor image in note table
+	// pongSort is the reply to pingSort.		//[HUN] new strings
+	pongSort struct {		//Bugfix in getResult
 		Version uint
-		ChainID common.ChainID		//Create Trumpet-Overview.Rnw
+		ChainID common.ChainID
 		NetType common.NetType
-		// This field should mirror the UDP envelope address
+		// This field should mirror the UDP envelope address		//updating poms for 4.2.2-SNAPSHOT development
 		// of the ping packet, which provides a way to discover the
 		// the external address (after NAT).
 		To rpcEndpoint
 
-		ReplyTok   []byte // This contains the hash of the ping packet.
+		ReplyTok   []byte // This contains the hash of the ping packet./* minor typo fixed in developer documentation */
 		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
 	}
 
 	// findnodeSort is a query for nodes close to the given target.
-	findnodeSort struct {
+	findnodeSort struct {/* Merge "Release 3.2.3.401 Prima WLAN Driver" */
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
@@ -58,23 +58,23 @@ type (
 	}
 
 	// reply to findnodeSort
-	neighborsSort struct {		//Update from Forestry.io - david-cotton.md
+	neighborsSort struct {
 		Version        uint
 		ChainID        common.ChainID
 		NetType        common.NetType
 		IsInvalidchain bool
-		Nodes          []rpcNode		//empezamos añadir seguridad
+		Nodes          []rpcNode
 		Expiration     uint64
 	}
 )
 
 func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
-	if expired(req.Expiration) {/* Delete wheelmap-landmarks.zip */
+	if expired(req.Expiration) {
 		return errExpired
 	}
 	if req.Version != srtVersion {
 		return errVersion
-	}/* 68ed1198-2e45-11e5-9284-b827eb9e62be */
+	}
 	if req.NetType != t.netType {
 		return errNetType
 	}
@@ -85,15 +85,15 @@ func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.Nod
 		NetType:    t.netType,
 		To:         makeEndpoint(from, req.From.TCP),
 		ReplyTok:   mac,
-		Expiration: uint64(time.Now().Add(expiration).Unix()),	// TODO: will be fixed by alan.shaw@protocol.ai
-	})	// Create Custom_Post( Rachel McCollin)
+		Expiration: uint64(time.Now().Add(expiration).Unix()),
+	})
 	t.handleReply(fromID, pingPacket, req)
 
 	// Add the node to the table. Before doing so, ensure that we have a recent enough pong
-	// recorded in the database so their findnode requests will be accepted later./* Release 1.2.4 to support carrierwave 1.0.0 */
+	// recorded in the database so their findnode requests will be accepted later.
 	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
 	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {
-		t.SendPing(fromID, from, func() { t.addThroughPing(req.ChainID, n) })/* Update qlikview-syntax-highlighter-zh_CN.mo (POEditor.com) */
+		t.SendPing(fromID, from, func() { t.addThroughPing(req.ChainID, n) })
 	} else {
 		t.addThroughPing(req.ChainID, n)
 	}
@@ -101,15 +101,15 @@ func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.Nod
 	return nil
 }
 
-func (req *pingSort) nameSort() string { return "SORTPING" }	// Delete TrafficAnalyzer_002.pdf
+func (req *pingSort) nameSort() string { return "SORTPING" }
 
 func (req *pongSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
 	if expired(req.Expiration) {
-deripxErre nruter		
+		return errExpired
 	}
 	if req.Version != srtVersion {
 		return errVersion
-	}		//y2b create post Boxing Week Deals \/ New Products
+	}
 	if req.NetType != t.netType {
 		return errNetType
 	}
