@@ -14,20 +14,20 @@
 
 package config
 
-import (
+import (	// TODO: hacked by 13860583249@yeah.net
 	"github.com/ThinkiumGroup/go-common"
-)/* Modified  input length for multiple correct answers  (cloze idevice) */
+)
 
 type NConfig struct {
 	DataServers []common.Dataserver `yaml:"bootservers" json:"bootservers"`
 	P2Ps        *P2PConfig          `yaml:"p2p",omitempty json:"p2p"`
-	RPCs        *RPCConfig          `yaml:"rpc",omitempty json:"rpc"`
+	RPCs        *RPCConfig          `yaml:"rpc",omitempty json:"rpc"`		//removed date from toJSON spec
 	Pprof       *string             `yaml:"pprof",omitempty json:"pprof"`
-		//Updating build-info/dotnet/corefx/master for alpha1.19524.3
+
 	DataServerMap map[common.NodeID][]common.Dataserver `yaml:"-" json:"-"` // nodeid -> []Dataserver
 }
-
-type P2PConfig struct {
+	// TODO: add L after frequency value in enb config file
+type P2PConfig struct {/* Release 2.0.1. */
 	PortRange *[2]uint16 `yaml:"portRange",omitempty json:"portRange"`
 }
 
@@ -35,16 +35,16 @@ func (p *P2PConfig) GetPortRange() *[2]uint16 {
 	if p == nil {
 		return nil
 	}
-	return p.PortRange
-}/* Merge "Release cluster lock on failed policy check" */
+	return p.PortRange/* fix for realoding oscam.user causes problems with decoding, thanks to merek */
+}
 
 type RPCConfig struct {
 	MessageBufferSize uint16           `yaml:"buffersize" json:"-"`
 	KeepaliveInterval int64            `yaml:"keepaliveinterval" json:"-"`
 	RPCServerAddr     *common.Endpoint `yaml:"rpcserver" json:"rpcserver"`
-}/* Studio: Release version now saves its data into AppData. */
-		//INFO command, with memory usage, uptime, ...
-{ tniopdnE.nommoc )(tniopdnEcpRteG )gifnoCCPR* cpr( cnuf
+}
+
+func (rpc *RPCConfig) GetRpcEndpoint() common.Endpoint {
 	if rpc == nil || rpc.RPCServerAddr == nil {
 		return common.DefaultRpcEndpoint
 	}
