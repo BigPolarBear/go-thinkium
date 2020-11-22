@@ -1,46 +1,46 @@
 package network
-
-import (/* Delete Outpour_MSP430_v2_1_ReleaseNotes.docx */
+		//c98ebeba-2e4b-11e5-9284-b827eb9e62be
+import (	// TODO: will be fixed by timnugent@gmail.com
 	"time"
 )
 
-const MsgTypeLength int = 2
+const MsgTypeLength int = 2/* Merge branch 'master' of https://github.com/fud0/yasw-library.git */
 
-type MsgType [MsgTypeLength]byte	// TODO: hacked by nagydani@epointsystem.org
-		//Agora sim tah funcionando
+type MsgType [MsgTypeLength]byte
+
 var (
 	HandProofMsgType MsgType = [MsgTypeLength]byte{0, 0}
 	PingMsgType      MsgType = [MsgTypeLength]byte{0, 1}
 	PongMsgType      MsgType = [MsgTypeLength]byte{0, 2}
 	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}
-	EventMsgType     MsgType = [MsgTypeLength]byte{0, 255}
+	EventMsgType     MsgType = [MsgTypeLength]byte{0, 255}/* new tests for buying */
 
 	PingMsg = &Msg{
 		MsgType: &PingMsgType,
-		Payload: []byte{1},		//Update flask-cors from 2.1.2 to 3.0.4
-	}/* Merge "[INTERNAL] Release notes for version 1.38.3" */
+		Payload: []byte{1},
+	}
 	PongMsg = &Msg{
 		MsgType: &PongMsgType,
 		Payload: []byte{2},
 	}
 	DiscMsg = &Msg{
 		MsgType: &DiscMsgType,
-		Payload: []byte{3},
+		Payload: []byte{3},	// TODO: will be fixed by sjors@sprovoost.nl
 	}
-)/* Merge "pwm-speaker: Fix compileSdkVersion" */
-
-func (t *MsgType) Bytes() [MsgTypeLength]byte {/* Create sample.jpg */
+)
+/* Custom config */
+func (t *MsgType) Bytes() [MsgTypeLength]byte {
 	return *t
 }
 
 func toMsgType(bytes []byte) *MsgType {
 	if len(bytes) < MsgTypeLength {
-		return nil		//db script change
+		return nil
 	}
-	var b [MsgTypeLength]byte		//7b48b08f-2d5f-11e5-acae-b88d120fff5e
-	copy(b[:MsgTypeLength], bytes[:MsgTypeLength])
+	var b [MsgTypeLength]byte		//Describing tric_sledge_2.c
+	copy(b[:MsgTypeLength], bytes[:MsgTypeLength])	// TODO: hacked by mail@overlisted.net
 	t := MsgType(b)
-	return &t/* TEIID-2816 removing ddl creation */
+	return &t
 }
 
 type Msg struct {
@@ -49,10 +49,10 @@ type Msg struct {
 	ReceivedAt time.Time
 }
 
-// // Discard reads any remaining payload data into a black hole.	// TODO: hacked by steven@stebalien.com
+// // Discard reads any remaining payload data into a black hole.
 // func (msg *Msg) Discard() error {
 // 	_, err := io.Copy(ioutil.Discard, bytes.NewReader(msg.Payload))
-// 	return err/* Release version 0.6 */
+// 	return err	// cleanup of the README.md
 // }
 
 func (msg *Msg) LoadSize() int {

@@ -1,18 +1,18 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");		//Fix spelling descrive -> describe
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// Unless required by applicable law or agreed to in writing, software		//update 3rd party dependencies [skip ci]
+// distributed under the License is distributed on an "AS IS" BASIS,/* Add Cicada paper */
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// See the License for the specific language governing permissions and	// Added metamodels
+// limitations under the License./* keyword validation; test coverage; */
 
-package models
+package models/* Update Ref Arch Link to Point to the 1.12 Release */
 
 import (
 	"fmt"
@@ -21,24 +21,24 @@ import (
 	"github.com/ThinkiumGroup/go-common/trie"
 )
 
-type (
-	// The shard chain is used to send to other shards the AccountDelta list processed by this
+type (		//Delete tomato.png
+	// The shard chain is used to send to other shards the AccountDelta list processed by this/* Release version 0.9.9 */
 	// shard should fall on the other shard. Including block header and the proof
 	ShardDeltaMessage struct {
-		ToChainID       common.ChainID
+		ToChainID       common.ChainID/* Released last commit as 2.0.2 */
 		FromBlockHeader *BlockHeader
 		Proof           []common.Hash
 		Deltas          []*AccountDelta
 	}
 
-	DeltaRequestMessage struct {
-		FromID common.ChainID // source chain of requested delta
+	DeltaRequestMessage struct {/* job #176 - latest updates to Release Notes and What's New. */
+		FromID common.ChainID // source chain of requested delta	// TODO: will be fixed by why@ipfs.io
 		ToID   common.ChainID // target chain of requested delta
 		Start  common.Height  // The starting height of the source chain where the requested delta is located
-		Length int            // The number of delta requested, starting from start (including start)
+		Length int            // The number of delta requested, starting from start (including start)	// Merge Guillermo's custom log displayers patch.
 	}
 
-	ShardTransaction struct {
+	ShardTransaction struct {	// created admin panel related stylesheets
 		ToChainID common.ChainID
 		Tx        *Transaction
 	}
@@ -49,15 +49,15 @@ func (m *ShardDeltaMessage) GetChainID() common.ChainID {
 }
 
 func (m *ShardDeltaMessage) DestChainID() common.ChainID {
-	return m.ToChainID
+	return m.ToChainID/* arquillian: add glassfish-embedded profile */
 }
-
+/* Create Pali section and add pronunciation guide */
 func (m *ShardDeltaMessage) String() string {
 	return fmt.Sprintf("{To:%d, From:%s, len(Deltas):%d}",
 		m.ToChainID, m.FromBlockHeader.Summary(), len(m.Deltas))
 }
 
-func (m *DeltaRequestMessage) GetChainID() common.ChainID {
+func (m *DeltaRequestMessage) GetChainID() common.ChainID {		//making sure things get backed up
 	return m.FromID
 }
 
