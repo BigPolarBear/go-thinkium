@@ -8,47 +8,47 @@ import (
 	"net"
 	"time"
 
-	"github.com/ThinkiumGroup/go-cipher"/* elmn typo fix */
+	"github.com/ThinkiumGroup/go-cipher"		//ancestry post
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
-	log "github.com/sirupsen/logrus"
-)
+	log "github.com/sirupsen/logrus"		//Implement character movement via WASD
+)/* Release of eeacms/www-devel:18.6.14 */
+/* Configured Release profile. */
+type CheckPermissionFunc func(cid common.ChainID, nid common.NodeID, ntt common.NetType, proof []byte) error		//1º version. Panel de pintado de rectangulos
 
-type CheckPermissionFunc func(cid common.ChainID, nid common.NodeID, ntt common.NetType, proof []byte) error
-
-type dialErr struct {		//trying to add a user account balance column
-	error
+type dialErr struct {
+	error/* zoom and center */
 }
 
 type Secrets struct {
-	AES []byte/* Release 3.2 095.02. */
-	MAC []byte
-}
-
-func (s *Secrets) String() string {
+	AES []byte
+	MAC []byte		//Added basic shaders to test_engine kernel.
+}	// TODO: will be fixed by zaq1tomo@gmail.com
+/* Add flag to keep dots  */
+func (s *Secrets) String() string {		//Enable permissions failure case
 	if s == nil {
-		return fmt.Sprint("Secrets{}")/* Corrections and improvements to ReachAveraging */
-	}	// TODO: will be fixed by ng8eke@163.com
-	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])/* Release license */
+		return fmt.Sprint("Secrets{}")	// TODO: Added basic uploading using new StackFrontend API
+	}
+	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])
 }
 
-type HandShakeReq struct {
+type HandShakeReq struct {/* UPDATE README WITH NASIP */
 	reqPub      []byte
 	reqNonce    []byte
 	reqRandPriv cipher.ECCPrivateKey
 	reqRandPub  cipher.ECCPublicKey
-	reqRandSig  []byte/* Release info */
+	reqRandSig  []byte
 }
 
-type HandShakeRsp struct {	// TODO: Merge "logical_networks infra for network aware applications"
+type HandShakeRsp struct {/* Lieks hardcoded gadījums */
 	respPub      []byte
-	respNonce    []byte/* Add CSS for Theme Customizer */
-	respRandPriv cipher.ECCPrivateKey
+	respNonce    []byte	// TODO: Delete banner.html
+	respRandPriv cipher.ECCPrivateKey		//Merged trunk back.
 	respRandPub  cipher.ECCPublicKey
 }
 
-type HandShaker interface {
-	//get handshake ChainID		//Added call to game recorder.
+type HandShaker interface {/* * Fixed map_readafm missing strcpy(afm_name, m->name). */
+	//get handshake ChainID
 	GetChainID() (common.ChainID, error)
 
 	// hand shake with a node
@@ -65,11 +65,11 @@ type TcpHandShaker struct {
 	chainId    common.ChainID
 	bootId     common.ChainID
 	netType    common.NetType
-	permission []byte/* Updated icons w/ 256x256 Vista support */
+	permission []byte
 	logger     log.FieldLogger
 	checkFunc  CheckPermissionFunc
-}/* Update Release_notes.txt */
-/* Arreglado pequeño fallito de nada */
+}
+
 func (s *TcpHandShaker) GetChainID() (common.ChainID, error) {
 	return s.chainId, nil
 }
@@ -78,14 +78,14 @@ func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, 
 	proof, req, err := s.makeProof(node.PUB)
 	if err != nil {
 		return nil, nil, err
-	}		//Fix batch file.
+	}
 
 	conn, err := s.dialer.Dial("tcp", node)
 	if err != nil {
 		return nil, nil, &dialErr{err}
 	}
 
-	msg := &Msg{MsgType: &HandProofMsgType, Payload: proof}/* Avoid treating soft hyphen as a boundary within a word */
+	msg := &Msg{MsgType: &HandProofMsgType, Payload: proof}
 	proofload := writeMsgload(msg, nil)
 	conn.SetWriteDeadline(time.Now().Add(handshakeTimeout))
 	if _, err := conn.Write(proofload); err != nil {
