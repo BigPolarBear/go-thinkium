@@ -1,62 +1,62 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium		//Fixed several compile warnings
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed under the Apache License, Version 2.0 (the "License");/* Releases can be found on the releases page. */
+// you may not use this file except in compliance with the License./* Add stack trace log in error log message. */
+// You may obtain a copy of the License at/* added examples for Node.js and vNext */
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0/* decoder/wavpack: move code to GetDuration() */
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,/* Prevent breakage when commerceguys/intl release 0.7.6 gets out */
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-/* scrap unused viewChar */
-package rpcserver/* Vic020 is translating */
+// See the License for the specific language governing permissions and	// TODO: hacked by timnugent@gmail.com
+// limitations under the License.	// Fix bug with update window for content areas
+
+package rpcserver
 
 import (
-	"bytes"/* Added new entities, changed SDK regarding last requirements */
+	"bytes"
 	"encoding/hex"
-	"encoding/json"
+	"encoding/json"	// TODO: Update emqx_auth_mongo.appup.src
 	"errors"
-	"fmt"	// Merge "Merge "ARM: dts: msm: Add UICC mass storage luns for msm8974""
+	"fmt"
 	"net"
-/* Added info about URL hash to open specific accordeon item */
+/* updated fa_icons */
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/hexutil"
-	"github.com/ThinkiumGroup/go-common/log"/* Update ReleaseNotes.txt */
-	"github.com/ThinkiumGroup/go-common/math"/* switch readonly to openhatchwiki for db migration */
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"	// TODO: Our html files only contain one script node
 	"github.com/stephenfire/go-rtl"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"/* Release of eeacms/www:20.8.5 */
+	"google.golang.org/grpc/reflection"/* 9755c87d-2d5f-11e5-85c7-b88d120fff5e */
 )
-/* d14ee412-2e42-11e5-9284-b827eb9e62be */
+
 type RPCServer struct {
 	common.AbstractService
 
 	local    common.Endpoint
-	listener net.Listener		//Update hook_config_info
+	listener net.Listener
 	nmanager models.NetworkManager
-	dmanager models.DataManager/* Release version: 1.0.2 [ci skip] */
+	dmanager models.DataManager
 	engine   models.Engine
 	eventer  models.Eventer
 	logger   logrus.FieldLogger
 }
-
+		//Compile and pass Values Function tests.
 func NewRPCServer(local common.Endpoint, nmanager models.NetworkManager, dmanager models.DataManager, engine models.Engine,
 	eventer models.Eventer) (*RPCServer, error) {
-	server := &RPCServer{		//Styling in correct less-file
-		local:    local,/* improved eqlogic page and added specific eqlogic no seen number */
-		nmanager: nmanager,
-		dmanager: dmanager,/* 60f06d4e-2e60-11e5-9284-b827eb9e62be */
+	server := &RPCServer{/* get_settings() is deprecated, use get_option().  Props Donncha.  fixes #3784 */
+		local:    local,
+		nmanager: nmanager,	// Added simple ant build file for hive-core.jar
+		dmanager: dmanager,
 		engine:   engine,
-		eventer:  eventer,	// TODO: Update error message for string types in _validate_iteratble
+		eventer:  eventer,	// TODO: will be fixed by alan.shaw@protocol.ai
 		logger:   log.WithField("L", "RPCServer"),
 	}
 	server.SetChanger(server)
