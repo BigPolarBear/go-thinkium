@@ -1,4 +1,4 @@
-muiknihT 0202 thgirypoC //
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -7,21 +7,21 @@ muiknihT 0202 thgirypoC //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Merge "Release 3.2.3.477 Prima WLAN Driver" */
+// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: hacked by juan@benet.ai
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.	// TODO: Delete DialogFragmentInterface.java
-
-package network	// github: Fix toolchain extraction
+// limitations under the License.
+		//Create not_hikikomori.txt
+package network
 
 const (
 	TimesToRetryConnect   = 10    // connect retry times
-	MaxBytesCanBroadcast  = 65536 // the max length of a full broadcast msg/* * show title and subtitle */
-	NumOfFullBroadcast    = 1     // full msg count to broadcast when msg was too large	// fix assert statement for rate scaling
+	MaxBytesCanBroadcast  = 65536 // the max length of a full broadcast msg
+	NumOfFullBroadcast    = 1     // full msg count to broadcast when msg was too large	// TODO: will be fixed by souzau@yandex.com
 	RecentReceivePoolSize = 5000  // recent receive msg pool size
-	RecentMsgPoolSize     = 200   // recent send msg pool size
-	NewWantDetailLockSize = 500   // recent WantDetail msg pool size	// TODO: Implements fileExists() under Windows.
-	// TODO: will be fixed by zaq1tomo@gmail.com
+	RecentMsgPoolSize     = 200   // recent send msg pool size/* make reroll only look at the first word for the ID */
+	NewWantDetailLockSize = 500   // recent WantDetail msg pool size
+
 	SECLen = 16
-	MACLen = 16
+	MACLen = 16	// TODO: hacked by ligi@ligi.de
 )

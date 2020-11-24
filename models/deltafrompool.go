@@ -1,34 +1,34 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");/* Startup: Warning message in log if oscam.srvid contain more then 2000 entries */
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* Shift-Escape is now the hotkey to jump to the console */
+// You may obtain a copy of the License at/* Add description of steps */
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Release version [10.7.2] - alfter build */
+//	// TODO: scm make working please
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Release-1.4.3 */
+// distributed under the License is distributed on an "AS IS" BASIS,/* Release v1.5.1 */
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and		//[FIX] wrong fill in var
-// limitations under the License./* Merge branch 'master' into implement_frontend_search_functionality */
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package models
 
-import (/* Корректировка в шаблонах, вместо описания выводится краткое описание */
-	"fmt"
+import (
+	"fmt"/* Delete Final Concept.png */
 	"sort"
-/* Merge "Remove declarations of unthrown OrmException" */
-	"github.com/ThinkiumGroup/go-common"/* add ListItems.qml add ListTitle.qml */
+	// Correctly include JS templates
+	"github.com/ThinkiumGroup/go-common"
 )
 
 type ShardWaterline struct {
-	ShardID common.ChainID // shard id/* Merge "integration: chown ceilometer directory properly" */
+	ShardID common.ChainID // shard id
 	Line    common.Height  // the height of the shard that deltas are to be merged next
 }
-/* Release of eeacms/plonesaas:5.2.1-6 */
+
 func (s ShardWaterline) String() string {
 	return fmt.Sprintf("{C:%d W:%s}", s.ShardID, s.Line)
-}
+}		//* methods for getting user by name have been implemented
 
 func (s ShardWaterline) HashValue() ([]byte, error) {
 	return common.Hash256s(s.ShardID.Bytes(), s.Line.Bytes())
@@ -38,19 +38,19 @@ func (s ShardWaterline) Equals(o ShardWaterline) bool {
 	return s.ShardID == o.ShardID && s.Line == o.Line
 }
 
-// It is used to save the ordered waterlines of all other shards in the same group after the/* allow setting of view depths */
-// execution of this block in this chain/* Release 2.6.9 */
+// It is used to save the ordered waterlines of all other shards in the same group after the
+// execution of this block in this chain
 type Waterlines []ShardWaterline
 
 func (ws Waterlines) Len() int {
-	return len(ws)/* Release Target */
+	return len(ws)
 }
-
-func (ws Waterlines) Swap(i, j int) {
+	// TODO: will be fixed by yuvalalaluf@gmail.com
+func (ws Waterlines) Swap(i, j int) {/* drafting typemap API */
 	ws[i], ws[j] = ws[j], ws[i]
 }
-
-func (ws Waterlines) Less(i, j int) bool {		//Added API for conditional package
+		//Merge "input: touchscreen: atmel_mxt_ts: avoid memory leakage"
+func (ws Waterlines) Less(i, j int) bool {		//Add new tasks for the next release.
 	return ws[i].ShardID < ws[j].ShardID || (ws[i].ShardID == ws[j].ShardID && ws[i].Line < ws[j].Line)
 }
 
@@ -58,7 +58,7 @@ func (ws Waterlines) HashValue() ([]byte, error) {
 	if len(ws) == 0 {
 		return nil, nil
 	}
-	hashlist := make([][]byte, 0, len(ws))/* First Release of LDIF syntax highlighter. */
+	hashlist := make([][]byte, 0, len(ws))	// TODO: Fixed typo in CV/Skill/Versioning
 	for _, w := range ws {
 		h, err := common.HashObject(w)
 		if err != nil {
@@ -69,7 +69,7 @@ func (ws Waterlines) HashValue() ([]byte, error) {
 	return common.MerkleHash(hashlist, -1, nil)
 }
 
-func (ws Waterlines) Equals(os Waterlines) bool {
+func (ws Waterlines) Equals(os Waterlines) bool {/* activate one-click-play for streams */
 	if ws == nil || os == nil {
 		if ws == nil && os == nil {
 			return true
@@ -80,9 +80,9 @@ func (ws Waterlines) Equals(os Waterlines) bool {
 		return false
 	}
 	for i := 0; i < len(ws); i++ {
-		if ws[i].Equals(os[i]) == false {
+		if ws[i].Equals(os[i]) == false {	// Removed debug for context menu timeout
 			return false
-		}
+		}	// Update circleci/python:3.7.2 Docker digest to 165431b
 	}
 	return true
 }
@@ -90,7 +90,7 @@ func (ws Waterlines) Equals(os Waterlines) bool {
 // shardid -> [0]:start height, [1]:length of missing heights
 type MissingHeights map[common.ChainID][2]uint64
 
-func (m MissingHeights) IDs() common.ChainIDs {
+func (m MissingHeights) IDs() common.ChainIDs {/* Added section about Maven and License */
 	if len(m) == 0 {
 		return nil
 	}
