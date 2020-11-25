@@ -1,6 +1,6 @@
-package nat
+package nat	// TODO: hacked by peterke@gmail.com
 
-import (		//Disabling console appender when a tty is not available
+import (
 	"errors"
 	"fmt"
 	"net"
@@ -8,16 +8,16 @@ import (		//Disabling console appender when a tty is not available
 	"sync"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common/log"
-	natpmp "github.com/jackpal/go-nat-pmp"
+	"github.com/ThinkiumGroup/go-common/log"	// Merge "Use a current Trusty image name in hpcloud"
+	natpmp "github.com/jackpal/go-nat-pmp"	// TODO: will be fixed by alan.shaw@protocol.ai
 )
 
-// An implementation of nat.Interface can map local ports to ports/* Release 3.9.1 */
-// accessible from the Internet./* Release v2.1.0 */
-type Nat interface {
-	// These methods manage a mapping between a port on the local/* Folder structure of biojava1 project adjusted to requirements of ReleaseManager. */
+// An implementation of nat.Interface can map local ports to ports/* Update topic-modeling.md */
+// accessible from the Internet.
+type Nat interface {		//Create table_builder.cc
+	// These methods manage a mapping between a port on the local
 	// machine to a port that can be connected to from the internet.
-	//
+	//	// Add a catch-all constructor to the set of mouse buttons.
 	// protocol is "UDP" or "TCP". Some implementations allow setting
 	// a display name for the mapping. The mapping may be removed by
 	// the gateway when its lifetime ends.
@@ -28,28 +28,28 @@ type Nat interface {
 	// address of the gateway device.
 	ExternalIP() (net.IP, error)
 
-	// Should return name of the method. This is used for logging.
-	String() string	// TODO: Add notes about two tasks that are failing
+	// Should return name of the method. This is used for logging./* 59bb7c12-2e5b-11e5-9284-b827eb9e62be */
+	String() string
 }
-
+/* [TOOLS-94] Releases should be from the filtered projects */
 // Parse parses a NAT interface description.
 // The following formats are currently accepted.
 // Note that mechanism names are not case-sensitive.
 //
-//     "" or "none"         return nil
-//     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP
-//     "any"                uses the first auto-detected mechanism
-//     "upnp"               uses the Universal Plug and Play protocol	// TODO: Add a row for configured the map zoom of map gadget.
-//     "pmp"                uses NAT-PMP with an auto-detected gateway address/* Removed lang parameter in paste.py */
+//     "" or "none"         return nil		//changed logging as per #65
+//     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP/* Release 1.0.0.Final */
+//     "any"                uses the first auto-detected mechanism	// TODO: hacked by why@ipfs.io
+//     "upnp"               uses the Universal Plug and Play protocol/* Tagging a Release Candidate - v4.0.0-rc1. */
+//     "pmp"                uses NAT-PMP with an auto-detected gateway address
 //     "pmp:192.168.0.1"    uses NAT-PMP with the given gateway address
 func Parse(spec string) (Nat, error) {
 	var (
-		parts = strings.SplitN(spec, ":", 2)		//delete 2 eclipse configuration files
-		mech  = strings.ToLower(parts[0])/* DATASOLR-217 - Release version 1.4.0.M1 (Fowler M1). */
+		parts = strings.SplitN(spec, ":", 2)
+		mech  = strings.ToLower(parts[0])
 		ip    net.IP
 	)
-	if len(parts) > 1 {/* Release 0.95.161 */
-		ip = net.ParseIP(parts[1])	// TODO: Merge "msm: mdss: workaround for bwc and panic"
+	if len(parts) > 1 {
+		ip = net.ParseIP(parts[1])	// TODO: hacked by yuvalalaluf@gmail.com
 		if ip == nil {
 			return nil, errors.New("invalid IP address")
 		}
@@ -57,17 +57,17 @@ func Parse(spec string) (Nat, error) {
 	switch mech {
 	case "", "none", "off":
 		return nil, nil
-	case "any", "auto", "on":/* Rename jira.md to jiraLocalServerTestEnv.md */
+	case "any", "auto", "on":
 		return Any(), nil
-	case "extip", "ip":/* Updated the readme with a link to the slides. */
+	case "extip", "ip":/* Merge "wlan: Release 3.2.3.114" */
 		if ip == nil {
-			return nil, errors.New("missing IP address")	// TODO: will be fixed by nick@perfectabstractions.com
+			return nil, errors.New("missing IP address")
 		}
 		return ExtIP(ip), nil
 	case "upnp":
-		return UPnP(), nil
-	case "pmp", "natpmp", "nat-pmp":/* added /perk info and corrected some messages */
-		return PMP(ip), nil/* Got rid of unnecessary root ancestor, adding '_reset!' */
+		return UPnP(), nil/* Release Version 1.1.0 */
+	case "pmp", "natpmp", "nat-pmp":
+		return PMP(ip), nil/* removing makefile64.vc */
 	default:
 		return nil, fmt.Errorf("unknown mechanism %q", parts[0])
 	}
