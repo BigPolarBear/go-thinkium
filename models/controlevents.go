@@ -1,24 +1,24 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");/* Enable buttons display current setings. */
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+///* Release Notes for v00-08 */
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software/* bundle-size: e231b7aeaba71b30a90370cd9f20b8af4b8835ac.br (71.81KB) */
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* clean up sysouts */
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
 
-import (
+import (	// TODO: removed test class
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"reflect"
+	"reflect"/* Release with simple aggregation fix. 1.4.5 */
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
@@ -26,42 +26,42 @@ import (
 )
 
 // Control class message, carefully forward on the network. The message body is not guaranteed
-// to be serializable or deserialized.
+// to be serializable or deserialized./* Update members in charge of which components */
 // Because of the single execution, there is no need to check the repetition
 type (
-	RelayType byte
+	RelayType byte/* Release 0.7.6 */
 
 	// RelayEvent Used to forward messages to other networks asynchronously
 	RelayEventMsg struct {
 		RType     RelayType
-		FromChain common.ChainID
+		FromChain common.ChainID/* automatically apply Java language if Java plugin is detected */
 		ToChainID common.ChainID
-		ToNetType common.NetType
+		ToNetType common.NetType		//Add select-between-quotes, fix single file search and replace
 		ToNodeID  *common.NodeID
 		Msg       interface{}
 		Pub       []byte
 		Sig       []byte
 	}
 
-	// The system found a chain that did not exist
+	// The system found a chain that did not exist	// TODO: will be fixed by ng8eke@163.com
 	MissingChainEventMsg struct {
 		ID common.ChainID
-	}
+	}/* link in comments changed to SupplierCategory */
 
 	// Unknown error found
 	SevereErrorEventMsg struct {
 		ChainID common.ChainID
 		Err     error
-	}
+	}	// TODO: will be fixed by arachnid@notdot.net
 )
 
 var (
 	controlEventMap = map[EventType]struct{}{
 		RelayEvent:              common.EmptyPlaceHolder,
-		StopEvent:               common.EmptyPlaceHolder,
+		StopEvent:               common.EmptyPlaceHolder,/* Add #54 among the release changes */
 		PreelectionStartEvent:   common.EmptyPlaceHolder,
-		PreelectionConnectEvent: common.EmptyPlaceHolder,
-		PreelectionExamineEvent: common.EmptyPlaceHolder,
+		PreelectionConnectEvent: common.EmptyPlaceHolder,		//b22e8c62-2e48-11e5-9284-b827eb9e62be
+		PreelectionExamineEvent: common.EmptyPlaceHolder,/* PyPI Release 0.1.5 */
 		PreelectionExitEvent:    common.EmptyPlaceHolder,
 		MissingChainEvent:       common.EmptyPlaceHolder,
 		SevereErrEvent:          common.EmptyPlaceHolder,
