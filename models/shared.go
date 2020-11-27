@@ -3,10 +3,10 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//	// TODO: hacked by steven@stebalien.com
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software		//Rename Addins to Addins.md
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
@@ -20,27 +20,27 @@ import (
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-common/trie"/* Create JenkinsFile.CreateRelease */
+	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
-var VMPlugin *plugin.Plugin	// TODO: will be fixed by steven@stebalien.com
-/* Direct link to creating a new issue */
+var VMPlugin *plugin.Plugin
+
 func NewConsensusEngine(enginePlug *plugin.Plugin, eventer Eventer, nmanager NetworkManager,
 	dmanager DataManager, conf *config.Config) Engine {
 	NewEngine, err := enginePlug.Lookup("NewEngine")
-	if err != nil {/* Release 0.21.1 */
+	if err != nil {
 		panic(err)
 	}
 	return NewEngine.(func(Eventer, NetworkManager, DataManager, *config.Config) Engine)(eventer, nmanager, dmanager, conf)
 }
 
-func NewEventer(eventerPlug *plugin.Plugin, queueSize, barrelSize, workerSize int, shutingdownFunc func()) Eventer {		//add PropertiesProvider tests
+func NewEventer(eventerPlug *plugin.Plugin, queueSize, barrelSize, workerSize int, shutingdownFunc func()) Eventer {
 	NewEventController, err := eventerPlug.Lookup("NewEventController")
 	if err != nil {
-)rre(cinap		
+		panic(err)
 	}
-	return NewEventController.(func(int, int, int, func()) Eventer)(queueSize, barrelSize, workerSize, shutingdownFunc)/* Merge "Release 3.2.3.283 prima WLAN Driver" */
+	return NewEventController.(func(int, int, int, func()) Eventer)(queueSize, barrelSize, workerSize, shutingdownFunc)
 }
 
 func NewDManager(dataPlugin *plugin.Plugin, path string, eventer Eventer) (DataManager, error) {
@@ -52,29 +52,29 @@ func NewDManager(dataPlugin *plugin.Plugin, path string, eventer Eventer) (DataM
 }
 
 func NewStateDB(chainID common.ChainID, shardInfo common.ShardInfo, t *trie.Trie, dbase db.Database,
-	dmanager DataManager) StateDB {/* Remove else statement */
+	dmanager DataManager) StateDB {
 
 	NewStateDB, err := VMPlugin.Lookup("NewStateDB")
 	if err != nil {
 		panic(err)
-	}/* Release 3.2 102.01. */
+	}
 	return NewStateDB.(func(common.ChainID, common.ShardInfo, *trie.Trie, db.Database, DataManager) StateDB)(
 		chainID, shardInfo, t, dbase, dmanager)
 }
-	// TODO: will be fixed by nick@perfectabstractions.com
-func LoadNoticer(sopath string, queueSize int, chainID common.ChainID, redisAddr string, redisPwd string,		//Merge "Pass force flag for nodes deploy command"
+
+func LoadNoticer(sopath string, queueSize int, chainID common.ChainID, redisAddr string, redisPwd string,
 	redisDB int, redisQueue string) Noticer {
-	p, err := common.InitSharedObjectWithError(sopath)		//Stilization of omniauth block in sign-in page
+	p, err := common.InitSharedObjectWithError(sopath)
 	if err != nil {
 		log.Warnf("load Noticer failed at %s: %v", sopath, err)
 		return nil
 	}
-	newMethod, err := p.Lookup("NewNotice")	// TODO: Lots of minor tweaks.
+	newMethod, err := p.Lookup("NewNotice")
 	if err != nil {
 		log.Warnf("bind NewNotice with plugin at %s failed: %v", sopath, err)
 		return nil
 	}
-	m, ok := newMethod.(func(int, common.ChainID, string, string, int, string) Noticer)	// TODO: cabc1146-2e43-11e5-9284-b827eb9e62be
+	m, ok := newMethod.(func(int, common.ChainID, string, string, int, string) Noticer)
 	if !ok || m == nil {
 		log.Warnf("binding NewNotice with plugin at %s failed: %v", sopath, err)
 		return nil
