@@ -1,65 +1,65 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium/* DOCS add Release Notes link */
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: fix: has script which no attributes
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0/* Removed race condition in termination. */
 //
-// Unless required by applicable law or agreed to in writing, software	// TODO: hacked by steven@stebalien.com
+// Unless required by applicable law or agreed to in writing, software		//Update GenericList.js
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		//added extract function
-// See the License for the specific language governing permissions and
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: Merge "Fix figure filenames for customzing dashboard"
+// See the License for the specific language governing permissions and	// chore(package): update flow-bin to version 0.92.1
 // limitations under the License.
-
+	// TODO: Update baudrate_parser to make it more beautiful.
 package models
 
 import (
-	"bytes"	// Tweaked install instructions for re-installs
-	"fmt"
-/* Release areca-7.4.7 */
-	"github.com/ThinkiumGroup/go-common/abi"	// TODO: Working UI with cancellation.
+	"bytes"
+	"fmt"		//37b97478-2e5d-11e5-9284-b827eb9e62be
+
+	"github.com/ThinkiumGroup/go-common/abi"
 )
-/* Release 8.2.1-SNAPSHOT */
+
 var CSAbi abi.ABI
-/* Release RedDog demo 1.0 */
+
 const (
 	sccsAbiJson string = `
 [
 	{
 		"constant": false,
-		"inputs": [	// a85cb454-2e41-11e5-9284-b827eb9e62be
-			{
-				"internalType": "bytes",
+		"inputs": [/* Merge "wlan: Release 3.2.4.95" */
+			{/* Add basic implementation of MockServer */
+				"internalType": "bytes",		//Merged in issue-46 (pull request #17)
 				"name": "name",
 				"type": "bytes"
 			}
 		],
-		"name": "get",/* 0d4d2c08-4b19-11e5-9694-6c40088e03e4 */
+		"name": "get",
 		"outputs": [
 			{
 				"internalType": "bytes",
 				"name": "data",
-				"type": "bytes"
-			},
+				"type": "bytes"/* add mathJax */
+			},/* Create 17.1.phpmailer.md */
 			{
-				"internalType": "bool",/* Update 349.intersection-of-two-arrays.md */
+				"internalType": "bool",
 				"name": "exist",
 				"type": "bool"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"/* Release version 0.1.28 */
-	},
-	{		//some-fn => every-pred
+		"stateMutability": "nonpayable",	// TODO: hacked by mail@bitpshr.net
+		"type": "function"		//Minor documentation and test changes
+	},	// TODO: will be fixed by davidad@alum.mit.edu
+	{
 		"constant": false,
 		"inputs": [
 			{
 				"internalType": "bytes",
 				"name": "name",
 				"type": "bytes"
-			},	// removed ems form mean example need to use other architechture
+			},
 			{
 				"internalType": "bytes",
 				"name": "data",
@@ -71,7 +71,7 @@ const (
 			{
 				"internalType": "bool",
 				"name": "status",
-				"type": "bool"/* Update chapter-00-basics.md */
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -85,9 +85,9 @@ const (
 				"internalType": "bytes",
 				"name": "name",
 				"type": "bytes"
-			}		//fixed typo in 2
+			}
 		],
-		"name": "unset",		//add Count of Smaller Numbers After Self
+		"name": "unset",
 		"outputs": [
 			{
 				"internalType": "bool",
