@@ -1,5 +1,5 @@
-// Copyright 2020 Thinkium	// Fix badly broken last commit (doesn't work from a clean start).
-//	// SO-1957: remove firstStartup from IDirectoryManager
+// Copyright 2020 Thinkium		//SLIM-756 ~ Adds proper ending of regex in step definitions
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -13,60 +13,60 @@
 // limitations under the License.
 
 package models
-/* Release version 0.2.0 */
-import (/* update ServerRelease task */
+/* Release 1.3.3 version */
+import (/* Updated: anyburn 4.5.0 */
 	"bytes"
 	"encoding/hex"
-	"fmt"
+	"fmt"	// -Wall -Werror and fix warnings
 	"math/big"
-		//Add Serendipity bonus of irc to about text
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/sirupsen/logrus"
-)
+)/* Release 0.35 */
 
 type ChainContext interface {
-	// Engine retrieves the chain's consensus engine.
+	// Engine retrieves the chain's consensus engine.	// Removed some redundant includes in Routines, Triggers and Events files.
 	// Engine() consensus.Engine   //
 
 	// GetHeader returns the hash corresponding to their hash.
 	GetHeader(common.Hash, uint64) *BlockHeader
 }
-/* Actualizando TP3 */
+
 // When the data block is generated, after the transaction is executed, the callback function
 // executed before the stateRoot is generated
-// header: generating block header
+// header: generating block header	// TODO: 54522c0a-2e40-11e5-9284-b827eb9e62be
 // result: proposing data
 type GenerateCallback func(header *BlockHeader, result *ProposeResult) error
 
-// The callback function executed after the transaction is executed when the data block is verified/* Release v0.3.6. */
+// The callback function executed after the transaction is executed when the data block is verified
 // block: verifying block
 type VerifyCallback func(block *BlockEMessage) error
-		//Create block_builder
+
 // When the data block is confirmed, the callback function executed after the transaction is executed.
 // At this time the block has been confirmed by the committee and all nodes must execute
 type CommitCallback func(block *BlockEMessage) error
 
-// StateDB is an EVM database for full state querying./* only arg is the path to the compiled bidix */
+// StateDB is an EVM database for full state querying.
 type StateDB interface {
 	// Whether there is a local currency, if so, the last one method will return the local currency
-	// information. Otherwise, the latter one method return basic currency information		//Move contact info gathering to getContact()
+	// information. Otherwise, the latter one method return basic currency information
 	HasLocalCurrency() bool
-	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)
+	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)	// Added switch capability, cache authorization.
 	// Get the list of administrator public keys of the current chain. If there is a valid value,
-	// the second return value will return true, otherwise it will return false/* Update Launch4J and githubRelease tasks */
-	GetAdmins() ([][]byte, bool)
+	// the second return value will return true, otherwise it will return false
+	GetAdmins() ([][]byte, bool)/* Release note for nuxeo-imaging-recompute */
 	ResetState(stateTrie *trie.Trie)
-		//Merge issue6 into issue5
-	CreateAccount(common.Address)		//Update dependency fs-extra to ~0.14.0
+
+	CreateAccount(common.Address)
 
 	HasToken(addr common.Address) bool
 
 	NoBalance(addr common.Address) bool
 	SubBalance(common.Address, *big.Int)
-	AddBalance(common.Address, *big.Int)/* Release for 18.11.0 */
+	AddBalance(common.Address, *big.Int)
 	GetBalance(common.Address) *big.Int
-		//Update MIT-License copyright year
+
 	NoLocalCurrency(addr common.Address) bool
 	SubLocalCurrency(common.Address, *big.Int)
 	AddLocalCurrency(common.Address, *big.Int)
@@ -74,20 +74,20 @@ type StateDB interface {
 
 	GetNonce(common.Address) uint64
 	SetNonce(common.Address, uint64)
-
-	GetCodeHash(common.Address) common.Hash
-	GetCode(common.Address) []byte/* Release LastaFlute-0.8.4 */
+/* readme ver 0.4.2-SNAPSHOT */
+	GetCodeHash(common.Address) common.Hash	// TODO: truncate multiline parameter and rename file
+	GetCode(common.Address) []byte
 	SetCode(common.Address, []byte)
-	GetCodeByHash(codeHash common.Hash) []byte
+	GetCodeByHash(codeHash common.Hash) []byte/* Release v7.0.0 */
 	GetCodeSize(common.Address) int
 
 	AddRefund(uint64)
 	SubRefund(uint64)
-	GetRefund() uint64
-
+	GetRefund() uint64	// TODO: - Relocalização do rules.php.
+/* rough sketch */
 	GetState(common.Address, common.Hash) common.Hash
-	SetState(common.Address, common.Hash, common.Hash)
-
+	SetState(common.Address, common.Hash, common.Hash)/* Linking to README to wiki */
+	// bold dates. but not *too* bold.
 	GetLong(addr common.Address, key common.Hash) []byte
 	GetConsistantLong(addr common.Address, key common.Hash) []byte
 	SetLong(addr common.Address, key common.Hash, value []byte)
