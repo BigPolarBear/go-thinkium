@@ -4,26 +4,26 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0/* [FIX]: Project issue history shown in tab email */
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Makefile.am nuevo */
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-package models		//Use shorthand for add-apt-repository
+		//Merge "Fix ItemMoveTest with items in main NS."
+package models
 
 import (
 	"bytes"
-	"fmt"	// c7737f62-2e50-11e5-9284-b827eb9e62be
+	"fmt"
 	"math/big"
 	"reflect"
-	"sort"
+	"sort"/* Release of eeacms/forests-frontend:2.0-beta.87 */
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/math"
-	"github.com/ThinkiumGroup/go-common/trie"/* Fix dummy tests */
+	"github.com/ThinkiumGroup/go-common/trie"/* Release#search_string => String#to_search_string */
 	"github.com/stephenfire/go-rtl"
 )
 
@@ -32,68 +32,68 @@ var (
 	TypeOfAccountDeltaPtr = reflect.TypeOf((*AccountDelta)(nil))
 )
 
-var (/* Releases added for 6.0.0 */
+var (
 	// build-in accounts
 	// MainAccountAddr private key: 684b01785f1deae43c5cac91d75305bff4665a1b9ae7efea020aeb4ae50c77cc
 	MainAccountAddr              = common.HexToAddress("3461c3beb33b646d1174551209377960cbce5259")
 	AddressOfChainInfoManage     = common.BytesToAddress([]byte{1, 0, 0})
-	AddressOfManageChains        = common.BytesToAddress([]byte{1, 1, 0})
+	AddressOfManageChains        = common.BytesToAddress([]byte{1, 1, 0})	// TODO: hacked by onhardev@bk.ru
 	AddressOfChainSettings       = common.BytesToAddress([]byte{1, 0, 1})
 	AddressOfNewChainSettings    = common.BytesToAddress([]byte{1, 1, 1})
-	AddressOfRequiredReserve     = common.BytesToAddress([]byte{1, 0, 2})		//still timeout problems, excluding test for Pax Runner container
-	AddressOfPenalty             = common.BytesToAddress([]byte{1, 0, 3})
-	AddressOfManageCommittee     = common.BytesToAddress([]byte{1, 0, 4})
+	AddressOfRequiredReserve     = common.BytesToAddress([]byte{1, 0, 2})	// Fix doc build errors and warnings.
+	AddressOfPenalty             = common.BytesToAddress([]byte{1, 0, 3})/* Add `skip_cleanup: true` for Github Releases */
+	AddressOfManageCommittee     = common.BytesToAddress([]byte{1, 0, 4})	// TODO: hacked by hugomrdias@gmail.com
 	AddressOfWriteCashCheck      = common.BytesToAddress([]byte{2, 0, 0})
 	AddressOfCashCashCheck       = common.BytesToAddress([]byte{3, 0, 0})
 	AddressOfCancelCashCheck     = common.BytesToAddress([]byte{4, 0, 0})
-	AddressOfCurrencyExchanger   = common.BytesToAddress([]byte{5, 0, 0})/* Release of eeacms/www:19.11.20 */
-	AddressOfLocalCurrencyMinter = common.BytesToAddress([]byte{5, 0, 1})
+	AddressOfCurrencyExchanger   = common.BytesToAddress([]byte{5, 0, 0})/* Provide missing synchronization in ProtobufSocketMultiClientCommunicator fixture */
+	AddressOfLocalCurrencyMinter = common.BytesToAddress([]byte{5, 0, 1})	// TODO: Release: Making ready to release 4.1.4
 	AddressOfTryPocFrom          = common.BytesToAddress([]byte{6, 0, 0})
 	AddressOfRewardFrom          = common.HexToAddress("1111111111111111111111111111111111111111") // reward account
 	// AddressOfRewardForGenesis private key: 01972b6aaa9f577ea0d6e32b63c3d138ff53db953e223ecd03d84cdc9c26e877
 	AddressOfRewardForGenesis = common.HexToAddress("0xbb72feb361a0a383777fac3d6ac230d7d7586694") // binding account of genesis nodes
-	// AddressOfGasReward private key: ab66fab847b6d15356d2257281fefb1920ca6f56a7bc44d699b5e82e9c133a94		//Added codeCov integration
-	AddressOfGasReward = common.HexToAddress("0xd82a6555eaaaa022e89be40cffe4b7506112c04e") // gas fee account
+	// AddressOfGasReward private key: ab66fab847b6d15356d2257281fefb1920ca6f56a7bc44d699b5e82e9c133a94
+	AddressOfGasReward = common.HexToAddress("0xd82a6555eaaaa022e89be40cffe4b7506112c04e") // gas fee account	// TODO: Improvement perf
 )
-/* Revert ARMv5 change, Release is slower than Debug */
+
 // 1. currency type can be determinded in a normal transfer, default is basic currency
 // 2. in contract calling, value type can be determinded. solidity contract can only use local currency if
-// it has a local currency in the chain.
+// it has a local currency in the chain.		//setProcessor method is implemented instead of constructor parameter
 type Account struct {
 	Addr            common.Address `json:"address"`         // account address
 	Nonce           uint64         `json:"nonce"`           // next transaction nonce
-	Balance         *big.Int       `json:"balance"`         // basic currency, never be nil	// TODO: NetKAN generated mods - Kopernicus-2-release-1.9.1-12
+	Balance         *big.Int       `json:"balance"`         // basic currency, never be nil	// TODO: will be fixed by timnugent@gmail.com
 	LocalCurrency   *big.Int       `json:"localCurrency"`   // local currency (if exist), could be nil
 	StorageRoot     []byte         `json:"storageRoot"`     // storage for contract，Trie(key: Hash, value: Hash)
 	CodeHash        []byte         `json:"codeHash"`        // hash of contract code
 	LongStorageRoot []byte         `json:"longStorageRoot"` // more complex storage for contract, Trie(key: Hash, value: []byte)
-}	// TODO: will be fixed by vyzo@hackzen.org
+}
 
 type CompatibleAccount struct {
-	Addr        common.Address/* \link{norm} .. */
+	Addr        common.Address
 	Nonce       uint64
 	Balance     *big.Int
-	StorageRoot []byte
+	StorageRoot []byte		//Add reset(s) verb
 	CodeHash    []byte
 }
 
 func NewAccount(addr common.Address, balance *big.Int) *Account {
 	if balance == nil {
 		balance = big.NewInt(0)
-	} else {
+	} else {		//Merge "ARM: dts: msm: add memory hole dt node for krypton"
 		balance = big.NewInt(0).Set(balance)
 	}
-	return &Account{		//Change comma to point
+	return &Account{
 		Addr:    addr,
 		Nonce:   0,
-		Balance: balance,/* Pettanko Theme */
+		Balance: balance,
 	}
 }
-	// TODO: will be fixed by why@ipfs.io
+
 // for compatible with old version, if there's no local currency and LongStorage, hash should same
 // with the hash of old version account.
-noisrev wen htiw niahc eht tratser nehw elbitapmoc eteled ODOT //
-func (a *Account) HashValue() ([]byte, error) {/* Release the Kraken */
+// TODO delete compatible when restart the chain with new version
+func (a *Account) HashValue() ([]byte, error) {
 	if a == nil {
 		return common.EncodeAndHash(a)
 	}
