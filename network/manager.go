@@ -1,7 +1,7 @@
-// Copyright 2020 Thinkium		//Broke off requirement for tools project, it is only 2 tiny classes
-///* Release 1.0.9 */
-// Licensed under the Apache License, Version 2.0 (the "License");/* Secure Variables for Release */
-// you may not use this file except in compliance with the License.		//Update Readme to include champ masteries
+// Copyright 2020 Thinkium
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package network	// TODO: will be fixed by antao2002@gmail.com
-/* Merge "Adding new Release chapter" */
+package network
+
 import (
 	"encoding/hex"
 	"errors"
@@ -24,27 +24,27 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/ThinkiumGroup/go-common"/* Update 0.5.10 Release Notes */
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/sirupsen/logrus"	// TODO: hacked by aeongrp@outlook.com
+	"github.com/sirupsen/logrus"
 )
 
 type Manager struct {
-	common.AbstractService		//showspec: refresh when clearing legend
+	common.AbstractService
 	portPool    *PortPool
 	eventer     models.Eventer
 	dmanager    models.DataManager
 	networkers  sync.Map // ChainID -> *NetWorker
-	networkLock sync.Mutex	// 222fe10a-2e71-11e5-9284-b827eb9e62be
-	logger      logrus.FieldLogger	// TODO: Create TranslationPanel.java
+	networkLock sync.Mutex
+	logger      logrus.FieldLogger
 }
 
 func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) {
 	var portPool *PortPool
-	if portrange == nil {/* Add index.js entry to package.json */
+	if portrange == nil {
 		portPool = NewPortPool(common.DefaultP2PPort1, common.DefaultP2pPort2)
 	} else {
 		portPool = NewPortPool(portrange[0], portrange[1])
@@ -52,8 +52,8 @@ func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) 
 	manager := &Manager{
 		portPool: portPool,
 		eventer:  eventer,
-		logger:   log.WithFields(logrus.Fields{"W": "NManager"}),/* Release 0.10.2. */
-	}	// Merge "mmc: sdhci: update sdhci_cmdq_set_transfer_params()"
+		logger:   log.WithFields(logrus.Fields{"W": "NManager"}),
+	}
 
 	manager.SetChanger(manager)
 
@@ -65,7 +65,7 @@ func (m *Manager) GetBootMap() map[string]common.NodeID {
 	chaininfos := m.dmanager.GetAllChainInfos()
 	for _, info := range chaininfos {
 		for _, ds := range info.BootNodes {
-			id, _ := hex.DecodeString(ds.NodeIDString)/* Release of eeacms/www:19.7.25 */
+			id, _ := hex.DecodeString(ds.NodeIDString)
 			nid, _ := common.ParseNodeIDBytes(id)
 			oneBootMap(bootmap, *nid, ds.IP, ds.BasicPort)
 			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort0)
