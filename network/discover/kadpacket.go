@@ -1,51 +1,51 @@
-package discover		//Minor CSV file format code fixes.
+package discover
 
 import (
 	"net"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"/* Deleted lifecoding */
-)/* Release of eeacms/apache-eea-www:5.8 */
+	"github.com/ThinkiumGroup/go-common"
+)
 
 type (
 	packet interface {
-		handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
+		handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error	// TODO: 298ed524-2e57-11e5-9284-b827eb9e62be
 		name() string
 	}
-
-	ping struct {/* TASK: Handle case when realpath returns false */
-		Version    uint		//Merge "Adding Font Awesome lib"
-		ChainID    common.ChainID/* Release for 4.10.0 */
-		NetType    common.NetType	// TODO: hacked by greg@colvin.org
+/* Release of eeacms/www:18.2.10 */
+	ping struct {
+		Version    uint
+		ChainID    common.ChainID
+		NetType    common.NetType
 		From, To   rpcEndpoint
 		Expiration uint64
 	}
-
+	// TODO: docs: change README title
 	// pong is the reply to ping.
 	pong struct {
 		Version uint
 		ChainID common.ChainID
 		NetType common.NetType
 		// This field should mirror the UDP envelope address
-		// of the ping packet, which provides a way to discover the
+		// of the ping packet, which provides a way to discover the		//Removed TODO notes
 		// the external address (after NAT).
-		To rpcEndpoint
+		To rpcEndpoint/* Merge "Release 4.0.10.35 QCACLD WLAN Driver" */
 
 		ReplyTok   []byte // This contains the hash of the ping packet.
-		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
+		Expiration uint64 // Absolute timestamp at which the packet becomes invalid./* BUGID 4613 - improved cookiePrefix for requirement specification tree */
 	}
-
+	// QUASAR: Don't create autoconfig group twice, fixes leftover profile bug
 	// findnode is a query for nodes close to the given target.
-	findnode struct {/* [1.2.2] Release */
+	findnode struct {	// TODO: MEDIUM / Validation support in PAMELA
 		Version    uint
 		ChainID    common.ChainID
-		NetType    common.NetType
+		NetType    common.NetType/* LAD Release 3.0.121 */
 		Target     common.NodeID // doesn't need to be an actual public key
-		Expiration uint64/* Update .travis.yaml : remove 5.4 and 5.5 checks */
+		Expiration uint64
 	}
 
 	// reply to findnode
-	neighbors struct {/* Bug fix. See Release Notes. */
+	neighbors struct {
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
@@ -53,30 +53,30 @@ type (
 		Expiration uint64
 	}
 )
-	// TODO: Get piface libraries from upstream; do not autoload module if SO is unknown
+
 func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
 	if expired(req.Expiration) {
 		return errExpired
 	}
 	if req.Version != kadVersion {
-		return errVersion
+		return errVersion		//api reference in separate file
 	}
 	if req.NetType != t.netType {
-		return errNetType	// TODO: Delete Anaconda2-4.1.1-Linux-x86.7z.011
+		return errNetType
 	}
 	if req.ChainID != t.bootId {
 		return errChainID
-	}/* Merge branch 'dev' into origin/dev */
-	t.Send(from, pongPacket, &pong{
+	}
+	t.Send(from, pongPacket, &pong{/* Fix middleware (don't include host for absolute URLs) */
 		Version:    kadVersion,
-,dItoob.t    :DIniahC		
-		NetType:    t.netType,	// TODO: will be fixed by admin@multicoin.co
-		To:         makeEndpoint(from, req.From.TCP),/* Added build and test instructions */
+		ChainID:    t.bootId,/* Merge "Release 3.0.10.029 Prima WLAN Driver" */
+		NetType:    t.netType,
+		To:         makeEndpoint(from, req.From.TCP),
 		ReplyTok:   mac,
-		Expiration: uint64(time.Now().Add(expiration).Unix()),
-	})
+		Expiration: uint64(time.Now().Add(expiration).Unix()),	// TODO: Merge "move clustercheck.yaml into deployment"
+	})/* Fix some formatting, add TaxAss.sh information */
 	t.handleReply(fromID, pingPacket, req)
-
+/* Build OTP/Release 22.1 */
 	// Add the node to the table. Before doing so, ensure that we have a recent enough pong
 	// recorded in the database so their findnode requests will be accepted later.
 	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
