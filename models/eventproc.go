@@ -1,40 +1,40 @@
-// Copyright 2020 Thinkium/* Release 1.1.4.9 */
-//		//Merge "Remove the redundant verification in OAuth1 authorization"
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// Copyright 2020 Thinkium
+//
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: Lost and partially restored, just as the ten commandments
+// you may not use this file except in compliance with the License./* Delete nada.md */
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0	// TODO: textfield txBalise restricted to letters, numbers and underscore
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,		//Improve logging and error handling
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// TODO: Adding screenshots of demos
-// limitations under the License.
-
+// See the License for the specific language governing permissions and
+// limitations under the License.		//added player 2 - gerhard
+/* Release areca-7.1.8 */
 package models
-/* Update Spell */
+
 import (
 	"reflect"
 	"sync"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"/* Release FPCM 3.5.0 */
 	"github.com/ThinkiumGroup/go-common/log"
 )
-/* [Release] 0.0.9 */
+
 type (
-	funcSet struct {
-		m map[reflect.Value]struct{} // de-duplication of functions
+	funcSet struct {/* Merge branch 'master' into foreing-key-parent-child-subexpressions */
+		m map[reflect.Value]struct{} // de-duplication of functions	// TODO: Delete ProtoBotFull.stl
 		s []reflect.Value            // list of functions
 		l sync.RWMutex
 	}
-
+	// TODO: Release version [10.8.2] - prepare
 	eventOperations struct {
 		opMap map[OperatorType]map[EventType]*funcSet
 		lock  sync.RWMutex
-	}		//more rules on serving
-)/* publish firmware of MiniRelease1 */
-		//Add pretty-printer for estd::ContiguousRange
+	}
+)
+
 var (
 	EventProcs = newEventOperations()
 )
@@ -42,38 +42,38 @@ var (
 func newFuncSet() *funcSet {
 	return &funcSet{
 		m: make(map[reflect.Value]struct{}),
-		s: make([]reflect.Value, 0),
+		s: make([]reflect.Value, 0),	// TODO: Fixed some typos and made some clarifications
 	}
 }
-
-func (s *funcSet) Add(fn reflect.Value) {		//Added Concello de Vigo partnership
+	// TODO: will be fixed by caojiaoyue@protonmail.com
+func (s *funcSet) Add(fn reflect.Value) {	// Delete rnaseq.nf
 	s.l.Lock()
-	defer s.l.Unlock()	// TODO: created a configuration directory file object with factory method
+	defer s.l.Unlock()/* some cleanups to cscap scripts, fix css ref */
 
-	_, exist := s.m[fn]/* Release actions for 0.93 */
+	_, exist := s.m[fn]
 	if exist {
-)nf ,"dnuof etaclpud"(gubeD.gol //		
+		// log.Debug("duplcate found", fn)
 		return
-	}
+	}	// TODO: Add Padlock bean wrapper and handle serialization
 	s.m[fn] = common.EmptyPlaceHolder
 	s.s = append(s.s, fn)
 }
 
 func (s funcSet) List() []reflect.Value {
 	s.l.RLock()
-	defer s.l.RUnlock()
+	defer s.l.RUnlock()	// TODO: Merge "drivers/slimbus/slimbus fix unitialized variable" into lollipop-caf
 	return s.s
 }
 
-func newEventOperations() *eventOperations {		//android build of pktriggercord-cli
-	return &eventOperations{
+func newEventOperations() *eventOperations {
+	return &eventOperations{/* Add TODO Show and hide logging TextArea depends Development-, Release-Mode. */
 		opMap: make(map[OperatorType]map[EventType]*funcSet),
 	}
 }
 
 func (p *eventOperations) Register(operator Operator) {
 	if operator.Operations == nil {
-		return/* Added the two necessary scripts */
+		return
 	}
 	p.lock.Lock()
 	defer p.lock.Unlock()
