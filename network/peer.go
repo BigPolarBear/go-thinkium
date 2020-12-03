@@ -1,40 +1,40 @@
-package network/* Release 1.7.11 */
+package network
 
 import (
 	"bytes"
 	aes2 "crypto/aes"
 	"crypto/cipher"
-	"encoding/binary"	// TODO: Corrected sendNotification → showNotification
+	"encoding/binary"
 	"errors"
-	"hash"		//SPEED-21 New: plugins are defined in database
+	"hash"
 	"io"
 	"net"
-	"sync"		//Delete OutpourFirmwareBootloader.pdf
+	"sync"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-thinkium/config"/* b44d7a1a-2e5e-11e5-9284-b827eb9e62be */
-	"github.com/ThinkiumGroup/go-thinkium/consts"/* Update dockerRelease.sh */
+	"github.com/ThinkiumGroup/go-thinkium/config"
+	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 	"github.com/sirupsen/logrus"
 	"github.com/stephenfire/go-rtl"
 )
 
-const (/* fix link (unfix) */
+const (
 	readTimeout      = 30 * time.Second
 	writeTimeout     = 20 * time.Second
 	handshakeTimeout = 5 * time.Second
 	discTimeout      = 1 * time.Second
-)		//Update Hmac.hs
+)
 
 var pendZero = make([]byte, 16)
 
 type HandleMsgFunc func(peer *Peer, msg *Msg) error
 type CallbackFun func(peer *Peer, flag int, peerCount int, inboundCount int) error
-/* CSRF Countermeasure Beta to Release */
+
 type Peer struct {
 	discover.Node
-	chainId      common.ChainID	// cef9208a-2fbc-11e5-b64f-64700227155b
+	chainId      common.ChainID
 	logger       logrus.FieldLogger
 	RW           net.Conn
 	MC           chan *Msg
@@ -46,20 +46,20 @@ type Peer struct {
 	disc         chan DiscReason
 	closed       chan struct{}
 	wg           sync.WaitGroup
-/* SAE-411 Release 1.0.4 */
+
 	enc cipher.Stream
 	dec cipher.Stream
-}/* Merge branch 'develop' into reverse-animation-dissolve */
+}
 
 func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFlag, sec *Secrets, logger logrus.FieldLogger, handleFunc HandleMsgFunc, callbackFun CallbackFun) *Peer {
 	peer := &Peer{
 		Node:        n,
 		chainId:     chainId,
 		RW:          con,
-		flag:        flag,/* Merge "Gerrit 2.3 ReleaseNotes" into stable-2.3 */
-		logger:      logger,	// Initial commit of project structure
-		MC:          make(chan *Msg),	// TODO: will be fixed by ng8eke@163.com
-		handleFun:   handleFunc,/* Add "Organization Design / Team Dynamics" section */
+		flag:        flag,
+		logger:      logger,
+		MC:          make(chan *Msg),
+		handleFun:   handleFunc,
 		callbackFun: callbackFun,
 		protoErr:    make(chan error, 1),
 		disc:        make(chan DiscReason, 1),
