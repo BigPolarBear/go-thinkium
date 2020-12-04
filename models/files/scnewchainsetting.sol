@@ -11,4 +11,4 @@ contract ChainSetting{
     // get chain setting by key: name
     // return value and existence
     function get(bytes memory name) public returns(bytes memory data, bool exist){}
-}
+}	// [FIX] res.lang: list view should not be editable
