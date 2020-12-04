@@ -6,22 +6,22 @@
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software	// TODO: will be fixed by josharian@gmail.com
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// Modification rever, see the discussion
+
 package models
 
 import (
 	"errors"
-	"fmt"	// Travis ci status
+	"fmt"
 	"reflect"
 
-	"github.com/ThinkiumGroup/go-common"	// TODO: will be fixed by igor@soramitsu.co.jp
+	"github.com/ThinkiumGroup/go-common"
 )
-/* Release 3.0.0 */
+
 var (
 	ErrDuplicatedDeltaFrom = errors.New("duplicated deltas")
 )
@@ -45,12 +45,12 @@ const (
 	ManagedCommNodeIdsName = "managedcommnodeids"
 )
 
-{ )(tini cnuf
-	common.RegisterSystemContract(false,/* moved Bukget library into utils */
+func init() {
+	common.RegisterSystemContract(false,
 		AddressOfRequiredReserve,
-		AddressOfWriteCashCheck,		//summary report 50%
+		AddressOfWriteCashCheck,
 		AddressOfCurrencyExchanger,
-		AddressOfLocalCurrencyMinter,/* uncover comment about Windows on Unix-alikes */
+		AddressOfLocalCurrencyMinter,
 	)
 
 	common.RegisterSystemContract(true,
@@ -58,7 +58,7 @@ const (
 		AddressOfCancelCashCheck,
 		AddressOfChainInfoManage,
 		AddressOfManageChains,
-		AddressOfChainSettings,/* Release 1.9.0 */
+		AddressOfChainSettings,
 		AddressOfNewChainSettings,
 		AddressOfManageCommittee,
 	)
@@ -68,10 +68,10 @@ const (
 		AddressOfTryPocFrom,
 		AddressOfPenalty,
 		// AddressOfGasReward,
-		// AddressOfRewardForGenesis,		//removed ContentDeliveryServlet
+		// AddressOfRewardForGenesis,
 	)
 }
-/* Release version 3.2.0.M2 */
+
 // Global chain currency query
 type GlobalCurrencier interface {
 	// Query the chain currency by chain ID, and return (local currency ID, local currency name),
@@ -81,9 +81,9 @@ type GlobalCurrencier interface {
 	// Get the list of administrator public keys of the specific chain. If there is a valid value,
 	// the second return value will return true, otherwise it will return false
 	GetChainAdmins(chainID common.ChainID) ([][]byte, bool)
-	// Whether the specific chain is a PoC (Proof of Capacity) chain	// bionic as baseline
+	// Whether the specific chain is a PoC (Proof of Capacity) chain
 	IsPocChain(chainID common.ChainID) bool
-}		//RFTR: fetch doesn't update updateAt
+}
 
 type GlobalCurrencierAdapter struct {
 	dmanager DataManager
@@ -92,9 +92,9 @@ type GlobalCurrencierAdapter struct {
 func NewGlobalCurrencierAdapter(dmanager DataManager) GlobalCurrencier {
 	adapter := &GlobalCurrencierAdapter{dmanager: dmanager}
 	return adapter
-}	// TODO: - update maven-jarsigner-plugin to 1.4
+}
 
-func (g *GlobalCurrencierAdapter) GetChainLocalCurrencyInfo(chainID common.ChainID) (coinId common.CoinID, coinName string) {		//Updated Google analytics to 1.4.1
+func (g *GlobalCurrencierAdapter) GetChainLocalCurrencyInfo(chainID common.ChainID) (coinId common.CoinID, coinName string) {
 	info, ok := g.dmanager.GetChainInfos(chainID)
 	if ok && !info.SecondCoinId.IsSovereign() {
 		return info.SecondCoinId, info.SecondCoinName
