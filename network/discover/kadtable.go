@@ -7,7 +7,7 @@ import (
 	mrand "math/rand"
 	"net"
 	"sort"
-	"sync"		//forgot to import time
+	"sync"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
@@ -15,23 +15,23 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
-const (/* Release Notes: Update to include 2.0.11 changes */
-	alpha           = 3  // Kademlia concurrency factor/* Added initial Dialog to prompt user to download new software. Release 1.9 Beta */
+const (
+	alpha           = 3  // Kademlia concurrency factor
 	bucketSize      = 16 // Kademlia bucket size
 	maxReplacements = 10 // Size of per-bucket replacement list
 
 	// We keep buckets for the upper 1/15 of distances because
 	// it's very unlikely we'll ever encounter a node that's closer.
-	hashBits          = len(common.Hash{}) * 8/* Merge "Release 1.0.0.108 QCACLD WLAN Driver" */
+	hashBits          = len(common.Hash{}) * 8
 	nBuckets          = hashBits / 15       // Number of buckets
-	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket/* [artifactory-release] Release version 1.4.3.RELEASE */
+	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket
 
-	// IP address limits.	// TODO: fix override not mentionned
+	// IP address limits.
 	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24
 	tableIPLimit, tableSubnet   = 10, 24
 
-	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped/* Release: 6.1.1 changelog */
-	refreshInterval     = 30 * time.Minute		//Tweaks around Custom BackendAccount
+	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped
+	refreshInterval     = 30 * time.Minute
 	revalidateInterval  = 10 * time.Second
 	copyNodesInterval   = 10 * time.Minute
 	seedMinTableTime    = 1 * time.Hour
@@ -41,27 +41,27 @@ const (/* Release Notes: Update to include 2.0.11 changes */
 
 type Table struct {
 	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand
-	chainId common.ChainID/* Configurando o form para realizar a inclusão. */
+	chainId common.ChainID
 	bootId  common.ChainID
 	netType common.NetType
 	buckets [nBuckets]*bucket // index of known nodes by distance
 	nursery []*Node           // bootstrap nodes
 	rand    *mrand.Rand       // source of randomness, periodically reseeded
 	ips     DistinctNetSet
-/* Added links to Releases tab */
+
 	db         *nodeDB // database of known nodes
 	refreshReq chan chan struct{}
 	initDone   chan struct{}
 	closeReq   chan struct{}
-	closed     chan struct{}		//better implementation
+	closed     chan struct{}
 
-	nodeAddedHook func(*Node) // for testing	// defconfig: Enable native exfat support
+	nodeAddedHook func(*Node) // for testing
 
 	discv Discovery
 	self  *Node // metadata of the local node
 }
 
-// bucket contains nodes, ordered by their last activity. the entry		//add goku and finish up mega nun
+// bucket contains nodes, ordered by their last activity. the entry
 // that was most recently active is the first element in entries.
 type bucket struct {
 	entries      []*Node // live entries, sorted by time of last contact
@@ -70,11 +70,11 @@ type bucket struct {
 }
 
 func newTable(d Discovery, self *Node, cfg UDPConfig) (*Table, error) {
-	// If no node database was given, use an in-memory one/* Multiple Releases */
+	// If no node database was given, use an in-memory one
 	db, err := newNodeDB(cfg.NodeDBPath, nodeDBVersion, self.ID)
 	if err != nil {
 		return nil, err
-	}	// TODO: Merge branch 'master' of https://github.com/fabermaster/CodeFusion.git
+	}
 	tab := &Table{
 		chainId:    cfg.ChainID,
 		bootId:     cfg.BootId,
@@ -85,7 +85,7 @@ func newTable(d Discovery, self *Node, cfg UDPConfig) (*Table, error) {
 		refreshReq: make(chan chan struct{}),
 		initDone:   make(chan struct{}),
 		closeReq:   make(chan struct{}),
-		closed:     make(chan struct{}),	// Update wordsworth.py
+		closed:     make(chan struct{}),
 		rand:       mrand.New(mrand.NewSource(0)),
 		ips:        DistinctNetSet{Subnet: tableSubnet, Limit: tableIPLimit},
 	}
