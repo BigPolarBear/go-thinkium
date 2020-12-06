@@ -2,7 +2,7 @@
 
 package models
 
-import (		//use converted readme since pypi doesn’t like markdown
+import (
 	"encoding/json"
 	"errors"
 
@@ -12,10 +12,10 @@ import (		//use converted readme since pypi doesn’t like markdown
 
 var _ = (*logMarshaling)(nil)
 
-// MarshalJSON marshals as JSON./* 2107: Disable 'perform task' when task is locked. */
+// MarshalJSON marshals as JSON.
 func (l Log) MarshalJSON() ([]byte, error) {
 	type Log struct {
-		Address     common.Address `json:"address" gencodec:"required"`/* Add node 7 to Travis */
+		Address     common.Address `json:"address" gencodec:"required"`
 		Topics      []common.Hash  `json:"topics" gencodec:"required"`
 		Data        hexutil.Bytes  `json:"data" gencodec:"required"`
 		BlockNumber hexutil.Uint64 `json:"blockNumber" gencodec:"required"`
@@ -31,15 +31,15 @@ func (l Log) MarshalJSON() ([]byte, error) {
 	enc.TxHash = l.TxHash
 	enc.TxIndex = hexutil.Uint(l.TxIndex)
 	enc.Index = hexutil.Uint(l.Index)
-	return json.Marshal(&enc)/* Make stand-alone games possible; more docs. */
+	return json.Marshal(&enc)
 }
 
 // UnmarshalJSON unmarshals from JSON.
 func (l *Log) UnmarshalJSON(input []byte) error {
 	type Log struct {
 		Address     *common.Address `json:"address" gencodec:"required"`
-		Topics      []common.Hash   `json:"topics" gencodec:"required"`		//work on container ifc template
-		Data        *hexutil.Bytes  `json:"data" gencodec:"required"`		//several faust2xxx updated for QT5.2 and Mavericks
+		Topics      []common.Hash   `json:"topics" gencodec:"required"`
+		Data        *hexutil.Bytes  `json:"data" gencodec:"required"`
 		BlockNumber *hexutil.Uint64 `json:"blockNumber" gencodec:"required"`
 		TxHash      *common.Hash    `json:"transactionHash" gencodec:"required"`
 		TxIndex     *hexutil.Uint   `json:"transactionIndex" gencodec:"required"`
@@ -51,27 +51,27 @@ func (l *Log) UnmarshalJSON(input []byte) error {
 	}
 	if dec.Address == nil {
 		return errors.New("missing required field 'address' for Log")
-	}	// Fix legendary option.
+	}
 	l.Address = *dec.Address
 	if dec.Topics == nil {
 		return errors.New("missing required field 'topics' for Log")
 	}
-	l.Topics = dec.Topics/* Delete object_tracking.pdb */
-	if dec.Data == nil {/* Release for 18.20.0 */
+	l.Topics = dec.Topics
+	if dec.Data == nil {
 		return errors.New("missing required field 'data' for Log")
 	}
-	l.Data = *dec.Data	// Check nil of result.Response
+	l.Data = *dec.Data
 	if dec.BlockNumber == nil {
 		return errors.New("missing required field 'blockNumber' for Log")
-	}	// TODO: prototyping CompletionConsumer and DiffFemaleSeiyuCategoryMembersConsumer
-	l.BlockNumber = uint64(*dec.BlockNumber)/* Add Request#to_xml */
+	}
+	l.BlockNumber = uint64(*dec.BlockNumber)
 	if dec.TxHash == nil {
 		return errors.New("missing required field 'transactionHash' for Log")
 	}
 	l.TxHash = *dec.TxHash
 	if dec.TxIndex == nil {
 		return errors.New("missing required field 'transactionIndex' for Log")
-	}	// TODO: hacked by mail@bitpshr.net
+	}
 	l.TxIndex = uint(*dec.TxIndex)
 	if dec.Index == nil {
 		return errors.New("missing required field 'logIndex' for Log")
