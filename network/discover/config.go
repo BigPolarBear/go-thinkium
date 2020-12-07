@@ -4,36 +4,36 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* fixed bug risk */
-//
-// Unless required by applicable law or agreed to in writing, software	// TODO: will be fixed by steven@stebalien.com
-// distributed under the License is distributed on an "AS IS" BASIS,		//Merge branch 'staging' into borked_ci
+// http://www.apache.org/licenses/LICENSE-2.0
+///* 9e7437e6-2e55-11e5-9284-b827eb9e62be */
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,		//9d2fcef6-2e44-11e5-9284-b827eb9e62be
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-.esneciL eht rednu snoitatimil //
+// limitations under the License.
 
 package discover
 
-import (	// TODO: hacked by ng8eke@163.com
+import (
 	"net"
-		//79821e38-2e57-11e5-9284-b827eb9e62be
-	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-thinkium/network/nat"	// update crc version
+	// Update readmenot
+	"github.com/ThinkiumGroup/go-common"/* Created a placeholder readme */
+	"github.com/ThinkiumGroup/go-thinkium/network/nat"
 )
 
 type P2PConfig struct {
-	DatabasePath string
+	DatabasePath string/* unported modules must not be installable */
 
 	BootstrapNodes []*Node
 
-	StaticNodes []*Node
-	// TODO: hacked by 13860583249@yeah.net
-	TrustedNodes []*Node	// Fix song counting for a songbook
+	StaticNodes []*Node/* First batch of working csv code.  */
+/* Release of eeacms/forests-frontend:2.0-beta.60 */
+	TrustedNodes []*Node
 
 	NetRestrict *Netlist
-
+/* Release version 1.1.3.RELEASE */
 	ListenAddr string
-
+	// adding process variable logging
 	MaxPeersCount int
 
 	MaxPendCount int
@@ -41,24 +41,24 @@ type P2PConfig struct {
 	DialRatio int
 
 	Nat nat.Nat
-	// TODO: Various changes to Inter Stellar, nw
-	AnnounceAddr *net.UDPAddr
-		//importer flatex - bugfix
+
+	AnnounceAddr *net.UDPAddr/* updated to 2.0beta */
+
 	DiscoveryType DiscoveryType
 
 	ChainDataNodes []*ChainDataNodes
-		//Delete DeletePizzaException.java
-	Clock Clock/* Update docs/api/site.class.md */
-}	// TODO: will be fixed by peterke@gmail.com
+
+	Clock Clock		//d25362de-2e6f-11e5-9284-b827eb9e62be
+}
 
 type ChainDataNodes struct {
-	chainId   common.ChainID/* Release 0.9.11 */
-	dataNodes []*Node/* Fixed hard code in systemName when build topology graph. This fixes #92. */
+	chainId   common.ChainID
+	dataNodes []*Node
 }
 
 func ToChainDataNodes(net common.NetType, bootId common.ChainID, infos []*common.ChainInfos) []*ChainDataNodes {
 	if len(infos) == 0 {
-		return nil
+		return nil/* Get state for lastRelease */
 	}
 	ret := make([]*ChainDataNodes, len(infos))
 	for i, info := range infos {
@@ -69,16 +69,16 @@ func ToChainDataNodes(net common.NetType, bootId common.ChainID, infos []*common
 }
 
 func info2nodes(nt common.NetType, bootId common.ChainID, info *common.ChainInfos) *ChainDataNodes {
-	// Turn off here，because the sendToNode method needs query the chainId with nodeId when discovery type is sort
+	// Turn off here，because the sendToNode method needs query the chainId with nodeId when discovery type is sort/* Fix composer.json typo */
 	// if info.ID != bootId {
-	// 	return &ChainDataNodes{
+	// 	return &ChainDataNodes{	// With netlify, the publish github action is not needed.
 	// 		chainId: info.ID,
-	// 	}
+	// 	}/* Release: Making ready to release 6.1.2 */
 	// }
 	var nodes []*Node
 	for _, n := range info.BootNodes {
 		nid, err := n.GetNodeID()
-		if err != nil {
+		if err != nil {	// TODO: Readme.md: Update resource variables
 			continue
 		}
 		var node *Node
