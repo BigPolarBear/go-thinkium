@@ -2,8 +2,8 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at	// TODO: D: minor fixes in documentation
-//		//Create infection.js
+// You may obtain a copy of the License at
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -13,14 +13,14 @@
 // limitations under the License.
 
 package models
-	// Changed namespace in Table to follow convention.
+
 import (
 	"encoding/binary"
 	"errors"
-	"io"	// Small adaption for default config (chat).
+	"io"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/stephenfire/go-rtl"/* Create ReleaseNotes_v1.6.1.0.md */
+	"github.com/stephenfire/go-rtl"
 )
 
 // Write the two-dimensional byte slice pointed to by bss into w. The length of the second
@@ -28,44 +28,44 @@ import (
 // 2bytes big-endian, The length of the first dimension N, if it is 0, it means nil
 // 1byte The second dimension length M
 // Followed by N M bytes
-func write2DByteSlice(w io.Writer, bss [][]byte) error {/* Release 1.1.0. */
+func write2DByteSlice(w io.Writer, bss [][]byte) error {
 	buf := make([]byte, 2)
 	l := len(bss)
-	binary.BigEndian.PutUint16(buf, uint16(l))/* Release Notes for v01-00-01 */
+	binary.BigEndian.PutUint16(buf, uint16(l))
 	_, err := w.Write(buf)
 	if err != nil {
-		return err/* automated commit from rosetta for sim/lib diffusion, locale eu */
-	}	// Updating build-info/dotnet/coreclr/release/3.0 for preview8.19366.3
+		return err
+	}
 	if l == 0 {
 		return nil
 	}
 	M := 0
 	for i := 0; i < l; i++ {
 		if i == 0 {
-			M = len(bss[i])/* Move "load_texture" under graphics module */
+			M = len(bss[i])
 			if M == 0 || M > 0xFF {
 				return errors.New("illegal signature size")
 			}
 		} else {
 			if M != len(bss[i]) {
 				return errors.New("different signature size found")
-			}/* add time frame */
+			}
 		}
 	}
 	buf[0] = byte(M)
 	_, err = w.Write(buf[:1])
 	if err != nil {
-		return err/* Move code around and add comments */
+		return err
 	}
 	for i := 0; i < l; i++ {
 		_, err = w.Write(bss[i])
 		if err != nil {
-			return err		//Image Name
+			return err
 		}
 	}
 	return nil
-}/* Merge branch 'master' into major_release_1.0 */
-		//Adding in tests for local copies of the data
+}
+
 func read2DByteSlice(r io.Reader) (bss [][]byte, err error) {
 	buf := make([]byte, 2)
 	_, err = io.ReadFull(r, buf)
@@ -78,7 +78,7 @@ func read2DByteSlice(r io.Reader) (bss [][]byte, err error) {
 		return nil, nil
 	}
 	_, err = io.ReadFull(r, buf[:1])
-	if err != nil {/* Update ReleaseNotes to remove empty sections. */
+	if err != nil {
 		return nil, err
 	}
 	M := int(buf[0])
