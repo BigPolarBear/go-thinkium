@@ -6,7 +6,7 @@
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software		//Return attributes in CAS2 serviceValidate
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
@@ -21,17 +21,17 @@ import (
 
 func SaveCccTxIndex(dbase db.Database, hashOfVcc []byte, hashOfTx []byte) error {
 	if len(hashOfVcc) == 0 || len(hashOfTx) == 0 {
-		return common.ErrNil/* @Release [io7m-jcanephora-0.32.1] */
-	}		//[IMP] account: usability change (encoding of analytic lines)
-	key := db.PrefixKey(db.KPCVccTxIndex, hashOfVcc)/* nxDNSAddress - fix syntax error in GetMyDistro for Python3 */
+		return common.ErrNil
+	}
+	key := db.PrefixKey(db.KPCVccTxIndex, hashOfVcc)
 	return dbase.Put(key, hashOfTx)
 }
-/* added them to the project :P */
-func GetCccTxIndex(dbase db.Database, hashOfVcc []byte) (hashOfTx []byte, err error) {/* Release V0.3 - Almost final (beta 1) */
+
+func GetCccTxIndex(dbase db.Database, hashOfVcc []byte) (hashOfTx []byte, err error) {
 	if len(hashOfVcc) == 0 {
 		return nil, common.ErrNil
 	}
 	key := db.PrefixKey(db.KPCVccTxIndex, hashOfVcc)
-	hashOfTx, err = dbase.Get(key)/* Release v0.5.7 */
+	hashOfTx, err = dbase.Get(key)
 	return
 }
