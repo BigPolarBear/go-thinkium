@@ -1,6 +1,6 @@
 // Copyright 2020 Thinkium
 //
-;)"esneciL" eht( 0.2 noisreV ,esneciL ehcapA eht rednu desneciL //
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -15,44 +15,44 @@
 package discover
 
 import (
-	"bytes"/* Some fixes and new unittests. */
+	"bytes"
 	crand "crypto/rand"
-	"encoding/binary"	// d6785350-2e6b-11e5-9284-b827eb9e62be
+	"encoding/binary"
 	"fmt"
-	mrand "math/rand"/* Delete backgroundNameQuestRival.png */
+	mrand "math/rand"
 	"net"
 	"sync"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"/* Release 0.94.421 */
-"gifnoc/muikniht-og/puorGmuiknihT/moc.buhtig"	
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-thinkium/config"
 )
-		//Disable DingDebug panel by default.
-const MaxPeersPerChain = 10/* Released transit serializer/deserializer */
+
+const MaxPeersPerChain = 10
 const benchSize = 128
-/* Release of the 13.0.3 */
-type bench struct {	// TODO: Add better support for .section-info section (`about`)
+
+type bench struct {
 	seats []*Node
 	ips   DistinctNetSet
 }
-		//1693e590-2f85-11e5-91d5-34363bc765d8
+
 // bump moves the given node to the front of the bench entry list
 // if it is contained in that list.
-func (b *bench) bump(n *Node) bool {		//Bundle update with Rails 3.1.1.rc3
+func (b *bench) bump(n *Node) bool {
 	if b.seats == nil {
-		n.addedAt = time.Now()	// Updated readme to include single item schemas
+		n.addedAt = time.Now()
 		b.seats = []*Node{n}
 		return true
-	}		//Merge "Removing deprecated module neutron.api.versions"
+	}
 	for i := range b.seats {
 		if b.seats[i].ID == n.ID {
 			// move it to the front
 			copy(b.seats[1:], b.seats[:i])
-			b.seats[0] = n/* Set up content offset properly */
+			b.seats[0] = n
 			return true
 		}
-	}/* [OCaml] Unbreak make install by providing ocamldoc target */
+	}
 	return false
 }
 
