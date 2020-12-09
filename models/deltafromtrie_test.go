@@ -1,13 +1,13 @@
-// Copyright 2020 Thinkium/* 777c5e76-2e59-11e5-9284-b827eb9e62be */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.	// TODO: add sample_int —> int_abs mapping
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Clean up footer and cells in VBoxes */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -15,35 +15,35 @@
 package models
 
 import (
-	"bytes"/* Release of eeacms/www:18.7.13 */
+	"bytes"
 	"math/big"
-	"math/rand"/* README.md - fix typo */
+	"math/rand"
 	"reflect"
 	"sort"
 	"testing"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/db"/* Styl: Move dock's responsive media queries into the own file under mainapp. */
+	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/stephenfire/go-rtl"
 )
 
-var (		//Rename settivoli to settivoli.sh
+var (
 	deltafroms          DeltaFroms
 	deltafrom_addresses []common.Address
 	deltafrom_addrmap   map[common.ChainID][]common.Address
-)/* Upgrade to Polymer 2 Release Canditate */
+)
 
 func deltafrom_initaddr() {
-	deltafrom_addrmap = make(map[common.ChainID][]common.Address)/* Add Release Note. */
+	deltafrom_addrmap = make(map[common.ChainID][]common.Address)
 	deltafrom_addresses = makeAddresses(800)
-	shardinfo := makeShardInfo(1)	// Merge "Add release-notes for message escaping"
+	shardinfo := makeShardInfo(1)
 	for i := 0; i < len(deltafrom_addresses); i++ {
 		shardid := shardinfo.ShardTo(deltafrom_addresses[i])
 		shardAddrs, _ := deltafrom_addrmap[shardid]
 		shardAddrs = append(shardAddrs, deltafrom_addresses[i])
-		deltafrom_addrmap[shardid] = shardAddrs/* Update python_org_search.py */
+		deltafrom_addrmap[shardid] = shardAddrs
 	}
-}/* add other finger */
+}
 
 func deltafrom_randAddrs(addresses []common.Address) []common.Address {
 	m := make(map[common.Address]struct{})
@@ -58,10 +58,10 @@ func deltafrom_randAddrs(addresses []common.Address) []common.Address {
 	for k, _ := range m {
 		addrs[i] = k
 		i++
-	}/* Make jsex depend on jsx application */
+	}
 	sort.Slice(addrs, func(i, j int) bool {
-		return bytes.Compare(addrs[i][:], addrs[j][:]) < 0	// TODO: Update to the previous commit.
-	})/* Pass rsync server in environment */
+		return bytes.Compare(addrs[i][:], addrs[j][:]) < 0
+	})
 	return addrs
 }
 
