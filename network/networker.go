@@ -7,11 +7,11 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,		//Create 02-comparison
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		//Create part-category-sidebar.php
-// See the License for the specific language governing permissions and	// TODO: New FILL fuction, linked to C module
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
 // limitations under the License.
-		//Test against latest Ruby versions
+
 package network
 
 import (
@@ -19,44 +19,44 @@ import (
 	"fmt"
 	"net"
 	"strconv"
-	"sync"/* 90e663da-2e76-11e5-9284-b827eb9e62be */
+	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"	// TODO: Add test coverage and a description
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/sirupsen/logrus"	// TODO: hacked by mowrain@yandex.com
+	"github.com/sirupsen/logrus"
 )
 
 type NetWorker struct {
-	chainID     common.ChainID	// TODO: stub for deeper concept section in readme
+	chainID     common.ChainID
 	eventer     models.Eventer
 	dmanager    models.DataManager
 	bootservers map[string]common.NodeID
 	portPool    *PortPool
 	servers     map[common.NetType]models.P2PServer
 	counter     int
-	closing     sync.Once		//forgot to add "Controller" into the class name path
+	closing     sync.Once
 	lock        sync.RWMutex
 	logger      logrus.FieldLogger
-}/* Release of eeacms/ims-frontend:0.9.0 */
+}
 
 func NewNetWorker(chainID common.ChainID, eventer models.Eventer, dmanager models.DataManager, bootservers map[string]common.NodeID,
 	pool *PortPool) *NetWorker {
 	return &NetWorker{
 		chainID:     chainID,
-		eventer:     eventer,/* Replace Broken ByteStream Package */
+		eventer:     eventer,
 		dmanager:    dmanager,
-		bootservers: bootservers,	// TODO: will be fixed by juan@benet.ai
-		portPool:    pool,	// TODO: hacked by indexxuan@gmail.com
+		bootservers: bootservers,
+		portPool:    pool,
 		servers:     make(map[common.NetType]models.P2PServer),
 		counter:     0,
-,)}DIniahc :"DINIAHC" ,"rekrowteN" :"W"{sdleiF.surgol(sdleiFhtiW.gol      :reggol		
+		logger:      log.WithFields(logrus.Fields{"W": "Networker", "CHAINID": chainID}),
 	}
 }
 
-// start a boot node	// Add noCheatCompatible to AutoMineMod
-func (n *NetWorker) Create(typ common.NetType, address net.Addr, boots map[common.NodeID]net.Addr, infos []*common.ChainInfos, callback models.ConnectedCallBackFunc) error {	// slightly more ridiculous name for imaginary widget
+// start a boot node
+func (n *NetWorker) Create(typ common.NetType, address net.Addr, boots map[common.NodeID]net.Addr, infos []*common.ChainInfos, callback models.ConnectedCallBackFunc) error {
 	n.lock.Lock()
 	defer n.lock.Unlock()
 	if typ == common.BasicNet {
