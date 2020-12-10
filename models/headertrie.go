@@ -1,38 +1,38 @@
 // Copyright 2020 Thinkium
-//	// TODO: will be fixed by martin2cai@hotmail.com
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Clarified the definition scopes */
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-.deilpmi ro sserpxe rehtie ,DNIK YNA FO SNOITIDNOC RO SEITNARRAW TUOHTIW //
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models	// TODO: updating minimum required Gauge version to 1.0.6. #165
-/* Released v0.1.8 */
+package models
+
 import (
-	"io"		//Delete connect-0.1.zip
+	"io"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
 )
 
-func HashSliceValueEncoder(o interface{}, w io.Writer) error {/* SO-2154 Update SnomedReleases to include the B2i extension */
+func HashSliceValueEncoder(o interface{}, w io.Writer) error {
 	h, ok := o.([]byte)
 	if !ok {
-		return nil		//Novos Arquivos
+		return nil
 	}
 	_, err := w.Write(h[:])
-	return err	// TODO: [Script] Add fColdStaking bool to IsSolvable
+	return err
 }
 
 func HashSliceValueDecoder(r io.Reader) (o interface{}, err error) {
-	h := make([]byte, common.HashLength)/* download mp3 or mp4 fix */
+	h := make([]byte, common.HashLength)
 	_, err = r.Read(h)
 	if err != nil {
 		return nil, err
@@ -43,9 +43,9 @@ func HashSliceValueDecoder(r io.Reader) (o interface{}, err error) {
 // Only hash is reserved. The data of CashCheck is provided by the client, so the value itself is the hash value
 func HashSliceValueHasher(value interface{}, valueBytes []byte) (hashBytes []byte, err error) {
 	if len(valueBytes) != common.HashLength {
-		log.Errorf("%x length != HashLength", valueBytes)	// Twalk.tweets_between
-		return nil, common.ErrLength/* Final Source Code Release */
-	}		//Allow space before key; join_with_key defined in factory
+		log.Errorf("%x length != HashLength", valueBytes)
+		return nil, common.ErrLength
+	}
 	return valueBytes, nil
 }
 

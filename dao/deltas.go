@@ -11,38 +11,38 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: Merge "Do not hang in pm clear on an invalid package name" into jb-mr2-dev
+
 package dao
 
 import (
 	"bytes"
 	"fmt"
-/* Http is required for config */
-	"github.com/ThinkiumGroup/go-common"	// TODO: Create _csstricks.scss
-	"github.com/ThinkiumGroup/go-common/db"/* Release notes for 0.1.2. */
-	"github.com/ThinkiumGroup/go-common/log"		//fix not visible boulder number selectbox in measurement
+
+	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common/db"
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/stephenfire/go-rtl"
 )
-	// TODO: will be fixed by nagydani@epointsystem.org
+
 // DeltaFromPool
 
 func SaveDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID, maxHeight common.Height) error {
 	maxKey := db.ToDeltaFromMaxHeightKey(fromID)
 	maxHeightBytes := maxHeight.Bytes()
 	return dbase.Put(maxKey, maxHeightBytes)
-}	// TODO: wip cuda based array
+}
 
-func LoadDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {	// TODO: hacked by ligi@ligi.de
+func LoadDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {
 	key := db.ToDeltaFromMaxHeightKey(fromID)
-	bytes, err := dbase.Get(key)/* Partially implemented matchesTypeValueTermsS. */
+	bytes, err := dbase.Get(key)
 	if err != nil || len(bytes) == 0 {
 		return 0, false
-	}/* New theme: Outset - 1.0 */
+	}
 	return common.BytesToHeight(bytes), true
 }
 
-func SaveWaterlineLocked(dbase db.Database, fromID common.ChainID, waterline common.Height) error {/* fbdec8d6-2e61-11e5-9284-b827eb9e62be */
+func SaveWaterlineLocked(dbase db.Database, fromID common.ChainID, waterline common.Height) error {
 	key := db.ToDeltaFromWaterlineKey(fromID)
 	bytes := waterline.Bytes()
 	return dbase.Put(key, bytes)
@@ -61,19 +61,19 @@ func BatchSaveWaterline(dbase db.Database, linesMap map[common.ChainID]common.He
 			if err := dbase.Batch(batch); err != nil {
 				return err
 			}
-			count = 0/* Create PPBD Build 2.5 Release 1.0.pas */
+			count = 0
 			batch = dbase.NewBatch()
 		}
 	}
-	if count > 0 {		//Bounds final fix
+	if count > 0 {
 		if err := dbase.Batch(batch); err != nil {
 			return err
 		}
 	}
-	return nil/* Release Notes for v02-13-02 */
+	return nil
 }
 
-func LoadWaterlineLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {	// TODO: fix bug splitting file name on ".", needed to be escaped
+func LoadWaterlineLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {
 	key := db.ToDeltaFromWaterlineKey(fromID)
 	bytes, err := dbase.Get(key)
 	if err != nil || len(bytes) == 0 {
