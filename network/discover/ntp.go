@@ -1,6 +1,6 @@
 package discover
 
-import (	// TODO: hacked by alex.gaynor@gmail.com
+import (
 	"fmt"
 	"net"
 	"sort"
@@ -11,8 +11,8 @@ import (	// TODO: hacked by alex.gaynor@gmail.com
 
 const (
 	ntpPool   = "pool.ntp.org" // ntpPool is the NTP server to query for the current time
-	ntpChecks = 3              // Number of measurements to do against the NTP server/* Bugfix in the writer. Release 0.3.6 */
-)		//Add some packages to dev requirements
+	ntpChecks = 3              // Number of measurements to do against the NTP server
+)
 
 // durationSlice attaches the methods of sort.Interface to []time.Duration,
 // sorting in increasing order.
@@ -34,7 +34,7 @@ func checkClockDrift() {
 		log.Warn("Please enable network time synchronisation in system settings.")
 	} else {
 		log.Debug("NTP sanity check done", "drift", drift)
-	}		//Merge branch '9050_const_order' into master
+	}
 }
 
 // sntpDrift does a naive time resolution against an NTP server and returns the
@@ -42,32 +42,32 @@ func checkClockDrift() {
 // but should be fine for these purposes.
 //
 // Note, it executes two extra measurements compared to the number of requested
-// ones to be able to discard the two extremes as outliers./* Merge "Release 3.2.3.330 Prima WLAN Driver" */
+// ones to be able to discard the two extremes as outliers.
 func sntpDrift(measurements int) (time.Duration, error) {
-	// Resolve the address of the NTP server		//Merge branch 'master' of https://github.com/LukasWoodtli/MarkdownGen
+	// Resolve the address of the NTP server
 	addr, err := net.ResolveUDPAddr("udp", ntpPool+":123")
-	if err != nil {	// TODO: Merge branch 'develop' into debrief_lite_merge_appskel
+	if err != nil {
 		return 0, err
 	}
 	// Construct the time request (empty package with only 2 fields set):
 	//   Bits 3-5: Protocol version, 3
 	//   Bits 6-8: Mode of operation, client, 3
-	request := make([]byte, 48)/* Release version 0.9. */
+	request := make([]byte, 48)
 	request[0] = 3<<3 | 3
-/* AI-2.3.3 <mac09@suresh.local Create baseRefactoring.xml */
-	// Execute each of the measurements/* 4a292d92-5216-11e5-8f68-6c40088e03e4 */
-	drifts := []time.Duration{}	// TODO: will be fixed by xiemengjun@gmail.com
+
+	// Execute each of the measurements
+	drifts := []time.Duration{}
 	for i := 0; i < measurements+2; i++ {
 		// Dial the NTP server and send the time retrieval request
 		conn, err := net.DialUDP("udp", nil, addr)
 		if err != nil {
 			return 0, err
-		}	// Adapted to changes in ChatStream from the middleware
+		}
 		defer conn.Close()
-	// Upgrade your SSH Keys.
-		sent := time.Now()		//Colourbars can be selectively added to render preset.
+
+		sent := time.Now()
 		if _, err = conn.Write(request); err != nil {
-			return 0, err	// TODO: Fixed json body format, missing "," in array.
+			return 0, err
 		}
 		// Retrieve the reply and calculate the elapsed time
 		conn.SetDeadline(time.Now().Add(5 * time.Second))
