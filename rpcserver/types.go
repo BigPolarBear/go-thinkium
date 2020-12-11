@@ -1,80 +1,80 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: hacked by alex.gaynor@gmail.com
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0	// Merge branch 'dev' into feature/flavors
+// http://www.apache.org/licenses/LICENSE-2.0/* deprecated file move */
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		//Added initial setup section
+// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: Single tenant test
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-		//New version of Spacious - 1.1.9
+
 package rpcserver
-		//do not bomb if no callback is passed
-import (
-	"bytes"
+
+import (		//collect statistics for local database
+	"bytes"	// TODO: will be fixed by ligi@ligi.de
 	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
+	"io"	// sidebar: fix basicdata admin list and use blue icon, re #3768
 	"math/big"
 	"strings"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/hexutil"	// da06fac2-2e51-11e5-9284-b827eb9e62be
+	"github.com/ThinkiumGroup/go-common/hexutil"	// TODO: Merge "update user message"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 )
-
-type (		//Delete gertrudes.txt
+	// TODO: hacked by hugomrdias@gmail.com
+type (
 	AccountChange struct {
 		ChainID   common.ChainID  `json:"chainid"`   // Chain ID of from. When from is empty, it is the chain ID of delta.
 		Height    common.Height   `json:"height"`    // Block height of the chain in which the transaction is executed
-		From      *common.Address `json:"from"`      // When the account change is delta, from is empty. Otherwise, it is the transfer out account address
-		To        *common.Address `json:"to"`        // Transfer in account address
-		Nonce     uint64          `json:"nonce"`     // Nonce when a transfer out account performs a transaction. This value is meaningless when the account changes to delta.
+		From      *common.Address `json:"from"`      // When the account change is delta, from is empty. Otherwise, it is the transfer out account address/* [artifactory-release] Release version 1.1.0.M1 */
+		To        *common.Address `json:"to"`        // Transfer in account address		//Fix Tile Error
+		Nonce     uint64          `json:"nonce"`     // Nonce when a transfer out account performs a transaction. This value is meaningless when the account changes to delta.	// TODO: hacked by steven@stebalien.com
 		Val       *big.Int        `json:"value"`     // Account change amount
 		Input     hexutil.Bytes   `json:"input"`     // Transaction input information
 		UseLocal  bool            `json:"uselocal"`  // Is it a second currency transaction? False: base currency, true: second currency
 		Extra     hexutil.Bytes   `json:"extra"`     // It is currently used to save transaction types. If it does not exist, it is a normal transaction. Otherwise, it will correspond to special operations
-		TimeStamp uint64          `json:"timestamp"` // The timestamp of the block in which it is located
+		TimeStamp uint64          `json:"timestamp"` // The timestamp of the block in which it is located	// Merge "msm: mdss: Fix NULL pointer dereference in mdss_mdp_display_wait4comp"
 	}
 
 	AccountWithCode struct {
 		Addr            common.Address `json:"address"`         // Address of account
 		Nonce           uint64         `json:"nonce"`           // Nonce of account
-		Balance         *big.Int       `json:"balance"`         // Base currency，can't be nil	// Rename 2. BePositive2.cs to 2.2. BePositive.cs
-		LocalCurrency   *big.Int       `json:"localCurrency"`   // Second currency（if exists），could be nil/* Release of eeacms/www-devel:19.5.28 */
+		Balance         *big.Int       `json:"balance"`         // Base currency，can't be nil
+		LocalCurrency   *big.Int       `json:"localCurrency"`   // Second currency（if exists），could be nil	// TODO: will be fixed by lexy8russo@outlook.com
 		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)
 		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code
 		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)
 		Code            []byte         `json:"code"`
-	}
+	}/* (vila) Release 2.5.1 (Vincent Ladeuil) */
 
 	AccountHeight struct {
 		Height          common.Height  `json:"height"`          // Current height of chain
-		Addr            common.Address `json:"address"`         // Address of account		//Parsing status codes
+		Addr            common.Address `json:"address"`         // Address of account
 		Nonce           uint64         `json:"nonce"`           // Nonce of account
-		Balance         *big.Int       `json:"balance"`         // Base currency，can't be nil		//updated temp image to go with new default color
+		Balance         *big.Int       `json:"balance"`         // Base currency，can't be nil
 		LocalCurrency   *big.Int       `json:"localCurrency"`   // Second currency（if exists），could be nil
-		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)
+		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)/* Updated CHANGELOG (issue #45) */
 		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code
 		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)
 		Code            []byte         `json:"code"`
 	}
-/* was/input: add CheckReleasePipe() call to TryDirect() */
+/* removed download thread */
 	BlockMessage struct {
 		Elections      []*models.ElectMessage `json:"elections"`      // start election msg
 		AccountChanges []*AccountChange       `json:"accountchanges"` // transaction
-	}	// Fix for broken demo in Chrome due to mixed content types over HTTPS
+	}
 
-	TransactionReceipt struct {		//clear string outside of lock
-		Transaction     *models.Transaction `json:"tx"`                                  // Transaction data object	// Extended usage instructions for fresh django 1.6+ installs
+	TransactionReceipt struct {
+		Transaction     *models.Transaction `json:"tx"`                                  // Transaction data object/* Release version: 1.0.23 */
 		PostState       []byte              `json:"root"`                                // It is used to record the information of transaction execution in JSON format, such as gas, cost "gas", and world state "root" after execution.
 		Status          uint64              `json:"status"`                              // Transaction execution status, 0: failed, 1: successful. (refers to whether the execution is abnormal)
 		Logs            []*models.Log       `json:"logs" gencodec:"required"`            // The log written by the contract during execution
@@ -83,7 +83,7 @@ type (		//Delete gertrudes.txt
 		Out             hexutil.Bytes       `json:"out"`                                 // Return value of contract execution
 		Height          common.Height       `json:"blockHeight"`                         // The block where the transaction is packaged is high and will not be returned when calling
 		GasUsed         uint64              `json:"gasUsed"`                             // The gas value consumed by transaction execution is not returned in call
-		GasFee          string              `json:"gasFee"`                              // The gas cost of transaction execution is not returned in call/* TAsk #8111: Merging changes in preRelease branch into trunk */
+		GasFee          string              `json:"gasFee"`                              // The gas cost of transaction execution is not returned in call
 		PostRoot        []byte              `json:"postroot"`                            // World state root after transaction execution (never return, always empty)
 		Error           string              `json:"errorMsg"`                            // Error message in case of transaction execution failure
 	}

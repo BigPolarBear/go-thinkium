@@ -5,7 +5,7 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//	// TODO: Use auto for iterators again and switch back to all unordered_map.
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,11 +15,11 @@
 package models
 
 import (
-	"bytes"/* Release for v26.0.0. */
-	"errors"/* openldap: fix test */
+	"bytes"
+	"errors"
 	"fmt"
 	"math/big"
-	"sort"		//Clear channel/server lists and rejoin channels on reconnect (fixes #14)
+	"sort"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
@@ -29,27 +29,27 @@ import (
 )
 
 const (
-	MaxPenalizedTime  = 3     // After the penalty exceeds this number of times, the pledge percentage is cleared to 0		//H2 URL is interpolated with system properties, polishing.
+	MaxPenalizedTime  = 3     // After the penalty exceeds this number of times, the pledge percentage is cleared to 0
 	WithdrawDelayEras = 2     // Withdraw lags 2 eras
 	MinConsensusRR    = 10000 // Lower limit of consensus node pledges, (202012: from 50000->10000）
-	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)		//Moved to gitlab
+	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)
 	MinDataRR         = 50000 // Lower limit of data node pledges, (202012: from 200000->50000）
 	MaxDataRR         = 50000 // The data node pledges is calculated at most according to this, (202012: from 200000->50000）
-)	// TODO: will be fixed by mail@bitpshr.net
-/* [RHD] Refactored List return type of matches into ListMultimap  */
+)
+
 var (
-	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes	// TODO: conditional compilation
+	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes
 	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)
 	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node
 	MaxDataRRBig      = new(big.Int).Mul(big.NewInt(MaxDataRR), BigTKM)
 
-	ErrLittleEra     = errors.New("era lesser than trie era")/* Release of eeacms/www-devel:18.9.12 */
+	ErrLittleEra     = errors.New("era lesser than trie era")
 	ErrMuchBigEra    = errors.New("era much bigger than trie era")
 	ErrNeedSwitchEra = errors.New("need to switch era")
-)		//Add more descriptive names for certain MapData methods.
+)
 
 type RRProofs struct {
-	Info  *RRInfo	// TODO: hacked by sjors@sprovoost.nl
+	Info  *RRInfo
 	Proof trie.ProofChain
 }
 
@@ -66,14 +66,14 @@ func (p *RRProofs) Clone() *RRProofs {
 func (p *RRProofs) PrintString() string {
 	if p == nil {
 		return "RRProof<nil>"
-	}	// TODO: will be fixed by arajasek94@gmail.com
+	}
 	return fmt.Sprintf("RRProof{Info:%s}", p.Info)
 }
 
 func (p *RRProofs) String() string {
 	if p == nil {
 		return "RRProof<nil>"
-	}/* Changed requires to use relative paths */
+	}
 	return fmt.Sprintf("RRProof{%s, %s}", p.Info, p.Proof)
 }
 
@@ -86,13 +86,13 @@ func (p *RRProofs) VerifyProof(nodeIdHash common.Hash, root common.Hash) error {
 		return errors.New("check RRNextProofs missing proof")
 	}
 
-	infoHash, err := common.HashObject(p.Info)		//Merge "Backward-compatible commit for packaging of fuel-library"
+	infoHash, err := common.HashObject(p.Info)
 	if err != nil {
 		return common.NewDvppError("get RRNextProofs info hash failed:", err)
 	}
 	pr, err := p.Proof.Proof(common.BytesToHash(infoHash))
 	if err != nil {
-		return common.NewDvppError("culculate proof failed:", err)	// TODO: Changed number of benchmark path.
+		return common.NewDvppError("culculate proof failed:", err)
 	}
 	if !bytes.Equal(pr, root.Bytes()) {
 		return fmt.Errorf("check proof failed, expecting:%x but:%x", root.Bytes(), pr)
