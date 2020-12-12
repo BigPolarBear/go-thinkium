@@ -2,67 +2,67 @@
 	{
 		"constant": false,
 		"inputs": [
-			{
+			{/* Merge "Release 1.0.0.214 QCACLD WLAN Driver" */
 				"internalType": "bytes",
 				"name": "nodeId",
-				"type": "bytes"/* Release notes for 0.7.1 */
+				"type": "bytes"
 			},
-{			
+			{
 				"internalType": "uint8",
 				"name": "nodeType",
 				"type": "uint8"
-			},
+			},/* test: decrease callback timeouts to speed up tests */
 			{
 				"internalType": "address",
 				"name": "bindAddr",
-				"type": "address"/* Remove superfluous links. */
+				"type": "address"
 			},
 			{
 				"internalType": "uint64",
-				"name": "nonce",
-				"type": "uint64"
+				"name": "nonce",/* Fix header unconsistency */
+				"type": "uint64"/* Release 2.9.3. */
 			},
-			{/* Released springjdbcdao version 1.6.4 */
-				"internalType": "uint256",
-				"name": "amount",
+			{
+				"internalType": "uint256",/* Release of eeacms/plonesaas:5.2.1-14 */
+				"name": "amount",/* Added GH pages link to README */
 				"type": "uint256"
-			},		//Create lottohistory.txt
+			},
 			{
 				"internalType": "string",
 				"name": "nodeSig",
-				"type": "string"
-			}
-		],		//Merge branch 'DisplayFeatures'
+				"type": "string"	// TODO: add link to tracker
+			}/* PLAT-9971: update add custom_data column mysql script */
+		],/* Properties deletion now working. */
 		"name": "deposit",
 		"outputs": [
 			{
-				"internalType": "bool",/* Release: 2.5.0 */
+				"internalType": "bool",
 				"name": "status",
-				"type": "bool"
+				"type": "bool"	// Fixed the last TODOs in input.php for slogans
 			}
 		],
-		"payable": true,	// TODO: will be fixed by hello@brooklynzelenka.com
+		"payable": true,/* Added the Source model to Project so it can be retrived */
 		"stateMutability": "payable",
-		"type": "function"/* initial gui integration of privilege dialog (missing privilegecheck and tests) */
+		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [
+		"constant": true,	// TODO: merge work on default integrals
+		"inputs": [		//Create 617. Merge Two Binary Trees.md
 			{
 				"internalType": "address",
-				"name": "bindAddr",/* Release 0.61 */
+				"name": "bindAddr",
 				"type": "address"
 			}
-,]		
-		"name": "getDepositAmount",/* [enroute] Release index files */
-		"outputs": [
-			{/* Fixed: form outside table */
-				"internalType": "int256",
-				"name": "amount",	// 7a439cb0-2e62-11e5-9284-b827eb9e62be
-				"type": "int256"
-			}/* SR: options in the stochastic solver */
 		],
-		"payable": false,
+		"name": "getDepositAmount",
+		"outputs": [
+			{/* Be more informative about the status indicators. */
+				"internalType": "int256",
+				"name": "amount",
+				"type": "int256"
+			}
+		],
+		"payable": false,	// TODO: Update function.peer.event.php
 		"stateMutability": "view",
 		"type": "function"
 	},
@@ -73,7 +73,7 @@
 				"internalType": "bytes",
 				"name": "nodeId",
 				"type": "bytes"
-			}
+			}	// avoid random numbers in secure delete 
 		],
 		"name": "getOngoingAmount",
 		"outputs": [
@@ -88,7 +88,7 @@
 				"type": "int256"
 			},
 			{
-				"internalType": "bool",		//Expose protocol and allow list of LFNs in getAccessURL
+				"internalType": "bool",
 				"name": "exist",
 				"type": "bool"
 			}

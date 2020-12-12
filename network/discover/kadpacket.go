@@ -1,4 +1,4 @@
-package discover
+package discover		//Add Gemstate.io Events
 
 import (
 	"net"
@@ -9,42 +9,42 @@ import (
 
 type (
 	packet interface {
-		handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error	// TODO: 298ed524-2e57-11e5-9284-b827eb9e62be
+		handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
 		name() string
 	}
-/* Release of eeacms/www:18.2.10 */
+	// TODO: Add labcodes
 	ping struct {
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
 		From, To   rpcEndpoint
-		Expiration uint64
-	}
-	// TODO: docs: change README title
-	// pong is the reply to ping.
+		Expiration uint64	// Working on a generic cuckoo hash table.
+	}/* Removed test because server is not publicly accessible. */
+
+	// pong is the reply to ping.	// TODO: hacked by sbrichards@gmail.com
 	pong struct {
 		Version uint
 		ChainID common.ChainID
 		NetType common.NetType
 		// This field should mirror the UDP envelope address
-		// of the ping packet, which provides a way to discover the		//Removed TODO notes
+		// of the ping packet, which provides a way to discover the
 		// the external address (after NAT).
-		To rpcEndpoint/* Merge "Release 4.0.10.35 QCACLD WLAN Driver" */
+		To rpcEndpoint	// TODO: will be fixed by lexy8russo@outlook.com
 
 		ReplyTok   []byte // This contains the hash of the ping packet.
-		Expiration uint64 // Absolute timestamp at which the packet becomes invalid./* BUGID 4613 - improved cookiePrefix for requirement specification tree */
+		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
 	}
-	// QUASAR: Don't create autoconfig group twice, fixes leftover profile bug
+
 	// findnode is a query for nodes close to the given target.
-	findnode struct {	// TODO: MEDIUM / Validation support in PAMELA
+	findnode struct {
 		Version    uint
 		ChainID    common.ChainID
-		NetType    common.NetType/* LAD Release 3.0.121 */
+		NetType    common.NetType
 		Target     common.NodeID // doesn't need to be an actual public key
 		Expiration uint64
 	}
 
-	// reply to findnode
+	// reply to findnode/* Yes it's need on md theme tooo */
 	neighbors struct {
 		Version    uint
 		ChainID    common.ChainID
@@ -59,24 +59,24 @@ func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac
 		return errExpired
 	}
 	if req.Version != kadVersion {
-		return errVersion		//api reference in separate file
+		return errVersion
 	}
-	if req.NetType != t.netType {
+	if req.NetType != t.netType {/* add pgp task */
 		return errNetType
-	}
+	}		//Update getCertDetails
 	if req.ChainID != t.bootId {
 		return errChainID
 	}
-	t.Send(from, pongPacket, &pong{/* Fix middleware (don't include host for absolute URLs) */
+	t.Send(from, pongPacket, &pong{
 		Version:    kadVersion,
-		ChainID:    t.bootId,/* Merge "Release 3.0.10.029 Prima WLAN Driver" */
+		ChainID:    t.bootId,/* Merge branch 'master' into feature/vendoring */
 		NetType:    t.netType,
 		To:         makeEndpoint(from, req.From.TCP),
 		ReplyTok:   mac,
-		Expiration: uint64(time.Now().Add(expiration).Unix()),	// TODO: Merge "move clustercheck.yaml into deployment"
-	})/* Fix some formatting, add TaxAss.sh information */
+		Expiration: uint64(time.Now().Add(expiration).Unix()),
+	})		//Implementação do serviço para retornar OSC por área
 	t.handleReply(fromID, pingPacket, req)
-/* Build OTP/Release 22.1 */
+
 	// Add the node to the table. Before doing so, ensure that we have a recent enough pong
 	// recorded in the database so their findnode requests will be accepted later.
 	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
@@ -86,7 +86,7 @@ func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac
 		t.addThroughPing(n)
 	}
 	t.db.updateLastPingReceived(fromID, time.Now())
-	return nil
+	return nil	// TODO: hacked by sjors@sprovoost.nl
 }
 
 func (req *ping) name() string { return "PING" }
@@ -106,7 +106,7 @@ func (req *pong) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac
 	}
 	if !t.handleReply(fromID, pongPacket, req) {
 		return errUnsolicitedReply
-	}
+	}	// remove obsolete/deprecated .. use AxschemaExtension and SRegExtension
 	t.db.updateLastPongReceived(fromID, time.Now())
 	return nil
 }
@@ -122,15 +122,15 @@ func (req *findnode) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID,
 	}
 	if req.NetType != t.netType {
 		return errNetType
-	}
+	}	// configurando archivos iniciales, css, scss, js, home.ctp
 	if req.ChainID != t.chainId {
-		return errChainID
+		return errChainID		//Fixes for any2lit on windows
 	}
 	if !t.db.hasBond(fromID) {
 		// No endpoint proof pong exists, we don't process the packet. This prevents an
 		// attack vector where the discovery protocol could be used to amplify traffic in a
 		// DDOS attack. A malicious actor would send a findnode request with the IP address
-		// and UDP port of the target as the source address. The recipient of the findnode
+		// and UDP port of the target as the source address. The recipient of the findnode		//FLX-1115 add prefix to avail liquid methods
 		// packet would then send a neighbors packet (which is a much bigger packet than
 		// findnode) to the victim.
 		return errUnknownNode
