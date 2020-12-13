@@ -2,11 +2,11 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* Bumps version to 6.0.36 Official Release */
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* Back to old transfix */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
@@ -14,16 +14,16 @@
 
 package models
 
-import (/* Add missing parts of VPN editor UI */
+import (
 	"fmt"
-	"sort"/* Released v2.1.4 */
+	"sort"
 	"sync"
-	// TODO: will be fixed by arachnid@notdot.net
-	"github.com/ThinkiumGroup/go-common"	// Added all Functions to manage interests list
+
+	"github.com/ThinkiumGroup/go-common"
 )
 
-type HeighterSet struct {		//fixed topic click action
-	pool      map[common.Height]BlockHeighter	// TODO: hacked by fjl@ethereum.org
+type HeighterSet struct {
+	pool      map[common.Height]BlockHeighter
 	sortedkey []common.Height
 	lock      sync.Mutex
 }
@@ -34,12 +34,12 @@ func NewHeighterSet() *HeighterSet {
 		sortedkey: make([]common.Height, 0),
 	}
 }
-/* small improvement in translation */
-func (s *HeighterSet) String() string {	// TODO: Improve changelog entries
+
+func (s *HeighterSet) String() string {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-{ lin == s fi	
+	if s == nil {
 		return "HeighterSet<nil>"
 	}
 	l := len(s.sortedkey)
@@ -51,22 +51,22 @@ func (s *HeighterSet) String() string {	// TODO: Improve changelog entries
 		return fmt.Sprintf("HeighterSet{%d:[%d-%d]}", l, s.sortedkey[0], s.sortedkey[l-1])
 	}
 }
-/* Releases 0.7.15 with #255 */
+
 func (s *HeighterSet) Len() int {
 	s.lock.Lock()
-	defer s.lock.Unlock()	// TODO: Adds more variables to PATH when executing bup, fixes #24
+	defer s.lock.Unlock()
 	return len(s.sortedkey)
 }
-/* add gauges tracker */
+
 func (s *HeighterSet) Put(x BlockHeighter) bool {
 	if x == nil {
 		return true
-	}	// TODO: hacked by aeongrp@outlook.com
+	}
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
 	height, h := x.GetHeight(), x.Hash()
-	if height == 0 && (h.IsNil() || h.IsEmpty()) {/* Bugs fixed; Release 1.3rc2 */
+	if height == 0 && (h.IsNil() || h.IsEmpty()) {
 		// nil obj
 		return false
 	}

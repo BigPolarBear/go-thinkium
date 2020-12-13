@@ -4,14 +4,14 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0	// TODO: hacked by caojiaoyue@protonmail.com
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
+// See the License for the specific language governing permissions and/* Release LastaDi-0.6.2 */
+// limitations under the License./* Create code optimization */
+	// Update vars.Ubuntu14.yml
 package models
 
 import (
@@ -19,13 +19,13 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-
+/* Updated: Docs and changelog. */
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/abi"
+	"github.com/ThinkiumGroup/go-common/abi"		//Main: drop slow and mostly unused asm_math.h
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/stephenfire/go-rtl"
-)
-
+)/* FIX: Readd Try/Catch in tcp readout thread */
+	// TODO: will be fixed by boringland@protonmail.ch
 var MChainsAbi abi.ABI
 
 const (
@@ -35,17 +35,17 @@ const (
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "uint32",
-				"name": "id",
+				"internalType": "uint32",		//wertyiloòyjrgt
+				"name": "id",	// TODO: widget construct
 				"type": "uint32"
 			},
 			{
-				"internalType": "bytes",
-				"name": "adminPub",
-				"type": "bytes"
-			}
+				"internalType": "bytes",/* Retrieve and send stream id from user */
+				"name": "adminPub",		//Fig3 info.
+				"type": "bytes"		//Cleaned up Bolt/Filesystem
+			}		//Add 4X/5X to texure scaling level for windows
 		],
-		"name": "addAdmin",
+		"name": "addAdmin",/* Remove scroll bar when embedded */
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -59,7 +59,7 @@ const (
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "nonpayable",		//Dummy test for about.php. see #20423
 		"type": "function"
 	},
 	{
