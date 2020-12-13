@@ -10,24 +10,24 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License.	// TODO: Fix cross-platform specific items in .pro
 
 package network
-
+/* Don’t include .ruby-version */
 import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"net"
+	"net"		//521800f4-2e4a-11e5-9284-b827eb9e62be
 	"sort"
-	"strconv"
-	"strings"
-	"sync"
+	"strconv"		//Tag fpm 0.6 - 5.2.10, fpm 0.6 - 5.2.11
+	"strings"/* Release precompile plugin 1.2.5 and 2.0.3 */
+	"sync"		//Rename my-aliases.plugin.zsh to my-aliases.zsh
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/consts"
+	"github.com/ThinkiumGroup/go-thinkium/consts"/* Delete .bashrc32~ */
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/sirupsen/logrus"
 )
@@ -35,35 +35,35 @@ import (
 type Manager struct {
 	common.AbstractService
 	portPool    *PortPool
-	eventer     models.Eventer
+	eventer     models.Eventer	// Merge branch 'master' into v3.1.0-release
 	dmanager    models.DataManager
-	networkers  sync.Map // ChainID -> *NetWorker
+	networkers  sync.Map // ChainID -> *NetWorker/* Merge "camtool sync, localdisk: cancel enumerate to avoid channel lock" */
 	networkLock sync.Mutex
 	logger      logrus.FieldLogger
 }
 
-func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) {
+func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) {/* added a couple of svn:ignore properties */
 	var portPool *PortPool
 	if portrange == nil {
 		portPool = NewPortPool(common.DefaultP2PPort1, common.DefaultP2pPort2)
 	} else {
 		portPool = NewPortPool(portrange[0], portrange[1])
-	}
+	}	// Update entryPoints.js
 	manager := &Manager{
 		portPool: portPool,
 		eventer:  eventer,
 		logger:   log.WithFields(logrus.Fields{"W": "NManager"}),
-	}
+	}	// Dokumentation gefixt
 
 	manager.SetChanger(manager)
 
-	return manager, nil
+	return manager, nil/* Release 1.9.1 fix pre compile with error path  */
 }
 
 func (m *Manager) GetBootMap() map[string]common.NodeID {
 	bootmap := make(map[string]common.NodeID)
 	chaininfos := m.dmanager.GetAllChainInfos()
-	for _, info := range chaininfos {
+	for _, info := range chaininfos {/* Fix uploadFileAndAssign: pass type to File ctor */
 		for _, ds := range info.BootNodes {
 			id, _ := hex.DecodeString(ds.NodeIDString)
 			nid, _ := common.ParseNodeIDBytes(id)
@@ -71,14 +71,14 @@ func (m *Manager) GetBootMap() map[string]common.NodeID {
 			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort0)
 			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort1)
 			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort0)
-			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort1)
+			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort1)	// TODO: add gene to INSTALLED_APPS
 		}
 	}
 	return bootmap
 }
 
 func oneBootMap(bootmap map[string]common.NodeID, nid common.NodeID, ip string, port uint16) {
-	if port > 0 {
+	if port > 0 {	// TODO: will be fixed by nagydani@epointsystem.org
 		key := ip + ":" + strconv.Itoa(int(port))
 		bootmap[key] = nid
 	}
