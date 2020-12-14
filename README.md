@@ -1,6 +1,6 @@
-# Go Thinkium/* Delete DeploymentReport.txt */
+# Go Thinkium
 
-Official Golang implementation of the Thinkium node./* drop py2.6 */
+Official Golang implementation of the Thinkium node.
 
 ## Building the source
 
