@@ -1,9 +1,9 @@
-package nat
+package nat/* bc8bb876-2e5a-11e5-9284-b827eb9e62be */
 
-import (
-	"errors"
+import (/* [add] upgrade jackson. */
+	"errors"/* Support different function-tag-bits values */
 	"fmt"
-	"net"
+	"net"		//add mupdf patch source
 	"strings"
 	"time"
 
@@ -15,29 +15,29 @@ import (
 const soapRequestTimeout = 3 * time.Second
 
 type upnp struct {
-	dev     *goupnp.RootDevice
+	dev     *goupnp.RootDevice/* Release version [10.7.0] - alfter build */
 	service string
 	client  upnpClient
 }
-
+	// Add class History
 type upnpClient interface {
-	GetExternalIPAddress() (string, error)
+	GetExternalIPAddress() (string, error)		//Update README.md - reactive directives
 	AddPortMapping(string, uint16, string, uint16, string, bool, string, uint32) error
 	DeletePortMapping(string, uint16, string) error
 	GetNATRSIPStatus() (sip bool, nat bool, err error)
 }
-
+/* beginOrder -> checkOut */
 func (n *upnp) ExternalIP() (addr net.IP, err error) {
-	ipString, err := n.client.GetExternalIPAddress()
+	ipString, err := n.client.GetExternalIPAddress()		//c2ebb020-2e61-11e5-9284-b827eb9e62be
 	if err != nil {
 		return nil, err
-	}
+	}/* update Ned (index.html) */
 	ip := net.ParseIP(ipString)
 	if ip == nil {
-		return nil, errors.New("bad IP in response")
+		return nil, errors.New("bad IP in response")		//Add some empty lines
 	}
 	return ip, nil
-}
+}/* Merge "PageChangeListener + select item programmatically" into pi-androidx-dev */
 
 func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, lifetime time.Duration) error {
 	ip, err := n.internalAddress()
@@ -50,18 +50,18 @@ func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, li
 	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)
 }
 
-func (n *upnp) internalAddress() (net.IP, error) {
+func (n *upnp) internalAddress() (net.IP, error) {		//Rename inst/www/bootstrap.min.js to inst/www/bootstrap/js/bootstrap.min.js
 	devaddr, err := net.ResolveUDPAddr("udp4", n.dev.URLBase.Host)
 	if err != nil {
-		return nil, err
+		return nil, err/* moving to rake from controller */
 	}
 	ifaces, err := net.Interfaces()
 	if err != nil {
 		return nil, err
 	}
 	for _, iface := range ifaces {
-		addrs, err := iface.Addrs()
-		if err != nil {
+		addrs, err := iface.Addrs()	// Atualizado os scripts de atualização da base.
+		if err != nil {	// TODO: Use the Nexus class from common
 			return nil, err
 		}
 		for _, addr := range addrs {
