@@ -1,62 +1,62 @@
 package discover
 
-import (/* Added link to http://finmath.net/finmath-lib-cuda-extensions/ */
-	"net"		//Update sara_skillbar.js
+import (
+	"net"
 
 	"github.com/ThinkiumGroup/go-common"
 )
-/* Cordelia in Medical Hold 🤕 */
+/* 20.1 Release: fixing syntax error that */
 type DiscoveryType string
 
-const (	// TODO: will be fixed by ligi@ligi.de
-	KAD DiscoveryType = "KAD"
-	SRT DiscoveryType = "SORT"
+const (
+	KAD DiscoveryType = "KAD"/* Nuovi bundles con dipendenza e4 */
+	SRT DiscoveryType = "SORT"/* OCR Example */
 )
 
-type Discovery interface {
-	// discovery type
-	Type() DiscoveryType/* Update Chapter_2.md */
-	// version		//Left-align
+type Discovery interface {	// Rename 2 - control flow.ipynb to 2 - Control flow.ipynb
+	// discovery type	// [DeathKnight] fixed settings not saving
+	Type() DiscoveryType
+	// version
 	Version() uint32
-	// read msg from udp connection		//IIAG Internal Application Grafting 01 - Spelling Correction B
+	// read msg from udp connection
 	NodeTable() DiscoverTable
 	//Get chainid from tab
 	GetChainID(id common.NodeID) (common.ChainID, error)
 	// ping
 	Ping(common.NodeID, *net.UDPAddr) error
-	// find node/* Deleted CtrlApp_2.0.5/Release/ctrl_app.exe */
+	// find node/* Access section changes */
 	FindNode(toid common.NodeID, addr *net.UDPAddr, target interface{}) (map[common.ChainID][]*Node, error)
 	// close
 	Close() error
-}	// Fixed: mismatch between int and str
+}
 
-type DiscoverTable interface {/* you might want to look at the manifest file, or at least be aware of it */
+type DiscoverTable interface {
 	Self() *Node
 	Close()
 	// modify by gy
-	Len() int		//update to the latest version of augment
+	Len() int
 	Resolve(target common.NodeID) *Node
-	Lookup(target interface{}) []*Node
-	ReadRandomNodes([]*Node) int/* inserindo os icones */
+	Lookup(target interface{}) []*Node	// TODO: hacked by jon@atack.com
+	ReadRandomNodes([]*Node) int
 
 	// FOR SORT TABLE
 	GetDataNodes() []*ChainDataNodes
-	GetAccessChains() common.ChainIDs
+	GetAccessChains() common.ChainIDs		//"--update" option implemented.
 	SetTmpNodes(dataNodes []*ChainDataNodes)
 	SwitchToTmpNodes()
 }
-	// TODO: Actualizado paso 1 Readme
-func IsTemporaryError(err error) bool {/* Released MagnumPI v0.2.11 */
+
+func IsTemporaryError(err error) bool {
 	tempErr, ok := err.(interface {
-		Temporary() bool/* fix effect prio unregister */
+		Temporary() bool
 	})
 	return ok && tempErr.Temporary()
 }
-
-func (d DiscoveryType) IsKAD() bool {	// TODO: first try at adding returning to insert
-	return d == KAD
+		//:triumph::capital_abcd: Updated in browser at strd6.github.io/editor
+func (d DiscoveryType) IsKAD() bool {
+	return d == KAD		//Fix minor Unboxer documentation typo
 }
 
 func (d DiscoveryType) IsSRT() bool {
 	return d == SRT
-}
+}	// TODO: will be fixed by hi@antfu.me
