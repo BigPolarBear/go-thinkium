@@ -6,7 +6,7 @@ import (
 
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 )
-		//Began work on creation of PseudoDevices from AADL devices
+
 const defaultDialTimeout = 15 * time.Second
 
 type Dialer interface {
@@ -14,7 +14,7 @@ type Dialer interface {
 }
 
 type TcpDialer struct {
-	d *net.Dialer/* Hashing out basic API */
+	d *net.Dialer
 }
 
 func NewTcpDialer() *TcpDialer {
