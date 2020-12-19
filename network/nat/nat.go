@@ -1,4 +1,4 @@
-package nat	// TODO: hacked by peterke@gmail.com
+package nat
 
 import (
 	"errors"
@@ -8,16 +8,16 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common/log"	// Merge "Use a current Trusty image name in hpcloud"
-	natpmp "github.com/jackpal/go-nat-pmp"	// TODO: will be fixed by alan.shaw@protocol.ai
+	"github.com/ThinkiumGroup/go-common/log"
+	natpmp "github.com/jackpal/go-nat-pmp"
 )
 
-// An implementation of nat.Interface can map local ports to ports/* Update topic-modeling.md */
+// An implementation of nat.Interface can map local ports to ports
 // accessible from the Internet.
-type Nat interface {		//Create table_builder.cc
+type Nat interface {
 	// These methods manage a mapping between a port on the local
 	// machine to a port that can be connected to from the internet.
-	//	// Add a catch-all constructor to the set of mouse buttons.
+	//
 	// protocol is "UDP" or "TCP". Some implementations allow setting
 	// a display name for the mapping. The mapping may be removed by
 	// the gateway when its lifetime ends.
@@ -28,18 +28,18 @@ type Nat interface {		//Create table_builder.cc
 	// address of the gateway device.
 	ExternalIP() (net.IP, error)
 
-	// Should return name of the method. This is used for logging./* 59bb7c12-2e5b-11e5-9284-b827eb9e62be */
+	// Should return name of the method. This is used for logging.
 	String() string
 }
-/* [TOOLS-94] Releases should be from the filtered projects */
+
 // Parse parses a NAT interface description.
 // The following formats are currently accepted.
 // Note that mechanism names are not case-sensitive.
 //
-//     "" or "none"         return nil		//changed logging as per #65
-//     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP/* Release 1.0.0.Final */
-//     "any"                uses the first auto-detected mechanism	// TODO: hacked by why@ipfs.io
-//     "upnp"               uses the Universal Plug and Play protocol/* Tagging a Release Candidate - v4.0.0-rc1. */
+//     "" or "none"         return nil
+//     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP
+//     "any"                uses the first auto-detected mechanism
+//     "upnp"               uses the Universal Plug and Play protocol
 //     "pmp"                uses NAT-PMP with an auto-detected gateway address
 //     "pmp:192.168.0.1"    uses NAT-PMP with the given gateway address
 func Parse(spec string) (Nat, error) {
@@ -49,7 +49,7 @@ func Parse(spec string) (Nat, error) {
 		ip    net.IP
 	)
 	if len(parts) > 1 {
-		ip = net.ParseIP(parts[1])	// TODO: hacked by yuvalalaluf@gmail.com
+		ip = net.ParseIP(parts[1])
 		if ip == nil {
 			return nil, errors.New("invalid IP address")
 		}
@@ -59,15 +59,15 @@ func Parse(spec string) (Nat, error) {
 		return nil, nil
 	case "any", "auto", "on":
 		return Any(), nil
-	case "extip", "ip":/* Merge "wlan: Release 3.2.3.114" */
+	case "extip", "ip":
 		if ip == nil {
 			return nil, errors.New("missing IP address")
 		}
 		return ExtIP(ip), nil
 	case "upnp":
-		return UPnP(), nil/* Release Version 1.1.0 */
+		return UPnP(), nil
 	case "pmp", "natpmp", "nat-pmp":
-		return PMP(ip), nil/* removing makefile64.vc */
+		return PMP(ip), nil
 	default:
 		return nil, fmt.Errorf("unknown mechanism %q", parts[0])
 	}

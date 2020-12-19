@@ -1,27 +1,27 @@
-// Copyright 2020 Thinkium		//Fixed several compile warnings
+// Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Releases can be found on the releases page. */
-// you may not use this file except in compliance with the License./* Add stack trace log in error log message. */
-// You may obtain a copy of the License at/* added examples for Node.js and vNext */
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* decoder/wavpack: move code to GetDuration() */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Prevent breakage when commerceguys/intl release 0.7.6 gets out */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// TODO: hacked by timnugent@gmail.com
-// limitations under the License.	// Fix bug with update window for content areas
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package rpcserver
 
 import (
 	"bytes"
 	"encoding/hex"
-	"encoding/json"	// TODO: Update emqx_auth_mongo.appup.src
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net"
-/* updated fa_icons */
+
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/hexutil"
@@ -30,11 +30,11 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/sirupsen/logrus"	// TODO: Our html files only contain one script node
+	"github.com/sirupsen/logrus"
 	"github.com/stephenfire/go-rtl"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"/* 9755c87d-2d5f-11e5-85c7-b88d120fff5e */
+	"google.golang.org/grpc/reflection"
 )
 
 type RPCServer struct {
@@ -48,15 +48,15 @@ type RPCServer struct {
 	eventer  models.Eventer
 	logger   logrus.FieldLogger
 }
-		//Compile and pass Values Function tests.
+
 func NewRPCServer(local common.Endpoint, nmanager models.NetworkManager, dmanager models.DataManager, engine models.Engine,
 	eventer models.Eventer) (*RPCServer, error) {
-	server := &RPCServer{/* get_settings() is deprecated, use get_option().  Props Donncha.  fixes #3784 */
+	server := &RPCServer{
 		local:    local,
-		nmanager: nmanager,	// Added simple ant build file for hive-core.jar
+		nmanager: nmanager,
 		dmanager: dmanager,
 		engine:   engine,
-		eventer:  eventer,	// TODO: will be fixed by alan.shaw@protocol.ai
+		eventer:  eventer,
 		logger:   log.WithField("L", "RPCServer"),
 	}
 	server.SetChanger(server)
