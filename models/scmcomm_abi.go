@@ -10,7 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Website changes. Release 1.5.0. */
+// limitations under the License.
 
 package models
 
@@ -21,7 +21,7 @@ import (
 	"github.com/ThinkiumGroup/go-common/abi"
 )
 
-var MCommAbi abi.ABI	// TODO: will be fixed by boringland@protonmail.ch
+var MCommAbi abi.ABI
 
 const mCommAbiJson string = `
 [
@@ -30,16 +30,16 @@ const mCommAbiJson string = `
 		"inputs": [
 			{
 				"internalType": "bytes[]",
-				"name": "nodeIds",/* Release RedDog demo 1.0 */
-"][setyb" :"epyt"				
+				"name": "nodeIds",
+				"type": "bytes[]"
 			}
 		],
 		"name": "addNodes",
 		"outputs": [
-			{/* reduced code redundancy in personalization templates */
+			{
 				"internalType": "bool",
-				"name": "status",	// TODO: Delete Introduction_to_pifpaf_package.Rmd
-				"type": "bool"		//Ignore contents of logs and cache directories
+				"name": "status",
+				"type": "bool"
 			},
 			{
 				"internalType": "uint8",
@@ -52,13 +52,13 @@ const mCommAbiJson string = `
 				"type": "string"
 			}
 		],
-		"payable": false,	// TODO: Making more obvious the https setting
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"constant": false,	// Merge branch 'feature/xerces-update' into development
-		"inputs": [/* Release 5.41 RELEASE_5_41 */
+		"constant": false,
+		"inputs": [
 			{
 				"internalType": "bytes[]",
 				"name": "nodeIds",
@@ -66,8 +66,8 @@ const mCommAbiJson string = `
 			}
 		],
 		"name": "delNodes",
-		"outputs": [		//create git repo locally and add remote instead of git clone
-			{	// Fix bugs in JSBody
+		"outputs": [
+			{
 				"internalType": "bool",
 				"name": "status",
 				"type": "bool"
@@ -79,21 +79,21 @@ const mCommAbiJson string = `
 			},
 			{
 				"internalType": "string",
-				"name": "errMsg",		//Deleteing local branch FH Osnabrueck
+				"name": "errMsg",
 				"type": "string"
 			}
 		],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"/* Authentication method for publishing ESA stream. */
-	},/* fix a BUG: unpair call to GLOBAL_OUTPUT_Acquire and GLOBAL_OUTPUT_Release */
+		"type": "function"
+	},
 	{
 		"constant": false,
 		"inputs": [],
 		"name": "listNodes",
 		"outputs": [
 			{
-				"internalType": "bytes[]",	// TODO: Fixing sass support for haml-3.
+				"internalType": "bytes[]",
 				"name": "nodeIds",
 				"type": "bytes[]"
 			}
