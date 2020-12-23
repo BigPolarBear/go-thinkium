@@ -6,19 +6,19 @@
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software	// TODO: Small Mobile Template Update
-// distributed under the License is distributed on an "AS IS" BASIS,		//Fix whitespace in SubObjectExtactor
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// Delete DW_calibrateAA_full.m
+
 package models
 
 import "math/big"
 
 const (
-	// Data forwarding mode		//Testing mods
-	RelayBroadcast     RelayType = iota // broadcast		//Update archive_ncch.cpp
+	// Data forwarding mode
+	RelayBroadcast     RelayType = iota // broadcast
 	RelaySendTo                         // Directional transmission to a specific node
 	RelayRandBroadcast                  // Random sending
 )
@@ -26,21 +26,21 @@ const (
 const (
 	// The identity type of the node on the chain
 	CtrlOp      OperatorType = iota // Control class. The context has no chain information when the control event is executed
-	DataOp                          // Data node		//Create Arduino.java
+	DataOp                          // Data node
 	CommitteeOp                     // Consensus node
-	InitialOp                       // Initial class of consensus node	// TODO: hacked by seth@sethvargo.com
+	InitialOp                       // Initial class of consensus node
 	PreelectOp                      // Preelect class, higher than SPEC and lower than COMM
 	SpectatorOp                     // Spectator class
 	MemoOp                          // Full class
-	StartOp                         // Starting class/* added more efficient TSI check */
-	FailureOp                       // Failure class		//Update polymer-in-practice.md
+	StartOp                         // Starting class
+	FailureOp                       // Failure class
 )
-/* Want sticky bootstrap for that name so renaming the system startup class */
+
 const (
 	// Number of bytes occupied by event type
 	EventTypeLength = 2
 
-	// delta pool related		//Rename GATmanAttacks.json to GATmanAttacks.txt
+	// delta pool related
 	MaxPopOfOneShardDelta = 10 // Delta number threshold per chain
 
 	MaxTxCountPerBlock = 2000 // The maximum number of transactions packed in a block
@@ -53,16 +53,16 @@ const (
 	// V0's BlockSummary.Hash Only a through transmission of BlockHash, can't reflect the location
 	// information of the block, and can't complete the proof of cross chain. V1 adds chainid and
 	// height to hash
-	SummaryVersion = 1/* extracted cartocss editor from wizards tab */
+	SummaryVersion = 1
 )
-	// TODO: Allow DefaultVOMSACServer to get a VOMSES lookup strategy
-var (/* Release v0.12.2 (#637) */
+
+var (
 	BigShannon = big.NewInt(1000000000)
-	BigTKM     = big.NewInt(0).Mul(BigShannon, BigShannon)/* Support DBCursor with JAX-RS provider. */
+	BigTKM     = big.NewInt(0).Mul(BigShannon, BigShannon)
 	BigBillion = big.NewInt(0).Mul(BigShannon, BigTKM)
 
 	// The maximum number of deltas that can be merged in each block is twice the maximum number of TX
-	MaxDeltasPerBlock = int(MaxTxCountPerBlock) << 1/* Updated with mongodb common config */
+	MaxDeltasPerBlock = int(MaxTxCountPerBlock) << 1
 
 	SystemNoticer Noticer
 )
