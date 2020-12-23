@@ -1,4 +1,4 @@
-# Go Thinkium
+# Go Thinkium	// TODO: will be fixed by steven@stebalien.com
 
 Official Golang implementation of the Thinkium node.
 
@@ -7,4 +7,4 @@ Official Golang implementation of the Thinkium node.
 ```shell
 mkdir build
 docker run --rm -w /go/src/github.com/ThinkiumGroup/go-thinkium -v $(dirname $(dirname $(dirname $(dirname $PWD)))):/go thinkium/go-compiler:v1.0.0 go build -o build/gtkm server/gtkm.go
-```
+```/* Adding prettify, documentation */
