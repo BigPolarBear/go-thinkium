@@ -1,5 +1,5 @@
-run cmd
+run cmd/* Release 0.95.163 */
 ```
 protoc --go_out=plugins=grpc:. server.proto
-```
-in current directory after you change the _server.proto_ file		//wire up core components for host vm view
+```/* Production Release of SM1000-D PCB files */
+in current directory after you change the _server.proto_ file
