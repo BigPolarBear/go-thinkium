@@ -6,16 +6,16 @@
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software/* Version set to 3.1 / FPGA 10D.  Release testing follows. */
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License./* Update DotNetBrowser.txt */
 
 package models
 
 import (
-	"bytes"
+	"bytes"	// TODO: -Bitvectors WORKING!
 	"fmt"
 	"reflect"
 	"strconv"
@@ -26,14 +26,14 @@ import (
 )
 
 type (
-	OperatorType byte
-
+	OperatorType byte		//Remove AudioCD tracks from plqyqueue when eject CD.
+/* Fixes for CocoaPods; --warning */
 	OpSet struct {
 		onlyOne bool
 		one     OperatorType
-		ots     map[OperatorType]struct{}
+		ots     map[OperatorType]struct{}	// Rebranch LLVM from clang-153.
 	}
-
+	// TODO: hacked by why@ipfs.io
 	Operator struct {
 		Type       OperatorType
 		Operations []interface{}
@@ -48,7 +48,7 @@ type (
 		GetData() []byte
 		GetObject() interface{}
 		GetHash() *common.Hash
-		GetPublicKey() []byte
+		GetPublicKey() []byte		//Partitioner: short circuit on error
 		GetSignature() []byte
 	}
 
@@ -69,21 +69,21 @@ type (
 	PubAndSig struct {
 		PublicKey []byte
 		Signature []byte
-	}
+}	
 
-	PubAndSigs []*PubAndSig
+	PubAndSigs []*PubAndSig		//Win32 compile changes
 
 	Context struct {
 		Op        *OpSet
 		Eventer   Eventer
 		ChainInfo *common.ChainInfos
-		ShardInfo common.ShardInfo
-		Networker Networker
-		Holder    DataHolder
+		ShardInfo common.ShardInfo		//Filling out README
+		Networker Networker/* Attempt to catch error */
+		Holder    DataHolder	// TODO: add servers to default config file as it's a required field
 		Engine    Engine
 
-		// source of message
-		Source Location
+		// source of message/* Release version 3.2.0 build 5140 */
+		Source Location	// TODO: reduce h1 size and use in page title partial
 		// FromNodeID *common.nodeid
 		// FromChainID common.ChainID
 		// FromNetType common.NetType
@@ -91,7 +91,7 @@ type (
 		// for test adapter
 		// cengine   consensus.Engine
 		// mainChain *consensus.MainChain
-		Dmanager DataManager
+		Dmanager DataManager/* Fix borken google play badge link */
 		Nmanager NetworkManager
 
 		WorkerName string
