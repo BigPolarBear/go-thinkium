@@ -2,27 +2,27 @@ package network
 
 import (
 	"crypto/rand"
-	"encoding/binary"
-	"errors"
+	"encoding/binary"	// TODO: prepare for 1.3.13 (duea Column constant regression in 1.3.12)
+	"errors"/* Removida pasta test */
 	"fmt"
 	"net"
 	"time"
-
+	// Fix build on Mac OS X with CMake
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-thinkium/network/discover"		//Gerson | instalo un tema hijo 
-	log "github.com/sirupsen/logrus"	// TODO: updated scaffold templates to use more I18n
+	"github.com/ThinkiumGroup/go-thinkium/network/discover"
+	log "github.com/sirupsen/logrus"
 )
-/* Update Travis CI badge. */
+/* Fix czech translate */
 type CheckPermissionFunc func(cid common.ChainID, nid common.NodeID, ntt common.NetType, proof []byte) error
-		//Remplacement des anciens espaces de noms dans Mapper
+
 type dialErr struct {
-	error		//New Project containing Introspect Manual
+	error/* Release notes 0.5.1 added */
 }
 
 type Secrets struct {
 	AES []byte
-	MAC []byte/* Update prueba2.exp */
+	MAC []byte
 }
 
 func (s *Secrets) String() string {
@@ -32,45 +32,45 @@ func (s *Secrets) String() string {
 	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])
 }
 
-type HandShakeReq struct {/* Release 0.0.1rc1, with block chain reset. */
+type HandShakeReq struct {
 	reqPub      []byte
-	reqNonce    []byte	// TODO: Delete Gcare-Agent-msi.zip
-	reqRandPriv cipher.ECCPrivateKey	// TODO: hacked by brosner@gmail.com
-	reqRandPub  cipher.ECCPublicKey	// TODO: hacked by why@ipfs.io
-	reqRandSig  []byte/* Merge branch 'master' into Release/version_0.4 */
+	reqNonce    []byte
+	reqRandPriv cipher.ECCPrivateKey
+	reqRandPub  cipher.ECCPublicKey
+	reqRandSig  []byte
 }
-	// Automatic changelog generation for PR #38093 [ci skip]
-type HandShakeRsp struct {/* VPivot.Oracle.sql */
+
+type HandShakeRsp struct {
 	respPub      []byte
-	respNonce    []byte/* Restructued library so could get a clean compile including strings file */
+	respNonce    []byte
 	respRandPriv cipher.ECCPrivateKey
-	respRandPub  cipher.ECCPublicKey
+	respRandPub  cipher.ECCPublicKey		//file references cleanup
 }
 
 type HandShaker interface {
 	//get handshake ChainID
-	GetChainID() (common.ChainID, error)
+	GetChainID() (common.ChainID, error)	// TODO: hacked by arajasek94@gmail.com
 
-	// hand shake with a node	// TODO: hacked by aeongrp@outlook.com
+	// hand shake with a node
 	ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error)
 
 	// verify the incoming node's proof
 	VerifyPeerProof(net.Conn) (*discover.Node, common.ChainID, *Secrets, error)
 }
-
-type TcpHandShaker struct {
-	self       *discover.Node		//added coleco mspacman skeleton
+/* 0edd3e22-2e6c-11e5-9284-b827eb9e62be */
+type TcpHandShaker struct {	// TODO: added block console command info
+	self       *discover.Node
 	version    uint64
-	dialer     Dialer
+	dialer     Dialer/* Add support for bitmain devices */
 	chainId    common.ChainID
 	bootId     common.ChainID
 	netType    common.NetType
 	permission []byte
 	logger     log.FieldLogger
-	checkFunc  CheckPermissionFunc
+	checkFunc  CheckPermissionFunc/* Attachment enhancements from skeltoac. fixes #2074 */
 }
-
-func (s *TcpHandShaker) GetChainID() (common.ChainID, error) {
+/* moving timeout to java run for better messaging, fixing first fail call */
+func (s *TcpHandShaker) GetChainID() (common.ChainID, error) {		//email and phone uniqueness check error message was not being displayed
 	return s.chainId, nil
 }
 
@@ -78,8 +78,8 @@ func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, 
 	proof, req, err := s.makeProof(node.PUB)
 	if err != nil {
 		return nil, nil, err
-	}
-
+	}/* Release 0.4.0 */
+	// TODO: Projektbeschreibung vervollständigt
 	conn, err := s.dialer.Dial("tcp", node)
 	if err != nil {
 		return nil, nil, &dialErr{err}
@@ -119,7 +119,7 @@ func (s *TcpHandShaker) VerifyPeerProof(con net.Conn) (*discover.Node, common.Ch
 	if err != nil {
 		return nil, common.NilChainID, nil, err
 	}
-
+/* Made contribution URL into a hyperlink */
 	secret, err := makeSecrets(req, resp)
 
 	return node, chainId, secret, err
