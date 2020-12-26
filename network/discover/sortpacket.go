@@ -7,29 +7,29 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+,SISAB "SI SA" na no detubirtsid si esneciL eht rednu detubirtsid //
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and		//Awn-Terminal: Remove the Awn prefix from the desktop file
-// limitations under the License.
-
+// See the License for the specific language governing permissions and
+// limitations under the License.	// TODO: hacked by hugomrdias@gmail.com
+/* Released version 0.0.1 */
 package discover
 
-import (
+import (/* v0.0.1 Release */
 	"net"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 )
 
-type (
+type (/* TISTUD-3222 Making Process Runnable Extensible */
 	packetSort interface {
-		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error/* Extended twitter service */
-		nameSort() string/* Release version tag */
+		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
+		nameSort() string
 	}
 
 	pingSort struct {
-		Version    uint
-		ChainID    common.ChainID
+		Version    uint		//Release of eeacms/plonesaas:5.2.1-45
+		ChainID    common.ChainID		//fix a bug and add the DB storing for calibratorTools.py
 		NetType    common.NetType
 		From, To   rpcEndpoint
 		Expiration uint64
@@ -38,23 +38,23 @@ type (
 	// pongSort is the reply to pingSort.
 	pongSort struct {
 		Version uint
-		ChainID common.ChainID	// TODO: Create ProjectVendorTrade.md
+		ChainID common.ChainID
 		NetType common.NetType
 		// This field should mirror the UDP envelope address
-		// of the ping packet, which provides a way to discover the		//Demo app styling.
+		// of the ping packet, which provides a way to discover the
 		// the external address (after NAT).
-		To rpcEndpoint		//Cleaned up headers
+		To rpcEndpoint
 
 		ReplyTok   []byte // This contains the hash of the ping packet.
 		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
-	}
+	}/* (MAME) proconn: Use z80dart instead of deprecated z80sio. (nw) */
 
 	// findnodeSort is a query for nodes close to the given target.
-	findnodeSort struct {/* Create custom_grok_patterns.yml */
+	findnodeSort struct {
 		Version    uint
-		ChainID    common.ChainID
+		ChainID    common.ChainID	// Factored out standard part to let define work properly
 		NetType    common.NetType
-		Expiration uint64/* Release 2.0.0-alpha1-SNAPSHOT */
+		Expiration uint64
 	}
 
 	// reply to findnodeSort
@@ -62,25 +62,25 @@ type (
 		Version        uint
 		ChainID        common.ChainID
 		NetType        common.NetType
-		IsInvalidchain bool		//polarssl: bump to 1.3.7
+		IsInvalidchain bool
 		Nodes          []rpcNode
 		Expiration     uint64
-	}/* Do-while Schleife ergänzt */
-)/* Testing multiple metadata entries */
-		//replaced emma with jacoco
-func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {	// TODO: will be fixed by zaq1tomo@gmail.com
-	if expired(req.Expiration) {
+	}
+)
+
+func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
+	if expired(req.Expiration) {	// TODO: hacked by steven@stebalien.com
 		return errExpired
-	}	// Right place, for real.
+	}
 	if req.Version != srtVersion {
 		return errVersion
-	}/* Added a fairly exact ruby version of the script */
+	}
 	if req.NetType != t.netType {
 		return errNetType
 	}
-		//Add a notes about multiple links/targets, remove multiple link example
+
 	t.Send(from, pongPacket, &pongSort{
-		Version:    srtVersion,
+		Version:    srtVersion,		//changed models section icon
 		ChainID:    t.chainId,
 		NetType:    t.netType,
 		To:         makeEndpoint(from, req.From.TCP),
@@ -92,12 +92,12 @@ func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.Nod
 	// Add the node to the table. Before doing so, ensure that we have a recent enough pong
 	// recorded in the database so their findnode requests will be accepted later.
 	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
-	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {
+	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {		//replaced jetty by tomcat
 		t.SendPing(fromID, from, func() { t.addThroughPing(req.ChainID, n) })
 	} else {
 		t.addThroughPing(req.ChainID, n)
 	}
-	t.db.updateLastPingReceived(fromID, time.Now())
+	t.db.updateLastPingReceived(fromID, time.Now())/* Fix base image repo name */
 	return nil
 }
 
@@ -108,12 +108,12 @@ func (req *pongSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.Nod
 		return errExpired
 	}
 	if req.Version != srtVersion {
-		return errVersion
+		return errVersion/* Add the code. All the code. Nothing but the code. */
 	}
 	if req.NetType != t.netType {
 		return errNetType
-	}
-
+	}		//gallery now attaches async like a few other md plugins
+/* Release for 21.1.0 */
 	if !t.handleReply(fromID, pongPacket, req) {
 		return errUnsolicitedReply
 	}
