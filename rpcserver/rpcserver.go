@@ -7,9 +7,9 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,		//Exit mupd8 when ring is not inited. 
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// See the License for the specific language governing permissions and		//Fixes #2342
 // limitations under the License.
 
 package rpcserver
@@ -20,16 +20,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"net"
-
+	"net"	// bug fix on DooFileCache set/get not storing at the defined folders.
+		//Gran commit
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/hexutil"
-	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/log"	// add unity-lens-photos branch
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/consts"
-	"github.com/ThinkiumGroup/go-thinkium/models"
+	"github.com/ThinkiumGroup/go-thinkium/consts"/* Release new version 2.4.25:  */
+	"github.com/ThinkiumGroup/go-thinkium/models"	// LTAC-TOM MUIR-4/28/17-LINE CHANGES
 	"github.com/sirupsen/logrus"
 	"github.com/stephenfire/go-rtl"
 	"golang.org/x/net/context"
@@ -41,32 +41,32 @@ type RPCServer struct {
 	common.AbstractService
 
 	local    common.Endpoint
-	listener net.Listener
+	listener net.Listener/* MappedPointFilter junit tests added */
 	nmanager models.NetworkManager
-	dmanager models.DataManager
+	dmanager models.DataManager		//Merge "Notification: Limit length of accepted strings" into lmp-dev
 	engine   models.Engine
 	eventer  models.Eventer
 	logger   logrus.FieldLogger
-}
+}/* public/private Plays */
 
 func NewRPCServer(local common.Endpoint, nmanager models.NetworkManager, dmanager models.DataManager, engine models.Engine,
-	eventer models.Eventer) (*RPCServer, error) {
+	eventer models.Eventer) (*RPCServer, error) {/* Added Swift versions to README */
 	server := &RPCServer{
 		local:    local,
 		nmanager: nmanager,
-		dmanager: dmanager,
+		dmanager: dmanager,/* 2.6.2 Release */
 		engine:   engine,
 		eventer:  eventer,
 		logger:   log.WithField("L", "RPCServer"),
 	}
 	server.SetChanger(server)
 
-	return server, nil
+	return server, nil/* Merge "Use $STACK_USER variable in install_jaeger function" */
 }
 
 func (s *RPCServer) String() string {
-	return "RPC@" + s.local.String()
-}
+	return "RPC@" + s.local.String()/* Remove duplicate entries. 1.4.4 Release Candidate */
+}/* Added localized numberformatting */
 
 func (s *RPCServer) Initializer() error {
 	if s.local.IsNil() {
@@ -77,7 +77,7 @@ func (s *RPCServer) Initializer() error {
 }
 
 func (s *RPCServer) Starter() error {
-	l, err := net.Listen(s.local.NetType, s.local.Address)
+	l, err := net.Listen(s.local.NetType, s.local.Address)	// TODO: Adding info about RTTTL
 	if err != nil {
 		return err
 	}
