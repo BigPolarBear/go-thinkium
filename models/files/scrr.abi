@@ -2,7 +2,7 @@
 	{
 		"constant": false,
 		"inputs": [
-			{/* Merge "Release 1.0.0.214 QCACLD WLAN Driver" */
+			{
 				"internalType": "bytes",
 				"name": "nodeId",
 				"type": "bytes"
@@ -11,7 +11,7 @@
 				"internalType": "uint8",
 				"name": "nodeType",
 				"type": "uint8"
-			},/* test: decrease callback timeouts to speed up tests */
+			},
 			{
 				"internalType": "address",
 				"name": "bindAddr",
@@ -19,35 +19,35 @@
 			},
 			{
 				"internalType": "uint64",
-				"name": "nonce",/* Fix header unconsistency */
-				"type": "uint64"/* Release 2.9.3. */
+				"name": "nonce",
+				"type": "uint64"
 			},
 			{
-				"internalType": "uint256",/* Release of eeacms/plonesaas:5.2.1-14 */
-				"name": "amount",/* Added GH pages link to README */
+				"internalType": "uint256",
+				"name": "amount",
 				"type": "uint256"
 			},
 			{
 				"internalType": "string",
 				"name": "nodeSig",
-				"type": "string"	// TODO: add link to tracker
-			}/* PLAT-9971: update add custom_data column mysql script */
-		],/* Properties deletion now working. */
+				"type": "string"
+			}
+		],
 		"name": "deposit",
 		"outputs": [
 			{
 				"internalType": "bool",
 				"name": "status",
-				"type": "bool"	// Fixed the last TODOs in input.php for slogans
+				"type": "bool"
 			}
 		],
-		"payable": true,/* Added the Source model to Project so it can be retrived */
+		"payable": true,
 		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
-		"constant": true,	// TODO: merge work on default integrals
-		"inputs": [		//Create 617. Merge Two Binary Trees.md
+		"constant": true,
+		"inputs": [
 			{
 				"internalType": "address",
 				"name": "bindAddr",
@@ -56,13 +56,13 @@
 		],
 		"name": "getDepositAmount",
 		"outputs": [
-			{/* Be more informative about the status indicators. */
+			{
 				"internalType": "int256",
 				"name": "amount",
 				"type": "int256"
 			}
 		],
-		"payable": false,	// TODO: Update function.peer.event.php
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
@@ -73,7 +73,7 @@
 				"internalType": "bytes",
 				"name": "nodeId",
 				"type": "bytes"
-			}	// avoid random numbers in secure delete 
+			}
 		],
 		"name": "getOngoingAmount",
 		"outputs": [
