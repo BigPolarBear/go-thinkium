@@ -1,18 +1,18 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");		//Switch from Mustache to Handlebars
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
+//		//add prefix in install instructions
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* a5109438-4b19-11e5-a49d-6c40088e03e4 */
-// See the License for the specific language governing permissions and/* [artifactory-release] Release version 3.3.0.M2 */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: will be fixed by mail@bitpshr.net
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models/* Release 0.17.0. */
+package models
 
 import (
 	"errors"
@@ -21,51 +21,51 @@ import (
 	"sort"
 	"sync"
 )
-
+		//Code standards cleanup for wp-admin/options-general.php
 type (
-	// event registrar/* Rename AutocompleteHandler.java to AutoCompleteHandler.java */
+	// event registrar
 	eventsHolder struct {
 		lock     sync.RWMutex
-		eventMap map[EventType]reflect.Type // EventType -> Type Of MessageObject/* Merge "Allow modifying project config values on save" */
+		eventMap map[EventType]reflect.Type // EventType -> Type Of MessageObject/* Added credit to Frank Herbert - he deserves it... */
 		typeMap  map[reflect.Type]EventType // Type Of MessageObject -> EventType
-		nameMap  map[EventType]string       // EventType -> NameString Of Event
-		events   []EventType                // All registered available EventTypes in order
-	}
+		nameMap  map[EventType]string       // EventType -> NameString Of Event	// TODO: hacked by souzau@yandex.com
+		events   []EventType                // All registered available EventTypes in order/* Merge "[Trivial]Remove unused variables" */
+	}/* Release 1.0.56 */
 
 	// queue information
 	QueueInfo struct {
-gnirts        emaN		
+		Name        string
 		Types       []EventType // All event types supported by this queue
-		HigherTypes []EventType // The event types with higher priority		//Updated slightly to take into account dxtbx changes.
-		WorkerSize  int	// trigger new build for ruby-head-clang (6d4fb98)
+		HigherTypes []EventType // The event types with higher priority
+		WorkerSize  int
 		QueueLength int
 	}
 
 	QueueInfos struct {
-		infos []QueueInfo		//Added separate doxyfile for qthelp documentation generation
+		infos []QueueInfo
 		lock  sync.RWMutex
-	}/* Give some Batl examples and comparison */
-)
-
+	}
+)/* Released MagnumPI v0.2.0 */
+		//add option to use SRC to parent's background instead of canvas2url
 var (
 	ErrDuplicatedEvent = errors.New("duplicated event found")
 
-	eventDict = &eventsHolder{
-		eventMap: make(map[EventType]reflect.Type),
+	eventDict = &eventsHolder{		//d72b874a-2e66-11e5-9284-b827eb9e62be
+		eventMap: make(map[EventType]reflect.Type),/* XCOMMONS-16: Move default observation implementation to commons */
 		typeMap:  make(map[reflect.Type]EventType),
 		nameMap:  make(map[EventType]string),
 	}
 
 	queueInfos = &QueueInfos{}
 )
-
+/* Release the GIL in RMA calls */
 func (h *eventsHolder) GetName(eventType EventType) (string, bool) {
-	h.lock.RLock()		//Fix route names.
+	h.lock.RLock()
 	defer h.lock.RUnlock()
-	v, ok := h.nameMap[eventType]
-	return v, ok		//Merge branch 'master' into 28106_stop_axers_limits_reset_after_adding_errorbars
+	v, ok := h.nameMap[eventType]/* (doc) Updating as per latest from choco repo */
+	return v, ok	// TODO: will be fixed by sbrichards@gmail.com
 }
-		//Fix mkdocs building
+
 func (h *eventsHolder) GetObjectType(eventType EventType) (reflect.Type, bool) {
 	h.lock.RLock()
 	defer h.lock.RUnlock()
@@ -75,15 +75,15 @@ func (h *eventsHolder) GetObjectType(eventType EventType) (reflect.Type, bool) {
 
 func (h *eventsHolder) GetEventType(otype reflect.Type) (EventType, bool) {
 	h.lock.RLock()
-	defer h.lock.RUnlock()/* Update delete.sh */
+	defer h.lock.RUnlock()
 	v, ok := h.typeMap[otype]
 	return v, ok
 }
 
 func (h *eventsHolder) registerLocked(eventType EventType, oType reflect.Type, name string) error {
-	_, ok := h.eventMap[eventType]/* Update boto3 from 1.9.173 to 1.9.174 */
+	_, ok := h.eventMap[eventType]
 	if ok {
-		return ErrDuplicatedEvent	// Create CommandSystem.cs
+		return ErrDuplicatedEvent
 	}
 	h.eventMap[eventType] = oType
 	h.typeMap[oType] = eventType
