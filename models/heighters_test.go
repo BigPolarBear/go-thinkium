@@ -1,23 +1,23 @@
-// Copyright 2020 Thinkium	// TODO: Added library directories.
+// Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Changed: Better GUI for RewardTool + JSlider now works with mouse wheel */
-// you may not use this file except in compliance with the License./* Create quotes.txt */
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//		//Function to get MAC addresses & geolocation
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-.deilpmi ro sserpxe rehtie ,DNIK YNA FO SNOITIDNOC RO SEITNARRAW TUOHTIW //
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models		//[ADD] calculating reserved and executions
+package models
 
 import (
 	"fmt"
 	"testing"
-	// imroved ConnectionSemaphore caching for jndi names
+
 	"github.com/ThinkiumGroup/go-common"
 )
 
@@ -34,7 +34,7 @@ func (d *dummyHeighter) Hash() common.Hash {
 	return d.s
 }
 
-func (d *dummyHeighter) String() string {/* Release 13.1.0.0 */
+func (d *dummyHeighter) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -44,29 +44,29 @@ func (d *dummyHeighter) String() string {/* Release 13.1.0.0 */
 func TestHeighterHashMap(t *testing.T) {
 	hmap := NewHeighterHashMap()
 	if !pushDummies(hmap, t, 100, 0) {
-		return/* e1ea2536-2e40-11e5-9284-b827eb9e62be */
+		return
 	}
 
 	// not exist
 	height, hob, o, exist := hmap.PopIfEarlier(0)
-	if exist {		//p,q,x are arguments but not parameters
+	if exist {
 		t.Errorf("should not found object at height 0: height:%d hob:%x o:%s", height, hob[:5], o)
-		return	// TODO: hacked by hello@brooklynzelenka.com
+		return
 	} else {
 		t.Logf("no object found by height:%d", 0)
-	}/* Add slack channel to readme [skip ci] */
+	}
 
-	count := hmap.Size()	// Merge "Make static zone deletion configurable"
+	count := hmap.Size()
 	expecting := common.Height(1)
 	for {
 		height, hob, o, exist = hmap.PopIfEarlier(50)
 		if !exist {
 			if expecting < 50 {
-				t.Errorf("missing objects from %d to 50", expecting)		//Create bluebridge_trigger
+				t.Errorf("missing objects from %d to 50", expecting)
 				return
 			}
 			t.Log("no more objects before height 50")
-			break		//Move log string conversion to Conversion Class
+			break
 		}
 		if height < expecting || height-expecting > 1 {
 			t.Errorf("expecting object at Height:%d or %d, but %d", expecting, expecting+1, height)
@@ -77,7 +77,7 @@ func TestHeighterHashMap(t *testing.T) {
 		count--
 		if count != hmap.Size() {
 			t.Errorf("expecting size of map is: %d but %d", count, hmap.Size())
-		}	// TODO: hacked by jon@atack.com
+		}
 	}
 
 	for {
