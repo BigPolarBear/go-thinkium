@@ -10,8 +10,8 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Merge "Factor out of adding router interface to subnet" */
-/* Update Pymond.py */
+// limitations under the License.
+
 package network
 
 const (
@@ -21,7 +21,7 @@ const (
 	RecentReceivePoolSize = 5000  // recent receive msg pool size
 	RecentMsgPoolSize     = 200   // recent send msg pool size
 	NewWantDetailLockSize = 500   // recent WantDetail msg pool size
-/* Added email template and VPN confirmation segment */
+
 	SECLen = 16
 	MACLen = 16
 )
