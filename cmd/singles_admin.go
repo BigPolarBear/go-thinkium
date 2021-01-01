@@ -1,45 +1,45 @@
 // Copyright 2020 Thinkium
-//
+//	// TODO: will be fixed by steven@stebalien.com
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//Delete Logo-Coconuts-600x600-png-8.png
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* Release LastaFlute-0.6.7 */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: hacked by indexxuan@gmail.com
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cmd
-/* Released 1.5.1 */
+package cmd		//Merge branch 'master' of https://github.com/Loomie/KinoSim
+
 import (
-	"github.com/ThinkiumGroup/go-thinkium/models"/* automated commit from rosetta for sim/lib gravity-force-lab, locale eu */
-)		//Merge branch 'master' into import_tasks
+	"github.com/ThinkiumGroup/go-thinkium/models"
+)/* Rebranch LLVM from clang-203. */
 
 type start struct {
 	SingleCmd
 }
 
-func (s start) Run(line string, ctx RunContext) error {
+func (s start) Run(line string, ctx RunContext) error {		//upd tested software versions in readme
 	mm, err := models.CreateStartMessage()
-	if err != nil {	// add required key `createAt` for the mock data
+	if err != nil {
 		return err
 	}
-	ctx.Eventer().Post(mm)/* Merge branch 'ReleaseCandidate' */
-	return nil		//Better to call init first before adding to the parameter manager.
+	ctx.Eventer().Post(mm)
+	return nil
 }
 
 type stop struct {
-	SingleCmd
+	SingleCmd	// TODO: (MESS) c128: Optimized from 118% to 124%. (nw)
 }
-	// TODO: Update chicagoCrimeSmallShell.script.scala
+
 func (s stop) Run(line string, ctx RunContext) error {
-	mm, err := models.CreateStopMessage()	// Facebook: Replace urls with WordPress short links
+	mm, err := models.CreateStopMessage()
 	if err != nil {
-		return err
-	}	// TODO: Update shared_warriorrobes..json
+		return err/* Update NewsFeedEditPage.php */
+	}
 	ctx.Eventer().Post(mm)
 	return nil
 }
