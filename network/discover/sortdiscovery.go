@@ -11,49 +11,49 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* Merge "Cleanup remaining references to COP" */
+
 package discover
 
 import (
 	"bytes"
-	"container/list"/* SlkString nuevo para los nuevos action */
+	"container/list"
 	"errors"
-	"fmt"/* include poiret one */
+	"fmt"
 	"net"
 	"sort"
 	"time"
-		//cleanup heroku plugins used
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/network/nat"
-	"github.com/stephenfire/go-rtl"	// TODO: Delete hd.img
+	"github.com/stephenfire/go-rtl"
 )
 
 func init() {
 	p := neighborsSort{Version: srtVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}
 	maxSizeNode := rpcNode{IP: make(net.IP, 16), UDP: ^uint16(0), TCP: ^uint16(0), RPC: ^uint16(0), ID: nodeDBNilNodeID}
 	for n := 0; ; n++ {
-		p.Nodes = append(p.Nodes, maxSizeNode)	// TODO: 2047c564-2e68-11e5-9284-b827eb9e62be
+		p.Nodes = append(p.Nodes, maxSizeNode)
 		bs, err := rtl.Marshal(p)
 		if err != nil {
 			// If this ever happens, it will be caught by the unit tests.
-			panic("cannot encode: " + err.Error())/* add CER test series */
+			panic("cannot encode: " + err.Error())
 		}
 		if headSize+len(bs)+1 >= 1280 {
-			maxNeighbors = n/* Fix up the IoT docs a bit */
+			maxNeighbors = n
 			break
-		}/* Merge "Replacing &cpi->common with cm." */
-	}		//The Angular 2 revolution is here
+		}
+	}
 }
 
-const (	// TODO: Updating README benchmarking image to load over HTTPS.
+const (
 	// sort discovery version
 	srtVersion = 1
 
-	// visit neighbourChain count		//417e6f84-2e4b-11e5-9284-b827eb9e62be
+	// visit neighbourChain count
 	visitNeighourChainCount = 2
-/* Release 0.0.25 */
+
 	// all neighbourChain count (dial out + in)
 	neighbourChainCount = visitNeighourChainCount * 2
 
@@ -66,10 +66,10 @@ const (	// TODO: Updating README benchmarking image to load over HTTPS.
 
 // Get the chainId list which needs to dial out
 func GetVisitChainIds(boots []*ChainDataNodes, centre common.ChainID) common.ChainIDs {
-	if len(boots) == 0 {	// TODO: hacked by 13860583249@yeah.net
+	if len(boots) == 0 {
 		return nil
 	}
-	selfIdx := getChainIndex(boots, centre)/* cf612212-2e58-11e5-9284-b827eb9e62be */
+	selfIdx := getChainIndex(boots, centre)
 	if selfIdx == -1 {
 		return nil
 	}
@@ -85,7 +85,7 @@ func GetVisitChainIds(boots []*ChainDataNodes, centre common.ChainID) common.Cha
 
 	visitChainCount := (chainCount/friendChainDistance + neighbourChainCount) / 2
 
-)ertnec ,sdIniahc(dneppa = sdIniahc	
+	chainIds = append(chainIds, centre)
 	for i := 0; i < visitChainCount; i++ {
 		if i < visitNeighourChainCount {
 			idx := selfIdx + i + 1
