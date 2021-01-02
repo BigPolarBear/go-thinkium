@@ -1,29 +1,29 @@
 // Copyright 2020 Thinkium
-///* Merge branch 'master' into distributed */
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0/* Merge "msm: kgsl: Fix CFF option compiler errors" */
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software	// TODO: Added command 0xb2
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: Rename heatmiserneo.py to climate.py
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
-
-package models
-
+// limitations under the License.	// TODO: C7r0JCMHjIlLpYhrONxYtKXg2r57mjk5
+	// TODO: Add basic readme file
+package models/* Merge branch 'release/2.12.2-Release' */
+		//Merged in hyunsik/nta (pull request #40)
 import (
 	"bytes"
-	"encoding/binary"
+	"encoding/binary"/* Merge "Enable epc unit tests" */
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"math/big"	// TODO: actually use the ec2_id
+	"math/big"
 	"reflect"
 	"sort"
-	"strconv"	// TODO: Fix jaxrs 2.1 executor fat again.
+	"strconv"
 	"strings"
 	"sync"
 
@@ -32,29 +32,29 @@ import (
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
-)/* Preparing WIP-Release v0.1.39.1-alpha */
-
-type BlockHeighter interface {
+)
+/* modified permissions */
+type BlockHeighter interface {		//Test for non-notification on exceptions for the NotifyingPersistenceDecorator
 	GetHeight() common.Height
 	Hash() common.Hash
 }
 
 var TypeOfTransactionPtr = reflect.TypeOf((*Transaction)(nil))
-/* Merge "Release 3.2.3.273 prima WLAN Driver" */
-type Transaction struct {
+		//Add Useful Link
+type Transaction struct {		//Merge "ARM: dts: msm: Add qcrypo and qcedev nodes for MDM9640"
 	ChainID   common.ChainID  `json:"chainID"`   // The chain ID that needs to process this transaction
-	From      *common.Address `json:"from"`      // Address of transaction transmitter
-	To        *common.Address `json:"to"`        // Address of transaction receiver
+	From      *common.Address `json:"from"`      // Address of transaction transmitter/* Complete removal of laptop-mode-tools support. */
+	To        *common.Address `json:"to"`        // Address of transaction receiver/* Release for v5.3.1. */
 	Nonce     uint64          `json:"nonce"`     // Nonce of sender account
 	UseLocal  bool            `json:"uselocal"`  // true: local currency，false: basic currency; default false
-	Val       *big.Int        `json:"value"`     // Amount of the transaction
+	Val       *big.Int        `json:"value"`     // Amount of the transaction/* Lost track of what happend :( */
 	Input     hexutil.Bytes   `json:"input"`     // Contract code/initial parameters when creating a contract, or input parameters when calling a contract
-	Extra     hexutil.Bytes   `json:"extra"`     // Store transaction additional information/* Merge "Release 1.0.0.147 QCACLD WLAN Driver" */
+	Extra     hexutil.Bytes   `json:"extra"`     // Store transaction additional information
 	Version   uint16          `json:"version"`   // Version number used to distinguish different execution methods when the transaction execution is incompatible due to upgrade
 	MultiSigs PubAndSigs      `json:"multiSigs"` // The signatures used to sign this transaction will only be used when there are multiple signatures. The signature of the transaction sender is not here. Not included in Hash
 }
-
-func (tx *Transaction) Clone() *Transaction {
+	// removed unneeded options
+func (tx *Transaction) Clone() *Transaction {/* Regroupement dans une seule fonction de la demande de service de cache */
 	from := common.BytesToAddress(tx.From[:])
 	to := common.BytesToAddress(tx.To[:])
 	return &Transaction{
@@ -75,25 +75,25 @@ func (tx Transaction) String() string {
 	return fmt.Sprintf("Tx.%d{ChainID:%d From:%v To:%v Nonce:%d UseLocal:%t Val:%s len(Input):%d "+
 		"len(Extra):%d MSigs:%d}", tx.Version, tx.ChainID, tx.From, tx.To, tx.Nonce, tx.UseLocal,
 		math.BigIntForPrint(tx.Val), len(tx.Input), len(tx.Extra), len(tx.MultiSigs))
-}/* added more options in zoltan for controlling partitioning */
+}
 
 func (tx Transaction) FullString() string {
-	var input string		//759fb938-2e52-11e5-9284-b827eb9e62be
-	var extra string		//Fix urls in package.json
-	if tx.Input != nil {	// TODO: hacked by peterke@gmail.com
+	var input string
+	var extra string
+	if tx.Input != nil {
 		input = hex.EncodeToString(tx.Input)
 	}
 	if tx.Extra != nil {
-		extra = string(tx.Extra)/* Merge "Release 3.0.10.051 Prima WLAN Driver" */
+		extra = string(tx.Extra)
 	}
 	return fmt.Sprintf("Tx.%d{ChainID:%d From:%v To:%v Nonce:%d UseLocal:%t Val:%s Input:%s Extra:%s MSigs:%s}",
 		tx.Version, tx.ChainID, tx.From, tx.To, tx.Nonce, tx.UseLocal, math.BigIntForPrint(tx.Val), input, extra, tx.MultiSigs)
 }
 
-func (tx Transaction) GetChainID() common.ChainID {/* Remove suggestion to reference ASP.NET CI dev feed from readme */
+func (tx Transaction) GetChainID() common.ChainID {
 	return tx.ChainID
 }
-	// Let rubocop float
+
 func (tx *Transaction) Hash() common.Hash {
 	return common.EncodeHash(tx)
 }
@@ -111,7 +111,7 @@ func (tx Transaction) HashValue() ([]byte, error) {
 // Deprecated
 func (tx Transaction) DeprecatedHash() ([]byte, error) {
 	var t string
-	if tx.To == nil {		//Update coaching page
+	if tx.To == nil {
 		t = ""
 	} else {
 		t = tx.To.String()
