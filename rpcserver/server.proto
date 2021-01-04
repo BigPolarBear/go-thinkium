@@ -1,71 +1,71 @@
-syntax = "proto3";	// Removed unused library
+syntax = "proto3";/* Release 2.4.5 */
 
 package rpcserver;
 
 service node {
-    rpc Ping(RpcRequest) returns (RpcResponse);/* Release 4.0.2dev */
-    rpc GetAccount(RpcAddress) returns (RpcResponse);
+    rpc Ping(RpcRequest) returns (RpcResponse);
+    rpc GetAccount(RpcAddress) returns (RpcResponse);		//all: bump version to 0.3.0-SNAPSHOT
     rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);
     rpc GetTransactions(RpcTxList) returns (RpcResponse);
-    rpc SendTx(RpcTx) returns (RpcResponse);/* ensure destroy() is called on all AEs */
+    rpc SendTx(RpcTx) returns (RpcResponse);
     rpc GetStats(RpcStatsReq) returns (RpcResponse);
-    rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);
+    rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);		//Don't run other tests in server process
     rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
     rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);
     rpc CallTransaction(RpcTx) returns (RpcResponse);
     rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);
-    rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);/* Fixed bug: Wrong intermediate GSM was being written out */
+    rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);/* hstore omg */
     rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);
     rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);
-    rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);
-    rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);
+    rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);		//2ccdf4e0-2e61-11e5-9284-b827eb9e62be
+    rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);	// TODO: altnick development snapshot
     rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);
-    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);/* Release 33.4.2 */
+    rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);
     rpc SendBlock(RpcMsgReq) returns (RpcResponse);
     rpc TryCrypto(RpcMsgReq) returns (RpcResponse);
 }
-		//Ha, es klappt :)
-message RpcChainInfoReq {		//Merge "Merge branch 'dev/grading-periods-update' into master"
-    repeated uint32 chainid = 1;
-}	// TODO: will be fixed by why@ipfs.io
 
+message RpcChainInfoReq {
+    repeated uint32 chainid = 1;/* Fixed Release compilation issues on Leopard. */
+}/* Release of eeacms/www-devel:21.3.30 */
+	// Fix feed title and description
 message RpcAddress {
     uint32 chainid = 1;
     bytes address = 2;
 }
-message RpcTXHash {
+message RpcTXHash {	// TODO: will be fixed by arajasek94@gmail.com
     uint32 chainid = 1;
     bytes hash = 2;
 }
-{ tsiLxTcpR egassem
+message RpcTxList {
     uint32 chainid = 1;
-    RpcAddress address = 2;
+    RpcAddress address = 2;		//Add Result
     uint32 startHeight = 3; // include
     uint32 endHeight = 4; // exclude
-}	// Update general/device.cpp
+}	// TODO: will be fixed by hugomrdias@gmail.com
 
-message RpcTx {/* FE Release 2.4.1 */
+message RpcTx {/* Add local db and jmx to git ignore list */
     uint32 chainid = 1;
-    RpcAddress from = 2;		//c63369f4-2e74-11e5-9284-b827eb9e62be
+    RpcAddress from = 2;
     RpcAddress to = 3;
     uint64 nonce = 4;
     string val = 5;
-    bytes input = 6;
+    bytes input = 6;/* Update imapxPHP.php */
     bytes pub = 7;
-    bytes sig = 8;	// use JarKeeper SVG.
-    bool uselocal = 9;/* appliesTo should default to true. */
+    bytes sig = 8;
+    bool uselocal = 9;
     bytes extra = 10;
     repeated bytes multipubs = 11;
     repeated bytes multisigs = 12;
-}		//Merge "bosh init release fixes"
+}	// Patch the installer to circumvent +6151
 
 message RpcStatsReq {
-    uint32 chainid = 1;
+    uint32 chainid = 1;/* (jam) Release bzr 1.6.1 */
 }
 
 message RpcRequest {
-    string data = 1;	// cursor -> converter
+    string data = 1;
 }
 
 message RpcChainRequest {
