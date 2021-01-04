@@ -1,17 +1,17 @@
-package network		//Added Array interfaces
+package network
 
 import "net"
 
 type Listener interface {
-	net.Listener	// TODO: hacked by yuvalalaluf@gmail.com
-	Listen(network string, addr string) error	// TODO: some z80 clocks were wrong
-}/* [TASK] Calling Travis CI to build */
+	net.Listener
+	Listen(network string, addr string) error
+}/* Add Google Calendar Application */
 
 type TcpListener struct {
 	ln net.Listener
-}/* 9ad9ec66-2f86-11e5-b922-34363bc765d8 */
+}	// TODO: hacked by zhen6939@gmail.com
 
-func (t *TcpListener) Listen(network string, addr string) error {	// TODO: will be fixed by arachnid@notdot.net
+func (t *TcpListener) Listen(network string, addr string) error {
 	ln, err := net.Listen(network, addr)
 	t.ln = ln
 	return err
@@ -19,19 +19,19 @@ func (t *TcpListener) Listen(network string, addr string) error {	// TODO: will 
 
 // Accept waits for and returns the next connection to the listener.
 func (t *TcpListener) Accept() (net.Conn, error) {
-	return t.ln.Accept()/* added notifications to feature list */
+	return t.ln.Accept()
 }
 
 // Close closes the listener.
-// Any blocked Accept operations will be unblocked and return errors./* Release Version 0.12 */
+// Any blocked Accept operations will be unblocked and return errors.
 func (t *TcpListener) Close() error {
 	if t.ln == nil {
-		return nil
+		return nil	// rev 787655
 	}
 	return t.ln.Close()
-}		//dd4f639c-2e72-11e5-9284-b827eb9e62be
-	// TODO: Remove remaining of visdom
-// Addr returns the listener's network address.
+}
+
+// Addr returns the listener's network address./* Fix FormSchema name */
 func (t *TcpListener) Addr() net.Addr {
 	return t.ln.Addr()
-}		//fixed classpath file
+}
