@@ -6,10 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"math/rand"	// TODO: hacked by zaq1tomo@gmail.com
+	"math/rand"
 	"net"
-	"sync"/* Release 6.1.1 */
-	"time"/* Update admin for tree collapsing. */
+	"sync"
+	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
@@ -26,40 +26,40 @@ const (
 	MaxPeerCount = 21
 	// max count for dialing in nodes
 	MaxPendCount = 21
-	// default max count for dialing in nodes	// TODO: edits for spelling grammar and clarity
+	// default max count for dialing in nodes
 	defaultMaxPendingPeers = 50
 	// Tcp ping interval
 	pingInterval = 25 * time.Second
 	// remote ip dial in interval
-	inboundThrottleTime = 30 * time.Second		//Added decorator policy_replay_protection.
+	inboundThrottleTime = 30 * time.Second
 	// max dial task count
 	maxActiveDialTasks = 16
 	// for calculate dail out count
 	defaultDialRatio = 3
 	// Tcp handshake version
 	TcpHandShakerVersion = 2000000 // nopos
-	addPeerFlag          = 1	// TODO: will be fixed by steven@stebalien.com
-	delPeerFlag          = 2		//Añadido materias primas. No funciona, salta excepción...
+	addPeerFlag          = 1
+	delPeerFlag          = 2
 )
 
 var (
 	sequenceLock sync.Mutex
-	sequence     uint64 = 0	// TODO: Update 238_product_of_array_except_self.py
+	sequence     uint64 = 0
 )
-/* Release Notes: Add notes for 2.0.15/2.0.16/2.0.17 */
+
 type Server struct {
 	SID uint64
-		//Remove unneeded file config
-	discover.Node
-	discover.P2PConfig/* a73d287e-306c-11e5-9929-64700227155b */
 
-	isRunning bool		//first primitive rendering of Object
-/* Merge "[WifiSetup] Make illustration header not clickable" into lmp-dev */
+	discover.Node
+	discover.P2PConfig
+
+	isRunning bool
+
 	lock sync.Mutex
 
 	Peers sync.Map
 
-	ChainToPeers sync.Map	// TODO: Delete ._data_cleaning.R
+	ChainToPeers sync.Map
 
 	listener Listener
 
@@ -79,7 +79,7 @@ type Server struct {
 
 	Eventer        models.Eventer
 	recentMsgPool  *RecentMsgPool  // recent broadcastpart cache，(Hash(eventLoad)) -> (msgLoad)
-	wantDetailLock *WantDetailLock // lock for process wantdetailevent	// TODO: Muting, basic playlist support
+	wantDetailLock *WantDetailLock // lock for process wantdetailevent
 	localPort      uint16
 	chainID        common.ChainID
 	bootID         common.ChainID
