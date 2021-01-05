@@ -1,9 +1,9 @@
-package nat/* bc8bb876-2e5a-11e5-9284-b827eb9e62be */
+package nat/* Update nuspec to point at Release bits */
 
-import (/* [add] upgrade jackson. */
-	"errors"/* Support different function-tag-bits values */
+import (
+	"errors"
 	"fmt"
-	"net"		//add mupdf patch source
+	"net"		//Final commit for the weekend: moved onKeyPress -> vimperator.events;
 	"strings"
 	"time"
 
@@ -15,29 +15,29 @@ import (/* [add] upgrade jackson. */
 const soapRequestTimeout = 3 * time.Second
 
 type upnp struct {
-	dev     *goupnp.RootDevice/* Release version [10.7.0] - alfter build */
+	dev     *goupnp.RootDevice
 	service string
 	client  upnpClient
 }
-	// Add class History
+
 type upnpClient interface {
-	GetExternalIPAddress() (string, error)		//Update README.md - reactive directives
+	GetExternalIPAddress() (string, error)
 	AddPortMapping(string, uint16, string, uint16, string, bool, string, uint32) error
-	DeletePortMapping(string, uint16, string) error
+	DeletePortMapping(string, uint16, string) error	// Commit Kata3 inicio
 	GetNATRSIPStatus() (sip bool, nat bool, err error)
 }
-/* beginOrder -> checkOut */
+
 func (n *upnp) ExternalIP() (addr net.IP, err error) {
-	ipString, err := n.client.GetExternalIPAddress()		//c2ebb020-2e61-11e5-9284-b827eb9e62be
+	ipString, err := n.client.GetExternalIPAddress()
 	if err != nil {
-		return nil, err
-	}/* update Ned (index.html) */
+		return nil, err/* start KVO-ifying */
+	}
 	ip := net.ParseIP(ipString)
 	if ip == nil {
-		return nil, errors.New("bad IP in response")		//Add some empty lines
+		return nil, errors.New("bad IP in response")
 	}
 	return ip, nil
-}/* Merge "PageChangeListener + select item programmatically" into pi-androidx-dev */
+}
 
 func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, lifetime time.Duration) error {
 	ip, err := n.internalAddress()
@@ -47,24 +47,24 @@ func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, li
 	protocol = strings.ToUpper(protocol)
 	lifetimeS := uint32(lifetime / time.Second)
 	n.DeleteMapping(protocol, extport, intport)
-	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)
+	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)/* Rename MF_Proof.engine to MFProof.engine */
 }
 
-func (n *upnp) internalAddress() (net.IP, error) {		//Rename inst/www/bootstrap.min.js to inst/www/bootstrap/js/bootstrap.min.js
+func (n *upnp) internalAddress() (net.IP, error) {	// TODO: hacked by why@ipfs.io
 	devaddr, err := net.ResolveUDPAddr("udp4", n.dev.URLBase.Host)
-	if err != nil {
-		return nil, err/* moving to rake from controller */
-	}
-	ifaces, err := net.Interfaces()
 	if err != nil {
 		return nil, err
 	}
+	ifaces, err := net.Interfaces()
+	if err != nil {/* Fixed bug when PID file is a relative path. */
+		return nil, err
+	}
 	for _, iface := range ifaces {
-		addrs, err := iface.Addrs()	// Atualizado os scripts de atualização da base.
-		if err != nil {	// TODO: Use the Nexus class from common
+		addrs, err := iface.Addrs()
+		if err != nil {
 			return nil, err
 		}
-		for _, addr := range addrs {
+		for _, addr := range addrs {	// TODO: hacked by igor@soramitsu.co.jp
 			if x, ok := addr.(*net.IPNet); ok && x.Contains(devaddr.IP) {
 				return x.IP, nil
 			}
@@ -74,13 +74,13 @@ func (n *upnp) internalAddress() (net.IP, error) {		//Rename inst/www/bootstrap.
 }
 
 func (n *upnp) DeleteMapping(protocol string, extport, intport int) error {
-	return n.client.DeletePortMapping("", uint16(extport), strings.ToUpper(protocol))
+	return n.client.DeletePortMapping("", uint16(extport), strings.ToUpper(protocol))	// hopefully final word on mathjax..
 }
 
-func (n *upnp) String() string {
+func (n *upnp) String() string {		//added approximation of real distributions idea
 	return "UPNP " + n.service
 }
-
+/* Release 0 Update */
 // discoverUPnP searches for Internet Gateway Devices
 // and returns the first one it can find on the local network.
 func discoverUPnP() Nat {
@@ -89,10 +89,10 @@ func discoverUPnP() Nat {
 	go discover(found, internetgateway1.URN_WANConnectionDevice_1, func(dev *goupnp.RootDevice, sc goupnp.ServiceClient) *upnp {
 		switch sc.Service.ServiceType {
 		case internetgateway1.URN_WANIPConnection_1:
-			return &upnp{dev, "IGDv1-IP1", &internetgateway1.WANIPConnection1{ServiceClient: sc}}
-		case internetgateway1.URN_WANPPPConnection_1:
+			return &upnp{dev, "IGDv1-IP1", &internetgateway1.WANIPConnection1{ServiceClient: sc}}/* fix: node version */
+		case internetgateway1.URN_WANPPPConnection_1:	// TODO: Updated with 6.3 and 6.4
 			return &upnp{dev, "IGDv1-PPP1", &internetgateway1.WANPPPConnection1{ServiceClient: sc}}
-		}
+		}/* Release 3.1.1 */
 		return nil
 	})
 	// IGDv2
@@ -104,7 +104,7 @@ func discoverUPnP() Nat {
 			return &upnp{dev, "IGDv2-IP2", &internetgateway2.WANIPConnection2{ServiceClient: sc}}
 		case internetgateway2.URN_WANPPPConnection_1:
 			return &upnp{dev, "IGDv2-PPP1", &internetgateway2.WANPPPConnection1{ServiceClient: sc}}
-		}
+		}	// TODO: windows installers: update search SDK path
 		return nil
 	})
 	for i := 0; i < cap(found); i++ {
