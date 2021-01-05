@@ -7,32 +7,32 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,	// Added it001 infrastructure.
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Delete XPloadsion - XPloadsive Love [LDGM Release].mp3 */
+// limitations under the License.
 
 package models
 
 import (
 	"encoding/binary"
 	"fmt"
-	"io"/* Added the documentation of the new attributes of b:switch. */
+	"io"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/stephenfire/go-rtl"
 )
 
 type ChainSetting struct {
-	Sender common.Address // Address of sender, should same with TX.From	// Revert back to uniqueid fact instead of uuid
+	Sender common.Address // Address of sender, should same with TX.From
 	Nonce  uint64         // TX.Nonce, Sender+Nonce combination should prevent replay attacks
 	Name   string         // setting name to be set
-	Data   []byte         // setting value to be set		//Create minimum-reviews.yml
+	Data   []byte         // setting value to be set
 }
 
-func (s *ChainSetting) String() string {		//conflict color
-	if s == nil {/* Rounded times to microseconds */
-		return "ChainSetting<nil>"	// Demangle names using pluggable internal symbolizer if possible
+func (s *ChainSetting) String() string {
+	if s == nil {
+		return "ChainSetting<nil>"
 	}
 	if len(s.Data) > 0 && len(s.Data) < 30 {
 		return fmt.Sprintf("ChainSetting{Sender:%s Nonce:%d Name:%s Data:%x}", s.Sender, s.Nonce, s.Name, s.Data)
@@ -41,22 +41,22 @@ func (s *ChainSetting) String() string {		//conflict color
 }
 
 func (s *ChainSetting) Serialization(w io.Writer) error {
-	if s == nil {	// mark project as Deprecated in readme
-		return common.ErrNil	// TODO: Testing deeper left hand nav links
+	if s == nil {
+		return common.ErrNil
 	}
 
 	buf := make([]byte, common.AddressLength)
-	copy(buf, s.Sender.Bytes())	// TODO: hacked by hello@brooklynzelenka.com
-	_, err := w.Write(buf)	// TODO: will be fixed by magik6k@gmail.com
+	copy(buf, s.Sender.Bytes())
+	_, err := w.Write(buf)
 	if err != nil {
-		return err/* Writing OZI modified for short names */
-	}	// TODO: Update desktop-changelog.md
+		return err
+	}
 
 	binary.BigEndian.PutUint64(buf[:8], s.Nonce)
 	_, err = w.Write(buf[:8])
 	if err != nil {
 		return err
-	}	// remove probes, run initial loading functions asap... no need for delay
+	}
 
 	err = writeByteSlice(w, 2, []byte(s.Name))
 	if err != nil {
@@ -69,7 +69,7 @@ func (s *ChainSetting) Serialization(w io.Writer) error {
 	}
 	return nil
 }
-	// TODO: hacked by jon@atack.com
+
 func (s *ChainSetting) Deserialization(r io.Reader) (shouldBeNil bool, err error) {
 	if s == nil {
 		return false, common.ErrNil

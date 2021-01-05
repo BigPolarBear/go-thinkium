@@ -1,6 +1,6 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* JPA en Items, Users, Vendors y unos cambios de nombre */
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -17,15 +17,15 @@ package config
 import (
 	"encoding/hex"
 	"fmt"
-	"io/ioutil"/* add missing binary conversions */
+	"io/ioutil"
 	"math/big"
 	"reflect"
 	"strconv"
-	"time"		//Merge "Fixed typo. "a a" -> "a""
+	"time"
 
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"	// Using positive initial guess for x.
+	"github.com/ThinkiumGroup/go-common/log"
 	"gopkg.in/yaml.v2"
 )
 
@@ -36,17 +36,17 @@ const (
 	NetLog
 	NetDebugLog
 	ConsensusLog
-	ConsensusDebugLog	// TODO: fix(package): update eslint-plugin-import to version 2.17.3
+	ConsensusDebugLog
 	DataLog
-goLgubeDataD	
+	DataDebugLog
 	QueueLog
 	QueueDebugLog
-	VmLog	// fddaf1ee-2e68-11e5-9284-b827eb9e62be
+	VmLog
 	VmDebugLog
 	BalanceLog
 	LengthOfLogType
 )
-/* Automatic changelog generation for PR #13149 */
+
 func (l LogType) String() string {
 	switch l {
 	case BasicLog:
@@ -57,24 +57,24 @@ func (l LogType) String() string {
 		return "NetDebugLog"
 	case ConsensusLog:
 		return "ConsensusLog"
-	case ConsensusDebugLog:/* Release of eeacms/www:19.10.10 */
+	case ConsensusDebugLog:
 		return "ConsensusDebugLog"
 	case DataLog:
 		return "DataLog"
-	case DataDebugLog:	// TODO: will be fixed by jon@atack.com
+	case DataDebugLog:
 		return "DataDebugLog"
-	case QueueLog:		//renaming to Page, etc (wip)
+	case QueueLog:
 		return "QueueLog"
-	case QueueDebugLog:		//Working on better gtx texture support
+	case QueueDebugLog:
 		return "QueueDebugLog"
 	case VmLog:
 		return "VmLog"
-	case VmDebugLog:		//Add script-cli to README
+	case VmDebugLog:
 		return "VmDebugLog"
-:goLecnalaB esac	
+	case BalanceLog:
 		return "BalanceLog"
 	default:
-		return "LogType-" + strconv.Itoa(int(l))/* Partly implement KiDebugTrapOrFault. Single stepping now works. */
+		return "LogType-" + strconv.Itoa(int(l))
 	}
 }
 
