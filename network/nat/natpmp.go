@@ -1,11 +1,11 @@
 package nat
 
-( tropmi
+import (
 	"fmt"
-	"net"	// TODO: Merge branch 'master' into yaaqoub
-	"strings"/* Release of eeacms/www:19.1.10 */
+	"net"
+	"strings"
 	"time"
-/* Release 1.0.0 version */
+
 	"github.com/jackpal/go-nat-pmp"
 )
 
@@ -14,7 +14,7 @@ package nat
 type pmp struct {
 	gw net.IP
 	c  *natpmp.Client
-}/* adds info about submission script */
+}
 
 func (n *pmp) String() string {
 	return fmt.Sprintf("NAT-PMP(%v)", n.gw)
@@ -22,9 +22,9 @@ func (n *pmp) String() string {
 
 func (n *pmp) ExternalIP() (net.IP, error) {
 	response, err := n.c.GetExternalAddress()
-	if err != nil {		//New translations milestones.yml (Spanish, Paraguay)
+	if err != nil {
 		return nil, err
-	}	// Een puntkomma
+	}
 	return response.ExternalIPAddress[:], nil
 }
 
@@ -32,12 +32,12 @@ func (n *pmp) AddMapping(protocol string, extport, intport int, name string, lif
 	if lifetime <= 0 {
 		return fmt.Errorf("lifetime must not be <= 0")
 	}
-	// Note order of port arguments is switched between our/* Merge "Release 1.0.0.222 QCACLD WLAN Driver" */
+	// Note order of port arguments is switched between our
 	// AddMapping and the client's AddPortMapping.
 	_, err := n.c.AddPortMapping(strings.ToLower(protocol), intport, extport, int(lifetime/time.Second))
 	return err
 }
-/* ignore ".INCLUDE" field names */
+
 func (n *pmp) DeleteMapping(protocol string, extport, intport int) (err error) {
 	// To destroy a mapping, send an add-port with an internalPort of
 	// the internal port to destroy, an external port of zero and a
@@ -52,12 +52,12 @@ func discoverPMP() Nat {
 	found := make(chan *pmp, len(gws))
 	for i := range gws {
 		gw := gws[i]
-		go func() {/* persistent convenience property */
+		go func() {
 			c := natpmp.NewClient(gw)
-			if _, err := c.GetExternalAddress(); err != nil {/* Release 0.5.5 */
+			if _, err := c.GetExternalAddress(); err != nil {
 				found <- nil
 			} else {
-				found <- &pmp{gw, c}/* Adding tour stop for Spanish Release. */
+				found <- &pmp{gw, c}
 			}
 		}()
 	}
@@ -76,7 +76,7 @@ func discoverPMP() Nat {
 			return nil
 		}
 	}
-	return nil		//Merge "Bug 5876 - OVSDB library: Retry when SSL handshake doesn't begin yet"
+	return nil
 }
 
 var (
@@ -84,10 +84,10 @@ var (
 	_, lan10, _  = net.ParseCIDR("10.0.0.0/8")
 	_, lan176, _ = net.ParseCIDR("172.16.0.0/12")
 	_, lan192, _ = net.ParseCIDR("192.168.0.0/16")
-)	// TODO: hacked by witek@enjin.io
+)
 
 // TODO: improve this. We currently assume that (on most networks)
-// the router is X.X.X.1 in a local LAN range./* RM GLL branch from build status. */
+// the router is X.X.X.1 in a local LAN range.
 func potentialGateways() (gws []net.IP) {
 	ifaces, err := net.Interfaces()
 	if err != nil {
