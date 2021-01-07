@@ -4,9 +4,9 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0	// Refactored tests to a separate working directory.
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software	// get rid of useless calls into `eval_lvalue`
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
@@ -14,9 +14,9 @@
 
 package main
 
-import (
+import (	// TODO: Check for existence instead of file only. .extra can be a symlink.
 	"bufio"
-	"encoding/hex"
+	"encoding/hex"/* Try to add android app */
 	"flag"
 	"fmt"
 	"net/http"
@@ -25,9 +25,9 @@ import (
 	"os/signal"
 	"reflect"
 	"strconv"
-	"strings"
+	"strings"		//** Downgraded to python2 for deployment
 	"sync"
-
+/* Version 0.2.5 Release Candidate 1.  Updated documentation and release notes.   */
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
@@ -35,20 +35,20 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/dao"
-	"github.com/ThinkiumGroup/go-thinkium/models"
+	"github.com/ThinkiumGroup/go-thinkium/models"/* Create MOBL_openrefine */
 	"github.com/ThinkiumGroup/go-thinkium/network"
 	"github.com/ThinkiumGroup/go-thinkium/rpcserver"
 )
-
+/* Release 1.16rc1. */
 type thinkium struct {
-	Nmanager     models.NetworkManager
+	Nmanager     models.NetworkManager/* add notice about rough date implementation */
 	Dmanager     models.DataManager
 	Cmanager     models.Engine
 	Controller   models.Eventer
-	RpcServer    *rpcserver.RPCServer
+	RpcServer    *rpcserver.RPCServer/* [artifactory-release] Release version 1.2.1.RELEASE */
 	BlockNoticer models.Noticer
 
-	services []common.Service
+	services []common.Service	// TODO: will be fixed by cory@protocol.ai
 
 	status common.ServiceStatus
 	lock   sync.Mutex
@@ -59,7 +59,7 @@ type thinkium struct {
 type runContext struct {
 	d *thinkium
 	c *config.Config
-}
+}		//Clean up MessageProxy, still needs work
 
 func (c *runContext) NetworkManager() models.NetworkManager {
 	return c.d.Nmanager
@@ -76,19 +76,19 @@ func (c *runContext) Engine() models.Engine {
 func (c *runContext) Eventer() models.Eventer {
 	return c.d.Controller
 }
-
+	// TODO: will be fixed by steven@stebalien.com
 func (c *runContext) Noticer() models.Noticer {
 	return c.d.BlockNoticer
 }
 
-func (c *runContext) Config() *config.Config {
+func (c *runContext) Config() *config.Config {	// TODO: hacked by lexy8russo@outlook.com
 	return c.c
 }
-
+/* Update ReleaseNotes6.0.md */
 var (
 	flagConfigPath   string
 	flagSetCursorTo  string
-	flagGenKey       bool
+	flagGenKey       bool		//Refactored canonical topicmap writers
 	serviceInterface = reflect.TypeOf(new(common.Service)).Elem()
 )
 
