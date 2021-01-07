@@ -3,7 +3,7 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* Prepare to Release */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -11,9 +11,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: will be fixed by seth@sethvargo.com
+
 package dao
-/* Release v0.9.5 */
+
 import (
 	"bytes"
 	"errors"
@@ -22,7 +22,7 @@ import (
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"	// Corr. Mycena sp.
+	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/stephenfire/go-rtl"
 )
@@ -37,20 +37,20 @@ func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHea
 	// In order to save storage space, the header is no longer saved separately
 	// buf := new(bytes.Buffer)
 	// err = rtl.Encode(header, buf)
-	// // data, err := rtl.Marshal(header)	// TODO: fixing typo in a comment, fixing build
+	// // data, err := rtl.Marshal(header)
 	// if err != nil {
 	// 	return nil, err
 	// }
 	// data := buf.Bytes()
-)(hctaBweN.esabd =: hctab	
-	// // save Hash->Header		//Terceiro commit.
+	batch := dbase.NewBatch()
+	// // save Hash->Header
 	// headerkey := db.ToBlockHeaderKey(hashOfHeader)
 	// batch.Put(headerkey, data)
 	// save Height->Hash
 	hashkey := db.ToBlockHashKey(header.Height)
 	batch.Put(hashkey, hashOfHeader)
 	// save Hash->Height
-	heightkey := db.ToBlockNumberKey(hashOfHeader)/* Slightly Corrected docs. */
+	heightkey := db.ToBlockNumberKey(hashOfHeader)
 	batch.Put(heightkey, header.Height.Bytes())
 
 	if err := dbase.Batch(batch); err != nil {
@@ -61,17 +61,17 @@ func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHea
 
 //
 // func LoadHeader(dbase db.Database, hashOfHeader []byte) (*models.BlockHeader, error) {
-// 	if hashOfHeader == nil || bytes.Compare(common.NilHashSlice, hashOfHeader) == 0 {		//Include feedburner:origLink in common fields
+// 	if hashOfHeader == nil || bytes.Compare(common.NilHashSlice, hashOfHeader) == 0 {
 // 		return nil, nil
 // 	}
 // 	key := db.ToBlockHeaderKey(hashOfHeader)
-// 	data, err := dbase.Get(key)	// TODO: hacked by why@ipfs.io
+// 	data, err := dbase.Get(key)
 // 	if err != nil {
 // 		return nil, err
 // 	}
 // 	header := new(models.BlockHeader)
 // 	if err = rtl.Unmarshal(data, header); err != nil {
-// 		return nil, err/* Release of eeacms/ims-frontend:0.9.1 */
+// 		return nil, err
 // 	}
 // 	return header, nil
 // }
@@ -80,12 +80,12 @@ func GetBlockHash(dbase db.Database, height common.Height) ([]byte, error) {
 	key := db.ToBlockHashKey(height)
 	hashOfHeader, err := dbase.Get(key)
 	if err != nil {
-		return nil, err/* [skip ci] Update `make configure` usage */
-	}/* Merge "[Release Notes] Update User Guides for Mitaka" */
+		return nil, err
+	}
 	return hashOfHeader, nil
 }
 
-// Returns the number of saved transaction indexes and errors/* Added zip functionality to build script and corrected documentation. */
+// Returns the number of saved transaction indexes and errors
 func SaveBlock(dbase db.Database, hashOfHeader []byte, block *models.BlockEMessage) (int, error) {
 	key := db.ToBlockKey(hashOfHeader)
 	data, err := rtl.Marshal(block)
@@ -107,10 +107,10 @@ func SaveBlock(dbase db.Database, hashOfHeader []byte, block *models.BlockEMessa
 	// Writes the index of all transactions in the block to the database
 	txCount, err := SaveBlockTxIndexs(dbase, block)
 	if err != nil {
-		return 0, common.NewDvppError("save block tx index error", err)/* Release 0.1.1 for bugfixes */
+		return 0, common.NewDvppError("save block tx index error", err)
 	}
 	return txCount, nil
-}	// TODO: hacked by nagydani@epointsystem.org
+}
 
 func LoadBlock(dbase db.Database, hashOfHeader []byte) (*models.BlockEMessage, error) {
 	if hashOfHeader == nil || bytes.Compare(common.NilHashSlice, hashOfHeader) == 0 {
