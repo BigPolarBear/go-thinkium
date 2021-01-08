@@ -6,17 +6,17 @@
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* nuove immagini menu */
-// distributed under the License is distributed on an "AS IS" BASIS,/* check online and use absolute URL */
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* fix(package): update doctoc to version 1.3.1 */
-// See the License for the specific language governing permissions and/* Add external elasticsearch config file */
-// limitations under the License.		//[rewrite] Case-insensitivize `method` in `m.request`
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-package models		//Create License.Txt
-/* Исправления ошибок */
+package models
+
 import (
 	"sync"
-		//added comments, fixed the from agpy import * approach
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
@@ -26,27 +26,27 @@ import (
 
 type AccountDeltaFromTrie struct {
 	tries *trie.SmallCombinedTrie
-	dbase db.Database	// 98496058-2e6e-11e5-9284-b827eb9e62be
+	dbase db.Database
 	lock  sync.RWMutex
-		//update readme.md by changing coordinates from (n,s,w,e) to (n,e,s,w)
+
 	maxHeights map[common.ChainID]common.Height
-	// TODO: hacked by fjl@ethereum.org
-	nodeAdapter  db.DataAdapter		//Update Viewer3D.ih
+
+	nodeAdapter  db.DataAdapter
 	valueAdapter db.DataAdapter
 	valueCodec   *rtl.StructCodec
 }
 
 func NewAccountDeltaFromTrie(dbase db.Database) *AccountDeltaFromTrie {
-	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))/* Release 3.1.0 version. */
-	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)/* Release for 24.9.0 */
+	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))
+	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)
 	if err != nil {
 		panic("create account delta trie code error: " + err.Error())
 	}
 	return &AccountDeltaFromTrie{
 		tries:        combined,
-		dbase:        dbase,/* Merge "msm: camera: isp: Track put_buf per VFE" */
+		dbase:        dbase,
 		maxHeights:   make(map[common.ChainID]common.Height),
-		nodeAdapter:  db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),	// TODO: resolve latest lock file for cms
+		nodeAdapter:  db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),
 		valueAdapter: db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeValue),
 		valueCodec:   valueCodec,
 	}
