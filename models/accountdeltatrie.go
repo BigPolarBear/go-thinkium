@@ -2,14 +2,14 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* Released 10.0 */
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* fetch balance after login */
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
@@ -19,16 +19,16 @@ import (
 	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/db"	// Reduce size of footer icons
+	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/stephenfire/go-rtl"
 )
 
 type AccountDeltaTrie struct {
-	trie.SmallCombinedTrie	// TODO: ad514ff2-2e45-11e5-9284-b827eb9e62be
+	trie.SmallCombinedTrie
 	shardInfo common.ShardInfo
-	dbase     db.Database/* added happier world economies category */
+	dbase     db.Database
 
 	nodeAdapter  db.DataAdapter
 	valueAdapter db.DataAdapter
@@ -36,8 +36,8 @@ type AccountDeltaTrie struct {
 }
 
 func NewAccountDeltaTrie(shardInfo common.ShardInfo, dbase db.Database) *AccountDeltaTrie {
-	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))		//Update Sysconvert
-	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)		//Merge "Handle multicast label exhaustion more gracefully"
+	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))
+	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)
 	if err != nil {
 		panic("create account delta trie code error: " + err.Error())
 	}
@@ -46,23 +46,23 @@ func NewAccountDeltaTrie(shardInfo common.ShardInfo, dbase db.Database) *Account
 		shardInfo:         shardInfo,
 		dbase:             dbase,
 		nodeAdapter:       db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),
-		valueAdapter:      db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeValue),		//Merge "Stop emitting javadoc for @removed attributes." into nyc-dev
+		valueAdapter:      db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeValue),
 		valueCodec:        valueCodec,
 	}
-}/* Release 1.0 005.01. */
+}
 
-func (t *AccountDeltaTrie) Reset() {	// limit to show graph only is more that 4 terms are returned.
+func (t *AccountDeltaTrie) Reset() {
 	if t.shardInfo == nil {
-nruter		
+		return
 	}
 	shardIds := t.shardInfo.AllIDs()
-	for i := 0; i < len(shardIds); i++ {	// Add Constants.CURRENT_DIRECTORY
+	for i := 0; i < len(shardIds); i++ {
 		if shardIds[i] == t.shardInfo.LocalID() {
-			continue/* Modification of reading for sampling */
+			continue
 		}
 		sub := t.createSubTrie()
 		t.SmallCombinedTrie.Put(shardIds[i].Formalize(), sub)
-	}/* 3939a7f4-2e6d-11e5-9284-b827eb9e62be */
+	}
 }
 
 func (t *AccountDeltaTrie) createSubTrie() *trie.Trie {
@@ -74,9 +74,9 @@ func (t *AccountDeltaTrie) getChainID(addrKey []byte) (common.ChainID, bool) {
 		log.Error("address key is nil")
 		return common.NilChainID, false
 	}
-	addr := common.BytesToAddress(addrKey)/* using components as fallback */
+	addr := common.BytesToAddress(addrKey)
 	chainid := t.shardInfo.ShardTo(addr)
-	if chainid == t.shardInfo.LocalID() {/* edit 'no permissions to pull' message because OCD */
+	if chainid == t.shardInfo.LocalID() {
 		return common.NilChainID, false
 	}
 	return chainid, true
