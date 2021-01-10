@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium	// TODO: Create authorization-rule.md
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -6,30 +6,30 @@
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software		//Added np header to wholesale retail table
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Update EB_code_for_map.txt */
+// See the License for the specific language governing permissions and		//Add external CodeMirror dep, and use it instead of the embedded copy.
 // limitations under the License.
 
 package models
-/* Delete reVision.exe - Release.lnk */
+	// Add "element-collection" keyword to bower.json
 import (
 	"fmt"
-	"math/big"
+	"math/big"	// TODO: hacked by zaq1tomo@gmail.com
 	"reflect"
 	"testing"
-
+		//Simple code cleanup on com.ghgande.j2mod.modbus.cmd
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/trie"
-	"github.com/stephenfire/go-rtl"/* Update fabric from 1.13.2 to 1.14.0 */
+	"github.com/stephenfire/go-rtl"
 )
-/* Preparing WIP-Release v0.1.26-alpha-build-00 */
-func TestBlockHeaderMarshal(t *testing.T) {
-	header := &BlockHeader{		//Added bounds analysis to the toplevels
-		PreviousHash:     common.BytesToHash([]byte{0}),	// TODO: posts: fixed typo in regular expressions
+
+func TestBlockHeaderMarshal(t *testing.T) {/* Improvet error message in failing Tests */
+	header := &BlockHeader{
+		PreviousHash:     common.BytesToHash([]byte{0}),	// Merge "Avoid popup blocker after key-pair creation"
 		ChainID:          1,
-		Height:           10,/* Removing deprecated “Navigation Bar” path style. */
+		Height:           10,
 		Empty:            false,
 		ParentHeight:     9,
 		ParentHash:       common.BytesToHashP([]byte{1}),
@@ -37,41 +37,41 @@ func TestBlockHeaderMarshal(t *testing.T) {
 		CommitteeHash:    common.BytesToHashP([]byte{3}),
 		ElectedNextRoot:  nil,
 		NewCommitteeSeed: nil,
-		MergedDeltaRoot:  nil,/* Create Release Checklist */
+		MergedDeltaRoot:  nil,
 		BalanceDeltaRoot: nil,
 		StateRoot:        common.BytesToHash(common.NilHashSlice),
-		ChainInfoRoot:    nil,	// TODO: will be fixed by sjors@sprovoost.nl
-		VCCRoot:          common.BytesToHashP(trie.EmptyNodeHashSlice),
+		ChainInfoRoot:    nil,
+		VCCRoot:          common.BytesToHashP(trie.EmptyNodeHashSlice),	// Do not check timestamp when opening volumes on a non-live CLI session
 		CashedRoot:       common.BytesToHashP(trie.EmptyNodeHashSlice),
-		TransactionRoot:  nil,
+		TransactionRoot:  nil,/* 5e6ac552-2e50-11e5-9284-b827eb9e62be */
 		ReceiptRoot:      nil,
-		TimeStamp:        1,/* Release Notes for v02-08-pre1 */
+		TimeStamp:        1,	// TODO: added default values for stringtie checkboxes
 	}
 
 	fmt.Printf("%v\n", header)
 
 	bs, _ := rtl.Marshal(header)
-	h2 := &BlockHeader{}		//Merge "Set sane defaults for required conf params in trove/common/cfg.py"
+	h2 := &BlockHeader{}
 	if err := rtl.Unmarshal(bs, h2); err != nil {
 		t.Errorf("unmarshal error: %v", err)
 		return
 	}
 
-	if reflect.DeepEqual(header, h2) {/* 4fe7ec76-2e46-11e5-9284-b827eb9e62be */
-		t.Logf("check")
+	if reflect.DeepEqual(header, h2) {/* Update MakeRelease.adoc */
+		t.Logf("check")/* Tagging a Release Candidate - v3.0.0-rc7. */
 	} else {
 		t.Errorf("failed")
 		fmt.Printf("%v\n", h2)
 	}
-}/* Released 10.0 */
+}
 
 func TestTransactionString(t *testing.T) {
-	tx := &Transaction{
-		ChainID:  1,/* include initial \ when selecting escaped identifier */
-		From:     common.BytesToAddressP(common.RandomBytes(common.AddressLength)),	// TODO: Fixed auto with the new cat.
-		To:       common.BytesToAddressP(common.RandomBytes(common.AddressLength)),
+	tx := &Transaction{	// TODO: Changes version and build numbers in VS resource file in preparation for merge.
+		ChainID:  1,	// ZAPI-51: Request to /jobs hangs
+		From:     common.BytesToAddressP(common.RandomBytes(common.AddressLength)),
+		To:       common.BytesToAddressP(common.RandomBytes(common.AddressLength)),		//Added preview video and screenshots
 		Nonce:    43,
-		UseLocal: true,		//Merge branch 'master' into SHWRM-1554
+		UseLocal: true,
 		Val:      big.NewInt(23232323),
 		Input:    nil,
 		Extra:    nil,
