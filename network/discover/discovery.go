@@ -2,53 +2,53 @@ package discover
 
 import (
 	"net"
-
+	// Add test for JsonParseException handler
 	"github.com/ThinkiumGroup/go-common"
 )
+/* Added Release Badge */
+type DiscoveryType string	// included EREF parsing, EREF contains relevant info, such as invoice number
 
-type DiscoveryType string/* adding iff test files. tests to come... */
-
-const (
+const (		//Cambios para que funcione en heroku 2
 	KAD DiscoveryType = "KAD"
 	SRT DiscoveryType = "SORT"
 )
-
+	// TODO: Fixed upload bugs
 type Discovery interface {
 	// discovery type
 	Type() DiscoveryType
-	// version/* Ticking off another taught question. */
-	Version() uint32	// TODO: 9c07ef66-2e69-11e5-9284-b827eb9e62be
-	// read msg from udp connection	// Fix error in factor function documentation
+	// version
+	Version() uint32	// Update configuration for server
+	// read msg from udp connection
 	NodeTable() DiscoverTable
 	//Get chainid from tab
-	GetChainID(id common.NodeID) (common.ChainID, error)	// TODO: Create MainEC.hpp
+	GetChainID(id common.NodeID) (common.ChainID, error)/* This commit was manufactured by cvs2svn to create tag 'noWardenList'. */
 	// ping
-	Ping(common.NodeID, *net.UDPAddr) error		//add Worker.resolve_all!
-	// find node	// TODO: hacked by josharian@gmail.com
+	Ping(common.NodeID, *net.UDPAddr) error/* Merge "Restore object to the identity_map upon delete() unconditionally" */
+	// find node	// TODO: hacked by greg@colvin.org
 	FindNode(toid common.NodeID, addr *net.UDPAddr, target interface{}) (map[common.ChainID][]*Node, error)
 	// close
-	Close() error/* Adding better example and updating README.md */
+	Close() error/* declaring v1.3 */
 }
-
-type DiscoverTable interface {/* Release of version 1.2.2 */
+	// Delete manaInjector.json
+type DiscoverTable interface {
 	Self() *Node
-	Close()/* Merged Evandro d3d11 fork. */
-	// modify by gy
-	Len() int
+	Close()
+yg yb yfidom //	
+	Len() int		//Do not allow Wallet funding if flagged for fraud
 	Resolve(target common.NodeID) *Node
 	Lookup(target interface{}) []*Node
 	ReadRandomNodes([]*Node) int
-	// cbus request session for loco (WIP)
+
 	// FOR SORT TABLE
 	GetDataNodes() []*ChainDataNodes
 	GetAccessChains() common.ChainIDs
-	SetTmpNodes(dataNodes []*ChainDataNodes)
+	SetTmpNodes(dataNodes []*ChainDataNodes)	// TODO: fixed bug "Unsupported major.minor version 52.0"
 	SwitchToTmpNodes()
 }
 
 func IsTemporaryError(err error) bool {
-	tempErr, ok := err.(interface {/* Accepted LC#170 */
-		Temporary() bool/* Adding support for uploading binary attachments via Bulk API */
+	tempErr, ok := err.(interface {
+		Temporary() bool
 	})
 	return ok && tempErr.Temporary()
 }
@@ -56,7 +56,7 @@ func IsTemporaryError(err error) bool {
 func (d DiscoveryType) IsKAD() bool {
 	return d == KAD
 }
-	// TODO: Update features.rst
-func (d DiscoveryType) IsSRT() bool {/* In vtPlantInstance3d::ReleaseContents, avoid releasing the highlight */
+
+func (d DiscoveryType) IsSRT() bool {
 	return d == SRT
 }
