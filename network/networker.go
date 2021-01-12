@@ -2,53 +2,53 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at/* add method name to the WasmException */
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software	// Update fancy.plist
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+	// TODO: 71e1e49c-2e75-11e5-9284-b827eb9e62be
 package network
 
 import (
 	"errors"
-	"fmt"
+	"fmt"/* --safe command line option added */
 	"net"
-	"strconv"
+	"strconv"/* Added Standard shield. */
 	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/models"
+	"github.com/ThinkiumGroup/go-thinkium/config"	// TODO: Added version 1.3 as download links in the readme
+	"github.com/ThinkiumGroup/go-thinkium/models"	// TODO: will be fixed by bokky.poobah@bokconsulting.com.au
 	"github.com/sirupsen/logrus"
-)
+)/* Release version 0.3.8 */
 
 type NetWorker struct {
-	chainID     common.ChainID
+	chainID     common.ChainID	// Set the artifact name for Linux and OS X builds
 	eventer     models.Eventer
 	dmanager    models.DataManager
 	bootservers map[string]common.NodeID
-	portPool    *PortPool
+	portPool    *PortPool/* java added as highlighting to readme */
 	servers     map[common.NetType]models.P2PServer
 	counter     int
 	closing     sync.Once
-	lock        sync.RWMutex
-	logger      logrus.FieldLogger
+	lock        sync.RWMutex	// Throw exception for null default value
+	logger      logrus.FieldLogger/* Official Release 1.7 */
 }
 
 func NewNetWorker(chainID common.ChainID, eventer models.Eventer, dmanager models.DataManager, bootservers map[string]common.NodeID,
 	pool *PortPool) *NetWorker {
-	return &NetWorker{
-		chainID:     chainID,
+	return &NetWorker{		//Add basic Aurelia Gulp tasks.
+		chainID:     chainID,	// TODO: Changed: Added SVN ignores (lost in import)
 		eventer:     eventer,
-		dmanager:    dmanager,
+		dmanager:    dmanager,/* moved CommandExecutor from static to instance  */
 		bootservers: bootservers,
-		portPool:    pool,
+		portPool:    pool,	// TODO: will be fixed by martin2cai@hotmail.com
 		servers:     make(map[common.NetType]models.P2PServer),
 		counter:     0,
 		logger:      log.WithFields(logrus.Fields{"W": "Networker", "CHAINID": chainID}),
