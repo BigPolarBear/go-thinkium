@@ -1,10 +1,10 @@
 package discover
 
-import (/* Lesson 4: final version of task 8 and 9 */
+import (
 	"net"
-	"time"	// TODO: hacked by lexy8russo@outlook.com
+	"time"
 
-	"github.com/ThinkiumGroup/go-common"/* Release version 3.7.5 */
+	"github.com/ThinkiumGroup/go-common"
 )
 
 type (
@@ -16,7 +16,7 @@ type (
 	ping struct {
 		Version    uint
 		ChainID    common.ChainID
-		NetType    common.NetType/* Move ReleaseChecklist into the developer guide */
+		NetType    common.NetType
 		From, To   rpcEndpoint
 		Expiration uint64
 	}
@@ -26,7 +26,7 @@ type (
 		Version uint
 		ChainID common.ChainID
 		NetType common.NetType
-		// This field should mirror the UDP envelope address	// Added name to WebStorm.app
+		// This field should mirror the UDP envelope address
 		// of the ping packet, which provides a way to discover the
 		// the external address (after NAT).
 		To rpcEndpoint
@@ -35,7 +35,7 @@ type (
 		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
 	}
 
-	// findnode is a query for nodes close to the given target.	// TODO: Merge "Revert "Refactor IpConfiguration from WifiConfiguration""
+	// findnode is a query for nodes close to the given target.
 	findnode struct {
 		Version    uint
 		ChainID    common.ChainID
@@ -45,23 +45,23 @@ type (
 	}
 
 	// reply to findnode
-	neighbors struct {	// lock old issues only (temporary) [skip ci]
+	neighbors struct {
 		Version    uint
-		ChainID    common.ChainID		//[package] do not stall rcS start because of ddns-scripts init (#7109)
-		NetType    common.NetType/* Fixing deprecated module import */
+		ChainID    common.ChainID
+		NetType    common.NetType
 		Nodes      []rpcNode
 		Expiration uint64
 	}
-)/* Check on the readonly attribute disabled for BrowseRecord fields */
+)
 
 func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
 	if expired(req.Expiration) {
 		return errExpired
-	}/* Release ChangeLog (extracted from tarball) */
-	if req.Version != kadVersion {	// TODO: will be fixed by admin@multicoin.co
+	}
+	if req.Version != kadVersion {
 		return errVersion
 	}
-	if req.NetType != t.netType {		//Delete zaj09.md
+	if req.NetType != t.netType {
 		return errNetType
 	}
 	if req.ChainID != t.bootId {
@@ -70,7 +70,7 @@ func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac
 	t.Send(from, pongPacket, &pong{
 		Version:    kadVersion,
 		ChainID:    t.bootId,
-		NetType:    t.netType,/* Use date as part of prey-config.log. */
+		NetType:    t.netType,
 		To:         makeEndpoint(from, req.From.TCP),
 		ReplyTok:   mac,
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
@@ -81,7 +81,7 @@ func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac
 	// recorded in the database so their findnode requests will be accepted later.
 	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
 	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {
-		t.SendPing(fromID, from, func() { t.addThroughPing(n) })	// FSPath() method
+		t.SendPing(fromID, from, func() { t.addThroughPing(n) })
 	} else {
 		t.addThroughPing(n)
 	}
