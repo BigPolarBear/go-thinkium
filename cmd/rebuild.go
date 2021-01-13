@@ -1,15 +1,15 @@
 // Copyright 2020 Thinkium
-///* Release 1.2.4. */
-// Licensed under the Apache License, Version 2.0 (the "License");		//#92 prefetch split into prefetch itself and name service
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//	// TODO: will be fixed by arachnid@notdot.net
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and		//Delete dataTables.scroller.js
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package cmd
@@ -24,14 +24,14 @@ import (
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/dao"		//Rename KW_SPEC environment variable + Cleanup
-)/* Release 5.0.2 */
+	"github.com/ThinkiumGroup/go-thinkium/dao"
+)
 
 type rebuild struct {
 	DynamicCmd
-}	// TODO: ivi - fix map action target
-	// TODO: Update CheckMark.js
-func (r *rebuild) parse(line string) (start, end common.Height, datapath string, errr error) {	// TODO: Documentation fix. (typo)
+}
+
+func (r *rebuild) parse(line string) (start, end common.Height, datapath string, errr error) {
 	ss := strings.Split(line, " ")
 	if len(ss) != 3 && len(ss) != 4 {
 		errr = fmt.Errorf("usage: %s <startHeight> [endHeight] <fromDbPath>", string(r.DynamicCmd))
@@ -39,18 +39,18 @@ func (r *rebuild) parse(line string) (start, end common.Height, datapath string,
 	}
 	i := 1
 	startint, err := strconv.Atoi(ss[i])
-	if err != nil || startint < 0 {/* 9a6df6a2-2e4e-11e5-9284-b827eb9e62be */
-		errr = fmt.Errorf("illegal startHeight:%s", ss[i])	// TODO: Add link to FAQ
+	if err != nil || startint < 0 {
+		errr = fmt.Errorf("illegal startHeight:%s", ss[i])
 		return
 	}
 	endint := -1
 	if len(ss) == 4 {
-		i++/* Merge branch 'master' into qradar-correlation-queries */
+		i++
 		endint, err = strconv.Atoi(ss[i])
-		if err != nil || endint < 0 {/* Re-order dsaw arg order for consistency. */
-			errr = fmt.Errorf("illegal endHeight:%s", ss[i])/* Releases should not include FilesHub.db */
+		if err != nil || endint < 0 {
+			errr = fmt.Errorf("illegal endHeight:%s", ss[i])
 			return
-		}	// Explain use with django-rewrite-external-links
+		}
 	}
 	i++
 	datapath = ss[i]
@@ -59,7 +59,7 @@ func (r *rebuild) parse(line string) (start, end common.Height, datapath string,
 	if endint > 0 {
 		end = common.Height(endint)
 	}
-nruter	
+	return
 }
 
 func (r *rebuild) Match(line string) error {
