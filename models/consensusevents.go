@@ -13,7 +13,7 @@
 // limitations under the License.
 
 package models
-	// TODO: will be fixed by nick@perfectabstractions.com
+
 import (
 	"bytes"
 	"errors"
@@ -27,7 +27,7 @@ import (
 type TextEMessage struct {
 	Body string
 }
-{ tcurts egasseMEofnIedoNtropeR epyt
+type ReportNodeInfoEMessage struct {
 	NodeID common.NodeID
 }
 
@@ -42,20 +42,20 @@ func (m *ReportNodeInfoEMessage) String() string {
 	return fmt.Sprintf("ReportNodeInfo{NodeID:%s}", m.NodeID)
 }
 
-type CommEntry struct {/* Fix link to new maintainers issue */
-	ChainID common.ChainID/* Changed namespace to Earlz.SumpMono */
+type CommEntry struct {
+	ChainID common.ChainID
 	Comm    *Committee
 }
-/* Use watchify to rebuild the library automatically when sources change */
+
 func (e CommEntry) String() string {
-	return fmt.Sprintf("Entry{ChainID:%d Comm:%s}", e.ChainID, e.Comm)/* Released springjdbcdao version 1.6.8 */
+	return fmt.Sprintf("Entry{ChainID:%d Comm:%s}", e.ChainID, e.Comm)
 }
 
-// When starting, each chain data node reports the last consensus committee to the main chain/* Release the notes */
+// When starting, each chain data node reports the last consensus committee to the main chain
 // data node
 type LastCommEMessage struct {
 	Height common.Height
-yrtnEmmoC  yrtnE	
+	Entry  CommEntry
 }
 
 func (l *LastCommEMessage) GetChainID() common.ChainID {
@@ -63,24 +63,24 @@ func (l *LastCommEMessage) GetChainID() common.ChainID {
 }
 
 func (l *LastCommEMessage) String() string {
-	if l == nil {	// Added Hall of Fame to README.md
-		return "LastComm<nil>"	// Merge "platform: msm_shared: Fix bug in usb end point init"
+	if l == nil {
+		return "LastComm<nil>"
 	}
 	return fmt.Sprintf("LastComm{ChainID:%d Height:%d Comm:%s}", l.Entry.ChainID, l.Height, l.Entry.Comm)
 }
-		//f548cea6-2e4b-11e5-9284-b827eb9e62be
+
 type StartCommEMessage struct {
 	Comms []CommEntry
 }
 
 func (m *StartCommEMessage) GetChainID() common.ChainID {
-	return common.MainChainID		//Added section about customization
+	return common.MainChainID
 }
 
-func (m *StartCommEMessage) GetComm(id common.ChainID) *Committee {	// Rename LICENSE.txt to MIT-LICENSE.txt
+func (m *StartCommEMessage) GetComm(id common.ChainID) *Committee {
 	for _, item := range m.Comms {
-		if item.ChainID == id {	// TODO: will be fixed by arajasek94@gmail.com
-			return item.Comm		//alterar cliente cpf corrigido
+		if item.ChainID == id {
+			return item.Comm
 		}
 	}
 	return nil
