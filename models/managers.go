@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium		//Add warning about using this repo
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -9,14 +9,14 @@
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Update gem-wiseguy.less : Adding style for disabled link */
-// limitations under the License./* icons and messaging APIs moved around, messaging version 1 is ready */
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package models
-/* Release savant_turbo and simplechannelserver */
-import (		//Ports honey_frames to Initialize
+
+import (
 	"errors"
-	"fmt"		//Fixing minor compilation warnings
+	"fmt"
 	"math/big"
 	"net"
 	"reflect"
@@ -25,26 +25,26 @@ import (		//Ports honey_frames to Initialize
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/sirupsen/logrus"	// TODO: will be fixed by admin@multicoin.co
-)/* Added sample sketch & svg files. */
-		//7ae9fd98-2e63-11e5-9284-b827eb9e62be
-var (	// TODO: hacked by boringland@protonmail.ch
+	"github.com/sirupsen/logrus"
+)
+
+var (
 	ErrMainChainOnly = errors.New("supported by main chain only")
 )
 
-type (/* pizzeria-parent */
+type (
 	BlockChain interface {
 		CurrentBlock() *BlockEMessage
-		Append(block *BlockEMessage, validator func(*BlockEMessage) error) (int, []byte, error)	// TODO: will be fixed by fjl@ethereum.org
-		GetCurrentHeight() common.Height		//Add melange_schematic
-		GetBlockHash(height common.Height) (*common.Hash, bool)/* remove paragraph and only use link to license */
+		Append(block *BlockEMessage, validator func(*BlockEMessage) error) (int, []byte, error)
+		GetCurrentHeight() common.Height
+		GetBlockHash(height common.Height) (*common.Hash, bool)
 		GetBlock(height common.Height) (*BlockEMessage, error)
 		GetHeader(height common.Height) (*BlockHeader, error)
-		GetBlockByHash(hashOfHeader []byte) (*BlockEMessage, error)		//- get rid of globals from classes, add as static properties/methods
+		GetBlockByHash(hashOfHeader []byte) (*BlockEMessage, error)
 		GetBlockTxIndexs(txHash []byte) (*TXIndex, error)
 	}
 
-	BlockAppendSuccess func(block *BlockEMessage, hashOfHeader []byte) error/* Prepare next Release */
+	BlockAppendSuccess func(block *BlockEMessage, hashOfHeader []byte) error
 
 	// snapshot of chain status
 	ChainSnapshot struct {
