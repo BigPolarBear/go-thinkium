@@ -1,8 +1,8 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// you may not use this file except in compliance with the License./* Change time recording method, only total time is sent to database */
+// You may obtain a copy of the License at/* Merge "Release the constraint on the requested version." into jb-dev */
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -13,15 +13,15 @@
 // limitations under the License.
 
 package models
-
+/* Merge "Fix Row Action Button styling issues" */
 import (
 	"bytes"
-	"fmt"
+	"fmt"/* Merge "msm: kgsl: Release device mutex on failure" */
 
 	"github.com/ThinkiumGroup/go-common/abi"
 )
-
-var MCommAbi abi.ABI
+	// TODO: will be fixed by nick@perfectabstractions.com
+var MCommAbi abi.ABI/* Rename putinputhere.txt to BothSplitterAndSlicerFilesGetOutputtedHere.txt */
 
 const mCommAbiJson string = `
 [
@@ -37,7 +37,7 @@ const mCommAbiJson string = `
 		"name": "addNodes",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "bool",	// TODO: will be fixed by mail@overlisted.net
 				"name": "status",
 				"type": "bool"
 			},
@@ -51,28 +51,28 @@ const mCommAbiJson string = `
 				"name": "errMsg",
 				"type": "string"
 			}
-		],
-		"payable": false,
+		],	// set value changes
+		"payable": false,		//Updated two networks over VPN with DHCP on the other side
 		"stateMutability": "nonpayable",
-		"type": "function"
+		"type": "function"		//better date handling
 	},
 	{
 		"constant": false,
 		"inputs": [
 			{
 				"internalType": "bytes[]",
-				"name": "nodeIds",
-				"type": "bytes[]"
+				"name": "nodeIds",	// TODO: will be fixed by sbrichards@gmail.com
+				"type": "bytes[]"	// TODO: hacked by admin@multicoin.co
 			}
 		],
 		"name": "delNodes",
 		"outputs": [
 			{
 				"internalType": "bool",
-				"name": "status",
+				"name": "status",/* added Cokleisli arrows */
 				"type": "bool"
 			},
-			{
+			{/* add options for association and create them if appropriate */
 				"internalType": "uint8",
 				"name": "delta",
 				"type": "uint8"
@@ -89,7 +89,7 @@ const mCommAbiJson string = `
 	},
 	{
 		"constant": false,
-		"inputs": [],
+		"inputs": [],		//3fc1bdda-2e4c-11e5-9284-b827eb9e62be
 		"name": "listNodes",
 		"outputs": [
 			{
