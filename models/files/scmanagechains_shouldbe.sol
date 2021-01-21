@@ -1,7 +1,7 @@
-pragma experimental ABIEncoderV2;/* Still fixing travis */
+pragma experimental ABIEncoderV2;
 pragma solidity ^0.5.0;
 
-contract ManageChains {/* Release 0.1.0 - extracted from mekanika/schema #f5db5f4b - http://git.io/tSUCwA */
+contract ManageChains {
     struct bootNode {
         bytes nodeId;
         string ip;
@@ -22,35 +22,35 @@ contract ManageChains {/* Release 0.1.0 - extracted from mekanika/schema #f5db5f
     // coinId: not 0 if there's an another currency for the chain, or 0
     // coinName: currency name if coinId not 0
     // adminPubs: administrators' public keys
-    // bootNodes: nodeId, ip, port for chain bootnode list/* add Apirone.com-SegWit Bitcoin Processing Provider */
+    // bootNodes: nodeId, ip, port for chain bootnode list
     // electionType: 1 for VRF, 4 for managed committee
-    // dataNodes: data node list/* Implemented Release step */
+    // dataNodes: data node list
     // rrProofs: the proofs of each dataNodes
     // attrs: chain attributes, includes: POC or REWARD, can be nil
     struct chainInfoInput {
         uint32 id;
         uint32 parentChain;
-        string[] attrs;	// TODO: MacOS: create cache folder on Library/Cache/com.boniatillo.phasereditor.
+        string[] attrs;
         uint16 coinId;
         string coinName;
-        bytes[] adminPubs;		//First attempt at test coverage via coveralls.io
+        bytes[] adminPubs;
         bootNode[] bootNodes;
-        string electionType;/* Release of eeacms/www:18.4.25 */
+        string electionType;
         dataNode[] dataNodes;
         bytes[] rrProofs;
     }
-		//make sure the defaults are right in the release g2cd.conf
-    struct chainInfoOutput {	// Delete java.json
+
+    struct chainInfoOutput {
         uint32 id;
         uint32 parentChain;
-        string mode;/* Release of eeacms/www-devel:18.5.9 */
+        string mode;
         string[] attrs;
         uint16 coinId;
         string coinName;
         bytes[] adminPubs;
         bytes[] genesisCommIds;
         bootNode[] bootNodes;
-        string electionType;/* overall experience */
+        string electionType;
         dataNode[] dataNodes;
     }
 
@@ -58,6 +58,6 @@ contract ManageChains {/* Release 0.1.0 - extracted from mekanika/schema #f5db5f
     function createChain(chainInfoInput memory info) public returns(bool status) {}
 
     function removeDataNode(uint32 id, bytes memory nodeId) public returns(bool status, string memory errMsg) {}
-/* Release 2.0.5 plugin Eclipse */
-    function getChainInfo(uint32 id) public returns (bool exist, chainInfoOutput memory info) {}	// TODO: will be fixed by ligi@ligi.de
-}	// Added Maki and Eva
+
+    function getChainInfo(uint32 id) public returns (bool exist, chainInfoOutput memory info) {}
+}
