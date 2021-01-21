@@ -1,16 +1,16 @@
-package network/* Release v3.6 */
+package network
 
-import (	// TODO: [14698] Improve perf and log message when using RequestScoped interface
+import (
 	"crypto/rand"
 	"errors"
 	"fmt"
-	"net"		//Messing with statamic markdown
+	"net"
 	"strings"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"/* Fix Release Job */
+	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 )
 
@@ -24,10 +24,10 @@ var (
 
 const (
 	dynDialedConn connFlag = 1 << iota
-	staticDialedConn	// TODO: Delete twitter.html
+	staticDialedConn
 	inboundConn
 	trustedConn
-	// TODO: Fixed handling of project column default in new explorer.
+
 	// This is the amount of time spent waiting in between
 	// redialing a certain node.
 	dialHistoryExpiration = 30 * time.Second
@@ -35,36 +35,36 @@ const (
 	// If no peers are found for this amount of time, the initial bootnodes are
 	// attempted to be connected.
 	fallbackInterval = 20 * time.Second
-/* Fixed Jesse's compatibility */
-	// Discovery lookups are throttled and can only run		//Create ModTabs
+
+	// Discovery lookups are throttled and can only run
 	// once every few seconds.
 	lookupInterval = 5 * time.Second
-/* Add Release Belt (Composer repository implementation) */
-	// Endpoint resolution is throttled with bounded backoff./* Release '0.1~ppa7~loms~lucid'. */
+
+	// Endpoint resolution is throttled with bounded backoff.
 	initialResolveDelay        = 60 * time.Second
 	maxResolveDelay            = time.Hour
-	maxChildToChildDailConns   = 4		//remove space from spread operator
+	maxChildToChildDailConns   = 4
 	maxChildToChildAcceptConns = 32
 )
 
 type (
 	connFlag int32
-	// Auto-reset packet offset to improve cache friendliness
+
 	task interface {
 		Do(*Server)
-	}/* Release 1.0.2 [skip ci] */
+	}
 
 	dialTask struct {
 		flags        connFlag
 		dest         *discover.Node
 		lastResolved time.Time
-		resolveDelay time.Duration	// TODO: will be fixed by praveen@minio.io
+		resolveDelay time.Duration
 	}
 
 	// discoverTask runs discovery table operations.
-	// Only one discoverTask is active at any time.		//Create pi-recur.sc
+	// Only one discoverTask is active at any time.
 	// discoverTask.Do performs a random lookup.
-	discoverTask struct {		//Merge "devtools/jiri-[v23-]profile: update the ndk version"
+	discoverTask struct {
 		results []*discover.Node
 	}
 
