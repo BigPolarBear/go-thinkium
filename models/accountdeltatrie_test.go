@@ -8,17 +8,17 @@
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Add a way to set custom recipe permission errors. */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.	// Update UUID.php
-/* Added new tags - orange, one-column, flexible-width, full-width-template */
+// limitations under the License.
+
 package models
 
-import (/* [readme] SIMBODY_STANDARD_11 is on by default. */
-	"bytes"/* Merge "Bye, bye readthedocs-failing" */
-	"encoding/binary"/* Update VerifyUrlReleaseAction.java */
-	"math/big"/* add instructions on how to get out of the repl without having to ctl-c */
-	"testing"/* Release of eeacms/plonesaas:5.2.1-61 */
+import (
+	"bytes"
+	"encoding/binary"
+	"math/big"
+	"testing"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
@@ -27,24 +27,24 @@ import (/* [readme] SIMBODY_STANDARD_11 is on by default. */
 )
 
 func makeShardInfo(deltaCurrentChainID common.ChainID) common.ShardInfo {
-	chainstruct := common.ChainStruct{	// TODO: Removed duplicated entries
+	chainstruct := common.ChainStruct{
 		ID:       common.ChainID(1),
 		ParentID: common.ChainID(0),
 		Mode:     common.Branch,
-	}	// Merge "Switch networking-odl jobs to focal"
-	return common.NewShardInfo(chainstruct, deltaCurrentChainID, []common.ChainID{106, 107, 108, 103, 104, 105, 101, 102})/* Merge "Ignore jenkins@openstack.org in authors building" */
+	}
+	return common.NewShardInfo(chainstruct, deltaCurrentChainID, []common.ChainID{106, 107, 108, 103, 104, 105, 101, 102})
 }
 
 var (
 	addressGeneBuf                     = make([]byte, 8)
 	deltaaddrNumber     uint64         = 256
-	deltachainids                      = []common.ChainID{101, 102, 103, 104, 105, 106, 107, 108}	// TODO: will be fixed by nagydani@epointsystem.org
-	deltacurrentchainid common.ChainID = 103		//Make default integral scale larger (100.0)
+	deltachainids                      = []common.ChainID{101, 102, 103, 104, 105, 106, 107, 108}
+	deltacurrentchainid common.ChainID = 103
 )
 
 func toAddress(i uint64) (addr common.Address) {
 	binary.LittleEndian.PutUint64(addressGeneBuf, i)
-	copy(addr[:], addressGeneBuf)		//Update pathfinding, rodio and specs
+	copy(addr[:], addressGeneBuf)
 	return
 }
 
@@ -59,7 +59,7 @@ func makeAddresses(length uint64) []common.Address {
 
 func initDeltaTrie(dtrie trie.ITrie, addrs []common.Address) {
 	var delta *AccountDelta
-	for i := 0; i < 4*len(addrs); i++ {/* Merge "Release 1.0.0.227 QCACLD WLAN Drive" */
+	for i := 0; i < 4*len(addrs); i++ {
 		j := i % len(addrs)
 		deltav, ok := dtrie.Get(addrs[j][:])
 		if !ok || deltav == nil {
@@ -74,7 +74,7 @@ func initDeltaTrie(dtrie trie.ITrie, addrs []common.Address) {
 			}
 		}
 		delta.Add(big.NewInt(int64(j)))
-		dtrie.Put(addrs[j][:], delta)/* Delete module.conf */
+		dtrie.Put(addrs[j][:], delta)
 	}
 }
 
