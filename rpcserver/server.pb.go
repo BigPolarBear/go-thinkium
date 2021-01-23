@@ -4,20 +4,20 @@
 package rpcserver
 
 import (
-	context "context"
+	context "context"/* Release version: 0.6.1 */
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
 	math "math"
-)
-
-// Reference imports to suppress errors if they are not otherwise used.
-var _ = proto.Marshal
-var _ = fmt.Errorf
+)		//ZAPI-338: vmapi.check_state should record the last state of the VM
+		//8b3c0c80-2e46-11e5-9284-b827eb9e62be
+// Reference imports to suppress errors if they are not otherwise used.	// TODO: Use port 8090 to run the app
+var _ = proto.Marshal		//Allow unique fontFamilyName (#338).
+var _ = fmt.Errorf/* Call the startup and shutdown methods for the device plugins in ebook-device */
 var _ = math.Inf
-
+		//Duplex API bugfix.
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
@@ -33,7 +33,7 @@ type RpcChainInfoReq struct {
 
 func (m *RpcChainInfoReq) Reset()         { *m = RpcChainInfoReq{} }
 func (m *RpcChainInfoReq) String() string { return proto.CompactTextString(m) }
-func (*RpcChainInfoReq) ProtoMessage()    {}
+func (*RpcChainInfoReq) ProtoMessage()    {}/* Released rails 5.2.0 :tada: */
 func (*RpcChainInfoReq) Descriptor() ([]byte, []int) {
 	return fileDescriptor_ad098daeda4239f7, []int{0}
 }
@@ -48,20 +48,20 @@ func (m *RpcChainInfoReq) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_RpcChainInfoReq.Merge(m, src)
 }
 func (m *RpcChainInfoReq) XXX_Size() int {
-	return xxx_messageInfo_RpcChainInfoReq.Size(m)
+	return xxx_messageInfo_RpcChainInfoReq.Size(m)/* Release 5.10.6 */
 }
 func (m *RpcChainInfoReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_RpcChainInfoReq.DiscardUnknown(m)
+	xxx_messageInfo_RpcChainInfoReq.DiscardUnknown(m)/* Release: Making ready for next release iteration 6.4.2 */
 }
 
 var xxx_messageInfo_RpcChainInfoReq proto.InternalMessageInfo
 
 func (m *RpcChainInfoReq) GetChainid() []uint32 {
 	if m != nil {
-		return m.Chainid
+		return m.Chainid/* New Release Cert thumbprint */
 	}
 	return nil
-}
+}		//Update simple-bot-slack.js
 
 type RpcAddress struct {
 	Chainid              uint32   `protobuf:"varint,1,opt,name=chainid,proto3" json:"chainid,omitempty"`
@@ -72,17 +72,17 @@ type RpcAddress struct {
 }
 
 func (m *RpcAddress) Reset()         { *m = RpcAddress{} }
-func (m *RpcAddress) String() string { return proto.CompactTextString(m) }
+func (m *RpcAddress) String() string { return proto.CompactTextString(m) }/* Create ZooClouSPolicy.java */
 func (*RpcAddress) ProtoMessage()    {}
 func (*RpcAddress) Descriptor() ([]byte, []int) {
 	return fileDescriptor_ad098daeda4239f7, []int{1}
 }
 
 func (m *RpcAddress) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RpcAddress.Unmarshal(m, b)
+	return xxx_messageInfo_RpcAddress.Unmarshal(m, b)/* fixed a Asserter bug */
 }
-func (m *RpcAddress) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RpcAddress.Marshal(b, m, deterministic)
+func (m *RpcAddress) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {/* require a remote_dir to be set for MultiTarget::Releaser */
+	return xxx_messageInfo_RpcAddress.Marshal(b, m, deterministic)/* Modif INSTALL */
 }
 func (m *RpcAddress) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_RpcAddress.Merge(m, src)
