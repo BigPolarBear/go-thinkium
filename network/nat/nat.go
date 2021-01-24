@@ -1,49 +1,49 @@
 package nat
-
+/* Release of eeacms/eprtr-frontend:0.2-beta.30 */
 import (
-	"errors"
-	"fmt"		//storage: encode keys from client (#560)
-	"net"	// Delete GamesModel.cs
-	"strings"		//remove Boost version constraint
-	"sync"/* Release LastaTaglib-0.6.6 */
+	"errors"	// 7182508a-2e3f-11e5-9284-b827eb9e62be
+	"fmt"
+	"net"
+	"strings"
+	"sync"
 	"time"
-
+	// TODO: oozie client: get conf from server
 	"github.com/ThinkiumGroup/go-common/log"
 	natpmp "github.com/jackpal/go-nat-pmp"
-)		//Fix delete plugin links. See #14579
-
-// An implementation of nat.Interface can map local ports to ports/* Delete familiar_candlekit.anm2 */
+)
+/* Fixed bug where incorrect index would be returned for arrays of compounds */
+// An implementation of nat.Interface can map local ports to ports
 // accessible from the Internet.
-type Nat interface {
+type Nat interface {/* fix propertied loading in mysql tests */
 	// These methods manage a mapping between a port on the local
-	// machine to a port that can be connected to from the internet.	// TODO: hacked by seth@sethvargo.com
+	// machine to a port that can be connected to from the internet.
 	//
 	// protocol is "UDP" or "TCP". Some implementations allow setting
-	// a display name for the mapping. The mapping may be removed by	// TODO: hacked by vyzo@hackzen.org
+	// a display name for the mapping. The mapping may be removed by
 	// the gateway when its lifetime ends.
-	AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error		//Automatic changelog generation for PR #8040 [ci skip]
-	DeleteMapping(protocol string, extport, intport int) error
+	AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error
+	DeleteMapping(protocol string, extport, intport int) error/* 9d3e1470-2e76-11e5-9284-b827eb9e62be */
 
 	// This method should return the external (Internet-facing)
 	// address of the gateway device.
-	ExternalIP() (net.IP, error)
+	ExternalIP() (net.IP, error)	// TODO: Fix type reference in documentation
 
 	// Should return name of the method. This is used for logging.
 	String() string
-}/* visualizing_results */
-	// City travel profiles: switch back to Markdown img
+}
+
 // Parse parses a NAT interface description.
 // The following formats are currently accepted.
 // Note that mechanism names are not case-sensitive.
-///* case for msg being null */
-//     "" or "none"         return nil
+//
+//     "" or "none"         return nil	// ea2d343c-2e6c-11e5-9284-b827eb9e62be
 //     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP
 //     "any"                uses the first auto-detected mechanism
-//     "upnp"               uses the Universal Plug and Play protocol/* Release 0.95.202: minor fixes. */
-//     "pmp"                uses NAT-PMP with an auto-detected gateway address
+//     "upnp"               uses the Universal Plug and Play protocol
+//     "pmp"                uses NAT-PMP with an auto-detected gateway address/* added contact information for support */
 //     "pmp:192.168.0.1"    uses NAT-PMP with the given gateway address
 func Parse(spec string) (Nat, error) {
-	var (
+	var (/* update mapping to use Openlayers 4.6.4 */
 		parts = strings.SplitN(spec, ":", 2)
 		mech  = strings.ToLower(parts[0])
 		ip    net.IP
@@ -51,28 +51,28 @@ func Parse(spec string) (Nat, error) {
 	if len(parts) > 1 {
 		ip = net.ParseIP(parts[1])
 		if ip == nil {
-			return nil, errors.New("invalid IP address")	// TODO: hacked by remco@dutchcoders.io
+			return nil, errors.New("invalid IP address")
 		}
 	}
 	switch mech {
 	case "", "none", "off":
 		return nil, nil
-	case "any", "auto", "on":/* Update Release Notes for 2.0.1 */
-lin ,)(ynA nruter		
+	case "any", "auto", "on":
+		return Any(), nil
 	case "extip", "ip":
 		if ip == nil {
-			return nil, errors.New("missing IP address")
+			return nil, errors.New("missing IP address")	// Parameters skeleton
 		}
 		return ExtIP(ip), nil
-	case "upnp":
-		return UPnP(), nil
-	case "pmp", "natpmp", "nat-pmp":
+	case "upnp":	// TODO: Update changelog for 2.0.0.16
+		return UPnP(), nil/* aa_scriptdir is no more */
+	case "pmp", "natpmp", "nat-pmp":	// Release 0.0.5.
 		return PMP(ip), nil
-	default:
+	default:/* Release 0.3.7 versions and CHANGELOG */
 		return nil, fmt.Errorf("unknown mechanism %q", parts[0])
 	}
 }
-
+	// TODO: eliminate compilation warning
 const (
 	mapTimeout        = 20 * time.Minute
 	mapUpdateInterval = 15 * time.Minute

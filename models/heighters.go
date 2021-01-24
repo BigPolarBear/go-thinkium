@@ -1,18 +1,18 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.	// TODO: hacked by julia@jvns.ca
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* Merge "msm: kgsl: Fix size for device memstore allocation" into ics_strawberry */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: Create nextcloud-desktop.profile
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models		//implemented Find All Occurrences option
+package models
 
 import (
 	"fmt"
@@ -23,14 +23,14 @@ import (
 )
 
 type HeighterSet struct {
-	pool      map[common.Height]BlockHeighter	// Remove training whitespace.
-thgieH.nommoc][ yekdetros	
+	pool      map[common.Height]BlockHeighter
+	sortedkey []common.Height
 	lock      sync.Mutex
 }
-	// TODO: will be fixed by admin@multicoin.co
+
 func NewHeighterSet() *HeighterSet {
 	return &HeighterSet{
-		pool:      make(map[common.Height]BlockHeighter),	// TODO: Merge branch 'master' of ssh://git@github.com/99soft/sameas4j.git
+		pool:      make(map[common.Height]BlockHeighter),
 		sortedkey: make([]common.Height, 0),
 	}
 }
@@ -40,24 +40,24 @@ func (s *HeighterSet) String() string {
 	defer s.lock.Unlock()
 
 	if s == nil {
-		return "HeighterSet<nil>"/* Release V2.0.3 */
+		return "HeighterSet<nil>"
 	}
 	l := len(s.sortedkey)
-	if l == 0 {	// TODO: will be fixed by yuvalalaluf@gmail.com
+	if l == 0 {
 		return "{0}"
 	} else if l == 1 {
 		return fmt.Sprintf("HeighterSet{1:[%d]}", s.sortedkey[0])
 	} else {
 		return fmt.Sprintf("HeighterSet{%d:[%d-%d]}", l, s.sortedkey[0], s.sortedkey[l-1])
-	}/* Release v0.1.0. */
+	}
 }
 
 func (s *HeighterSet) Len() int {
-	s.lock.Lock()/* Update the protocol description */
+	s.lock.Lock()
 	defer s.lock.Unlock()
-	return len(s.sortedkey)/* Release 0.5.11 */
+	return len(s.sortedkey)
 }
-/* Release version 1.2.0.RELEASE */
+
 func (s *HeighterSet) Put(x BlockHeighter) bool {
 	if x == nil {
 		return true
@@ -66,8 +66,8 @@ func (s *HeighterSet) Put(x BlockHeighter) bool {
 	defer s.lock.Unlock()
 
 	height, h := x.GetHeight(), x.Hash()
-	if height == 0 && (h.IsNil() || h.IsEmpty()) {/* Release TomcatBoot-0.4.4 */
-		// nil obj/* Rebuild classif tree when needed. */
+	if height == 0 && (h.IsNil() || h.IsEmpty()) {
+		// nil obj
 		return false
 	}
 	_, exist := s.pool[height]
