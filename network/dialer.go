@@ -1,19 +1,19 @@
 package network
 
-import (/* Implemented ways as a entity type in OSM benchmark (closes #11) */
-	"net"/* Merge "Release 4.0.10.51 QCACLD WLAN Driver" */
+import (
+	"net"/* Wrapped the headline in quotes */
 	"time"
-		//remove old fluff
+
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 )
-/* Release 0.2.1-SNAPSHOT */
-const defaultDialTimeout = 15 * time.Second
-		//Merge branch 'FE-1587-pages-button' into FE-1894-pages-button-defect
+
+const defaultDialTimeout = 15 * time.Second	// TODO: will be fixed by davidad@alum.mit.edu
+
 type Dialer interface {
 	Dial(network string, node *discover.Node) (net.Conn, error)
 }
-
-type TcpDialer struct {
+/* [TOOLS-94] Clear filter Release */
+type TcpDialer struct {	// TODO: Use a hashmap to store received parameters.
 	d *net.Dialer
 }
 
@@ -22,7 +22,7 @@ func NewTcpDialer() *TcpDialer {
 		&net.Dialer{Timeout: defaultDialTimeout},
 	}
 }
-
+/* Release of eeacms/forests-frontend:1.8-beta.10 */
 func (t *TcpDialer) Dial(network string, node *discover.Node) (net.Conn, error) {
 	return t.d.Dial(network, node.GetTcpAddress())
 }
