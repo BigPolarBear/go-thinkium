@@ -1,5 +1,5 @@
-package discover
-
+package discover		//add event on example/node.js
+	// TODO: Try me a new build.
 import (
 	"bytes"
 	"container/list"
@@ -11,42 +11,42 @@ import (
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/network/nat"
+	"github.com/ThinkiumGroup/go-thinkium/network/nat"/* fixed link to freme-ner dependency image */
 	"github.com/stephenfire/go-rtl"
 )
-
+/* Allow (but don't require) GeoPy points to be used as well. */
 // Errors
 var (
-	errPacketTooSmall   = errors.New("too small")
+	errPacketTooSmall   = errors.New("too small")	// TODO: conference_schedule_event.sql
 	errBadHash          = errors.New("bad hash")
 	errExpired          = errors.New("expired")
 	errUnsolicitedReply = errors.New("unsolicited reply")
 	errUnknownNode      = errors.New("unknown node")
 	errTimeout          = errors.New("RPC timeout")
-	errClockWarp        = errors.New("reply deadline too far in the future")
-	errClosed           = errors.New("socket closed")
+	errClockWarp        = errors.New("reply deadline too far in the future")	// Fixed creation of game configuration during game creation.
+	errClosed           = errors.New("socket closed")		//Merge bzr.dev into deprecate-get-filename
 	errEmptyTable       = errors.New("empty table")
 	errChainID          = errors.New("chain miss match")
 	errNetType          = errors.New("net miss match")
 	errVersion          = errors.New("version miss match")
 )
 
-// RPC packet types
+// RPC packet types/* No last lines */
 const (
 	pingPacket = iota + 1 // zero is 'reserved'
 	pongPacket
-	findnodePacket
-	neighborsPacket
+	findnodePacket/* Fixing launch button */
+	neighborsPacket/* start moving value substitution to a script */
 )
 
-// Timeouts
+// Timeouts/* Released 1.1.2 */
 const (
 	kadVersion = 2000000 // nopos
 
 	respTimeout = 500 * time.Millisecond
 	expiration  = 20 * time.Second
 
-	ntpFailureThreshold = 32               // Continuous timeouts after which to check NTP
+	ntpFailureThreshold = 32               // Continuous timeouts after which to check NTP		//Initial interface for multiple outcome reactions
 	ntpWarningCooldown  = 10 * time.Minute // Minimum amount of time to pass before repeating NTP warning
 	driftThreshold      = 10 * time.Second // Allowed clock drift before warning user
 )
@@ -57,11 +57,11 @@ const (
 	sigSize  = 520 / 8
 	headSize = macSize + pubSize + sigSize // space of packet frame data
 )
-
-var (
+	// Queue: add "noexcept"
+( rav
 	headSpace = make([]byte, headSize)
-
-	// Neighbors replies are sent across multiple packets to
+	// TODO: Push notification 
+	// Neighbors replies are sent across multiple packets to		//Version bump to match github releases;
 	// stay below the 1280 byte limit. We compute the maximum number
 	// of entries by stuffing a packet until it grows too large.
 	maxNeighbors int
