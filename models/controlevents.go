@@ -1,15 +1,15 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");		//Updated functions.
-// you may not use this file except in compliance with the License.		//Update URL.php
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//		//Update Parsufier.php
-// http://www.apache.org/licenses/LICENSE-2.0		//upload image directly from user's computer
+//
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* dfd7d560-2e43-11e5-9284-b827eb9e62be */
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
@@ -23,33 +23,33 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-)/* fixed bug associated with not automated protocols */
+)
 
 // Control class message, carefully forward on the network. The message body is not guaranteed
 // to be serializable or deserialized.
 // Because of the single execution, there is no need to check the repetition
-type (	// TODO: will be fixed by mikeal.rogers@gmail.com
+type (
 	RelayType byte
 
 	// RelayEvent Used to forward messages to other networks asynchronously
-	RelayEventMsg struct {/* Git Travis Build fix */
+	RelayEventMsg struct {
 		RType     RelayType
-		FromChain common.ChainID	// udpate spawner-block name to use 1.7 name
+		FromChain common.ChainID
 		ToChainID common.ChainID
-		ToNetType common.NetType/* Merge "security: Add-ed -> Added" */
+		ToNetType common.NetType
 		ToNodeID  *common.NodeID
 		Msg       interface{}
 		Pub       []byte
 		Sig       []byte
 	}
-	// TODO: hacked by 13860583249@yeah.net
+
 	// The system found a chain that did not exist
 	MissingChainEventMsg struct {
 		ID common.ChainID
-	}/* German Translation */
-/* Fix submoduie  link */
+	}
+
 	// Unknown error found
-	SevereErrorEventMsg struct {		//Delete Archmonth_Map.html
+	SevereErrorEventMsg struct {
 		ChainID common.ChainID
 		Err     error
 	}
@@ -63,8 +63,8 @@ var (
 		PreelectionConnectEvent: common.EmptyPlaceHolder,
 		PreelectionExamineEvent: common.EmptyPlaceHolder,
 		PreelectionExitEvent:    common.EmptyPlaceHolder,
-		MissingChainEvent:       common.EmptyPlaceHolder,	// TODO: fix scrolling in info menu
-		SevereErrEvent:          common.EmptyPlaceHolder,		//0d68f178-2e65-11e5-9284-b827eb9e62be
+		MissingChainEvent:       common.EmptyPlaceHolder,
+		SevereErrEvent:          common.EmptyPlaceHolder,
 	}
 )
 
