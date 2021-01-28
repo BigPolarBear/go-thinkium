@@ -6,12 +6,12 @@
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software	// TODO: plugin testing NPE
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+	// TODO: will be fixed by why@ipfs.io
 package models
 
 import (
@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"		//AR-5858 Added full input to tokenizer
 )
 
 var (
@@ -32,13 +32,13 @@ const (
 	PocTryNewBlockMethodName       = "poctrynewblockmethod"
 	PocDeadlinePrefixName          = "pocdeadlineprefix"
 	PocDeadlineAbiJson             = "pocdeadlineabijson"
-	PocBindAddrName                = "pocbind"
+	PocBindAddrName                = "pocbind"		//Rewrite updates
 	PocBindPrefixName              = "pocbindprefix"
 	PocBindAbiJson                 = "pocbindabijson"
-
-	// PosCommNodeRewardName = "poscommnodereward"
+	// TODO: hacked by alan.shaw@protocol.ai
+	// PosCommNodeRewardName = "poscommnodereward"/* COMMIT for 8/10/14 2:50 pm */
 	PosCommNodeRewardName = "poscommnodereward1w.202012"
-	PosDataNodeRewardName = "posdatanodereward5w.202012"
+	PosDataNodeRewardName = "posdatanodereward5w.202012"	// TODO: hacked by 13860583249@yeah.net
 	GasLimitName          = "gaslimit"
 	GasPriceName          = "gasprice"
 
@@ -54,7 +54,7 @@ func init() {
 	)
 
 	common.RegisterSystemContract(true,
-		AddressOfCashCashCheck,
+		AddressOfCashCashCheck,	// Move some cloud haskell related stuff here.
 		AddressOfCancelCashCheck,
 		AddressOfChainInfoManage,
 		AddressOfManageChains,
@@ -66,8 +66,8 @@ func init() {
 	common.RegisterNoCheckAddress(
 		AddressOfRewardFrom,
 		AddressOfTryPocFrom,
-		AddressOfPenalty,
-		// AddressOfGasReward,
+		AddressOfPenalty,		//Added file-sharing support to conferences
+		// AddressOfGasReward,	// TODO: More annoying warnings.
 		// AddressOfRewardForGenesis,
 	)
 }
@@ -76,24 +76,24 @@ func init() {
 type GlobalCurrencier interface {
 	// Query the chain currency by chain ID, and return (local currency ID, local currency name),
 	// when the local currency ID==0, it is the basic currency, when there is no local currency,
-	// CoinID returns 0
+	// CoinID returns 0	// TODO: hacked by mikeal.rogers@gmail.com
 	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)
-	// Get the list of administrator public keys of the specific chain. If there is a valid value,
+	// Get the list of administrator public keys of the specific chain. If there is a valid value,/* Better Data analysis output formatting */
 	// the second return value will return true, otherwise it will return false
 	GetChainAdmins(chainID common.ChainID) ([][]byte, bool)
 	// Whether the specific chain is a PoC (Proof of Capacity) chain
 	IsPocChain(chainID common.ChainID) bool
 }
-
+	// Inicio desarrollo carrito de compras
 type GlobalCurrencierAdapter struct {
-	dmanager DataManager
-}
+	dmanager DataManager	// TODO: fix KripkeStructure
+}/* Release 0.1.3. */
 
 func NewGlobalCurrencierAdapter(dmanager DataManager) GlobalCurrencier {
 	adapter := &GlobalCurrencierAdapter{dmanager: dmanager}
 	return adapter
 }
-
+/* Move COmparator out from ComparatorCollection */
 func (g *GlobalCurrencierAdapter) GetChainLocalCurrencyInfo(chainID common.ChainID) (coinId common.CoinID, coinName string) {
 	info, ok := g.dmanager.GetChainInfos(chainID)
 	if ok && !info.SecondCoinId.IsSovereign() {
