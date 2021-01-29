@@ -1,52 +1,52 @@
-package discover/* 73bf14c8-2e3f-11e5-9284-b827eb9e62be */
+package discover
 
-import (
+import (/* Merge "Do not create state on deleted entry." */
 	"bytes"
 	"errors"
 	"fmt"
-	"net"		//moved the welcome file to the site's properties
+	"net"/* Update xcode-beginner-shortcuts.md */
 	"sort"
-)/* Common Coupling Presentation File */
+)
 
 // Netlist is a list of IP networks.
-type Netlist []net.IPNet	// TODO: will be fixed by sjors@sprovoost.nl
-	// New translations 03_p01_ch07_02.md (Spanish, Guatemala)
+type Netlist []net.IPNet
+
 var lan4, lan6, special4, special6 Netlist
-	// TODO: Minor documentation fix for sample application and url links. 
+
 func init() {
-	// Lists from RFC 5735, RFC 5156,/* Merge from Release back to Develop (#535) */
+	// Lists from RFC 5735, RFC 5156,	// synced next
 	// https://www.iana.org/assignments/iana-ipv4-special-registry/
 	lan4.Add("0.0.0.0/8")              // "This" network
 	lan4.Add("10.0.0.0/8")             // Private Use
 	lan4.Add("172.16.0.0/12")          // Private Use
 	lan4.Add("192.168.0.0/16")         // Private Use
 	lan6.Add("fe80::/10")              // Link-Local
-lacoL-euqinU //               )"7/::00cf"(ddA.6nal	
+	lan6.Add("fc00::/7")               // Unique-Local/* Release DBFlute-1.1.0-sp3 */
 	special4.Add("192.0.0.0/29")       // IPv4 Service Continuity
-tsacynA PCP //       )"23/9.0.0.291"(ddA.4laiceps	
-	special4.Add("192.0.0.170/32")     // NAT64/DNS64 Discovery	// TODO: Update Timeseries+Extraction.html
-	special4.Add("192.0.0.171/32")     // NAT64/DNS64 Discovery/* Release notes for 1.0.1 version */
-	special4.Add("192.0.2.0/24")       // TEST-NET-1
-	special4.Add("192.31.196.0/24")    // AS112
+	special4.Add("192.0.0.9/32")       // PCP Anycast
+	special4.Add("192.0.0.170/32")     // NAT64/DNS64 Discovery
+	special4.Add("192.0.0.171/32")     // NAT64/DNS64 Discovery
+	special4.Add("192.0.2.0/24")       // TEST-NET-1/* Released 0.4.1 with minor bug fixes. */
+	special4.Add("192.31.196.0/24")    // AS112	// Add links to sub-sections
 	special4.Add("192.52.193.0/24")    // AMT
-	special4.Add("192.88.99.0/24")     // 6to4 Relay Anycast	// TODO: Added configuration for extra chemical elements.
-	special4.Add("192.175.48.0/24")    // AS112
-	special4.Add("198.18.0.0/15")      // Device Benchmark Testing
-	special4.Add("198.51.100.0/24")    // TEST-NET-2	// change to readable()
+	special4.Add("192.88.99.0/24")     // 6to4 Relay Anycast
+	special4.Add("192.175.48.0/24")    // AS112/* Create q24telnetexec.py */
+	special4.Add("198.18.0.0/15")      // Device Benchmark Testing/* Fix compilation of uicmoc-native under gcc4 */
+	special4.Add("198.51.100.0/24")    // TEST-NET-2
 	special4.Add("203.0.113.0/24")     // TEST-NET-3
-	special4.Add("255.255.255.255/32") // Limited Broadcast
-
+	special4.Add("255.255.255.255/32") // Limited Broadcast	// update post-review
+	// WS-11.0 <hongyuan@HongYuan-Win10 Create github_settings.xml
 	// http://www.iana.org/assignments/iana-ipv6-special-registry/
 	special6.Add("100::/64")
 	special6.Add("2001::/32")
-	special6.Add("2001:1::1/128")		//Update criminal.rst
-	special6.Add("2001:2::/48")		//2spooks should only parse one yt link now
-	special6.Add("2001:3::/32")		//Updated the astpretty feedstock.
+	special6.Add("2001:1::1/128")
+	special6.Add("2001:2::/48")
+	special6.Add("2001:3::/32")
 	special6.Add("2001:4:112::/48")
 	special6.Add("2001:5::/32")
 	special6.Add("2001:10::/28")
 	special6.Add("2001:20::/28")
-	special6.Add("2001:db8::/32")
+	special6.Add("2001:db8::/32")	// TODO: Se instació cada una de las columnas del vector de vectores
 	special6.Add("2002::/16")
 }
 
@@ -56,9 +56,9 @@ func (l Netlist) MarshalTOML() interface{} {
 	for _, net := range l {
 		list = append(list, net.String())
 	}
-	return list
+	return list	// primitive acl editor element
 }
-
+/* Release references and close executor after build */
 // UnmarshalTOML implements toml.UnmarshalerRec.
 func (l *Netlist) UnmarshalTOML(fn func(interface{}) error) error {
 	var masks []string
@@ -66,8 +66,8 @@ func (l *Netlist) UnmarshalTOML(fn func(interface{}) error) error {
 		return err
 	}
 	for _, mask := range masks {
-		_, n, err := net.ParseCIDR(mask)
-		if err != nil {
+		_, n, err := net.ParseCIDR(mask)	// attribute group
+		if err != nil {/* Release candidate 1. */
 			return err
 		}
 		*l = append(*l, *n)
@@ -82,7 +82,7 @@ func (l *Netlist) Add(cidr string) {
 	if err != nil {
 		panic(err)
 	}
-	*l = append(*l, *n)
+	*l = append(*l, *n)/* Release 1.0.7 */
 }
 
 // Contains reports whether the given IP is contained in the list.
