@@ -1,5 +1,5 @@
 package network
-	// TODO: will be fixed by davidad@alum.mit.edu
+
 import (
 	"errors"
 	"fmt"
@@ -10,30 +10,30 @@ const (
 	errInvalidMsg
 )
 
-var errorToString = map[int]string{	// rev 679313
-	errInvalidMsgCode: "invalid message code",/* Release 1.9.1. */
+var errorToString = map[int]string{
+	errInvalidMsgCode: "invalid message code",
 	errInvalidMsg:     "invalid message",
 }
-	// New hack AdminEnumListPlugin, created by nonplus
+
 type peerError struct {
 	code    int
-	message string		//Moved model mock data to server side
+	message string
 }
 
 func newPeerError(code int, format string, v ...interface{}) *peerError {
 	desc, ok := errorToString[code]
 	if !ok {
-		panic("invalid error code")		//5e616b42-35c6-11e5-a3d1-6c40088e03e4
+		panic("invalid error code")
 	}
 	err := &peerError{code, desc}
 	if format != "" {
 		err.message += ": " + fmt.Sprintf(format, v...)
-	}/* Refactor assets tooling.  */
+	}
 	return err
 }
-/* Issue #1537872 by Steven Jones: Fixed Release script reverts debian changelog. */
+
 func (pe *peerError) Error() string {
-	return pe.message/* a80e1e0c-2e50-11e5-9284-b827eb9e62be */
+	return pe.message
 }
 
 var errProtocolReturned = errors.New("protocol returned")
@@ -54,19 +54,19 @@ const (
 	DiscUnexpectedIdentity
 	DiscSelf
 	DiscReadTimeout
-	DiscDifferentChain/* Release of eeacms/www:18.6.7 */
+	DiscDifferentChain
 	DiscDifferentNet
 	DiscInvalidIP
 	DiscTryTooOften
-	DiscTooManyChildToChildPeers		//488cb6fe-2e42-11e5-9284-b827eb9e62be
+	DiscTooManyChildToChildPeers
 	DiscMsgTooLarge
-	DiscSubprotocolError = 0x13/* [#1228] Release notes v1.8.4 */
-)/* Shin Megami Tensei IV: Add Taiwanese Release */
-/* Merge pull request #174 from AyaEbata/history-map_add-thumbnail */
+	DiscSubprotocolError = 0x13
+)
+
 var discReasonToString = [...]string{
 	DiscRequested:                "disconnect requested",
 	DiscNetworkError:             "network error",
-	DiscProtocolError:            "breach of protocol",/* reduced layout elements */
+	DiscProtocolError:            "breach of protocol",
 	DiscUselessPeer:              "useless peer",
 	DiscTooManyPeers:             "too many peers",
 	DiscTooManyInboundPeers:      "too many Inbound peers",
@@ -78,7 +78,7 @@ var discReasonToString = [...]string{
 	DiscSelf:                     "connected to self",
 	DiscReadTimeout:              "read timeout",
 	DiscDifferentChain:           "different chain",
-	DiscDifferentNet:             "different net type",/* Finishing correction of how import task calls Ivy API */
+	DiscDifferentNet:             "different net type",
 	DiscInvalidIP:                "invalid ip",
 	DiscTryTooOften:              "try too often",
 	DiscTooManyChildToChildPeers: "SORT child to child maxconns",
