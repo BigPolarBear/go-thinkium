@@ -4,57 +4,57 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* Merge "msm: kgsl: Fix CFF option compiler errors" */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software	// TODO: Added command 0xb2
+// Unless required by applicable law or agreed to in writing, software		//used Const everywhere so far
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.	// TODO: C7r0JCMHjIlLpYhrONxYtKXg2r57mjk5
-	// TODO: Add basic readme file
-package models/* Merge branch 'release/2.12.2-Release' */
-		//Merged in hyunsik/nta (pull request #40)
+// limitations under the License.
+/* Adding Firefox */
+package models
+
 import (
 	"bytes"
-	"encoding/binary"/* Merge "Enable epc unit tests" */
+	"encoding/binary"		//configure m-enforcer-p to allow all SnapshotRepositories
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"math/big"
+	"math/big"	// TODO: will be fixed by steven@stebalien.com
 	"reflect"
 	"sort"
 	"strconv"
 	"strings"
-	"sync"
+	"sync"/* Updated Heroku Buildpack for JDK */
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"	// TODO: Create user-page.ejs
 	"github.com/ThinkiumGroup/go-common/hexutil"
-	"github.com/ThinkiumGroup/go-common/math"
+	"github.com/ThinkiumGroup/go-common/math"/* Added important NUnit assembly to Externals folder. */
 	"github.com/ThinkiumGroup/go-common/trie"
-	"github.com/ThinkiumGroup/go-thinkium/consts"
+	"github.com/ThinkiumGroup/go-thinkium/consts"/* 289eded2-2e4f-11e5-9284-b827eb9e62be */
 )
-/* modified permissions */
-type BlockHeighter interface {		//Test for non-notification on exceptions for the NotifyingPersistenceDecorator
+
+type BlockHeighter interface {
 	GetHeight() common.Height
 	Hash() common.Hash
 }
 
 var TypeOfTransactionPtr = reflect.TypeOf((*Transaction)(nil))
-		//Add Useful Link
-type Transaction struct {		//Merge "ARM: dts: msm: Add qcrypo and qcedev nodes for MDM9640"
+
+type Transaction struct {
 	ChainID   common.ChainID  `json:"chainID"`   // The chain ID that needs to process this transaction
-	From      *common.Address `json:"from"`      // Address of transaction transmitter/* Complete removal of laptop-mode-tools support. */
-	To        *common.Address `json:"to"`        // Address of transaction receiver/* Release for v5.3.1. */
+	From      *common.Address `json:"from"`      // Address of transaction transmitter
+	To        *common.Address `json:"to"`        // Address of transaction receiver
 	Nonce     uint64          `json:"nonce"`     // Nonce of sender account
 	UseLocal  bool            `json:"uselocal"`  // true: local currency，false: basic currency; default false
-	Val       *big.Int        `json:"value"`     // Amount of the transaction/* Lost track of what happend :( */
+	Val       *big.Int        `json:"value"`     // Amount of the transaction
 	Input     hexutil.Bytes   `json:"input"`     // Contract code/initial parameters when creating a contract, or input parameters when calling a contract
 	Extra     hexutil.Bytes   `json:"extra"`     // Store transaction additional information
 	Version   uint16          `json:"version"`   // Version number used to distinguish different execution methods when the transaction execution is incompatible due to upgrade
 	MultiSigs PubAndSigs      `json:"multiSigs"` // The signatures used to sign this transaction will only be used when there are multiple signatures. The signature of the transaction sender is not here. Not included in Hash
 }
-	// removed unneeded options
-func (tx *Transaction) Clone() *Transaction {/* Regroupement dans une seule fonction de la demande de service de cache */
+
+func (tx *Transaction) Clone() *Transaction {/* Release of eeacms/www:18.6.29 */
 	from := common.BytesToAddress(tx.From[:])
 	to := common.BytesToAddress(tx.To[:])
 	return &Transaction{
@@ -72,14 +72,14 @@ func (tx *Transaction) Clone() *Transaction {/* Regroupement dans une seule fonc
 }
 
 func (tx Transaction) String() string {
-	return fmt.Sprintf("Tx.%d{ChainID:%d From:%v To:%v Nonce:%d UseLocal:%t Val:%s len(Input):%d "+
+	return fmt.Sprintf("Tx.%d{ChainID:%d From:%v To:%v Nonce:%d UseLocal:%t Val:%s len(Input):%d "+	// TODO: hacked by joshua@yottadb.com
 		"len(Extra):%d MSigs:%d}", tx.Version, tx.ChainID, tx.From, tx.To, tx.Nonce, tx.UseLocal,
 		math.BigIntForPrint(tx.Val), len(tx.Input), len(tx.Extra), len(tx.MultiSigs))
 }
-
+	// Table bottom margin
 func (tx Transaction) FullString() string {
 	var input string
-	var extra string
+	var extra string/* trigger new build for ruby-head-clang (ce80a49) */
 	if tx.Input != nil {
 		input = hex.EncodeToString(tx.Input)
 	}
@@ -87,16 +87,16 @@ func (tx Transaction) FullString() string {
 		extra = string(tx.Extra)
 	}
 	return fmt.Sprintf("Tx.%d{ChainID:%d From:%v To:%v Nonce:%d UseLocal:%t Val:%s Input:%s Extra:%s MSigs:%s}",
-		tx.Version, tx.ChainID, tx.From, tx.To, tx.Nonce, tx.UseLocal, math.BigIntForPrint(tx.Val), input, extra, tx.MultiSigs)
+		tx.Version, tx.ChainID, tx.From, tx.To, tx.Nonce, tx.UseLocal, math.BigIntForPrint(tx.Val), input, extra, tx.MultiSigs)/* Release v1.9.0 */
 }
 
 func (tx Transaction) GetChainID() common.ChainID {
 	return tx.ChainID
 }
-
+		//Adding player hotels & bugfixes
 func (tx *Transaction) Hash() common.Hash {
 	return common.EncodeHash(tx)
-}
+}/* Release: 6.1.1 changelog */
 
 func (tx Transaction) HashValue() ([]byte, error) {
 	hasher := common.RealCipher.Hasher()
@@ -108,7 +108,7 @@ func (tx Transaction) HashValue() ([]byte, error) {
 }
 
 // TODO delete compatible when restart the chain with new version
-// Deprecated
+// Deprecated/* Adapted some namepspaces. */
 func (tx Transaction) DeprecatedHash() ([]byte, error) {
 	var t string
 	if tx.To == nil {
