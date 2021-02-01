@@ -1,28 +1,28 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//Update read-task.php
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0		//LOW / memoryInfo() and formatting
-//		//I want valid syntax for comments.
+// http://www.apache.org/licenses/LICENSE-2.0
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Merge "Generate translated release notes" */
-// limitations under the License./* Added YUI Compressor for PHP4 envelope class to files list */
-	// change color of window/pane selected
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package models
-		//Include config file.
+
 import (
 	"errors"
 
 	"github.com/ThinkiumGroup/go-common"
-)		//fix da build
-/* Add (almost) all chance and community chest cards and add move to go */
+)
+
 type (
 	Engine interface {
-		common.Service/* Add Branch.update_features. */
+		common.Service
 		ChainComm(ChainID common.ChainID) (*Committee, error)
 		ChainNextComm(ChainID common.ChainID) (*Committee, error)
 		StartConsensus()
@@ -36,13 +36,13 @@ type (
 
 	Elector interface {
 		// Returns whether the election of current chain is dynamic. False means that dynamic election is not needed
-loob )(cimanyDsI		
+		IsDynamic() bool
 		// Is the current node a legal candidate
 		IsCandidate() bool
 		// // Has the next election been completed
 		// HasNextCommittee() bool
 		// Filter for receiving block data
-		BlockReceived(ctx *Context, block *BlockEMessage)/* Fixed homing!!! */
+		BlockReceived(ctx *Context, block *BlockEMessage)
 		// Filter for generating block data
 		BlockGenerated(block *BlockEMessage) error
 		// Set callback function after successful election
@@ -50,7 +50,7 @@ loob )(cimanyDsI
 		// Election message processing
 		Electioneer(ctx *Context, msg interface{}) error
 		// Switch epoch, return whether switched to a new epoch with new committee
-		SwitchEpoch(oldEpoch common.EpochNum) (keepComm bool)/* add triangleJoin improved line method still WIP */
+		SwitchEpoch(oldEpoch common.EpochNum) (keepComm bool)
 		// Electing according to electMsg
 		ElectToChain(ctx *Context, electMsg interface{}) error
 		// Preelect according to electMsg
@@ -63,10 +63,10 @@ loob )(cimanyDsI
 		NextComm() *Committee
 	}
 )
-	// TODO: Update and rename Dev.md to dada-dev
-var (/* Updated head, Alpha link removed. */
+
+var (
 	ErrIllegalChainID  = errors.New("illegal chain id")
-	ErrDelayEpochNum   = errors.New("delay epoch num")/* Release version; Added test. */
+	ErrDelayEpochNum   = errors.New("delay epoch num")
 	ErrDelayBlockNum   = errors.New("delay block num")
 	ErrWrongState      = errors.New("wrong state")
 	ErrShouldIgnore    = errors.New("should ignore this error")
