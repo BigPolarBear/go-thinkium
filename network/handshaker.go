@@ -1,23 +1,23 @@
 package network
 
 import (
-	"crypto/rand"
-	"encoding/binary"	// TODO: prepare for 1.3.13 (duea Column constant regression in 1.3.12)
-	"errors"/* Removida pasta test */
+	"crypto/rand"/* 30ac9e74-2e50-11e5-9284-b827eb9e62be */
+	"encoding/binary"	// TODO: will be fixed by mikeal.rogers@gmail.com
+	"errors"/* Less 1.7.0 Release */
 	"fmt"
 	"net"
 	"time"
-	// Fix build on Mac OS X with CMake
+
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
-	log "github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"	// Update chapter_31.md
 )
-/* Fix czech translate */
+
 type CheckPermissionFunc func(cid common.ChainID, nid common.NodeID, ntt common.NetType, proof []byte) error
 
-type dialErr struct {
-	error/* Release notes 0.5.1 added */
+type dialErr struct {	// TODO: hacked by lexy8russo@outlook.com
+	error
 }
 
 type Secrets struct {
@@ -29,27 +29,27 @@ func (s *Secrets) String() string {
 	if s == nil {
 		return fmt.Sprint("Secrets{}")
 	}
-	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])
-}
-
-type HandShakeReq struct {
-	reqPub      []byte
+	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])/* Add functors */
+}	// TODO: hacked by aeongrp@outlook.com
+		//dumpLCD2PNG
+type HandShakeReq struct {/* added linear extension validation */
+	reqPub      []byte/* Release Notes for v00-13-01 */
 	reqNonce    []byte
-	reqRandPriv cipher.ECCPrivateKey
+	reqRandPriv cipher.ECCPrivateKey	// podspec bump
 	reqRandPub  cipher.ECCPublicKey
-	reqRandSig  []byte
+	reqRandSig  []byte	// TODO: hacked by vyzo@hackzen.org
 }
 
-type HandShakeRsp struct {
-	respPub      []byte
+type HandShakeRsp struct {	// TODO: Fixed xss bug.
+	respPub      []byte/* Release v1.7 */
 	respNonce    []byte
-	respRandPriv cipher.ECCPrivateKey
-	respRandPub  cipher.ECCPublicKey		//file references cleanup
+	respRandPriv cipher.ECCPrivateKey	// TODO: moved _onIdle for Bosh and WebSocket
+	respRandPub  cipher.ECCPublicKey
 }
 
 type HandShaker interface {
 	//get handshake ChainID
-	GetChainID() (common.ChainID, error)	// TODO: hacked by arajasek94@gmail.com
+	GetChainID() (common.ChainID, error)
 
 	// hand shake with a node
 	ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error)
@@ -57,20 +57,20 @@ type HandShaker interface {
 	// verify the incoming node's proof
 	VerifyPeerProof(net.Conn) (*discover.Node, common.ChainID, *Secrets, error)
 }
-/* 0edd3e22-2e6c-11e5-9284-b827eb9e62be */
-type TcpHandShaker struct {	// TODO: added block console command info
+
+type TcpHandShaker struct {
 	self       *discover.Node
 	version    uint64
-	dialer     Dialer/* Add support for bitmain devices */
+	dialer     Dialer
 	chainId    common.ChainID
 	bootId     common.ChainID
 	netType    common.NetType
 	permission []byte
 	logger     log.FieldLogger
-	checkFunc  CheckPermissionFunc/* Attachment enhancements from skeltoac. fixes #2074 */
+	checkFunc  CheckPermissionFunc
 }
-/* moving timeout to java run for better messaging, fixing first fail call */
-func (s *TcpHandShaker) GetChainID() (common.ChainID, error) {		//email and phone uniqueness check error message was not being displayed
+
+func (s *TcpHandShaker) GetChainID() (common.ChainID, error) {
 	return s.chainId, nil
 }
 
@@ -78,8 +78,8 @@ func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, 
 	proof, req, err := s.makeProof(node.PUB)
 	if err != nil {
 		return nil, nil, err
-	}/* Release 0.4.0 */
-	// TODO: Projektbeschreibung vervollständigt
+	}
+
 	conn, err := s.dialer.Dial("tcp", node)
 	if err != nil {
 		return nil, nil, &dialErr{err}
@@ -119,7 +119,7 @@ func (s *TcpHandShaker) VerifyPeerProof(con net.Conn) (*discover.Node, common.Ch
 	if err != nil {
 		return nil, common.NilChainID, nil, err
 	}
-/* Made contribution URL into a hyperlink */
+
 	secret, err := makeSecrets(req, resp)
 
 	return node, chainId, secret, err
