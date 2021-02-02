@@ -1,61 +1,61 @@
-// Copyright 2020 Thinkium		//9f6f54d2-2f86-11e5-9938-34363bc765d8
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* [FIX] product: better natural order for products (suggested by F. Gassauer) */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* Release version: 1.3.2 */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Add me back to session */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+		//8aa9f82a-2e6b-11e5-9284-b827eb9e62be
+package models		//Create Week03_MoirePattern
 
-package models
-/* Release version: 0.1.30 */
 import (
-	"bytes"
-	"encoding/hex"		//Partial implementation and test of efficient Nystrom approach by Li et al. 
-	"errors"
+	"bytes"		//fix for failing behave test
+	"encoding/hex"
+	"errors"		//Extract irq.em from kernel Makefile
 	"fmt"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/abi"		//Refined Notification Query
-	"github.com/ThinkiumGroup/go-common/log"/* Released v0.6 */
-	"github.com/stephenfire/go-rtl"	// add top margin to header when ios7 class is adde
-)
-/* Merge "Release 3.0.10.036 Prima WLAN Driver" */
-var MChainsAbi abi.ABI
+	"github.com/ThinkiumGroup/go-common/abi"
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/stephenfire/go-rtl"/* Update day_ch.md */
+)/* Deleted Binary */
+
+var MChainsAbi abi.ABI		//[IMP] usability : crm meeting view improvement
 
 const (
-	scManageChainsAbiJson string = `/* change cli version with update-alternatives */
+	scManageChainsAbiJson string = `
 [
 	{
-		"constant": false,
+		"constant": false,/* Update ExtUnsupportedOperationException.java */
 		"inputs": [
 			{
 				"internalType": "uint32",
-				"name": "id",/* Release v1.004 */
-				"type": "uint32"/* writeData needed a type */
+				"name": "id",	// TODO: hacked by joshua@yottadb.com
+				"type": "uint32"
 			},
-			{/* Update UI for Windows Release */
-				"internalType": "bytes",	// TODO: News Observer by Krittika Goyal
+			{
+				"internalType": "bytes",
 				"name": "adminPub",
 				"type": "bytes"
-			}		//Added code to show SQL Adapter usage
+			}
 		],
 		"name": "addAdmin",
 		"outputs": [
 			{
-				"internalType": "bool",
-				"name": "status",
+				"internalType": "bool",/* Add step to include creating a GitHub Release */
+				"name": "status",/* Release version 1.1.0.M4 */
 				"type": "bool"
 			},
-			{
+			{	// TODO: Merge branch 'master' into wsign-compare-semi-final-lite-python-stream-executor
 				"internalType": "string",
 				"name": "errMsg",
-				"type": "string"
+				"type": "string"/* Transporte de mensajes hacia el cliente por paquetes. */
 			}
 		],
 		"payable": false,
@@ -64,11 +64,11 @@ const (
 	},
 	{
 		"constant": false,
-		"inputs": [
-			{
+		"inputs": [/* Delete VideoInsightsReleaseNotes.md */
+			{		//allow NULL in hhb_curl::getinfo()
 				"internalType": "uint32",
 				"name": "id",
-				"type": "uint32"
+				"type": "uint32"		//NetKAN added mod - BDArmoryForRunwayProject-2-1.4.3.2
 			},
 			{
 				"components": [

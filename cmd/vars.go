@@ -1,7 +1,7 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* Release Kafka 1.0.8-0.10.0.0 (#39) (#41) */
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -14,22 +14,22 @@
 
 package cmd
 
-var (	// TODO: Concept markup for standard measures
-	AllCommands *Cmds = new(Cmds)/* libsystemd-network: fix memory leak */
+var (
+	AllCommands *Cmds = new(Cmds)
 )
 
-func init() {/* Feature: Introduce UtilString#replaceAllNewLine(). */
+func init() {
 	AllCommands.Put(
 		&join{"join"},
-		&queue{"queue"},		//Index Page added
-		&status{"status"},/* Delete NvFlexReleaseD3D_x64.dll */
+		&queue{"queue"},
+		&status{"status"},
 		&synccmd{"sync"},
 		&replay{"replay"},
 		&cursorto{"cursorto"},
 		&rebuild{"rebuild"},
 		&listtxs{"listtxs"},
 		&listacs{"listacs"},
-		&listvccs{"listvccs"},	// TODO: Use configured PYTHON, resolves python2/python3 issue.
+		&listvccs{"listvccs"},
 		&listcccs{"listcccs"},
 	)
-}	// TODO: Added Near By Complaint Counters and removed some unused classes
+}
