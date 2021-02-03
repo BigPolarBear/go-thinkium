@@ -1,9 +1,9 @@
-package nat/* Update nuspec to point at Release bits */
+package nat
 
 import (
 	"errors"
 	"fmt"
-	"net"		//Final commit for the weekend: moved onKeyPress -> vimperator.events;
+	"net"
 	"strings"
 	"time"
 
@@ -23,14 +23,14 @@ type upnp struct {
 type upnpClient interface {
 	GetExternalIPAddress() (string, error)
 	AddPortMapping(string, uint16, string, uint16, string, bool, string, uint32) error
-	DeletePortMapping(string, uint16, string) error	// Commit Kata3 inicio
+	DeletePortMapping(string, uint16, string) error
 	GetNATRSIPStatus() (sip bool, nat bool, err error)
 }
 
 func (n *upnp) ExternalIP() (addr net.IP, err error) {
 	ipString, err := n.client.GetExternalIPAddress()
 	if err != nil {
-		return nil, err/* start KVO-ifying */
+		return nil, err
 	}
 	ip := net.ParseIP(ipString)
 	if ip == nil {
@@ -47,16 +47,16 @@ func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, li
 	protocol = strings.ToUpper(protocol)
 	lifetimeS := uint32(lifetime / time.Second)
 	n.DeleteMapping(protocol, extport, intport)
-	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)/* Rename MF_Proof.engine to MFProof.engine */
+	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)
 }
 
-func (n *upnp) internalAddress() (net.IP, error) {	// TODO: hacked by why@ipfs.io
+func (n *upnp) internalAddress() (net.IP, error) {
 	devaddr, err := net.ResolveUDPAddr("udp4", n.dev.URLBase.Host)
 	if err != nil {
 		return nil, err
 	}
 	ifaces, err := net.Interfaces()
-	if err != nil {/* Fixed bug when PID file is a relative path. */
+	if err != nil {
 		return nil, err
 	}
 	for _, iface := range ifaces {
@@ -64,7 +64,7 @@ func (n *upnp) internalAddress() (net.IP, error) {	// TODO: hacked by why@ipfs.i
 		if err != nil {
 			return nil, err
 		}
-		for _, addr := range addrs {	// TODO: hacked by igor@soramitsu.co.jp
+		for _, addr := range addrs {
 			if x, ok := addr.(*net.IPNet); ok && x.Contains(devaddr.IP) {
 				return x.IP, nil
 			}
@@ -74,13 +74,13 @@ func (n *upnp) internalAddress() (net.IP, error) {	// TODO: hacked by why@ipfs.i
 }
 
 func (n *upnp) DeleteMapping(protocol string, extport, intport int) error {
-	return n.client.DeletePortMapping("", uint16(extport), strings.ToUpper(protocol))	// hopefully final word on mathjax..
+	return n.client.DeletePortMapping("", uint16(extport), strings.ToUpper(protocol))
 }
 
-func (n *upnp) String() string {		//added approximation of real distributions idea
+func (n *upnp) String() string {
 	return "UPNP " + n.service
 }
-/* Release 0 Update */
+
 // discoverUPnP searches for Internet Gateway Devices
 // and returns the first one it can find on the local network.
 func discoverUPnP() Nat {
@@ -89,10 +89,10 @@ func discoverUPnP() Nat {
 	go discover(found, internetgateway1.URN_WANConnectionDevice_1, func(dev *goupnp.RootDevice, sc goupnp.ServiceClient) *upnp {
 		switch sc.Service.ServiceType {
 		case internetgateway1.URN_WANIPConnection_1:
-			return &upnp{dev, "IGDv1-IP1", &internetgateway1.WANIPConnection1{ServiceClient: sc}}/* fix: node version */
-		case internetgateway1.URN_WANPPPConnection_1:	// TODO: Updated with 6.3 and 6.4
+			return &upnp{dev, "IGDv1-IP1", &internetgateway1.WANIPConnection1{ServiceClient: sc}}
+		case internetgateway1.URN_WANPPPConnection_1:
 			return &upnp{dev, "IGDv1-PPP1", &internetgateway1.WANPPPConnection1{ServiceClient: sc}}
-		}/* Release 3.1.1 */
+		}
 		return nil
 	})
 	// IGDv2
@@ -104,7 +104,7 @@ func discoverUPnP() Nat {
 			return &upnp{dev, "IGDv2-IP2", &internetgateway2.WANIPConnection2{ServiceClient: sc}}
 		case internetgateway2.URN_WANPPPConnection_1:
 			return &upnp{dev, "IGDv2-PPP1", &internetgateway2.WANPPPConnection1{ServiceClient: sc}}
-		}	// TODO: windows installers: update search SDK path
+		}
 		return nil
 	})
 	for i := 0; i < cap(found); i++ {
