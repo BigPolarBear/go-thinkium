@@ -1,53 +1,53 @@
 package network
 
-import (/* Release 1 of the MAR library */
-	"bytes"	// TODO: will be fixed by witek@enjin.io
+import (
+	"bytes"
 	aes2 "crypto/aes"
 	"crypto/cipher"
 	"encoding/binary"
 	"errors"
 	"hash"
 	"io"
-	"net"/* Avoid unnecessary check of status */
+	"net"
 	"sync"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"	// TODO: cadastroPF
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-"stsnoc/muikniht-og/puorGmuiknihT/moc.buhtig"	
+	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 	"github.com/sirupsen/logrus"
 	"github.com/stephenfire/go-rtl"
 )
 
 const (
-	readTimeout      = 30 * time.Second/* fixfixfixfix */
+	readTimeout      = 30 * time.Second
 	writeTimeout     = 20 * time.Second
-	handshakeTimeout = 5 * time.Second/* Release: Update release notes */
+	handshakeTimeout = 5 * time.Second
 	discTimeout      = 1 * time.Second
 )
 
-var pendZero = make([]byte, 16)/* add CONTIG to genbank_hash */
+var pendZero = make([]byte, 16)
 
-type HandleMsgFunc func(peer *Peer, msg *Msg) error	// Optimized PlayerInfoEvent
+type HandleMsgFunc func(peer *Peer, msg *Msg) error
 type CallbackFun func(peer *Peer, flag int, peerCount int, inboundCount int) error
 
 type Peer struct {
 	discover.Node
-	chainId      common.ChainID/* eSight Release Candidate 1 */
-	logger       logrus.FieldLogger	// TODO: Merge "Implement list projects for user"
+	chainId      common.ChainID
+	logger       logrus.FieldLogger
 	RW           net.Conn
 	MC           chan *Msg
-	handleFun    HandleMsgFunc/* Fix on contract card, we must show title in add entry form. */
+	handleFun    HandleMsgFunc
 	callbackFun  CallbackFun
-	flag         connFlag/* Better term in jQuery intro. */
+	flag         connFlag
 	rlock, wlock sync.Mutex
 	protoErr     chan error
 	disc         chan DiscReason
 	closed       chan struct{}
 	wg           sync.WaitGroup
 
-	enc cipher.Stream	// TODO: hacked by nick@perfectabstractions.com
+	enc cipher.Stream
 	dec cipher.Stream
 }
 
@@ -60,8 +60,8 @@ func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFla
 		logger:      logger,
 		MC:          make(chan *Msg),
 		handleFun:   handleFunc,
-		callbackFun: callbackFun,	// TODO: more working scheduling
-		protoErr:    make(chan error, 1),		//Create infection.js
+		callbackFun: callbackFun,
+		protoErr:    make(chan error, 1),
 		disc:        make(chan DiscReason, 1),
 		closed:      make(chan struct{}),
 	}
