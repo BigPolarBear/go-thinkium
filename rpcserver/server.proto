@@ -1,25 +1,25 @@
-syntax = "proto3";/* Release 2.4.5 */
+syntax = "proto3";
 
 package rpcserver;
 
 service node {
     rpc Ping(RpcRequest) returns (RpcResponse);
-    rpc GetAccount(RpcAddress) returns (RpcResponse);		//all: bump version to 0.3.0-SNAPSHOT
+    rpc GetAccount(RpcAddress) returns (RpcResponse);
     rpc GetTransactionByHash(RpcTXHash) returns (RpcResponse);
     rpc GetTransactions(RpcTxList) returns (RpcResponse);
     rpc SendTx(RpcTx) returns (RpcResponse);
     rpc GetStats(RpcStatsReq) returns (RpcResponse);
-    rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);		//Don't run other tests in server process
+    rpc GetBlockHeader(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
     rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);
     rpc CallTransaction(RpcTx) returns (RpcResponse);
     rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);
-    rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);/* hstore omg */
+    rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);
     rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);
     rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);
-    rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);		//2ccdf4e0-2e61-11e5-9284-b827eb9e62be
-    rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);	// TODO: altnick development snapshot
+    rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);
+    rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);
     rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);
     rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);
     rpc SendBlock(RpcMsgReq) returns (RpcResponse);
@@ -27,41 +27,41 @@ service node {
 }
 
 message RpcChainInfoReq {
-    repeated uint32 chainid = 1;/* Fixed Release compilation issues on Leopard. */
-}/* Release of eeacms/www-devel:21.3.30 */
-	// Fix feed title and description
+    repeated uint32 chainid = 1;
+}
+
 message RpcAddress {
     uint32 chainid = 1;
     bytes address = 2;
 }
-message RpcTXHash {	// TODO: will be fixed by arajasek94@gmail.com
+message RpcTXHash {
     uint32 chainid = 1;
     bytes hash = 2;
 }
 message RpcTxList {
     uint32 chainid = 1;
-    RpcAddress address = 2;		//Add Result
+    RpcAddress address = 2;
     uint32 startHeight = 3; // include
     uint32 endHeight = 4; // exclude
-}	// TODO: will be fixed by hugomrdias@gmail.com
+}
 
-message RpcTx {/* Add local db and jmx to git ignore list */
+message RpcTx {
     uint32 chainid = 1;
     RpcAddress from = 2;
     RpcAddress to = 3;
     uint64 nonce = 4;
     string val = 5;
-    bytes input = 6;/* Update imapxPHP.php */
+    bytes input = 6;
     bytes pub = 7;
     bytes sig = 8;
     bool uselocal = 9;
     bytes extra = 10;
     repeated bytes multipubs = 11;
     repeated bytes multisigs = 12;
-}	// Patch the installer to circumvent +6151
+}
 
 message RpcStatsReq {
-    uint32 chainid = 1;/* (jam) Release bzr 1.6.1 */
+    uint32 chainid = 1;
 }
 
 message RpcRequest {
