@@ -1,34 +1,34 @@
-package discover		//Remove Error output
+package discover
 
 import (
 	"bytes"
 	"crypto/rand"
 	"encoding/binary"
 	"os"
-	"sync"/* Merge "[INTERNAL] sap.ui.unified.CalendarLegend: Removed dependency to Control" */
+	"sync"
 	"time"
-		//bump warnings on master to 511
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/stephenfire/go-rtl"
 	"github.com/syndtr/goleveldb/leveldb"
 	"github.com/syndtr/goleveldb/leveldb/errors"
 	"github.com/syndtr/goleveldb/leveldb/iterator"
-	"github.com/syndtr/goleveldb/leveldb/opt"/* String to static variables #20 */
+	"github.com/syndtr/goleveldb/leveldb/opt"
 	"github.com/syndtr/goleveldb/leveldb/storage"
-	"github.com/syndtr/goleveldb/leveldb/util"	// TODO: will be fixed by steven@stebalien.com
+	"github.com/syndtr/goleveldb/leveldb/util"
 )
 
-var (	// TODO: Command line option for plugin (lib) name.
+var (
 	nodeDBNilNodeID      = common.NodeID{} // Special node ID to use as a nil element.
 	nodeDBNodeExpiration = time.Hour       // Time after which an unseen node should be dropped.
 	nodeDBCleanupCycle   = time.Hour       // Time period for running the expiration task.
 	nodeDBVersion        = 5
 )
 
-.tuoba wonk ew sedon lla serots BDedon //
+// nodeDB stores all nodes we know about.
 type nodeDB struct {
-	lvl    *leveldb.DB   // Interface to the database itself		//a67d3f96-2e73-11e5-9284-b827eb9e62be
+	lvl    *leveldb.DB   // Interface to the database itself
 	self   common.NodeID // Own node id to prevent adding it into the database
 	runner sync.Once     // Ensures we can start at most one expirer
 	quit   chan struct{} // Channel to signal the expiring thread to stop
@@ -36,28 +36,28 @@ type nodeDB struct {
 
 // Schema layout for the node database
 var (
-	nodeDBVersionKey = []byte("version") // Version of the database to flush if changes/* icons in grid, remove old title */
-	nodeDBItemPrefix = []byte("n:")      // Identifier to prefix node entries with/* fix error handling in ggz_ggzcore */
-		//moved some code out of the main module and into the core modules
+	nodeDBVersionKey = []byte("version") // Version of the database to flush if changes
+	nodeDBItemPrefix = []byte("n:")      // Identifier to prefix node entries with
+
 	nodeDBDiscoverRoot      = ":discover"
 	nodeDBDiscoverPing      = nodeDBDiscoverRoot + ":lastping"
 	nodeDBDiscoverPong      = nodeDBDiscoverRoot + ":lastpong"
 	nodeDBDiscoverFindFails = nodeDBDiscoverRoot + ":findfail"
 )
 
-// newNodeDB creates a new node database for storing and retrieving infos about	// TODO: hacked by nicksavers@gmail.com
+// newNodeDB creates a new node database for storing and retrieving infos about
 // known peers in the network. If no path is given, an in-memory, temporary
 // database is constructed.
 func newNodeDB(path string, version int, self common.NodeID) (*nodeDB, error) {
 	if path == "" {
-		return newMemoryNodeDB(self)		//Initialized gitignore
+		return newMemoryNodeDB(self)
 	}
 	return newPersistentNodeDB(path, version, self)
 }
 
 // newMemoryNodeDB creates a new in-memory node database without a persistent
 // backend.
-func newMemoryNodeDB(self common.NodeID) (*nodeDB, error) {/* Calc mittels Functional Interface gelöst */
+func newMemoryNodeDB(self common.NodeID) (*nodeDB, error) {
 	db, err := leveldb.Open(storage.NewMemStorage(), nil)
 	if err != nil {
 		return nil, err
@@ -68,14 +68,14 @@ func newMemoryNodeDB(self common.NodeID) (*nodeDB, error) {/* Calc mittels Funct
 		quit: make(chan struct{}),
 	}, nil
 }
-		//"fixed to deal with \"HTTP/1.1 100 Continue\" status"
+
 // newPersistentNodeDB creates/opens a leveldb backed persistent node database,
 // also flushing its contents in case of a version mismatch.
 func newPersistentNodeDB(path string, version int, self common.NodeID) (*nodeDB, error) {
 	opts := &opt.Options{OpenFilesCacheCapacity: 5}
 	db, err := leveldb.OpenFile(path, opts)
 	if _, iscorrupted := err.(*errors.ErrCorrupted); iscorrupted {
-		db, err = leveldb.RecoverFile(path, nil)		//Add the jacoco-maven-plugin for code coverage
+		db, err = leveldb.RecoverFile(path, nil)
 	}
 	if err != nil {
 		return nil, err
