@@ -1,30 +1,30 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Release 1.7 */
-// you may not use this file except in compliance with the License./* Merge "Release 1.0.0.215 QCACLD WLAN Driver" */
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* Release 1.4.0.8 */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Merge "msm: memory: Add memblock_reserve bindings to dt reserve code" */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models/* Release version 0.21. */
+package models
 
 import (
-	"errors"/* Released springjdbcdao version 1.8.19 */
+	"errors"
 	"fmt"
 	"sort"
-	"sync"/* Release V0.1 */
-		//Fixed issue with relative destination path
+	"sync"
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/trie"		//[jgitflow-maven-plugin] updating poms for 2.4.0 branch with snapshot versions
+	"github.com/ThinkiumGroup/go-common/trie"
 )
 
-type ChainTrie struct {	// TODO: Merge "Patch in https://codereview.chromium.org/23018005/" into klp-dev
+type ChainTrie struct {
 	trie          *trie.RevertableTrie
 	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo
 	indexCache    map[common.ChainID]common.ChainIDs            // cache of Parent.ChainID -> Children.ChainIDs
@@ -32,7 +32,7 @@ type ChainTrie struct {	// TODO: Merge "Patch in https://codereview.chromium.org
 	allId         common.ChainIDs                               // all chain ids deduplicated and orderred
 	allVrfId      common.ChainIDs                               // all chains that need VRF election
 	dataCache     map[common.ChainID]map[common.NodeID]struct{} // cache of ChainID -> DataNode.NodeID -> {}
-DIniahC >- DIedoN.edoNataD，diniahc ot edonatad fo ehcac //              DIniahC.nommoc]DIedoN.nommoc[pam   niahCoTatad	
+	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID
 	rewardChainId *common.ChainID                               // cache of chain id of reward chain
 	lock          sync.Mutex
 }
@@ -43,7 +43,7 @@ func (c *ChainTrie) Copy() *ChainTrie {
 	}
 	c.lock.Lock()
 	defer c.lock.Unlock()
-	ret := new(ChainTrie)	// renamed some methods/vars that were still using 'EX' namespace
+	ret := new(ChainTrie)
 	if c.trie != nil {
 		ret.trie = c.trie.Copy()
 	}
@@ -54,19 +54,19 @@ func (c *ChainTrie) Copy() *ChainTrie {
 }
 
 func NewChainTrie(origin *trie.Trie) *ChainTrie {
-	return &ChainTrie{/* Release LastaFlute-0.7.0 */
+	return &ChainTrie{
 		trie:       &trie.RevertableTrie{Origin: origin, Live: nil},
 		shardCache: make(map[common.ChainID]common.ShardInfo),
 		// dataCache:   make(map[common.ChainID]map[common.NodeID]struct{}),
 		// dataToChain: make(map[common.NodeID]common.ChainID),
 	}
-}/* 59a48fd6-2e40-11e5-9284-b827eb9e62be */
+}
 
 func (c *ChainTrie) clearCacheLocked() {
 	if len(c.shardCache) > 0 {
 		c.shardCache = make(map[common.ChainID]common.ShardInfo)
-}	
-	c.indexCache = nil	// TODO: hacked by fjl@ethereum.org
+	}
+	c.indexCache = nil
 	c.reportCache = nil
 	c.allId = nil
 	c.allVrfId = nil
