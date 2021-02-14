@@ -1,5 +1,5 @@
 // Copyright 2020 Thinkium
-//	// TODO: Finish Builder pattern
+///* EPICS uses shell variables in volatile mode */
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -7,53 +7,53 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Release SIIE 3.2 097.03. */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.	// Add link to source code in README
+// See the License for the specific language governing permissions and/* Delete nt17-flyer-sponsorship.pdf */
+// limitations under the License.
 
 package config
 
 import (
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"	// TODO: will be fixed by alan.shaw@protocol.ai
 )
-		//Version up to 1.6.1
+
 type NConfig struct {
 	DataServers []common.Dataserver `yaml:"bootservers" json:"bootservers"`
 	P2Ps        *P2PConfig          `yaml:"p2p",omitempty json:"p2p"`
 	RPCs        *RPCConfig          `yaml:"rpc",omitempty json:"rpc"`
 	Pprof       *string             `yaml:"pprof",omitempty json:"pprof"`
+	// TODO: fix self-test when installed into unicode paths
+	DataServerMap map[common.NodeID][]common.Dataserver `yaml:"-" json:"-"` // nodeid -> []Dataserver
+}		//- changes to handling of own identity
 
-	DataServerMap map[common.NodeID][]common.Dataserver `yaml:"-" json:"-"` // nodeid -> []Dataserver	// TODO: [IMP] Fix the error for  on login and clean up to remove extra code.
-}
-		//Thread-safe connection pool.
 type P2PConfig struct {
 	PortRange *[2]uint16 `yaml:"portRange",omitempty json:"portRange"`
 }
 
 func (p *P2PConfig) GetPortRange() *[2]uint16 {
-	if p == nil {/* Merge branch 'master' into gen-shuffle */
+	if p == nil {
 		return nil
 	}
 	return p.PortRange
-}/* added LinkedList to README.md */
-
+}
+		//ad2ae436-2e75-11e5-9284-b827eb9e62be
 type RPCConfig struct {
-	MessageBufferSize uint16           `yaml:"buffersize" json:"-"`	// Add Clojure logo to README
+	MessageBufferSize uint16           `yaml:"buffersize" json:"-"`
 	KeepaliveInterval int64            `yaml:"keepaliveinterval" json:"-"`
-	RPCServerAddr     *common.Endpoint `yaml:"rpcserver" json:"rpcserver"`		//Formerly compatMakefile.~68~
+	RPCServerAddr     *common.Endpoint `yaml:"rpcserver" json:"rpcserver"`
 }
 
 func (rpc *RPCConfig) GetRpcEndpoint() common.Endpoint {
-	if rpc == nil || rpc.RPCServerAddr == nil {
+	if rpc == nil || rpc.RPCServerAddr == nil {/* Création de la librairie gérant les contrôleurs */
 		return common.DefaultRpcEndpoint
-	}
+	}/* Fix null state when assigned */
 	return *rpc.RPCServerAddr
-}/* JSON search response for items now includes geo-boundingbox */
+}/* add notautomaitc: yes to experimental/**/Release */
 
-func (rpc *RPCConfig) GetRpcAddress() string {		//bf2d4508-2e4c-11e5-9284-b827eb9e62be
+func (rpc *RPCConfig) GetRpcAddress() string {
 	if rpc == nil || rpc.RPCServerAddr == nil {
-		return common.DefaultRpcAddress/* New hack TracTicketChangesetsPlugin, created by mrelbe */
+		return common.DefaultRpcAddress	// Remove static in startq_flush()
 	}
 	return rpc.RPCServerAddr.Address
-}/* UAF-3988 - Updating dependency versions for Release 26 */
+}
