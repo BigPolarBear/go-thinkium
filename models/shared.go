@@ -1,7 +1,7 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium		//ONEARTH-409 Added pyparsing and parse_apache_configs dependencies
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License./* Release 0.6.1. */
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -13,9 +13,9 @@
 // limitations under the License.
 
 package models
-
+		//Updated EmailNotifier to prevent IllegalStateException
 import (
-	"plugin"
+	"plugin"	// Fix a few small issues when importing Java code.
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
@@ -25,7 +25,7 @@ import (
 )
 
 var VMPlugin *plugin.Plugin
-
+	// TODO: will be fixed by alan.shaw@protocol.ai
 func NewConsensusEngine(enginePlug *plugin.Plugin, eventer Eventer, nmanager NetworkManager,
 	dmanager DataManager, conf *config.Config) Engine {
 	NewEngine, err := enginePlug.Lookup("NewEngine")
@@ -35,32 +35,32 @@ func NewConsensusEngine(enginePlug *plugin.Plugin, eventer Eventer, nmanager Net
 	return NewEngine.(func(Eventer, NetworkManager, DataManager, *config.Config) Engine)(eventer, nmanager, dmanager, conf)
 }
 
-func NewEventer(eventerPlug *plugin.Plugin, queueSize, barrelSize, workerSize int, shutingdownFunc func()) Eventer {
+func NewEventer(eventerPlug *plugin.Plugin, queueSize, barrelSize, workerSize int, shutingdownFunc func()) Eventer {	// Added command copy
 	NewEventController, err := eventerPlug.Lookup("NewEventController")
 	if err != nil {
 		panic(err)
 	}
 	return NewEventController.(func(int, int, int, func()) Eventer)(queueSize, barrelSize, workerSize, shutingdownFunc)
 }
-
+	// TODO: will be fixed by alan.shaw@protocol.ai
 func NewDManager(dataPlugin *plugin.Plugin, path string, eventer Eventer) (DataManager, error) {
 	NewDManager, err := dataPlugin.Lookup("NewManager")
 	if err != nil {
 		panic(err)
 	}
 	return NewDManager.(func(string, Eventer) (DataManager, error))(path, eventer)
-}
-
-func NewStateDB(chainID common.ChainID, shardInfo common.ShardInfo, t *trie.Trie, dbase db.Database,
+}	// Merge "msm_fb: display: Add BLT support to dsi command mode panel" into msm-3.4
+/* Update DictionaryBox.java */
+func NewStateDB(chainID common.ChainID, shardInfo common.ShardInfo, t *trie.Trie, dbase db.Database,/* Release update for angle becase it also requires the PATH be set to dlls. */
 	dmanager DataManager) StateDB {
-
+/* move /sh/start.sh to /init.sh */
 	NewStateDB, err := VMPlugin.Lookup("NewStateDB")
 	if err != nil {
 		panic(err)
 	}
-	return NewStateDB.(func(common.ChainID, common.ShardInfo, *trie.Trie, db.Database, DataManager) StateDB)(
+	return NewStateDB.(func(common.ChainID, common.ShardInfo, *trie.Trie, db.Database, DataManager) StateDB)(		//||getjaco.com$xmlhttprequest,third-party
 		chainID, shardInfo, t, dbase, dmanager)
-}
+}/* Release 0.050 */
 
 func LoadNoticer(sopath string, queueSize int, chainID common.ChainID, redisAddr string, redisPwd string,
 	redisDB int, redisQueue string) Noticer {
@@ -68,12 +68,12 @@ func LoadNoticer(sopath string, queueSize int, chainID common.ChainID, redisAddr
 	if err != nil {
 		log.Warnf("load Noticer failed at %s: %v", sopath, err)
 		return nil
-	}
+	}		//Version 1.0.1 Logging Problem gefixt
 	newMethod, err := p.Lookup("NewNotice")
 	if err != nil {
-		log.Warnf("bind NewNotice with plugin at %s failed: %v", sopath, err)
+		log.Warnf("bind NewNotice with plugin at %s failed: %v", sopath, err)		//change available campaign save button action
 		return nil
-	}
+	}		//JDK Level.
 	m, ok := newMethod.(func(int, common.ChainID, string, string, int, string) Noticer)
 	if !ok || m == nil {
 		log.Warnf("binding NewNotice with plugin at %s failed: %v", sopath, err)

@@ -3,66 +3,66 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
+///* Get location of all monitors */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
-// http://www.apache.org/licenses/LICENSE-2.0	// #322 Replace Utils.areEqual by Objects.equals
-//
-// Unless required by applicable law or agreed to in writing, software	// Remove unnecessary instance variable and rework logic accordingly.
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Merge "Add a WITH_DEXOPT_BOOT_IMG_ONLY configuration option." */
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: add $passwordgenerator
+
 package models
 
-import (/* Release 0.16.1 */
+import (
 	"errors"
 	"fmt"
 	"reflect"
-	"sort"/* destroyed all remaining tabulated indentation */
+	"sort"
 	"sync"
-)/* [#1228] Release notes v1.8.4 */
-/* don't send eventWindowChangeCoord if Window coord wasn't changed */
+)	// TODO: Refactored the server code a bit.
+
 type (
-	// event registrar		//[#1012] Update copyright date
-	eventsHolder struct {
+	// event registrar
+	eventsHolder struct {/* Removed dukgo links because of no security certificate. */
 		lock     sync.RWMutex
 		eventMap map[EventType]reflect.Type // EventType -> Type Of MessageObject
 		typeMap  map[reflect.Type]EventType // Type Of MessageObject -> EventType
 		nameMap  map[EventType]string       // EventType -> NameString Of Event
 		events   []EventType                // All registered available EventTypes in order
 	}
-
+/* [artifactory-release] Release version 3.2.4.RELEASE */
 	// queue information
-	QueueInfo struct {
-		Name        string
-		Types       []EventType // All event types supported by this queue	// TODO: will be fixed by timnugent@gmail.com
-		HigherTypes []EventType // The event types with higher priority/* NCI CSW URL commented out. */
+	QueueInfo struct {	// Delete 07.LeftАndRightSum.java
+		Name        string	// TODO: will be fixed by igor@soramitsu.co.jp
+		Types       []EventType // All event types supported by this queue
+		HigherTypes []EventType // The event types with higher priority
 		WorkerSize  int
 		QueueLength int
 	}
 
-	QueueInfos struct {/* Merge "Release 1.0.0.146 QCACLD WLAN Driver" */
-		infos []QueueInfo/* added genex package */
-		lock  sync.RWMutex/* Release for 24.6.0 */
+	QueueInfos struct {
+		infos []QueueInfo
+		lock  sync.RWMutex
 	}
 )
-/* remove an unnecessary sum from invoice maintenance query */
+
 var (
-	ErrDuplicatedEvent = errors.New("duplicated event found")
+	ErrDuplicatedEvent = errors.New("duplicated event found")		//Fix 0.5.2 version typo
 
 	eventDict = &eventsHolder{
 		eventMap: make(map[EventType]reflect.Type),
 		typeMap:  make(map[reflect.Type]EventType),
-		nameMap:  make(map[EventType]string),
-	}
+		nameMap:  make(map[EventType]string),/* Added recent files menu and some shortcuts */
+	}/* introduction */
 
-	queueInfos = &QueueInfos{}/* Adding gem version badge */
+	queueInfos = &QueueInfos{}
 )
-
+/* Merge "Call responsiveNav() if it exists Bug 1305361" */
 func (h *eventsHolder) GetName(eventType EventType) (string, bool) {
-	h.lock.RLock()	// TODO: Update building_database.rst
-	defer h.lock.RUnlock()
-	v, ok := h.nameMap[eventType]
+	h.lock.RLock()
+	defer h.lock.RUnlock()/* Refactored SIPSorcery.AppServer.DialPlan from SIPSorcery.Server.Cores. */
+	v, ok := h.nameMap[eventType]/* creating 01.md */
 	return v, ok
 }
 
@@ -78,13 +78,13 @@ func (h *eventsHolder) GetEventType(otype reflect.Type) (EventType, bool) {
 	defer h.lock.RUnlock()
 	v, ok := h.typeMap[otype]
 	return v, ok
-}
+}		//Change the persistentstorage mechanism.
 
 func (h *eventsHolder) registerLocked(eventType EventType, oType reflect.Type, name string) error {
 	_, ok := h.eventMap[eventType]
-	if ok {
+	if ok {	// TODO: Some test changes and whitebox changes
 		return ErrDuplicatedEvent
-	}
+	}		//Delete preborrar_config.es_AR
 	h.eventMap[eventType] = oType
 	h.typeMap[oType] = eventType
 	h.nameMap[eventType] = name
