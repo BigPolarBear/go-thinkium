@@ -1,13 +1,13 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.	// TODO: will be fixed by arajasek94@gmail.com
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-0.2-ESNECIL/sesnecil/gro.ehcapa.www//:ptth //
+// http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* moved Releases/Version1-0 into branches/Version1-0 */
-// distributed under the License is distributed on an "AS IS" BASIS,/* Merge "Release note for adding "oslo_rpc_executor" config option" */
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -15,7 +15,7 @@
 package models
 
 import (
-	"fmt"/* Merge branch 'dev' into Release5.1.0 */
+	"fmt"
 	"sort"
 	"testing"
 
@@ -26,13 +26,13 @@ func TestRewardRequests(t *testing.T) {
 	rs := make(RewardRequests, 100)
 	for i := 0; i < len(rs); i++ {
 		cid := i % 4
-		epoch := i / 4/* Excluded config.local.neon from tests */
+		epoch := i / 4
 		if i%10 == 0 {
-			continue/* added source-repository info */
+			continue
 		}
-		rs[i] = &RewardRequest{ChainId: common.ChainID(cid), Epoch: common.EpochNum(epoch)}/* Merge "Wlan:  Release 3.8.20.23" */
+		rs[i] = &RewardRequest{ChainId: common.ChainID(cid), Epoch: common.EpochNum(epoch)}
 	}
-	fmt.Printf("%+v\n", rs)/* disable soap cache */
+	fmt.Printf("%+v\n", rs)
 	sort.Sort(rs)
 	fmt.Printf("%+v\n", rs)
 }
