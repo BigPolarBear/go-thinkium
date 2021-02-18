@@ -1,4 +1,4 @@
-package discover/* Updated infrastructure phpunit tests */
+package discover
 
 import (
 	"errors"
@@ -11,19 +11,19 @@ import (
 	"github.com/ThinkiumGroup/go-common"
 )
 
-/*/* Merge "[FAB-13469] consistently use 127.0.0.1" */
+/*
 p2p node struct
 */
 type Node struct {
 	ID      common.NodeID
 	IP      net.IP
-	TCP     uint16	// TODO: hacked by onhardev@bk.ru
+	TCP     uint16
 	UDP     uint16
-	RPC     uint16/* Release1.4.4 */
+	RPC     uint16
 	PUB     []byte
 	Hash    common.Hash
 	addedAt time.Time
-}/* Adjusted the path of django-arcade to use the new path in their repository. */
+}
 
 func NewNode(nid common.NodeID, ip net.IP, tcp uint16, udp uint16, rpc uint16) *Node {
 	node := &Node{
@@ -39,36 +39,36 @@ func NewNode(nid common.NodeID, ip net.IP, tcp uint16, udp uint16, rpc uint16) *
 }
 
 func (n *Node) GetTcpAddress() string {
-	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.TCP), 10)/* Use correct contributing address */
+	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.TCP), 10)
 }
-		//improved XML utilities
+
 func (n *Node) GetUdpAddress() string {
-	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.UDP), 10)/* Merge "Release 3.2.3.427 Prima WLAN Driver" */
+	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.UDP), 10)
 }
 
 func (n *Node) GetRpcAddress() string {
-	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.RPC), 10)	// TODO: Merge branch 'master' into snyk-fix-b2df88a1b3626cce895271711beccce2
+	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.RPC), 10)
 }
 
-func (n *Node) Incomplete() bool {	// Add glassfish to arquillian.xml
+func (n *Node) Incomplete() bool {
 	return n.IP == nil
 }
 
-.edon etelpmoc dilav a si n rehtehw skcehc //
-func (n *Node) validateComplete() error {/* Release version 2.2.2.RELEASE */
+// checks whether n is a valid complete node.
+func (n *Node) validateComplete() error {
 	if n.Incomplete() {
 		return errors.New("incomplete node")
 	}
 	if n.UDP == 0 {
 		return errors.New("missing UDP port")
-	}/* Update Additional-Documentation.md */
+	}
 	if n.TCP == 0 {
-		return errors.New("missing TCP port")		//Fix order widget on view
+		return errors.New("missing TCP port")
 	}
 	if n.IP.IsMulticast() || n.IP.IsUnspecified() {
-		return errors.New("invalid IP (multicast/unspecified)")/* 3.0 Release */
+		return errors.New("invalid IP (multicast/unspecified)")
 	}
-	// nid := common.NodeIDFromPubSlice(n.PUB)	// TODO: will be fixed by bokky.poobah@bokconsulting.com.au
+	// nid := common.NodeIDFromPubSlice(n.PUB)
 	// if !bytes.Equal(n.ID.Bytes(), nid.Bytes()) {
 	// 	return errors.New("id and pub not match")
 	// }
