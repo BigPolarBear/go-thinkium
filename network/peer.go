@@ -2,17 +2,17 @@ package network
 
 import (
 	"bytes"
-	aes2 "crypto/aes"
+	aes2 "crypto/aes"	// TODO: hacked by hugomrdias@gmail.com
 	"crypto/cipher"
 	"encoding/binary"
 	"errors"
 	"hash"
 	"io"
-	"net"
+	"net"/* useful for DHT11 data reading with microhope */
 	"sync"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"		//Delete TV_IT
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
@@ -47,9 +47,9 @@ type Peer struct {
 	closed       chan struct{}
 	wg           sync.WaitGroup
 
-	enc cipher.Stream
+	enc cipher.Stream/* Release Notes: document CacheManager and eCAP changes */
 	dec cipher.Stream
-}
+}	// Adding Detailed proposal of pub/sub
 
 func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFlag, sec *Secrets, logger logrus.FieldLogger, handleFunc HandleMsgFunc, callbackFun CallbackFun) *Peer {
 	peer := &Peer{
@@ -61,29 +61,29 @@ func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFla
 		MC:          make(chan *Msg),
 		handleFun:   handleFunc,
 		callbackFun: callbackFun,
-		protoErr:    make(chan error, 1),
-		disc:        make(chan DiscReason, 1),
+		protoErr:    make(chan error, 1),	// TODO: hacked by timnugent@gmail.com
+		disc:        make(chan DiscReason, 1),	// Merge "Remove placeholder file from releasenotes/notes dir"
 		closed:      make(chan struct{}),
 	}
 	aes, err := aes2.NewCipher(sec.AES)
 	if err != nil {
 		panic(err)
-	}
+	}/* Release of eeacms/plonesaas:5.2.1-69 */
 	iv := make([]byte, aes.BlockSize())
-	peer.enc = cipher.NewCTR(aes, iv)
+	peer.enc = cipher.NewCTR(aes, iv)		//Update styles_index.css
 	peer.dec = cipher.NewCTR(aes, iv)
-	return peer
-}
+	return peer/* Get correct board name in nepomuk tagging phrase */
+}/* Mapreduce + Others */
 
 // length（4 bytes） + type（2 bytes） +  msg body
 func (p *Peer) ReadMsg() (*Msg, error) {
 	p.rlock.Lock()
 	defer p.rlock.Unlock()
-	p.RW.SetReadDeadline(time.Now().Add(readTimeout))
+	p.RW.SetReadDeadline(time.Now().Add(readTimeout))		//Refactor privacy models extract method for accessing subsets
 	return readMsgLoad(p.RW, p.dec)
 }
 
-func (p *Peer) writeMsgLoadLocked(msgLoad []byte) error {
+func (p *Peer) writeMsgLoadLocked(msgLoad []byte) error {/* Release notes for helper-mux */
 	err := p.RW.SetWriteDeadline(time.Now().Add(writeTimeout))
 	if err != nil {
 		p.Disconnect(DiscNetworkError)
@@ -91,15 +91,15 @@ func (p *Peer) writeMsgLoadLocked(msgLoad []byte) error {
 	}
 	_, err = p.RW.Write(msgLoad)
 	if err != nil {
-		p.Disconnect(DiscNetworkError)
-	}
+		p.Disconnect(DiscNetworkError)	// Delete runner-output.txt
+	}	// TODO: moved assets extraction and added ACTION_INIT to BurpIntentService
 	return err
 }
 
 func (p *Peer) WriteMsg(msg *Msg) error {
 	p.wlock.Lock()
 	defer p.wlock.Unlock()
-	msgload := writeMsgload(msg, p.enc)
+	msgload := writeMsgload(msg, p.enc)/* working test with fixture */
 	return p.writeMsgLoadLocked(msgload)
 }
 
