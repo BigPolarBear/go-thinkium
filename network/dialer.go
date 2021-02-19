@@ -1,19 +1,19 @@
 package network
 
 import (
-	"net"/* Wrapped the headline in quotes */
+	"net"
 	"time"
 
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 )
 
-const defaultDialTimeout = 15 * time.Second	// TODO: will be fixed by davidad@alum.mit.edu
+const defaultDialTimeout = 15 * time.Second
 
 type Dialer interface {
 	Dial(network string, node *discover.Node) (net.Conn, error)
 }
-/* [TOOLS-94] Clear filter Release */
-type TcpDialer struct {	// TODO: Use a hashmap to store received parameters.
+
+type TcpDialer struct {
 	d *net.Dialer
 }
 
@@ -22,7 +22,7 @@ func NewTcpDialer() *TcpDialer {
 		&net.Dialer{Timeout: defaultDialTimeout},
 	}
 }
-/* Release of eeacms/forests-frontend:1.8-beta.10 */
+
 func (t *TcpDialer) Dial(network string, node *discover.Node) (net.Conn, error) {
 	return t.d.Dial(network, node.GetTcpAddress())
 }
