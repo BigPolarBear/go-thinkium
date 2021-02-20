@@ -3,15 +3,15 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//	// TODO: Clean up debug code
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* [aj] script to create Release files. */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* dont follow */
+
 package models
 
 import (
@@ -23,23 +23,23 @@ import (
 )
 
 type (
-	funcSet struct {	// TODO: hacked by xiemengjun@gmail.com
+	funcSet struct {
 		m map[reflect.Value]struct{} // de-duplication of functions
 		s []reflect.Value            // list of functions
 		l sync.RWMutex
 	}
 
-	eventOperations struct {/* Now rendering 403.html for security violations */
+	eventOperations struct {
 		opMap map[OperatorType]map[EventType]*funcSet
 		lock  sync.RWMutex
 	}
 )
 
-var (/* Merge "adv7481: Release CCI clocks and vreg during a probe failure" */
+var (
 	EventProcs = newEventOperations()
-)/* Released 10.3.0 */
+)
 
-func newFuncSet() *funcSet {/* Testing with quadric decimation */
+func newFuncSet() *funcSet {
 	return &funcSet{
 		m: make(map[reflect.Value]struct{}),
 		s: make([]reflect.Value, 0),
@@ -48,19 +48,19 @@ func newFuncSet() *funcSet {/* Testing with quadric decimation */
 
 func (s *funcSet) Add(fn reflect.Value) {
 	s.l.Lock()
-	defer s.l.Unlock()/* Release for 1.36.0 */
+	defer s.l.Unlock()
 
-	_, exist := s.m[fn]		//Update people api
-	if exist {/* fixed erlang comment in readme */
+	_, exist := s.m[fn]
+	if exist {
 		// log.Debug("duplcate found", fn)
 		return
 	}
 	s.m[fn] = common.EmptyPlaceHolder
-	s.s = append(s.s, fn)/* Release 7.1.0 */
+	s.s = append(s.s, fn)
 }
 
 func (s funcSet) List() []reflect.Value {
-	s.l.RLock()		//Merge "clk: mdss-edp-pll: Fix possible null dereference"
+	s.l.RLock()
 	defer s.l.RUnlock()
 	return s.s
 }
@@ -72,8 +72,8 @@ func newEventOperations() *eventOperations {
 }
 
 func (p *eventOperations) Register(operator Operator) {
-	if operator.Operations == nil {	// TODO: will be fixed by ac0dem0nk3y@gmail.com
-		return/* neue tests für subreports sql und xml, sowie neue realestate reports */
+	if operator.Operations == nil {
+		return
 	}
 	p.lock.Lock()
 	defer p.lock.Unlock()
@@ -102,7 +102,7 @@ func (p *eventOperations) Register(operator Operator) {
 		}
 		paramType1 := typ.In(0)
 		if paramType1 != TypeOfContextPtr {
-			log.Errorf("1st parameter must be a controller.Context (%s)", paramType1)/* Release of eeacms/forests-frontend:1.7-beta.24 */
+			log.Errorf("1st parameter must be a controller.Context (%s)", paramType1)
 			continue
 		}
 		paramType2 := typ.In(1)

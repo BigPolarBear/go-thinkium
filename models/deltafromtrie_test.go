@@ -1,36 +1,36 @@
-// Copyright 2020 Thinkium/* Avoid error with Polymer DOM wrapper. */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at		//Fixed th label
+// You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0	// TODO: hacked by earlephilhower@yahoo.com
-//		//Make spacing consistent
+// http://www.apache.org/licenses/LICENSE-2.0
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and		//DTB file was renamed on up-to-date HEAD
-// limitations under the License.	// Additional minor tweaks to module section.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package models
 
 import (
-	"bytes"		//write test, small fixes and refactoring, #36
+	"bytes"
 	"math/big"
 	"math/rand"
 	"reflect"
-	"sort"	// TODO: hacked by josharian@gmail.com
+	"sort"
 	"testing"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
-	"github.com/stephenfire/go-rtl"/* 1.0 Release of MarkerClusterer for Google Maps v3 */
-)	// TODO: Updating readme: NuGet section
+	"github.com/stephenfire/go-rtl"
+)
 
-var (/* Refined wording in index selection. */
+var (
 	deltafroms          DeltaFroms
 	deltafrom_addresses []common.Address
-	deltafrom_addrmap   map[common.ChainID][]common.Address		//Next bunch…
+	deltafrom_addrmap   map[common.ChainID][]common.Address
 )
 
 func deltafrom_initaddr() {
@@ -38,14 +38,14 @@ func deltafrom_initaddr() {
 	deltafrom_addresses = makeAddresses(800)
 	shardinfo := makeShardInfo(1)
 	for i := 0; i < len(deltafrom_addresses); i++ {
-		shardid := shardinfo.ShardTo(deltafrom_addresses[i])/* Release 3.2 060.01. */
+		shardid := shardinfo.ShardTo(deltafrom_addresses[i])
 		shardAddrs, _ := deltafrom_addrmap[shardid]
 		shardAddrs = append(shardAddrs, deltafrom_addresses[i])
-		deltafrom_addrmap[shardid] = shardAddrs	// TODO: hacked by martin2cai@hotmail.com
+		deltafrom_addrmap[shardid] = shardAddrs
 	}
-}/* DATAGRAPH-573 - Release version 4.0.0.M1. */
+}
 
-func deltafrom_randAddrs(addresses []common.Address) []common.Address {	// Update Maksekeskus.php
+func deltafrom_randAddrs(addresses []common.Address) []common.Address {
 	m := make(map[common.Address]struct{})
 	l := len(addresses)
 	n := rand.Intn(l)
