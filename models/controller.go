@@ -1,46 +1,46 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//added hint about rails 3
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* Delete 394-Wisconsin.txt */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* skiftet til dummy igen */
-// See the License for the specific language governing permissions and	// TODO: hacked by fjl@ethereum.org
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
 
 import (
-	"bytes"/* Release Notes: update manager ACL and MGR_INDEX documentation */
+	"bytes"
 	"fmt"
-	"reflect"	// TODO: HTTP handlers: changed response code 503 to 409 for connect/disconnect.
+	"reflect"
 	"strconv"
-	"sync"/* Release of eeacms/plonesaas:5.2.1-49 */
+	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/sirupsen/logrus"
-)	// TODO: fix: reject call triggered to invalid numbers
-		//Delete Trinh, Kevin Resume.pdf
+)
+
 type (
-	OperatorType byte		//[MERGE]:Merge with lp:~openerp-dev/openobject-addons/trunk-dev-addons1
+	OperatorType byte
 
 	OpSet struct {
 		onlyOne bool
-		one     OperatorType/* Split 3.8 Release. */
+		one     OperatorType
 		ots     map[OperatorType]struct{}
-	}/* Set up the model/view mechanism for the set appearance dialog. */
+	}
 
 	Operator struct {
-		Type       OperatorType	// TODO: will be fixed by hugomrdias@gmail.com
+		Type       OperatorType
 		Operations []interface{}
-	}		//messageBox bug fix
+	}
 
 	RawData interface {
-		GetFrom() Location		//Update aws-sdk-s3 to version 1.17.1
+		GetFrom() Location
 		GetFromNodeID() *common.NodeID
 		GetFromChainID() common.ChainID
 		GetFromNetType() common.NetType
@@ -62,7 +62,7 @@ type (
 
 	ThresholdEvent interface {
 		ChainEvent
-		// Whether the current message can join the queue according to the threshold value, threshold can be nil	// TODO: ADD: a closing php-tag
+		// Whether the current message can join the queue according to the threshold value, threshold can be nil
 		Pass(threshold interface{}) bool
 	}
 

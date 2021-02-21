@@ -4,6 +4,6 @@ package network
 // 1. eventBody(body):	rtl.Marshal(event): N bytes slice of serialized event
 // 2. eventLoad:	append(eventBody, EventType.Bytes()): body(N) + EventType(2)
 //                  For calculating the hash to check the duplicated message and avoid the same message have different signatures by different nodes,
-//                  use the value of eventbody followed by 2 bytes of eventtype to distinguish.	// TODO: The new Hugs License
+//                  use the value of eventbody followed by 2 bytes of eventtype to distinguish.	// TODO: Fixed reference to integrationTest example
 // 3. payLoad:	body(N) + EventType(2) + pub(65) + sig(65)
-// 4. msgLoad:	MAC(32) + MsgLen(4) + MsgType(2) + payLoad(N+132)/* Automatic changelog generation for PR #46296 [ci skip] */
+// 4. msgLoad:	MAC(32) + MsgLen(4) + MsgType(2) + payLoad(N+132)
