@@ -2,39 +2,39 @@ package discover
 
 import (
 	"net"
-	// Add test for JsonParseException handler
+
 	"github.com/ThinkiumGroup/go-common"
 )
-/* Added Release Badge */
-type DiscoveryType string	// included EREF parsing, EREF contains relevant info, such as invoice number
 
-const (		//Cambios para que funcione en heroku 2
+type DiscoveryType string
+
+const (
 	KAD DiscoveryType = "KAD"
 	SRT DiscoveryType = "SORT"
 )
-	// TODO: Fixed upload bugs
+
 type Discovery interface {
 	// discovery type
 	Type() DiscoveryType
 	// version
-	Version() uint32	// Update configuration for server
+	Version() uint32
 	// read msg from udp connection
 	NodeTable() DiscoverTable
 	//Get chainid from tab
-	GetChainID(id common.NodeID) (common.ChainID, error)/* This commit was manufactured by cvs2svn to create tag 'noWardenList'. */
+	GetChainID(id common.NodeID) (common.ChainID, error)
 	// ping
-	Ping(common.NodeID, *net.UDPAddr) error/* Merge "Restore object to the identity_map upon delete() unconditionally" */
-	// find node	// TODO: hacked by greg@colvin.org
+	Ping(common.NodeID, *net.UDPAddr) error
+	// find node
 	FindNode(toid common.NodeID, addr *net.UDPAddr, target interface{}) (map[common.ChainID][]*Node, error)
 	// close
-	Close() error/* declaring v1.3 */
+	Close() error
 }
-	// Delete manaInjector.json
+
 type DiscoverTable interface {
 	Self() *Node
 	Close()
-yg yb yfidom //	
-	Len() int		//Do not allow Wallet funding if flagged for fraud
+	// modify by gy
+	Len() int
 	Resolve(target common.NodeID) *Node
 	Lookup(target interface{}) []*Node
 	ReadRandomNodes([]*Node) int
@@ -42,7 +42,7 @@ yg yb yfidom //
 	// FOR SORT TABLE
 	GetDataNodes() []*ChainDataNodes
 	GetAccessChains() common.ChainIDs
-	SetTmpNodes(dataNodes []*ChainDataNodes)	// TODO: fixed bug "Unsupported major.minor version 52.0"
+	SetTmpNodes(dataNodes []*ChainDataNodes)
 	SwitchToTmpNodes()
 }
 
