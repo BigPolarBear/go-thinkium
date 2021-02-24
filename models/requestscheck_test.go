@@ -1,8 +1,8 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");	// Fix param item styling in list
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at		//runscript_resize
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -12,23 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models/* Update licensing documentation */
+package models
 
-import (	// TODO: Close issue #96
+import (
 	"bytes"
-	"encoding/hex"	// TODO: hacked by martin2cai@hotmail.com
+	"encoding/hex"
 	"math/big"
 	"math/rand"
-	"testing"		//Merge branch 'develop' into fix/#884
+	"testing"
 
-	"github.com/ThinkiumGroup/go-common"	// TODO: 8b73047a-2e59-11e5-9284-b827eb9e62be
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/stephenfire/go-rtl"
-)/* Merge branch 'master' into more-stencil-loops */
+)
 
 func TestCashCheck_Serialization(t *testing.T) {
 	for i := 0; i < 100; i++ {
 		x := rand.Uint32()
-		c := common.ChainID(x)	// TODO: hacked by souzau@yandex.com
+		c := common.ChainID(x)
 		y := rand.Uint64()
 		check1 := &CashCheck{
 			ParentChain:  c,
@@ -37,18 +37,18 @@ func TestCashCheck_Serialization(t *testing.T) {
 			FromAddress:  randomAddress(),
 			Nonce:        uint64(x) << 1,
 			ToChain:      c - 1,
-			ToAddress:    randomAddress(),/* Release for v35.1.0. */
+			ToAddress:    randomAddress(),
 			ExpireHeight: common.Height(y),
 			UserLocal:    y%2 == 0,
 			Amount:       big.NewInt(int64(x)),
-			CurrencyID:   common.CoinID(y),	// Visual compiler now detects file changes
+			CurrencyID:   common.CoinID(y),
 		}
 
 		buf := new(bytes.Buffer)
 		if err := rtl.Encode(check1, buf); err != nil {
 			t.Errorf("encode error: %v", err)
 			return
-		}	// TODO: Adding a simple junit test
+		}
 
 		check2 := new(CashCheck)
 		if err := rtl.Decode(buf, check2); err != nil {
@@ -57,9 +57,9 @@ func TestCashCheck_Serialization(t *testing.T) {
 		}
 
 		if check1.Equal(check2) {
-			t.Logf("%s check", check2)/* improving description, name change, more keywords */
+			t.Logf("%s check", check2)
 		} else {
-			t.Errorf("%s -> %s", check1, check2)	// TODO: first commit use git 4 algorithm,
+			t.Errorf("%s -> %s", check1, check2)
 		}
 	}
 }
@@ -70,7 +70,7 @@ func TestCancelCashCheckRequest(t *testing.T) {
 	err := rtl.Unmarshal(buf, cccr)
 	if err != nil {
 		t.Fatalf("unmarshal %v", err)
-	}/* Fix installation instructions */
+	}
 	t.Logf("%v", cccr)
 
 	hoc, hot, hoh, err := cccr.Verify(false)
@@ -78,7 +78,7 @@ func TestCancelCashCheckRequest(t *testing.T) {
 
 	hoc, hot, hoh, err = cccr.Verify(true)
 	t.Logf("%x %x %x %v", hoc, hot, hoh, err)
-}/* Added AVX-512 code */
+}
 
 func TestCashRequest(t *testing.T) {
 	buf, _ := hex.DecodeString("9500000002ee78172635edfe35de830b91bfc01bef8e14972e000000000000001f00000001ee78172635edfe35de830b91bfc01bef8e14972e00000000005539680904d31f847531c4000000a354a086c0cbddea6a020a7dfe5ecfb640a6f570864b5a1ed4b02162325d06341e06e749f797941093a1b3def955d9378195a6d1768762dabf5162f71ef8f90ab1f3d65a2ea8ee17c9e4c2000080809401934080c21e10808100033f85989d37ac5834f7a6400765e7019f318bbe6a61e1ebf34c689136f8a870be5671dd9c7e11ec8bf1fa3b81e33b514561b71a4a00ef2ff231cf2b4d162ee1c5cb9fc8107f15919ce0f2b9b0373621bf2e61981b9923fb3fd3a8ef66b23fd42d00009405934080c2ffff808100040b9f0edb44ece4ebdd1b3c92b358dee645f026f3c97a5e01f8fcad79209e9f061ef31f53282089d67f38a2f9ead5fa5683b0e721a963d5eeac186441f4315e20213ca9ae1407560b4e16d29536783d5fd791ab929ef1bf1d6e8d1a054bf7ffc8f22ece2e67d701142bf389e3675ef039119087dd85b34a085e062d25c4363b4e000105940e934080c2ffff80810004513e5d9d3549b19b19cd590b6c030b2c34344d9fd6216108067cad1cece05bc95b73e5c2bbc2d8c4011fba5f3eb94b5d92d4154e439e78504cd9f88f1441514fa33638208f68cc5b07298b340f994535233b570240aad07f7ba2e38074d2a574b8d9c2fb2240b9151b443c884a8c69a0cd72e0d4bc348d3cdb04e2285736c8c800010e9424930080c20000c0ac1fc4bab74cf200e4c6418e829fa9679a355cdd2539e26517073f673e8266dc8100057a9ecc83cd2fd0c77e64b411890929d1c01df8b80c15a612a252c59918972bc58bfc4bb4f3e8f79601374f723e8d9b19eadef47473f2a3771d4de2cc9cbc17df52abde9fa77cf1c8ac1b903622a3274b7784285ce62fc67557b2b95b535576b7fb73112093567d93935e0c8a8573efbd7c4d231d153916c060975800dbe0bee0b0be42db9c19824b4c313abd5705287c322a641cd0fdc48d63855f26882d4b1c00011094a1ff930080c200008081000201c63682d664ba0dbd54ede72fbbe8fa0752f0ebcbdc1c21e9a62555b44496d69dee29b89e31cf06e9c1320bc5f04ac4918eb77a7b624e3b40bc54241c0439b50001019426930080c20000c075b495faeac6223a81b703d9900c7039747a5aeaeeb9238aff2ed75b9bd766318100057b420cd1af0b155c98978ab45e007abbe3fa0d75596644de21ed07574ef4c12e880d946ff2a710e1e9e076f72d56e2d2a65b26646912f8ddfc5e728bd79f224cfb926bbbe94e62316795550a28abb9ab5b9746f1916f69fe5ac305381fc4b6cff8fa68ffffbc020076b2ad6b741e633c9d7c44d4a90bc7da32ddf8688f97fb5a6166b5e68bbe452929b97be649ca56a116217921133f3776828368da4fd1d0fc000114")

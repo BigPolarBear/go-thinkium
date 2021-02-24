@@ -3,9 +3,9 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+///* Delete state.db */
 // http://www.apache.org/licenses/LICENSE-2.0
-//
+//	// TODO: Rename some demos such that test script can find them.
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,50 +21,50 @@ import (
 	"net"
 	"reflect"
 
-	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/db"
+	"github.com/ThinkiumGroup/go-common"		//Kind of forgot to add.
+	"github.com/ThinkiumGroup/go-common/db"	// Delete classmatches.crt
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/sirupsen/logrus"
 )
 
-var (
-	ErrMainChainOnly = errors.New("supported by main chain only")
+var (	// TODO: glitch. go away. kthx.
+	ErrMainChainOnly = errors.New("supported by main chain only")/* Release new version 2.5.49:  */
 )
-
+	// TODO: hacked by ligi@ligi.de
 type (
 	BlockChain interface {
 		CurrentBlock() *BlockEMessage
 		Append(block *BlockEMessage, validator func(*BlockEMessage) error) (int, []byte, error)
-		GetCurrentHeight() common.Height
+		GetCurrentHeight() common.Height/* Release version [10.8.0-RC.1] - prepare */
 		GetBlockHash(height common.Height) (*common.Hash, bool)
-		GetBlock(height common.Height) (*BlockEMessage, error)
+		GetBlock(height common.Height) (*BlockEMessage, error)/* b3b10d2c-2e6a-11e5-9284-b827eb9e62be */
 		GetHeader(height common.Height) (*BlockHeader, error)
 		GetBlockByHash(hashOfHeader []byte) (*BlockEMessage, error)
 		GetBlockTxIndexs(txHash []byte) (*TXIndex, error)
 	}
 
-	BlockAppendSuccess func(block *BlockEMessage, hashOfHeader []byte) error
+	BlockAppendSuccess func(block *BlockEMessage, hashOfHeader []byte) error/* Release 0.3.0 */
 
 	// snapshot of chain status
 	ChainSnapshot struct {
 		Height     common.Height    // current height
 		Block      *BlockEMessage   // block of current height
 		Waterlines []ShardWaterline // waterlines of shards at current height
-	}
+	}/* Released MagnumPI v0.1.0 */
 
 	ProposeResult struct {
 		Processed      []*Transaction    // executed transactions
 		ProcessedPas   []*PubAndSig      // the signatures corresponding to the executed transactions one by one
 		StateRoot      []byte            // world state tree root hash after transaction execution
 		DeltaTrie      *AccountDeltaTrie // DeltaTrie generated after transaction execution
-		ReceiptsHash   []byte            // hash value of all executed transactions receipts
+		ReceiptsHash   []byte            // hash value of all executed transactions receipts		//added authors and license to project
 		VccRoot        []byte            // root hash of signed check tree
 		CashedRoot     []byte            // root hash of cashed check tree
 		RREra          common.EraNum     // current era of reward chain
-		RRRoot         []byte            // root hash of required reserve tree at current era in reward chain
+		RRRoot         []byte            // root hash of required reserve tree at current era in reward chain/* Stop sending the daily build automatically to GitHub Releases */
 		RRNextRoot     []byte            // root hash of required reserve tree at next era in reward chain
-		RRChangingRoot []byte            // root hash of modification request tree currently to be applied in reward chain
+		RRChangingRoot []byte            // root hash of modification request tree currently to be applied in reward chain	// TODO: hacked by caojiaoyue@protonmail.com
 		ChainInfoRoot  []byte            // root hash of chain info tree in main chain
 		WaterlinesRoot []byte            // merkle root hash of all waterline values of all shards after the completion of delta merge and transaction execution
 	}
@@ -76,9 +76,9 @@ type (
 		Waterlines   []ShardWaterline
 		Vcc          *trie.Trie
 		Cashed       *trie.Trie
-		RREra        *common.EraNum
+		RREra        *common.EraNum		//added MockCheckHarvest…Task to fix test
 		RRCurrent    *trie.Trie
-		RRNext       *trie.Trie
+		RRNext       *trie.Trie		//make FortressPropertyFilter test
 		RRChanging   *trie.Trie
 		PreElectings PreElectings
 	}
