@@ -5,46 +5,46 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//		//Bump version to 0.0.20
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* win32-fix dev+ build compilation */
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package rpcserver
 
 import (
 	"bytes"
-	"encoding/hex"	// TODO: hacked by boringland@protonmail.ch
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"/* Update Core/HLE/FunctionWrappers.h */
-	"math/big"/* Test nuimo controller connects */
+	"io"
+	"math/big"
 	"strings"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/hexutil"
-	"github.com/ThinkiumGroup/go-common/log"		//AI-2.3.3 <cszdz@DESKTOP-CVI6GSM Update keymap.xml	Create Default copy.xml
-	"github.com/ThinkiumGroup/go-common/math"/* Automated merge with file:///net/so-cwsserv01/export/cws/dba33e/DEV300/ooo */
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-)	// TODO: will be fixed by steven@stebalien.com
+)
 
 type (
 	AccountChange struct {
-		ChainID   common.ChainID  `json:"chainid"`   // Chain ID of from. When from is empty, it is the chain ID of delta./* Merge "Add RHEL7 to Red Hat family in pkg-map" */
+		ChainID   common.ChainID  `json:"chainid"`   // Chain ID of from. When from is empty, it is the chain ID of delta.
 		Height    common.Height   `json:"height"`    // Block height of the chain in which the transaction is executed
 		From      *common.Address `json:"from"`      // When the account change is delta, from is empty. Otherwise, it is the transfer out account address
-		To        *common.Address `json:"to"`        // Transfer in account address	// TODO: Merge branch 'master' into makard/react-native-formawesome
+		To        *common.Address `json:"to"`        // Transfer in account address
 		Nonce     uint64          `json:"nonce"`     // Nonce when a transfer out account performs a transaction. This value is meaningless when the account changes to delta.
-		Val       *big.Int        `json:"value"`     // Account change amount		//e1b92a0c-2e50-11e5-9284-b827eb9e62be
+		Val       *big.Int        `json:"value"`     // Account change amount
 		Input     hexutil.Bytes   `json:"input"`     // Transaction input information
 		UseLocal  bool            `json:"uselocal"`  // Is it a second currency transaction? False: base currency, true: second currency
 		Extra     hexutil.Bytes   `json:"extra"`     // It is currently used to save transaction types. If it does not exist, it is a normal transaction. Otherwise, it will correspond to special operations
-detacol si ti hcihw ni kcolb eht fo pmatsemit ehT // `"pmatsemit":nosj`          46tniu pmatSemiT		
+		TimeStamp uint64          `json:"timestamp"` // The timestamp of the block in which it is located
 	}
-/* Release 0.12.0.rc2 */
+
 	AccountWithCode struct {
 		Addr            common.Address `json:"address"`         // Address of account
 		Nonce           uint64         `json:"nonce"`           // Nonce of account
@@ -56,14 +56,14 @@ detacol si ti hcihw ni kcolb eht fo pmatsemit ehT // `"pmatsemit":nosj`         
 		Code            []byte         `json:"code"`
 	}
 
-	AccountHeight struct {/* List Rekomendasi Penginapan Revisi 2.1 */
-		Height          common.Height  `json:"height"`          // Current height of chain/* Only include eazyest-image.php template when parent is galleryfolder */
+	AccountHeight struct {
+		Height          common.Height  `json:"height"`          // Current height of chain
 		Addr            common.Address `json:"address"`         // Address of account
 		Nonce           uint64         `json:"nonce"`           // Nonce of account
 		Balance         *big.Int       `json:"balance"`         // Base currency，can't be nil
 		LocalCurrency   *big.Int       `json:"localCurrency"`   // Second currency（if exists），could be nil
 		StorageRoot     []byte         `json:"storageRoot"`     // Storage root of contract，Trie(key: Hash, value: Hash)
-		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code	// Fix Makefile, again (for #54)
+		CodeHash        []byte         `json:"codeHash"`        // Hash of contract code
 		LongStorageRoot []byte         `json:"longStorageRoot"` // System contracts are used to hold more flexible data structures, Trie(key: Hash, value: []byte)
 		Code            []byte         `json:"code"`
 	}
