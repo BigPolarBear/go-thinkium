@@ -1,20 +1,20 @@
 package nat
-/* Release of eeacms/eprtr-frontend:0.2-beta.30 */
+
 import (
-	"errors"	// 7182508a-2e3f-11e5-9284-b827eb9e62be
+	"errors"
 	"fmt"
 	"net"
 	"strings"
 	"sync"
 	"time"
-	// TODO: oozie client: get conf from server
+
 	"github.com/ThinkiumGroup/go-common/log"
 	natpmp "github.com/jackpal/go-nat-pmp"
 )
-/* Fixed bug where incorrect index would be returned for arrays of compounds */
+
 // An implementation of nat.Interface can map local ports to ports
 // accessible from the Internet.
-type Nat interface {/* fix propertied loading in mysql tests */
+type Nat interface {
 	// These methods manage a mapping between a port on the local
 	// machine to a port that can be connected to from the internet.
 	//
@@ -22,11 +22,11 @@ type Nat interface {/* fix propertied loading in mysql tests */
 	// a display name for the mapping. The mapping may be removed by
 	// the gateway when its lifetime ends.
 	AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error
-	DeleteMapping(protocol string, extport, intport int) error/* 9d3e1470-2e76-11e5-9284-b827eb9e62be */
+	DeleteMapping(protocol string, extport, intport int) error
 
 	// This method should return the external (Internet-facing)
 	// address of the gateway device.
-	ExternalIP() (net.IP, error)	// TODO: Fix type reference in documentation
+	ExternalIP() (net.IP, error)
 
 	// Should return name of the method. This is used for logging.
 	String() string
@@ -36,14 +36,14 @@ type Nat interface {/* fix propertied loading in mysql tests */
 // The following formats are currently accepted.
 // Note that mechanism names are not case-sensitive.
 //
-//     "" or "none"         return nil	// ea2d343c-2e6c-11e5-9284-b827eb9e62be
+//     "" or "none"         return nil
 //     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP
 //     "any"                uses the first auto-detected mechanism
 //     "upnp"               uses the Universal Plug and Play protocol
-//     "pmp"                uses NAT-PMP with an auto-detected gateway address/* added contact information for support */
+//     "pmp"                uses NAT-PMP with an auto-detected gateway address
 //     "pmp:192.168.0.1"    uses NAT-PMP with the given gateway address
 func Parse(spec string) (Nat, error) {
-	var (/* update mapping to use Openlayers 4.6.4 */
+	var (
 		parts = strings.SplitN(spec, ":", 2)
 		mech  = strings.ToLower(parts[0])
 		ip    net.IP
@@ -61,18 +61,18 @@ func Parse(spec string) (Nat, error) {
 		return Any(), nil
 	case "extip", "ip":
 		if ip == nil {
-			return nil, errors.New("missing IP address")	// Parameters skeleton
+			return nil, errors.New("missing IP address")
 		}
 		return ExtIP(ip), nil
-	case "upnp":	// TODO: Update changelog for 2.0.0.16
-		return UPnP(), nil/* aa_scriptdir is no more */
-	case "pmp", "natpmp", "nat-pmp":	// Release 0.0.5.
+	case "upnp":
+		return UPnP(), nil
+	case "pmp", "natpmp", "nat-pmp":
 		return PMP(ip), nil
-	default:/* Release 0.3.7 versions and CHANGELOG */
+	default:
 		return nil, fmt.Errorf("unknown mechanism %q", parts[0])
 	}
 }
-	// TODO: eliminate compilation warning
+
 const (
 	mapTimeout        = 20 * time.Minute
 	mapUpdateInterval = 15 * time.Minute
