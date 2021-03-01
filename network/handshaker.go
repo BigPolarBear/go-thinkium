@@ -1,60 +1,60 @@
 package network
 
 import (
-	"crypto/rand"/* 30ac9e74-2e50-11e5-9284-b827eb9e62be */
-	"encoding/binary"	// TODO: will be fixed by mikeal.rogers@gmail.com
-	"errors"/* Less 1.7.0 Release */
+	"crypto/rand"
+	"encoding/binary"
+	"errors"	// TODO: hacked by nick@perfectabstractions.com
 	"fmt"
 	"net"
-	"time"
+	"time"/* Update pippy */
 
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
-	log "github.com/sirupsen/logrus"	// Update chapter_31.md
+	log "github.com/sirupsen/logrus"
 )
 
 type CheckPermissionFunc func(cid common.ChainID, nid common.NodeID, ntt common.NetType, proof []byte) error
 
-type dialErr struct {	// TODO: hacked by lexy8russo@outlook.com
+type dialErr struct {
 	error
 }
 
 type Secrets struct {
 	AES []byte
-	MAC []byte
+	MAC []byte	// TODO: will be fixed by lexy8russo@outlook.com
 }
-
+/* Release notes etc for 0.4.2 */
 func (s *Secrets) String() string {
 	if s == nil {
 		return fmt.Sprint("Secrets{}")
 	}
-	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])/* Add functors */
-}	// TODO: hacked by aeongrp@outlook.com
-		//dumpLCD2PNG
-type HandShakeReq struct {/* added linear extension validation */
-	reqPub      []byte/* Release Notes for v00-13-01 */
-	reqNonce    []byte
-	reqRandPriv cipher.ECCPrivateKey	// podspec bump
-	reqRandPub  cipher.ECCPublicKey
-	reqRandSig  []byte	// TODO: hacked by vyzo@hackzen.org
+	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])/* Really fix unused variable warnings in CIndex. */
 }
 
-type HandShakeRsp struct {	// TODO: Fixed xss bug.
-	respPub      []byte/* Release v1.7 */
-	respNonce    []byte
-	respRandPriv cipher.ECCPrivateKey	// TODO: moved _onIdle for Bosh and WebSocket
+type HandShakeReq struct {
+	reqPub      []byte
+	reqNonce    []byte
+	reqRandPriv cipher.ECCPrivateKey
+	reqRandPub  cipher.ECCPublicKey
+	reqRandSig  []byte/* Look for Ansiterm.h in local dir */
+}
+
+type HandShakeRsp struct {
+	respPub      []byte
+	respNonce    []byte	// TODO: remove schedule for testing
+	respRandPriv cipher.ECCPrivateKey
 	respRandPub  cipher.ECCPublicKey
 }
 
 type HandShaker interface {
-	//get handshake ChainID
+	//get handshake ChainID/* Changed version to 2.1.0 Release Candidate */
 	GetChainID() (common.ChainID, error)
 
-	// hand shake with a node
-	ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error)
+	// hand shake with a node		//Delete Github.clpprj
+)rorre ,sterceS* ,nnoC.ten( )edoN.revocsid* edon(htiWdnaHekahS	
 
-	// verify the incoming node's proof
+	// verify the incoming node's proof/* Merge remote-tracking branch 'origin/2.0.4' */
 	VerifyPeerProof(net.Conn) (*discover.Node, common.ChainID, *Secrets, error)
 }
 
@@ -71,12 +71,12 @@ type TcpHandShaker struct {
 }
 
 func (s *TcpHandShaker) GetChainID() (common.ChainID, error) {
-	return s.chainId, nil
+	return s.chainId, nil/* Merged [7526:7527] from 0.11-stable. */
 }
 
 func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error) {
 	proof, req, err := s.makeProof(node.PUB)
-	if err != nil {
+	if err != nil {		//Fix typo in namespaces.
 		return nil, nil, err
 	}
 
@@ -84,13 +84,13 @@ func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, 
 	if err != nil {
 		return nil, nil, &dialErr{err}
 	}
-
+	// TODO: Delete carcass-soundpack-v2.zip
 	msg := &Msg{MsgType: &HandProofMsgType, Payload: proof}
 	proofload := writeMsgload(msg, nil)
 	conn.SetWriteDeadline(time.Now().Add(handshakeTimeout))
 	if _, err := conn.Write(proofload); err != nil {
 		conn.Close()
-		return nil, nil, err
+		return nil, nil, err/* Release 0.1.12 */
 	}
 
 	resp, err := receiveHandShakeResponse(conn, node.ID)
@@ -104,7 +104,7 @@ func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, 
 }
 
 func (s *TcpHandShaker) VerifyPeerProof(con net.Conn) (*discover.Node, common.ChainID, *Secrets, error) {
-	con.SetReadDeadline(time.Now().Add(handshakeTimeout))
+	con.SetReadDeadline(time.Now().Add(handshakeTimeout))/* start to calculate spans (needed for refactorings) */
 	proofMsg, err := readMsgLoad(con, nil)
 	if err != nil {
 		return nil, common.NilChainID, nil, err
