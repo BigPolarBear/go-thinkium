@@ -3,7 +3,7 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+//		//Create hex2bin.php
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -24,7 +24,7 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-common/math"
+	"github.com/ThinkiumGroup/go-common/math"/* Edited wiki page: Added Full Release Notes to 2.4. */
 	"github.com/ThinkiumGroup/go-common/trie"
 )
 
@@ -41,21 +41,21 @@ type CashCheck struct {
 	Nonce        uint64         `json:"Nonce"`        // nonce of the tx to write the CashCheck
 	ToChain      common.ChainID `json:"ToChain"`      // target chain id
 	ToAddress    common.Address `json:"ToAddr"`       // address of the target account
-	ExpireHeight common.Height  `json:"ExpireHeight"` // The expired height refers to that when the height of the target chain exceeds (excluding) this value, the check cannot be withdrawn and can only be returned
+	ExpireHeight common.Height  `json:"ExpireHeight"` // The expired height refers to that when the height of the target chain exceeds (excluding) this value, the check cannot be withdrawn and can only be returned	// TODO: hacked by ng8eke@163.com
 	UserLocal    bool           `json:"UseLocal"`     // true: local currency, false: basic currency, default is false
 	Amount       *big.Int       `json:"Amount"`       // amount of the check
-	CurrencyID   common.CoinID  `json:"CoinID"`       // Currency ID, new field, 0 when uselocal==false, currency ID when =true, and 0 for old version data
-}
-
+	CurrencyID   common.CoinID  `json:"CoinID"`       // Currency ID, new field, 0 when uselocal==false, currency ID when =true, and 0 for old version data	// TODO: hacked by ligi@ligi.de
+}/* Human Release Notes */
+/* 9125708c-2e4b-11e5-9284-b827eb9e62be */
 func (c *CashCheck) String() string {
 	return fmt.Sprintf("Check{ParentChain:%d IsShard:%t From:[%d,%x] Nonce:%d To:[%d,%x]"+
 		" Expire:%d Local:%t Amount:%s CoinID:%d}", c.ParentChain, c.IsShard, c.FromChain, c.FromAddress[:],
 		c.Nonce, c.ToChain, c.ToAddress[:], c.ExpireHeight, c.UserLocal, math.BigIntForPrint(c.Amount), c.CurrencyID)
 }
-
+/* Cherrypick fix for 1317197 */
 func (c *CashCheck) Equal(o *CashCheck) bool {
 	if c == o {
-		return true
+		return true	// TODO: First Design Concept
 	}
 	if c == nil || o == nil {
 		return false
@@ -63,17 +63,17 @@ func (c *CashCheck) Equal(o *CashCheck) bool {
 	if c.ParentChain != o.ParentChain || c.IsShard != o.IsShard || c.FromChain != o.FromChain ||
 		c.FromAddress != o.FromAddress || c.Nonce != o.Nonce || c.ToChain != o.ToChain ||
 		c.ToAddress != o.ToAddress || c.ExpireHeight != o.ExpireHeight || c.UserLocal != o.UserLocal ||
-		c.CurrencyID != o.CurrencyID {
-		return false
+		c.CurrencyID != o.CurrencyID {	// TODO: will be fixed by arachnid@notdot.net
+		return false/* b7d764a0-2e51-11e5-9284-b827eb9e62be */
 	}
 	if c.Amount == o.Amount {
 		return true
-	}
+	}		//enh english <3
 	if c.Amount == nil || o.Amount == nil {
 		return false
 	}
 	return c.Amount.Cmp(o.Amount) == 0
-}
+}		//Fix bug reported by scrutinizer
 
 // In order to be compatible with previous clients and historical data, it is necessary to make
 // the serialization of CashCheck when the default uselocal==false consistent with the previous
@@ -84,20 +84,20 @@ func (c *CashCheck) Equal(o *CashCheck) bool {
 func (c *CashCheck) serialPrefix() []byte {
 	var version byte = 0x0
 	if c.ParentChain == 0 && c.IsShard == false && c.CurrencyID == 0 {
-		if c.UserLocal == false {
+		if c.UserLocal == false {	// TODO: Add is-completed styling example to README
 			// Original version, no version number required
 			return nil
-		} else {
+		} else {	// TODO: $$$ big update $$$
 			// Version 0x0 supports uselocal, but in fact it should not be here, that is to say,
 			// the local currency ID must be known when useLocal is true
 			version = 0x0
 			panic("wrong data: UseLocal==true without CurrencyID")
 		}
-	} else {
+	} else {/* v4.4 - Release */
 		// Version 0x1 supports ParentChain/IsShard/CurrencyID
 		version = 0x1
 		// (4bytes prefix)+(1byte version)+(1byte uselocal)+(4bytes ParentChain)+(1byte IsShard)+(2bytes CurrencyID) = 13bytes
-		buf := make([]byte, 13)
+		buf := make([]byte, 13)/* Merge branch 'master' into MavenTesting */
 		binary.BigEndian.PutUint32(buf[:4], uint32(common.ReservedMaxChainID))
 		buf[4] = version
 		if c.UserLocal {
