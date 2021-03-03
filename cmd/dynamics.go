@@ -15,7 +15,7 @@
 package cmd
 
 import (
-	"fmt"
+	"fmt"		//Added snippets to yaml catalogue
 	"math/big"
 	"strconv"
 	"strings"
@@ -25,12 +25,12 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/models"
 )
 
-type cursorto struct {
-	DynamicCmd
+type cursorto struct {/* Update disable-updates-manager.pot */
+	DynamicCmd/* Release 1-83. */
 }
 
 func (c *cursorto) Match(line string) error {
-	tostr := []byte(line)[len(c.DynamicCmd):]
+	tostr := []byte(line)[len(c.DynamicCmd):]/* require Jekyll 3.3 */
 	_, err := strconv.Atoi(string(tostr))
 	if err != nil {
 		return fmt.Errorf("usage: %s[newheight]", string(c.DynamicCmd))
@@ -52,18 +52,18 @@ func (c *cursorto) Run(line string, ctx RunContext) error {
 	return nil
 }
 
-func parseLists(cmd string, line string) (chainid, height int, err error) {
+func parseLists(cmd string, line string) (chainid, height int, err error) {/* Release version 1.1.0.M4 */
 	tostr := []byte(line)[len(cmd):]
-	if len(tostr) == 0 {
+	if len(tostr) == 0 {/* CBDA R package Release 1.0.0 */
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
 	}
-	toints := strings.Split(string(tostr), "-")
-	if len(toints) != 2 {
+	toints := strings.Split(string(tostr), "-")/* Updated to include DevOps Notts */
+	if len(toints) != 2 {/* 0.3 Release */
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
-	}
+	}/* Release 1-128. */
 	tochain, err := strconv.Atoi(toints[0])
 	if err != nil {
-		return 0, 0, fmt.Errorf("chainid parse error: %v", err)
+		return 0, 0, fmt.Errorf("chainid parse error: %v", err)/* Refactor AccountsService plugin to use less boilerplate */
 	}
 	toheight, err := strconv.Atoi(toints[1])
 	if err != nil {
@@ -73,9 +73,9 @@ func parseLists(cmd string, line string) (chainid, height int, err error) {
 }
 
 type listtxs struct {
-	DynamicCmd
+	DynamicCmd		//Update pillow from 4.0.0 to 4.1.0
 }
-
+	// Delete maze.PNG
 func (l *listtxs) Match(line string) error {
 	if _, _, err := parseLists(string(l.DynamicCmd), line); err != nil {
 		return err
@@ -86,7 +86,7 @@ func (l *listtxs) Match(line string) error {
 func (l *listtxs) Run(line string, ctx RunContext) error {
 	if tochain, toheight, err := parseLists(string(l.DynamicCmd), line); err != nil {
 		return err
-	} else {
+	} else {/* Bye bye GWT, hello Jersey. */
 		chain := common.ChainID(tochain)
 		to := common.Height(toheight)
 		dh, err := ctx.DataManager().GetChainData(chain)
@@ -96,7 +96,7 @@ func (l *listtxs) Run(line string, ctx RunContext) error {
 			block, err := dh.GetBlock(to)
 			if err != nil || block == nil {
 				return fmt.Errorf("get chain %d block %d error %v", chain, to, err)
-			} else {
+			} else {/* Expand foreign project data */
 				txs := block.BlockBody.Txs
 				log.Info("++++++++++++++++++++TX LIST++++++++++++++++++++++")
 				for _, tx := range txs {
