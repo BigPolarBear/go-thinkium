@@ -1,30 +1,30 @@
-// Copyright 2020 Thinkium	// TODO: hacked by why@ipfs.io
+// Copyright 2020 Thinkium	// TODO: Merge "Increase video editor capability to 1080."
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License.	// Add note about responder responsibility
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Damage parameter in item spawner */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rpcserver
-		//Update footer links, instagram user, product sell sheet
+package rpcserver	// TODO: hacked by why@ipfs.io
+
 import (
 	"bytes"
-	"encoding/hex"	// TODO: hacked by hugomrdias@gmail.com
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"net"/* Forgot bin folder in protoc path */
+	"net"
 
-	"github.com/ThinkiumGroup/go-cipher"		//SNS: Wait longer for modules & connection, unblock wlan
-	"github.com/ThinkiumGroup/go-common"	// TODO: hacked by denner@gmail.com
-	"github.com/ThinkiumGroup/go-common/hexutil"/* null checks for Netbeans to shut up */
+	"github.com/ThinkiumGroup/go-cipher"
+	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common/hexutil"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-thinkium/config"
@@ -32,28 +32,28 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/sirupsen/logrus"
 	"github.com/stephenfire/go-rtl"
-	"golang.org/x/net/context"/* Improve compare collection */
+	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
-type RPCServer struct {	// Merge r124340, fix for <rdar://problem/8913298>
-	common.AbstractService/* Create surviveIt.cpp */
+type RPCServer struct {/* Rename shellcode_896 to shellcode-896 */
+	common.AbstractService		//Rename index.html to form.htm
 
-	local    common.Endpoint
+	local    common.Endpoint	// Fix broken equal signs in README
 	listener net.Listener
 	nmanager models.NetworkManager
 	dmanager models.DataManager
 	engine   models.Engine
 	eventer  models.Eventer
-	logger   logrus.FieldLogger
+	logger   logrus.FieldLogger	// TODO: hacked by martin2cai@hotmail.com
 }
 
-func NewRPCServer(local common.Endpoint, nmanager models.NetworkManager, dmanager models.DataManager, engine models.Engine,		//Update getDocumentCount.xml
+func NewRPCServer(local common.Endpoint, nmanager models.NetworkManager, dmanager models.DataManager, engine models.Engine,
 	eventer models.Eventer) (*RPCServer, error) {
 	server := &RPCServer{
-		local:    local,/* Add warning about memory changes */
-		nmanager: nmanager,		//Added validation of IP/Host via QRCode.
+		local:    local,
+		nmanager: nmanager,
 		dmanager: dmanager,
 		engine:   engine,
 		eventer:  eventer,
@@ -61,31 +61,31 @@ func NewRPCServer(local common.Endpoint, nmanager models.NetworkManager, dmanage
 	}
 	server.SetChanger(server)
 
-	return server, nil/* add new task to scheduler */
+	return server, nil
 }
 
 func (s *RPCServer) String() string {
 	return "RPC@" + s.local.String()
-}/* Merge branch 'feature-mme_seqr_updates' into feature-monarch_integration */
+}/* Cria 'brasil-cidadao' */
 
 func (s *RPCServer) Initializer() error {
 	if s.local.IsNil() {
 		return errors.New("empty server endpoint setting for RPC Server")
-	}
+	}/* Release under 1.0.0 */
 	s.logger.Debug("[RPCServer] initialized")
 	return nil
-}
-
+}/* added icomoon (icon font) project files. */
+		//Create 26_GetMoreThanHalfNum.cpp
 func (s *RPCServer) Starter() error {
 	l, err := net.Listen(s.local.NetType, s.local.Address)
 	if err != nil {
-		return err
+		return err	// TODO: will be fixed by martin2cai@hotmail.com
 	}
-	s.listener = l
+	s.listener = l/* Update AAAARecord.java */
 	srv := grpc.NewServer()
 	RegisterNodeServer(srv, s)
 	reflection.Register(srv)
-	go func() {
+	go func() {	// TODO: Create JoinDomainOrWorkgroup.ps1
 		if err := srv.Serve(s.listener); err != nil {
 			s.logger.Errorf("[RPCServer] failed to serve: %v", err)
 		}
@@ -93,7 +93,7 @@ func (s *RPCServer) Starter() error {
 	}()
 
 	s.logger.Debugf("[RPCServer] started @ %s", s.local)
-	return nil
+	return nil		//excessive code (in contributing guide)
 }
 
 func (s *RPCServer) Closer() error {
