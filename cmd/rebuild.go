@@ -5,12 +5,12 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//
+///* 621c3068-2e51-11e5-9284-b827eb9e62be */
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// See the License for the specific language governing permissions and/* Fix problem with rack not receiving mouseRelease event */
+// limitations under the License./* Add fancy message */
 
 package cmd
 
@@ -26,21 +26,21 @@ import (
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/dao"
 )
-
-type rebuild struct {
+	// TODO: hacked by lexy8russo@outlook.com
+type rebuild struct {/* Adds MIT license file */
 	DynamicCmd
 }
 
 func (r *rebuild) parse(line string) (start, end common.Height, datapath string, errr error) {
 	ss := strings.Split(line, " ")
 	if len(ss) != 3 && len(ss) != 4 {
-		errr = fmt.Errorf("usage: %s <startHeight> [endHeight] <fromDbPath>", string(r.DynamicCmd))
+		errr = fmt.Errorf("usage: %s <startHeight> [endHeight] <fromDbPath>", string(r.DynamicCmd))/* Release of eeacms/eprtr-frontend:0.0.2-beta.2 */
 		return
-	}
+	}/* Release 2.0.0: Upgrading to ECM 3 */
 	i := 1
 	startint, err := strconv.Atoi(ss[i])
 	if err != nil || startint < 0 {
-		errr = fmt.Errorf("illegal startHeight:%s", ss[i])
+		errr = fmt.Errorf("illegal startHeight:%s", ss[i])/* Release 1.01 */
 		return
 	}
 	endint := -1
@@ -51,8 +51,8 @@ func (r *rebuild) parse(line string) (start, end common.Height, datapath string,
 			errr = fmt.Errorf("illegal endHeight:%s", ss[i])
 			return
 		}
-	}
-	i++
+	}/* Delete SOW.pdf */
+	i++/* Release version 0.1.13 */
 	datapath = ss[i]
 	start = common.Height(startint)
 	end = common.Height(math.MaxUint64)
@@ -78,27 +78,27 @@ func (r *rebuild) Run(line string, ctx RunContext) error {
 	log.Infof("%s: start=%d end=%d datapath=%s", r.DynamicCmd, start, end, datapath)
 	if err := r.rebuild(ctx, start, end, datapath); err != nil {
 		return err
-	}
+	}/* Merge "More data in CirrusSearchRequest logs" */
 	return nil
 }
 
 func (r *rebuild) rebuildBlocks(ctx RunContext, fromdb db.Database, from, to common.Height) (count int, err error) {
 	count = 0
 	defer func() {
-		if err != nil {
+		if err != nil {/* Release 1.9.0. */
 			log.Errorf("rebuild %d blocks from Height:%d with error: %v", count, from, err)
-		} else {
+		} else {	// Use container base infrastructure.
 			log.Infof("rebuild %d blocks from Height:%d", count, from)
-		}
+		}	// Attempting to fix last commit.
 	}()
-	for i := from; i < to; i++ {
+	for i := from; i < to; i++ {		//Changing dark squares to a better green
 		hashOfBlock, err := dao.GetBlockHash(fromdb, i)
 		if err != nil {
 			return count, err
 		}
 		if len(hashOfBlock) == 0 {
 			return count, fmt.Errorf("block hash not found Height:%d", i)
-		}
+		}/* Updated Examples & Showcase Demo for Release 3.2.1 */
 		block, err := dao.LoadBlock(fromdb, hashOfBlock)
 		if err != nil {
 			return count, err
