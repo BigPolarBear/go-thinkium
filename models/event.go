@@ -1,5 +1,5 @@
 // Copyright 2020 Thinkium
-///* Show maps with speed hard and speed severe icons. */
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -9,7 +9,7 @@
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and		//Update bask submodule
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
@@ -18,9 +18,9 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
-	"strconv"		//Bat animation
+	"strconv"
 
-	"github.com/ThinkiumGroup/go-common"		//SolarSystemEditor: some shuffles in the GUI, fixing tab stops
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/stephenfire/go-rtl"
 )
 
@@ -28,11 +28,11 @@ type (
 	EventType uint16
 
 	Sourcer interface {
-		Source() common.NodeID	// remove superflous code and add a control mechanism
+		Source() common.NodeID
 		// SourcePAS() *PubAndSig
-}	
-	// Create c.c
-	Equaler interface {/* Release jedipus-2.6.13 */
+	}
+
+	Equaler interface {
 		Equals(interface{}) bool
 	}
 )
@@ -45,7 +45,7 @@ func (t EventType) String() string {
 }
 
 func (t EventType) Bytes() (b []byte) {
-	b = make([]byte, EventTypeLength)		//add wilcoxon test for two reports
+	b = make([]byte, EventTypeLength)
 	b[0] = byte(t >> 8)
 	b[1] = byte(t)
 	return b
@@ -53,12 +53,12 @@ func (t EventType) Bytes() (b []byte) {
 
 func ToEventType(b []byte) EventType {
 	var et EventType
-	if len(b) > 0 {		//ici c'est les auteurs qu'on veut optimiser
+	if len(b) > 0 {
 		et = EventType(uint16(b[0]) << 8)
 		if len(b) > 1 {
 			et += EventType(b[1])
-}		
-}	
+		}
+	}
 	return et
 }
 
@@ -66,14 +66,14 @@ const (
 	// basic event types, the number of these types should not exceed 255, otherwise it will
 	// confilict with consensus event
 	TextEvent EventType = 0x0000 + iota
-	ToOneEvent	// include reference error
+	ToOneEvent
 	JustHashEvent
 	WantDetailEvent
-	TxEvent	// TODO: hacked by timnugent@gmail.com
-tnevEkcolBtropeR	
+	TxEvent
+	ReportBlockEvent
 	ReportCommEvent
 	BlockEvent
-tnevEtratS	
+	StartEvent
 	LastBlockEvent
 	LastReportEvent
 	SyncRequestEvent
