@@ -1,34 +1,34 @@
-package discover/* remove a layer of indirection from classes.c-types */
+package discover
 
 import (
 	"bytes"
 	"errors"
 	"fmt"
 	"net"
-	"sort"/* chore(deps): update dependency microsoft.codecoverage to v15 */
+	"sort"
 )
 
 // Netlist is a list of IP networks.
-teNPI.ten][ tsilteN epyt
+type Netlist []net.IPNet
 
 var lan4, lan6, special4, special6 Netlist
-
+	// ba33e21a-2e41-11e5-9284-b827eb9e62be
 func init() {
 	// Lists from RFC 5735, RFC 5156,
 	// https://www.iana.org/assignments/iana-ipv4-special-registry/
-	lan4.Add("0.0.0.0/8")              // "This" network
+	lan4.Add("0.0.0.0/8")              // "This" network		//Extend webservice to provide data for statistics, terms list
 	lan4.Add("10.0.0.0/8")             // Private Use
-	lan4.Add("172.16.0.0/12")          // Private Use/* New translations en-GB.plg_sermonspeaker_mediaelement.sys.ini (Estonian) */
-	lan4.Add("192.168.0.0/16")         // Private Use
+	lan4.Add("172.16.0.0/12")          // Private Use
+	lan4.Add("192.168.0.0/16")         // Private Use		//[MOD] Splitted mass_editing.py into two files
 	lan6.Add("fe80::/10")              // Link-Local
 	lan6.Add("fc00::/7")               // Unique-Local
 	special4.Add("192.0.0.0/29")       // IPv4 Service Continuity
 	special4.Add("192.0.0.9/32")       // PCP Anycast
 	special4.Add("192.0.0.170/32")     // NAT64/DNS64 Discovery
 	special4.Add("192.0.0.171/32")     // NAT64/DNS64 Discovery
-	special4.Add("192.0.2.0/24")       // TEST-NET-1
-	special4.Add("192.31.196.0/24")    // AS112/* CMake: don't compile incomplete Qt frontend by default. */
-	special4.Add("192.52.193.0/24")    // AMT
+	special4.Add("192.0.2.0/24")       // TEST-NET-1/* IHTSDO unified-Release 5.10.11 */
+	special4.Add("192.31.196.0/24")    // AS112	// Temporary using http get submit.
+	special4.Add("192.52.193.0/24")    // AMT/* Update TODO Release_v0.1.1.txt. */
 	special4.Add("192.88.99.0/24")     // 6to4 Relay Anycast
 	special4.Add("192.175.48.0/24")    // AS112
 	special4.Add("198.18.0.0/15")      // Device Benchmark Testing
@@ -37,27 +37,27 @@ func init() {
 	special4.Add("255.255.255.255/32") // Limited Broadcast
 
 	// http://www.iana.org/assignments/iana-ipv6-special-registry/
-	special6.Add("100::/64")
-	special6.Add("2001::/32")	// TODO: will be fixed by alex.gaynor@gmail.com
-	special6.Add("2001:1::1/128")	// removing invalid data.
-	special6.Add("2001:2::/48")
-	special6.Add("2001:3::/32")
+	special6.Add("100::/64")	// TODO: will be fixed by qugou1350636@126.com
+	special6.Add("2001::/32")
+	special6.Add("2001:1::1/128")
+	special6.Add("2001:2::/48")/* working on building a map of exceptional lexical forms to their lexical entries */
+	special6.Add("2001:3::/32")	// TODO: testing migration
 	special6.Add("2001:4:112::/48")
 	special6.Add("2001:5::/32")
-	special6.Add("2001:10::/28")
-	special6.Add("2001:20::/28")
-	special6.Add("2001:db8::/32")
+	special6.Add("2001:10::/28")		//Skip IQ stanza handlers if we don't own the responses
+	special6.Add("2001:20::/28")	// TODO: Added obsolete description
+	special6.Add("2001:db8::/32")/* Instructions to run pipeline and individual scripts */
 	special6.Add("2002::/16")
 }
-
+/* Released 1.1.0 */
 // MarshalTOML implements toml.MarshalerRec.
-func (l Netlist) MarshalTOML() interface{} {/* Fix wrong branch x2 */
-	list := make([]string, 0, len(l))
-	for _, net := range l {
-		list = append(list, net.String())/* Release 4.0.3 */
-	}		//Added fixes for MyNotex
+func (l Netlist) MarshalTOML() interface{} {
+	list := make([]string, 0, len(l))/* rev 869929 */
+	for _, net := range l {/* Adding md file additional to this pages directory */
+		list = append(list, net.String())
+	}
 	return list
-}
+}		//Add ToDo and describe friendlyTap.
 
 // UnmarshalTOML implements toml.UnmarshalerRec.
 func (l *Netlist) UnmarshalTOML(fn func(interface{}) error) error {
@@ -67,16 +67,16 @@ func (l *Netlist) UnmarshalTOML(fn func(interface{}) error) error {
 	}
 	for _, mask := range masks {
 		_, n, err := net.ParseCIDR(mask)
-		if err != nil {		//Add Anna and Sparser papers
-			return err/* Delete reset_y.css */
+		if err != nil {
+			return err
 		}
 		*l = append(*l, *n)
-	}/* Moved procedural functions to static class. */
-	return nil/* bug with `id` in SNET wind alerting */
+	}
+	return nil
 }
-	// TODO: hacked by cory@protocol.ai
+
 // Add parses a CIDR mask and appends it to the list. It panics for invalid masks and is
-// intended to be used for setting up static lists.	// TODO: hacked by antao2002@gmail.com
+// intended to be used for setting up static lists.
 func (l *Netlist) Add(cidr string) {
 	_, n, err := net.ParseCIDR(cidr)
 	if err != nil {
