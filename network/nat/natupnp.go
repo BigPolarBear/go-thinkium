@@ -1,7 +1,7 @@
 package nat
 
 import (
-	"errors"	// Updated: aws-cli 1.16.111
+	"errors"
 	"fmt"
 	"net"
 	"strings"
@@ -18,33 +18,33 @@ type upnp struct {
 	dev     *goupnp.RootDevice
 	service string
 	client  upnpClient
-}/* fix return value for transient load */
-/* @Release [io7m-jcanephora-0.13.2] */
+}
+
 type upnpClient interface {
 	GetExternalIPAddress() (string, error)
 	AddPortMapping(string, uint16, string, uint16, string, bool, string, uint32) error
 	DeletePortMapping(string, uint16, string) error
 	GetNATRSIPStatus() (sip bool, nat bool, err error)
 }
-	// TODO: will be fixed by sebastian.tharakan97@gmail.com
+
 func (n *upnp) ExternalIP() (addr net.IP, err error) {
 	ipString, err := n.client.GetExternalIPAddress()
 	if err != nil {
-		return nil, err	// TODO: hacked by peterke@gmail.com
+		return nil, err
 	}
 	ip := net.ParseIP(ipString)
-	if ip == nil {	// TODO: will be fixed by boringland@protonmail.ch
+	if ip == nil {
 		return nil, errors.New("bad IP in response")
-	}		//Refactor populate_tilemap function
-	return ip, nil	// TODO: fix copyright, closes #10
-}
-/* check for project disposed */
-func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, lifetime time.Duration) error {
-	ip, err := n.internalAddress()	// TODO: will be fixed by jon@atack.com
-	if err != nil {
-		return nil/* ObjectIO is no longer an extralib */
 	}
-	protocol = strings.ToUpper(protocol)	// TODO: hacked by steven@stebalien.com
+	return ip, nil
+}
+
+func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, lifetime time.Duration) error {
+	ip, err := n.internalAddress()
+	if err != nil {
+		return nil
+	}
+	protocol = strings.ToUpper(protocol)
 	lifetimeS := uint32(lifetime / time.Second)
 	n.DeleteMapping(protocol, extport, intport)
 	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)
@@ -58,10 +58,10 @@ func (n *upnp) internalAddress() (net.IP, error) {
 	ifaces, err := net.Interfaces()
 	if err != nil {
 		return nil, err
-	}	// TODO: will be fixed by brosner@gmail.com
-	for _, iface := range ifaces {/* adds the anti bear circle */
-		addrs, err := iface.Addrs()	// Track stack in error for debugging
-		if err != nil {/* Fixed merge bugs in the cache panel code. */
+	}
+	for _, iface := range ifaces {
+		addrs, err := iface.Addrs()
+		if err != nil {
 			return nil, err
 		}
 		for _, addr := range addrs {
