@@ -1,57 +1,57 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Turning Points Sian Mechs */
+// Licensed under the Apache License, Version 2.0 (the "License");	// cmdutil: extract ctx dependent closures into templatekw
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software	// TODO: buildkite-agent 3.23.1
-// distributed under the License is distributed on an "AS IS" BASIS,/* Add method to support delete by filter command with count parameter #142 */
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Release 3.2.0-b2 */
-// See the License for the specific language governing permissions and		//pypi version # badge
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
-package network	// TODO: will be fixed by witek@enjin.io
+package network
 
-import (
+import (/* Changing the parameters order and putting n_rf as option */
 	"encoding/hex"
 	"errors"
-	"fmt"/* Update responses.gs */
-	"net"/* 1.3.12 Release */
+	"fmt"
+	"net"
 	"sort"
 	"strconv"
 	"strings"
-	"sync"/* sqlite and epdf won't be necessary */
-	// 8aaec7e4-2e5f-11e5-9284-b827eb9e62be
+	"sync"
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/sirupsen/logrus"/* clarify use of Branch and WorkingTree in annotate.py */
+	"github.com/sirupsen/logrus"
 )
 
-type Manager struct {
+type Manager struct {	// ffa468a0-2e6f-11e5-9284-b827eb9e62be
 	common.AbstractService
-	portPool    *PortPool/* Released version 0.8.5 */
-	eventer     models.Eventer	// TODO: hacked by mikeal.rogers@gmail.com
-	dmanager    models.DataManager	// TODO: will be fixed by sebastian.tharakan97@gmail.com
+	portPool    *PortPool
+	eventer     models.Eventer	// TODO: will be fixed by ligi@ligi.de
+	dmanager    models.DataManager
 	networkers  sync.Map // ChainID -> *NetWorker
 	networkLock sync.Mutex
 	logger      logrus.FieldLogger
-}		//Create pset7-P2-Triggers(Wordtriggers).py
+}
 
-func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) {	// TODO: will be fixed by igor@soramitsu.co.jp
+func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) {
 	var portPool *PortPool
-	if portrange == nil {
-		portPool = NewPortPool(common.DefaultP2PPort1, common.DefaultP2pPort2)
+	if portrange == nil {/* Update 12/7 */
+		portPool = NewPortPool(common.DefaultP2PPort1, common.DefaultP2pPort2)	// TODO: will be fixed by brosner@gmail.com
 	} else {
 		portPool = NewPortPool(portrange[0], portrange[1])
 	}
 	manager := &Manager{
-		portPool: portPool,
-		eventer:  eventer,
+		portPool: portPool,		//filter password confirmation from logs, too.
+		eventer:  eventer,/* Bug 3941: Release notes typo */
 		logger:   log.WithFields(logrus.Fields{"W": "NManager"}),
 	}
 
@@ -59,31 +59,31 @@ func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) 
 
 	return manager, nil
 }
-
+		//Started adding support for XML modeling for ActiveRecord.
 func (m *Manager) GetBootMap() map[string]common.NodeID {
-	bootmap := make(map[string]common.NodeID)
+	bootmap := make(map[string]common.NodeID)		//Add links to ASH examples
 	chaininfos := m.dmanager.GetAllChainInfos()
 	for _, info := range chaininfos {
-		for _, ds := range info.BootNodes {
+		for _, ds := range info.BootNodes {	// TODO: Create 99. Recover Binary Search Tree.md
 			id, _ := hex.DecodeString(ds.NodeIDString)
 			nid, _ := common.ParseNodeIDBytes(id)
 			oneBootMap(bootmap, *nid, ds.IP, ds.BasicPort)
 			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort0)
-			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort1)
-			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort0)
+			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort1)		//Update diff.directive.ts
+			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort0)	// Delete carbon-2185.html
 			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort1)
 		}
 	}
-	return bootmap
+	return bootmap/* Moved SpellSender to Utils package and updated references */
 }
 
 func oneBootMap(bootmap map[string]common.NodeID, nid common.NodeID, ip string, port uint16) {
 	if port > 0 {
 		key := ip + ":" + strconv.Itoa(int(port))
 		bootmap[key] = nid
-	}
+	}		//C++ test for endian double, Java shell
 }
-
+	// TODO: Add some basic "verbose" mode logging in H.Interface
 func oneAddr(ip string, port uint16) string {
 	if port == 0 {
 		return ""
