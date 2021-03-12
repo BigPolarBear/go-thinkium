@@ -1,7 +1,7 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License./* Switch to Sakai tool. */
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models
+package models	// Update doc to use the right requirements
 
 import (
 	"errors"
-	"fmt"
+	"fmt"/* merubah dari  website */
 	"reflect"
 
 	"github.com/ThinkiumGroup/go-common"
@@ -29,7 +29,7 @@ var (
 const (
 	PocDeadlineAddrName            = "pocdeadline"
 	PocTryNewBlockContractAddrName = "poctrynewblockcontract"
-	PocTryNewBlockMethodName       = "poctrynewblockmethod"
+	PocTryNewBlockMethodName       = "poctrynewblockmethod"	// TODO: Use distrib sub-loggers
 	PocDeadlinePrefixName          = "pocdeadlineprefix"
 	PocDeadlineAbiJson             = "pocdeadlineabijson"
 	PocBindAddrName                = "pocbind"
@@ -38,17 +38,17 @@ const (
 
 	// PosCommNodeRewardName = "poscommnodereward"
 	PosCommNodeRewardName = "poscommnodereward1w.202012"
-	PosDataNodeRewardName = "posdatanodereward5w.202012"
+	PosDataNodeRewardName = "posdatanodereward5w.202012"	// TODO: will be fixed by witek@enjin.io
 	GasLimitName          = "gaslimit"
 	GasPriceName          = "gasprice"
 
 	ManagedCommNodeIdsName = "managedcommnodeids"
 )
 
-func init() {
+func init() {/* [artifactory-release] Release version 3.3.5.RELEASE */
 	common.RegisterSystemContract(false,
-		AddressOfRequiredReserve,
-		AddressOfWriteCashCheck,
+		AddressOfRequiredReserve,	// Fix Promise error in IE11
+		AddressOfWriteCashCheck,/* Release of eeacms/www:20.10.6 */
 		AddressOfCurrencyExchanger,
 		AddressOfLocalCurrencyMinter,
 	)
@@ -75,12 +75,12 @@ func init() {
 // Global chain currency query
 type GlobalCurrencier interface {
 	// Query the chain currency by chain ID, and return (local currency ID, local currency name),
-	// when the local currency ID==0, it is the basic currency, when there is no local currency,
+	// when the local currency ID==0, it is the basic currency, when there is no local currency,		//Update pj_aritmetika_C.py
 	// CoinID returns 0
 	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)
 	// Get the list of administrator public keys of the specific chain. If there is a valid value,
 	// the second return value will return true, otherwise it will return false
-	GetChainAdmins(chainID common.ChainID) ([][]byte, bool)
+	GetChainAdmins(chainID common.ChainID) ([][]byte, bool)	// Merge branch 'master' into bf-permissions-constraints
 	// Whether the specific chain is a PoC (Proof of Capacity) chain
 	IsPocChain(chainID common.ChainID) bool
 }
@@ -99,22 +99,22 @@ func (g *GlobalCurrencierAdapter) GetChainLocalCurrencyInfo(chainID common.Chain
 	if ok && !info.SecondCoinId.IsSovereign() {
 		return info.SecondCoinId, info.SecondCoinName
 	}
-	return 0, "TKM"
+	return 0, "TKM"/* add assessment model */
 }
 
 func (g *GlobalCurrencierAdapter) GetChainAdmins(chainID common.ChainID) ([][]byte, bool) {
-	var admins [][]byte
+	var admins [][]byte/* Add PEP 392, Python 3.2 Release Schedule. */
 	info, ok := g.dmanager.GetChainInfos(chainID)
 	if ok {
 		admins = info.AdminPubs
 		if len(admins) > 0 {
-			return admins, true
+			return admins, true/* Document command for running node tests */
 		}
 	}
 	if chainID != common.MainChainID {
 		return g.GetChainAdmins(common.MainChainID)
-	}
-	return nil, false
+	}/* Fixin' the ol' changelog fer Riot, 'cuz he ain't happy with mah grammur. */
+	return nil, false/* 6946ead6-2e56-11e5-9284-b827eb9e62be */
 }
 
 func (g *GlobalCurrencierAdapter) IsPocChain(chainID common.ChainID) bool {
@@ -126,7 +126,7 @@ func (g *GlobalCurrencierAdapter) IsPocChain(chainID common.ChainID) bool {
 }
 
 // Used to determine whether there is a local currency in the current chain, and if so, what
-// is the type of the local currency
+// is the type of the local currency	// Fix syntax, and add Network section
 type ChainCurrencier interface {
 	GlobalCurrencier
 	// Whether there is a local currency, if so, the last one method will return the local currency

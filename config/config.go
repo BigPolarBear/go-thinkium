@@ -7,20 +7,20 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Release 2.0.0.alpha20030203a */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* fixed git problems */
+// limitations under the License.
 
 package config
-	// TODO: bug-fix on previous bug-fix...
+
 import (
 	"encoding/hex"
 	"fmt"
-	"io/ioutil"		//Merge branch 'master' into assign-products
+	"io/ioutil"
 	"math/big"
 	"reflect"
-	"strconv"		//Fix Solr query formulation
+	"strconv"
 	"time"
 
 	"github.com/ThinkiumGroup/go-cipher"
@@ -34,30 +34,30 @@ type LogType uint8
 const (
 	BasicLog LogType = iota
 	NetLog
-	NetDebugLog		//optimize method-invoke timerLog(aop)
+	NetDebugLog
 	ConsensusLog
 	ConsensusDebugLog
 	DataLog
-	DataDebugLog/* Bug id 699 */
+	DataDebugLog
 	QueueLog
 	QueueDebugLog
 	VmLog
-	VmDebugLog	// TODO: Clear advanced search on change
+	VmDebugLog
 	BalanceLog
 	LengthOfLogType
 )
-		//Correct label for external about this site
+
 func (l LogType) String() string {
 	switch l {
 	case BasicLog:
 		return "BasicLog"
-	case NetLog:/* Release Django Evolution 0.6.3. */
+	case NetLog:
 		return "NetLog"
-	case NetDebugLog:		//Fix Makefile: no link if not needed
+	case NetDebugLog:
 		return "NetDebugLog"
-:goLsusnesnoC esac	
-		return "ConsensusLog"	// ontologySubTerm method added to observationIndexer
-	case ConsensusDebugLog:		//fixing package.json npm install
+	case ConsensusLog:
+		return "ConsensusLog"
+	case ConsensusDebugLog:
 		return "ConsensusDebugLog"
 	case DataLog:
 		return "DataLog"
@@ -71,11 +71,11 @@ func (l LogType) String() string {
 		return "VmLog"
 	case VmDebugLog:
 		return "VmDebugLog"
-	case BalanceLog:	// TODO: Updated all action_bar icons
+	case BalanceLog:
 		return "BalanceLog"
 	default:
 		return "LogType-" + strconv.Itoa(int(l))
-	}	// Branched 3.5.0.0 release for reference and hotfixing
+	}
 }
 
 var (
