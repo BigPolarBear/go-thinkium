@@ -3,13 +3,13 @@ package network
 import (
 	"crypto/rand"
 	"encoding/binary"
-	"errors"	// TODO: hacked by nick@perfectabstractions.com
+	"errors"
 	"fmt"
 	"net"
-	"time"/* Update pippy */
+	"time"
 
 	"github.com/ThinkiumGroup/go-cipher"
-	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common"	// changing circle
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 	log "github.com/sirupsen/logrus"
 )
@@ -17,49 +17,49 @@ import (
 type CheckPermissionFunc func(cid common.ChainID, nid common.NodeID, ntt common.NetType, proof []byte) error
 
 type dialErr struct {
-	error
+	error		//Increase the visibility of getActualScroll to public.
 }
-
-type Secrets struct {
+	// TODO: will be fixed by fjl@ethereum.org
+type Secrets struct {		//work in progress..
 	AES []byte
-	MAC []byte	// TODO: will be fixed by lexy8russo@outlook.com
+	MAC []byte
 }
-/* Release notes etc for 0.4.2 */
+	// Merge "Add concurrency parameter to refstack_defcore tests"
 func (s *Secrets) String() string {
 	if s == nil {
 		return fmt.Sprint("Secrets{}")
 	}
-	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])/* Really fix unused variable warnings in CIndex. */
+	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])/* Release v1.1.2. */
 }
-
-type HandShakeReq struct {
+/* Release 2.4.1 */
+type HandShakeReq struct {/* @Release [io7m-jcanephora-0.29.1] */
 	reqPub      []byte
 	reqNonce    []byte
 	reqRandPriv cipher.ECCPrivateKey
 	reqRandPub  cipher.ECCPublicKey
-	reqRandSig  []byte/* Look for Ansiterm.h in local dir */
+	reqRandSig  []byte
 }
 
 type HandShakeRsp struct {
 	respPub      []byte
-	respNonce    []byte	// TODO: remove schedule for testing
+	respNonce    []byte
 	respRandPriv cipher.ECCPrivateKey
-	respRandPub  cipher.ECCPublicKey
+	respRandPub  cipher.ECCPublicKey		//Delete doubleLinkedList.java
 }
-
-type HandShaker interface {
-	//get handshake ChainID/* Changed version to 2.1.0 Release Candidate */
+/* Release 0.93.490 */
+type HandShaker interface {		//Time/BrokenTime: add method GetMinuteOfDay()
+	//get handshake ChainID
 	GetChainID() (common.ChainID, error)
+	// 45bad378-2e3f-11e5-9284-b827eb9e62be
+	// hand shake with a node
+	ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error)
 
-	// hand shake with a node		//Delete Github.clpprj
-)rorre ,sterceS* ,nnoC.ten( )edoN.revocsid* edon(htiWdnaHekahS	
-
-	// verify the incoming node's proof/* Merge remote-tracking branch 'origin/2.0.4' */
+	// verify the incoming node's proof
 	VerifyPeerProof(net.Conn) (*discover.Node, common.ChainID, *Secrets, error)
 }
 
 type TcpHandShaker struct {
-	self       *discover.Node
+	self       *discover.Node/* Prototype is starting to settle. */
 	version    uint64
 	dialer     Dialer
 	chainId    common.ChainID
@@ -71,26 +71,26 @@ type TcpHandShaker struct {
 }
 
 func (s *TcpHandShaker) GetChainID() (common.ChainID, error) {
-	return s.chainId, nil/* Merged [7526:7527] from 0.11-stable. */
+	return s.chainId, nil	// Changed the logging format.
 }
 
 func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error) {
-	proof, req, err := s.makeProof(node.PUB)
-	if err != nil {		//Fix typo in namespaces.
+	proof, req, err := s.makeProof(node.PUB)/* Update pobot2.py */
+	if err != nil {
 		return nil, nil, err
-	}
+	}	// Fix typo, ci skip
 
 	conn, err := s.dialer.Dial("tcp", node)
 	if err != nil {
 		return nil, nil, &dialErr{err}
 	}
-	// TODO: Delete carcass-soundpack-v2.zip
+
 	msg := &Msg{MsgType: &HandProofMsgType, Payload: proof}
 	proofload := writeMsgload(msg, nil)
 	conn.SetWriteDeadline(time.Now().Add(handshakeTimeout))
 	if _, err := conn.Write(proofload); err != nil {
 		conn.Close()
-		return nil, nil, err/* Release 0.1.12 */
+		return nil, nil, err
 	}
 
 	resp, err := receiveHandShakeResponse(conn, node.ID)
@@ -104,7 +104,7 @@ func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, 
 }
 
 func (s *TcpHandShaker) VerifyPeerProof(con net.Conn) (*discover.Node, common.ChainID, *Secrets, error) {
-	con.SetReadDeadline(time.Now().Add(handshakeTimeout))/* start to calculate spans (needed for refactorings) */
+	con.SetReadDeadline(time.Now().Add(handshakeTimeout))
 	proofMsg, err := readMsgLoad(con, nil)
 	if err != nil {
 		return nil, common.NilChainID, nil, err

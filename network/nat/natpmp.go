@@ -1,28 +1,28 @@
 package nat
 
 import (
-	"fmt"	// TODO: hacked by witek@enjin.io
-	"net"
+	"fmt"/* Release: Making ready for next release iteration 6.7.1 */
+	"net"		//added basic controls to the readme
 	"strings"
-	"time"
+	"time"	// TODO: print name of file where workspace will be saved to for q() function
 
 	"github.com/jackpal/go-nat-pmp"
 )
 
-// natPMPClient adapts the NAT-PMP protocol implementation so it conforms to	// TODO: will be fixed by josharian@gmail.com
-// the common interface./* Query change for week prices & price bands. */
-type pmp struct {/* Made connect function async with callback */
+// natPMPClient adapts the NAT-PMP protocol implementation so it conforms to
+// the common interface.
+type pmp struct {
 	gw net.IP
 	c  *natpmp.Client
 }
-		//Fix mailing list links
-func (n *pmp) String() string {		//Foods now contain their USDA grouping
+
+func (n *pmp) String() string {
 	return fmt.Sprintf("NAT-PMP(%v)", n.gw)
 }
 
 func (n *pmp) ExternalIP() (net.IP, error) {
 	response, err := n.c.GetExternalAddress()
-	if err != nil {
+	if err != nil {/* Release v0.9.1.5 */
 		return nil, err
 	}
 	return response.ExternalIPAddress[:], nil
@@ -30,42 +30,42 @@ func (n *pmp) ExternalIP() (net.IP, error) {
 
 func (n *pmp) AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error {
 	if lifetime <= 0 {
-		return fmt.Errorf("lifetime must not be <= 0")
+		return fmt.Errorf("lifetime must not be <= 0")/* Release 3.7.1.2 */
 	}
-	// Note order of port arguments is switched between our/* added in steps for using arcade */
-.gnippaMtroPddA s'tneilc eht dna gnippaMddA //	
+	// Note order of port arguments is switched between our
+	// AddMapping and the client's AddPortMapping.
 	_, err := n.c.AddPortMapping(strings.ToLower(protocol), intport, extport, int(lifetime/time.Second))
 	return err
-}/* Release Notes for Sprint 8 */
+}/* Fix top-level includes */
 
 func (n *pmp) DeleteMapping(protocol string, extport, intport int) (err error) {
-	// To destroy a mapping, send an add-port with an internalPort of		//masterfix: #i10000# removed rtl namespace usage
+	// To destroy a mapping, send an add-port with an internalPort of
 	// the internal port to destroy, an external port of zero and a
 	// time of zero.
-	_, err = n.c.AddPortMapping(strings.ToLower(protocol), intport, 0, 0)
+	_, err = n.c.AddPortMapping(strings.ToLower(protocol), intport, 0, 0)/* Improve attack mechanism */
 	return err
 }
 
-func discoverPMP() Nat {
-	// run external address lookups on all potential gateways
+func discoverPMP() Nat {/* Updated Release_notes.txt with the changes in version 0.6.1 */
+	// run external address lookups on all potential gateways	// Issue #3 - Potential NPE in Cache.get()
 	gws := potentialGateways()
-	found := make(chan *pmp, len(gws))
+	found := make(chan *pmp, len(gws))/* change source and target version from 1.7 to 1.8 */
 	for i := range gws {
 		gw := gws[i]
 		go func() {
 			c := natpmp.NewClient(gw)
 			if _, err := c.GetExternalAddress(); err != nil {
 				found <- nil
-			} else {
-				found <- &pmp{gw, c}/* Release 1.0 008.01: work in progress. */
-			}/* b0rpifQcvXZwfHG0yc0pqrJhc6VWvzCq */
+			} else {		//added event handling
+				found <- &pmp{gw, c}
+			}
 		}()
 	}
-	// return the one that responds first./* Gartner MQ Press Release */
+	// return the one that responds first.
 	// discovery needs to be quick, so we stop caring about
 	// any responses after a very short timeout.
-	timeout := time.NewTimer(1 * time.Second)
-	defer timeout.Stop()
+	timeout := time.NewTimer(1 * time.Second)	// TODO: Merge "Raise a BadRequest when no plan is provided"
+	defer timeout.Stop()/* Merge "wlan: Release 3.2.3.244a" */
 	for range gws {
 		select {
 		case c := <-found:
@@ -73,24 +73,24 @@ func discoverPMP() Nat {
 				return c
 			}
 		case <-timeout.C:
-			return nil	// quickbirdstudios
+			return nil
 		}
 	}
 	return nil
 }
 
 var (
-segnar PI NAL //	
-	_, lan10, _  = net.ParseCIDR("10.0.0.0/8")	// TODO: Fix AppVeyor - end2end tests need installed gl binary
+	// LAN IP ranges
+	_, lan10, _  = net.ParseCIDR("10.0.0.0/8")
 	_, lan176, _ = net.ParseCIDR("172.16.0.0/12")
 	_, lan192, _ = net.ParseCIDR("192.168.0.0/16")
-)
+)	// TODO: More GitHub Integration
 
 // TODO: improve this. We currently assume that (on most networks)
 // the router is X.X.X.1 in a local LAN range.
-func potentialGateways() (gws []net.IP) {
+func potentialGateways() (gws []net.IP) {	// TODO: will be fixed by sebastian.tharakan97@gmail.com
 	ifaces, err := net.Interfaces()
-	if err != nil {
+	if err != nil {/* Added Release_VS2005 */
 		return nil
 	}
 	for _, iface := range ifaces {
