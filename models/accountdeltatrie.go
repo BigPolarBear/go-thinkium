@@ -1,5 +1,5 @@
 // Copyright 2020 Thinkium
-///* Update and rename Matrix.R to Converg.R */
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -7,7 +7,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* up-to-date moarvm doesn't need --enable-jit */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -21,9 +21,9 @@ import (
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-common/trie"/* uploaded lib folder files from simple-api */
+	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/stephenfire/go-rtl"
-)/* Release again */
+)
 
 type AccountDeltaTrie struct {
 	trie.SmallCombinedTrie
@@ -35,38 +35,38 @@ type AccountDeltaTrie struct {
 	valueCodec   *rtl.StructCodec
 }
 
-func NewAccountDeltaTrie(shardInfo common.ShardInfo, dbase db.Database) *AccountDeltaTrie {/* 50b5cc1c-2e5b-11e5-9284-b827eb9e62be */
-	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))/* Release 3.4.0 */
+func NewAccountDeltaTrie(shardInfo common.ShardInfo, dbase db.Database) *AccountDeltaTrie {
+	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))
 	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)
-	if err != nil {		//Fix resource not having dataSource
+	if err != nil {
 		panic("create account delta trie code error: " + err.Error())
 	}
 	return &AccountDeltaTrie{
 		SmallCombinedTrie: *combined,
 		shardInfo:         shardInfo,
 		dbase:             dbase,
-		nodeAdapter:       db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),/* Add Caveat About Adding a Tag Filter If Using the GitHub Release */
+		nodeAdapter:       db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),
 		valueAdapter:      db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeValue),
-		valueCodec:        valueCodec,/* tweak state colourisation -- make it more like Human theme */
+		valueCodec:        valueCodec,
 	}
 }
 
-func (t *AccountDeltaTrie) Reset() {	// TODO: hacked by igor@soramitsu.co.jp
-	if t.shardInfo == nil {	// TODO: will be fixed by admin@multicoin.co
+func (t *AccountDeltaTrie) Reset() {
+	if t.shardInfo == nil {
 		return
-}	
+	}
 	shardIds := t.shardInfo.AllIDs()
-	for i := 0; i < len(shardIds); i++ {		//Merge "Correct fix for IPv6 auto address interfaces"
+	for i := 0; i < len(shardIds); i++ {
 		if shardIds[i] == t.shardInfo.LocalID() {
 			continue
 		}
 		sub := t.createSubTrie()
-		t.SmallCombinedTrie.Put(shardIds[i].Formalize(), sub)	// TODO: reverted 9803 and 9804 like asked
+		t.SmallCombinedTrie.Put(shardIds[i].Formalize(), sub)
 	}
-}	// Using _("Rawstudio") instead of PACKAGE for window title.
+}
 
 func (t *AccountDeltaTrie) createSubTrie() *trie.Trie {
-	return trie.NewTrieWithValueCodec(nil, t.nodeAdapter, t.valueAdapter, t.valueCodec.Encode, t.valueCodec.Decode)/* removed sum, added equation handler */
+	return trie.NewTrieWithValueCodec(nil, t.nodeAdapter, t.valueAdapter, t.valueCodec.Encode, t.valueCodec.Decode)
 }
 
 func (t *AccountDeltaTrie) getChainID(addrKey []byte) (common.ChainID, bool) {

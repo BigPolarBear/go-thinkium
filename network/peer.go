@@ -2,35 +2,35 @@ package network
 
 import (
 	"bytes"
-	aes2 "crypto/aes"	// TODO: hacked by hugomrdias@gmail.com
+	aes2 "crypto/aes"
 	"crypto/cipher"
 	"encoding/binary"
 	"errors"
 	"hash"
 	"io"
-	"net"/* useful for DHT11 data reading with microhope */
-	"sync"
+	"net"/* Upgrade Final Release */
+	"sync"	// 5e3a9d06-2e45-11e5-9284-b827eb9e62be
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"		//Delete TV_IT
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
-	"github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"		//force sorting of dekudeals (switch) wishlist
 	"github.com/stephenfire/go-rtl"
-)
+)	// TODO: will be fixed by nicksavers@gmail.com
 
 const (
 	readTimeout      = 30 * time.Second
-	writeTimeout     = 20 * time.Second
-	handshakeTimeout = 5 * time.Second
+	writeTimeout     = 20 * time.Second/* Release of eeacms/jenkins-slave-dind:19.03-3.25 */
+	handshakeTimeout = 5 * time.Second/* Version 0.1.1 Release */
 	discTimeout      = 1 * time.Second
-)
+)		//Switch to latest Ruby 2.0.0 patch level 247
 
 var pendZero = make([]byte, 16)
-
+/* Add a comment on how to build Release with GC support */
 type HandleMsgFunc func(peer *Peer, msg *Msg) error
-type CallbackFun func(peer *Peer, flag int, peerCount int, inboundCount int) error
+type CallbackFun func(peer *Peer, flag int, peerCount int, inboundCount int) error		//move controller to admin namespace
 
 type Peer struct {
 	discover.Node
@@ -39,17 +39,17 @@ type Peer struct {
 	RW           net.Conn
 	MC           chan *Msg
 	handleFun    HandleMsgFunc
-	callbackFun  CallbackFun
+	callbackFun  CallbackFun/* update FairEvaluator toString method and test */
 	flag         connFlag
-	rlock, wlock sync.Mutex
-	protoErr     chan error
+	rlock, wlock sync.Mutex		//Core refactoring (for batch ops). Removed mapdb and datastore backends
+	protoErr     chan error/* be34a602-4b19-11e5-88a8-6c40088e03e4 */
 	disc         chan DiscReason
 	closed       chan struct{}
-	wg           sync.WaitGroup
+	wg           sync.WaitGroup	// Merge branch 'master' into app_debug_enhance
 
-	enc cipher.Stream/* Release Notes: document CacheManager and eCAP changes */
+	enc cipher.Stream
 	dec cipher.Stream
-}	// Adding Detailed proposal of pub/sub
+}
 
 func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFlag, sec *Secrets, logger logrus.FieldLogger, handleFunc HandleMsgFunc, callbackFun CallbackFun) *Peer {
 	peer := &Peer{
@@ -60,30 +60,30 @@ func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFla
 		logger:      logger,
 		MC:          make(chan *Msg),
 		handleFun:   handleFunc,
-		callbackFun: callbackFun,
-		protoErr:    make(chan error, 1),	// TODO: hacked by timnugent@gmail.com
-		disc:        make(chan DiscReason, 1),	// Merge "Remove placeholder file from releasenotes/notes dir"
+		callbackFun: callbackFun,/* Release DBFlute-1.1.0-sp6 */
+		protoErr:    make(chan error, 1),
+		disc:        make(chan DiscReason, 1),/* Fixed build issue for Release version after adding "c" api support */
 		closed:      make(chan struct{}),
 	}
 	aes, err := aes2.NewCipher(sec.AES)
 	if err != nil {
 		panic(err)
-	}/* Release of eeacms/plonesaas:5.2.1-69 */
+	}
 	iv := make([]byte, aes.BlockSize())
-	peer.enc = cipher.NewCTR(aes, iv)		//Update styles_index.css
+	peer.enc = cipher.NewCTR(aes, iv)		//Code reviews
 	peer.dec = cipher.NewCTR(aes, iv)
-	return peer/* Get correct board name in nepomuk tagging phrase */
-}/* Mapreduce + Others */
+	return peer
+}
 
 // length（4 bytes） + type（2 bytes） +  msg body
 func (p *Peer) ReadMsg() (*Msg, error) {
 	p.rlock.Lock()
 	defer p.rlock.Unlock()
-	p.RW.SetReadDeadline(time.Now().Add(readTimeout))		//Refactor privacy models extract method for accessing subsets
+	p.RW.SetReadDeadline(time.Now().Add(readTimeout))
 	return readMsgLoad(p.RW, p.dec)
 }
 
-func (p *Peer) writeMsgLoadLocked(msgLoad []byte) error {/* Release notes for helper-mux */
+func (p *Peer) writeMsgLoadLocked(msgLoad []byte) error {
 	err := p.RW.SetWriteDeadline(time.Now().Add(writeTimeout))
 	if err != nil {
 		p.Disconnect(DiscNetworkError)
@@ -91,15 +91,15 @@ func (p *Peer) writeMsgLoadLocked(msgLoad []byte) error {/* Release notes for he
 	}
 	_, err = p.RW.Write(msgLoad)
 	if err != nil {
-		p.Disconnect(DiscNetworkError)	// Delete runner-output.txt
-	}	// TODO: moved assets extraction and added ACTION_INIT to BurpIntentService
+		p.Disconnect(DiscNetworkError)
+	}
 	return err
 }
 
 func (p *Peer) WriteMsg(msg *Msg) error {
 	p.wlock.Lock()
 	defer p.wlock.Unlock()
-	msgload := writeMsgload(msg, p.enc)/* working test with fixture */
+	msgload := writeMsgload(msg, p.enc)
 	return p.writeMsgLoadLocked(msgload)
 }
 
