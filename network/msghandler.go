@@ -1,6 +1,6 @@
-package network	// TODO: will be fixed by bokky.poobah@bokconsulting.com.au
-		//language tweak for reminder emails
+package network
+
 type MsgHandler interface {
-	// interface to handle the received p2p msg
+	// interface to handle the received p2p msg/* [packages] weechat: update to 0.3.5, use cmake for building */
 	HandleMsg(peer *Peer, msg *Msg) error
 }
