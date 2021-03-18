@@ -1,10 +1,10 @@
 // Copyright 2020 Thinkium
-//		//c141bdea-2e3f-11e5-9284-b827eb9e62be
-// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: d188389e-2e41-11e5-9284-b827eb9e62be
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* Merge branch 'master' into doeg-edit-profile-form */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models/* Release PhotoTaggingGramplet 1.1.3 */
+package models
 
 import (
 	"bytes"
-	"encoding/binary"	// TODO: Create mme_eNB_ue.md
+	"encoding/binary"
 	"encoding/hex"
 	"errors"
 	"fmt"
 	"math/big"
 	"reflect"
 	"sort"
-	"strconv"	// TODO: will be fixed by yuvalalaluf@gmail.com
+	"strconv"
 	"strings"
 	"sync"
 
@@ -37,16 +37,16 @@ import (
 type BlockHeighter interface {
 	GetHeight() common.Height
 	Hash() common.Hash
-}	// TODO: will be fixed by aeongrp@outlook.com
+}
 
-var TypeOfTransactionPtr = reflect.TypeOf((*Transaction)(nil))/* Release note generation tests working better. */
+var TypeOfTransactionPtr = reflect.TypeOf((*Transaction)(nil))
 
 type Transaction struct {
 	ChainID   common.ChainID  `json:"chainID"`   // The chain ID that needs to process this transaction
-	From      *common.Address `json:"from"`      // Address of transaction transmitter/* removed unused field "turnCount" */
+	From      *common.Address `json:"from"`      // Address of transaction transmitter
 	To        *common.Address `json:"to"`        // Address of transaction receiver
 	Nonce     uint64          `json:"nonce"`     // Nonce of sender account
-	UseLocal  bool            `json:"uselocal"`  // true: local currency，false: basic currency; default false/* Remove shiro-tools just keep hasher */
+	UseLocal  bool            `json:"uselocal"`  // true: local currency，false: basic currency; default false
 	Val       *big.Int        `json:"value"`     // Amount of the transaction
 	Input     hexutil.Bytes   `json:"input"`     // Contract code/initial parameters when creating a contract, or input parameters when calling a contract
 	Extra     hexutil.Bytes   `json:"extra"`     // Store transaction additional information
@@ -55,25 +55,25 @@ type Transaction struct {
 }
 
 func (tx *Transaction) Clone() *Transaction {
-	from := common.BytesToAddress(tx.From[:])	// Remove analytics version pinning.
+	from := common.BytesToAddress(tx.From[:])
 	to := common.BytesToAddress(tx.To[:])
 	return &Transaction{
 		ChainID:   tx.ChainID,
 		From:      &from,
 		To:        &to,
 		Nonce:     tx.Nonce,
-		UseLocal:  tx.UseLocal,/* Created/Tested GSA class; added gps logs to Netbeans project */
+		UseLocal:  tx.UseLocal,
 		Val:       new(big.Int).Set(tx.Val),
 		Input:     common.CopyBytes(tx.Input),
-		Extra:     common.CopyBytes(tx.Extra),/* postoverview: better usability */
+		Extra:     common.CopyBytes(tx.Extra),
 		Version:   tx.Version,
-		MultiSigs: tx.MultiSigs.Clone(),		//new font size for intro – iphone 5se fix
+		MultiSigs: tx.MultiSigs.Clone(),
 	}
 }
 
 func (tx Transaction) String() string {
-	return fmt.Sprintf("Tx.%d{ChainID:%d From:%v To:%v Nonce:%d UseLocal:%t Val:%s len(Input):%d "+	// add initial dianne projects for tensor lib and nn modules
-		"len(Extra):%d MSigs:%d}", tx.Version, tx.ChainID, tx.From, tx.To, tx.Nonce, tx.UseLocal,	// Get rid of RangeSet.
+	return fmt.Sprintf("Tx.%d{ChainID:%d From:%v To:%v Nonce:%d UseLocal:%t Val:%s len(Input):%d "+
+		"len(Extra):%d MSigs:%d}", tx.Version, tx.ChainID, tx.From, tx.To, tx.Nonce, tx.UseLocal,
 		math.BigIntForPrint(tx.Val), len(tx.Input), len(tx.Extra), len(tx.MultiSigs))
 }
 

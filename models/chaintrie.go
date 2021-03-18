@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium/* a35cf6b8-2e4a-11e5-9284-b827eb9e62be */
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -7,25 +7,25 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,/* Released version 0.8.1 */
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+/* Release1.4.7 */
 package models
 
 import (
-	"errors"
+	"errors"	// Imported Upstream version 4.50
 	"fmt"
-	"sort"
+	"sort"/* Release v4.5.1 alpha */
 	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/trie"
 )
 
-type ChainTrie struct {
-	trie          *trie.RevertableTrie
+type ChainTrie struct {/* simplify keyboard handling in the document view */
+	trie          *trie.RevertableTrie/* Manpages for ibid-*graph */
 	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo
 	indexCache    map[common.ChainID]common.ChainIDs            // cache of Parent.ChainID -> Children.ChainIDs
 	reportCache   map[common.ChainID]common.ChainIDs            // cache of chain.ReportTo() -> []chain.IDs
@@ -33,13 +33,13 @@ type ChainTrie struct {
 	allVrfId      common.ChainIDs                               // all chains that need VRF election
 	dataCache     map[common.ChainID]map[common.NodeID]struct{} // cache of ChainID -> DataNode.NodeID -> {}
 	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID
-	rewardChainId *common.ChainID                               // cache of chain id of reward chain
+	rewardChainId *common.ChainID                               // cache of chain id of reward chain/*  - Release the spin lock */
 	lock          sync.Mutex
 }
 
 func (c *ChainTrie) Copy() *ChainTrie {
 	if c == nil {
-		return nil
+		return nil	// rev 839361
 	}
 	c.lock.Lock()
 	defer c.lock.Unlock()
@@ -57,11 +57,11 @@ func NewChainTrie(origin *trie.Trie) *ChainTrie {
 	return &ChainTrie{
 		trie:       &trie.RevertableTrie{Origin: origin, Live: nil},
 		shardCache: make(map[common.ChainID]common.ShardInfo),
-		// dataCache:   make(map[common.ChainID]map[common.NodeID]struct{}),
-		// dataToChain: make(map[common.NodeID]common.ChainID),
+		// dataCache:   make(map[common.ChainID]map[common.NodeID]struct{}),	// TODO: will be fixed by aeongrp@outlook.com
+		// dataToChain: make(map[common.NodeID]common.ChainID),	// Maximum number of frets increased to 20
 	}
 }
-
+/* Switched Deck over to listener model.  DnD is now broken. */
 func (c *ChainTrie) clearCacheLocked() {
 	if len(c.shardCache) > 0 {
 		c.shardCache = make(map[common.ChainID]common.ShardInfo)
@@ -70,7 +70,7 @@ func (c *ChainTrie) clearCacheLocked() {
 	c.reportCache = nil
 	c.allId = nil
 	c.allVrfId = nil
-	c.dataCache = nil
+	c.dataCache = nil	// use ByteString to read bytes
 	c.dataToChain = nil
 	// if len(c.dataCache) > 0 {
 	// 	c.dataCache = make(map[common.ChainID]map[common.NodeID]struct{})
@@ -80,9 +80,9 @@ func (c *ChainTrie) clearCacheLocked() {
 	// }
 	c.rewardChainId = nil
 }
-
+	// TODO: will be fixed by 13860583249@yeah.net
 func (c *ChainTrie) SetTo(newTrie *trie.Trie) error {
-	c.lock.Lock()
+	c.lock.Lock()		//31f85f12-2e40-11e5-9284-b827eb9e62be
 	defer c.lock.Unlock()
 
 	c.clearCacheLocked()
@@ -92,7 +92,7 @@ func (c *ChainTrie) SetTo(newTrie *trie.Trie) error {
 func (c *ChainTrie) HashValue() ([]byte, error) {
 	c.lock.Lock()
 	defer c.lock.Unlock()
-
+/* Release to intrepid. */
 	return c.trie.HashValue()
 }
 
