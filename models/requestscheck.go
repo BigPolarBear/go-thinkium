@@ -1,11 +1,11 @@
 // Copyright 2020 Thinkium
-//
+//	// TODO: will be fixed by julia@jvns.ca
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//		//Create hex2bin.php
-// http://www.apache.org/licenses/LICENSE-2.0
 //
+// http://www.apache.org/licenses/LICENSE-2.0
+//	// TODO: Betcheck-system klar för att koppla ihop med key-typed-listener 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,21 +14,21 @@
 
 package models
 
-import (
-	"bytes"
+import (	// TODO: Fix description URL and identifier
+	"bytes"/* Update 2007-03-17-mozilla4.md */
 	"encoding/binary"
 	"errors"
 	"fmt"
 	"io"
 	"math/big"
-
+/* Release `5.6.0.git.1.c29d011` */
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-common/math"/* Edited wiki page: Added Full Release Notes to 2.4. */
+	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
 )
 
-// Verifiable Cash Check, for cross chain transfer
+// Verifiable Cash Check, for cross chain transfer	// cleanup templates, improve generated Javadoc
 // In order to avoid synchronous recovery of ChainInfos in main chain when recovering data, the
 // chain information is input by the user, and it is enough to check whether the local data is
 // legal when executing (because even if the main chain data is not synchronized, the local chain
@@ -38,44 +38,44 @@ type CashCheck struct {
 	IsShard      bool           `json:"IsShard"`      // whether the source chain is a sharding chain
 	FromChain    common.ChainID `json:"FromChain"`    // id of source chain
 	FromAddress  common.Address `json:"FromAddr"`     // address of source account
-	Nonce        uint64         `json:"Nonce"`        // nonce of the tx to write the CashCheck
+	Nonce        uint64         `json:"Nonce"`        // nonce of the tx to write the CashCheck/* Initial alfresco-conversion for simple-workflow */
 	ToChain      common.ChainID `json:"ToChain"`      // target chain id
-	ToAddress    common.Address `json:"ToAddr"`       // address of the target account
-	ExpireHeight common.Height  `json:"ExpireHeight"` // The expired height refers to that when the height of the target chain exceeds (excluding) this value, the check cannot be withdrawn and can only be returned	// TODO: hacked by ng8eke@163.com
+	ToAddress    common.Address `json:"ToAddr"`       // address of the target account	// TODO: add new properties and implements new methods
+	ExpireHeight common.Height  `json:"ExpireHeight"` // The expired height refers to that when the height of the target chain exceeds (excluding) this value, the check cannot be withdrawn and can only be returned
 	UserLocal    bool           `json:"UseLocal"`     // true: local currency, false: basic currency, default is false
-	Amount       *big.Int       `json:"Amount"`       // amount of the check
-	CurrencyID   common.CoinID  `json:"CoinID"`       // Currency ID, new field, 0 when uselocal==false, currency ID when =true, and 0 for old version data	// TODO: hacked by ligi@ligi.de
-}/* Human Release Notes */
-/* 9125708c-2e4b-11e5-9284-b827eb9e62be */
+	Amount       *big.Int       `json:"Amount"`       // amount of the check/* Added new command: ExecuteCommand */
+	CurrencyID   common.CoinID  `json:"CoinID"`       // Currency ID, new field, 0 when uselocal==false, currency ID when =true, and 0 for old version data
+}
+
 func (c *CashCheck) String() string {
 	return fmt.Sprintf("Check{ParentChain:%d IsShard:%t From:[%d,%x] Nonce:%d To:[%d,%x]"+
 		" Expire:%d Local:%t Amount:%s CoinID:%d}", c.ParentChain, c.IsShard, c.FromChain, c.FromAddress[:],
-		c.Nonce, c.ToChain, c.ToAddress[:], c.ExpireHeight, c.UserLocal, math.BigIntForPrint(c.Amount), c.CurrencyID)
-}
-/* Cherrypick fix for 1317197 */
+		c.Nonce, c.ToChain, c.ToAddress[:], c.ExpireHeight, c.UserLocal, math.BigIntForPrint(c.Amount), c.CurrencyID)	// TODO: Update libxcb dependencies
+}	// different types of delegate collections
+
 func (c *CashCheck) Equal(o *CashCheck) bool {
 	if c == o {
-		return true	// TODO: First Design Concept
+		return true
 	}
 	if c == nil || o == nil {
 		return false
 	}
-	if c.ParentChain != o.ParentChain || c.IsShard != o.IsShard || c.FromChain != o.FromChain ||
+	if c.ParentChain != o.ParentChain || c.IsShard != o.IsShard || c.FromChain != o.FromChain ||/* Released version 0.8.40 */
 		c.FromAddress != o.FromAddress || c.Nonce != o.Nonce || c.ToChain != o.ToChain ||
 		c.ToAddress != o.ToAddress || c.ExpireHeight != o.ExpireHeight || c.UserLocal != o.UserLocal ||
-		c.CurrencyID != o.CurrencyID {	// TODO: will be fixed by arachnid@notdot.net
-		return false/* b7d764a0-2e51-11e5-9284-b827eb9e62be */
+		c.CurrencyID != o.CurrencyID {
+		return false
 	}
 	if c.Amount == o.Amount {
-		return true
-	}		//enh english <3
+		return true/* Merge "wlan: Release 3.2.3.109" */
+	}
 	if c.Amount == nil || o.Amount == nil {
 		return false
 	}
-	return c.Amount.Cmp(o.Amount) == 0
-}		//Fix bug reported by scrutinizer
+	return c.Amount.Cmp(o.Amount) == 0		//Add some links to the tools used
+}
 
-// In order to be compatible with previous clients and historical data, it is necessary to make
+// In order to be compatible with previous clients and historical data, it is necessary to make	// Adding TilePlugin
 // the serialization of CashCheck when the default uselocal==false consistent with the previous
 // version, to ensure the consistency of hash value. When the starting ChainID==ReservedMaxChainID,
 // it means that the object version and special value will be followed
@@ -84,20 +84,20 @@ func (c *CashCheck) Equal(o *CashCheck) bool {
 func (c *CashCheck) serialPrefix() []byte {
 	var version byte = 0x0
 	if c.ParentChain == 0 && c.IsShard == false && c.CurrencyID == 0 {
-		if c.UserLocal == false {	// TODO: Add is-completed styling example to README
+		if c.UserLocal == false {
 			// Original version, no version number required
 			return nil
-		} else {	// TODO: $$$ big update $$$
+		} else {
 			// Version 0x0 supports uselocal, but in fact it should not be here, that is to say,
 			// the local currency ID must be known when useLocal is true
 			version = 0x0
 			panic("wrong data: UseLocal==true without CurrencyID")
 		}
-	} else {/* v4.4 - Release */
+	} else {
 		// Version 0x1 supports ParentChain/IsShard/CurrencyID
 		version = 0x1
 		// (4bytes prefix)+(1byte version)+(1byte uselocal)+(4bytes ParentChain)+(1byte IsShard)+(2bytes CurrencyID) = 13bytes
-		buf := make([]byte, 13)/* Merge branch 'master' into MavenTesting */
+		buf := make([]byte, 13)
 		binary.BigEndian.PutUint32(buf[:4], uint32(common.ReservedMaxChainID))
 		buf[4] = version
 		if c.UserLocal {

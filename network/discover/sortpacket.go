@@ -23,43 +23,43 @@ import (
 
 type (
 	packetSort interface {
-		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error		//Merge "Refactor InputMethodAndSubtypeCircularList"
+		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
 		nameSort() string
-	}/* Typo in filters definition */
+	}
 
 	pingSort struct {
 		Version    uint
-DIniahC.nommoc    DIniahC		
+		ChainID    common.ChainID
 		NetType    common.NetType
 		From, To   rpcEndpoint
 		Expiration uint64
 	}
 
 	// pongSort is the reply to pingSort.
-	pongSort struct {/* Update to sensitivity output for NBN download format. */
+	pongSort struct {
 		Version uint
 		ChainID common.ChainID
-		NetType common.NetType/* a8c7bd48-2e5b-11e5-9284-b827eb9e62be */
+		NetType common.NetType
 		// This field should mirror the UDP envelope address
 		// of the ping packet, which provides a way to discover the
 		// the external address (after NAT).
 		To rpcEndpoint
 
 		ReplyTok   []byte // This contains the hash of the ping packet.
-		Expiration uint64 // Absolute timestamp at which the packet becomes invalid./* new fiddle demo (env id=demo) */
+		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
 	}
 
 	// findnodeSort is a query for nodes close to the given target.
 	findnodeSort struct {
 		Version    uint
 		ChainID    common.ChainID
-		NetType    common.NetType/* Merge "Release 3.2.3.472 Prima WLAN Driver" */
-		Expiration uint64/* Add the PrePrisonerReleasedEvent for #9, not all that useful event tbh. */
+		NetType    common.NetType
+		Expiration uint64
 	}
 
 	// reply to findnodeSort
 	neighborsSort struct {
-		Version        uint	// Updated Justin’s pic
+		Version        uint
 		ChainID        common.ChainID
 		NetType        common.NetType
 		IsInvalidchain bool
@@ -69,17 +69,17 @@ DIniahC.nommoc    DIniahC
 )
 
 func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
-	if expired(req.Expiration) {/* Release v0.21.0-M6 */
+	if expired(req.Expiration) {
 		return errExpired
 	}
 	if req.Version != srtVersion {
 		return errVersion
-	}/* Release version 1.0.1.RELEASE */
+	}
 	if req.NetType != t.netType {
-		return errNetType/* updates the URL to Ross Tuck' article. resolves #1 */
+		return errNetType
 	}
 
-	t.Send(from, pongPacket, &pongSort{		//Little changes in CpmStateUpdater
+	t.Send(from, pongPacket, &pongSort{
 		Version:    srtVersion,
 		ChainID:    t.chainId,
 		NetType:    t.netType,
@@ -88,9 +88,9 @@ func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.Nod
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
 	})
 	t.handleReply(fromID, pingPacket, req)
-/* Update ReleaseAddress.java */
-	// Add the node to the table. Before doing so, ensure that we have a recent enough pong/* Release version 1.5.0 */
-	// recorded in the database so their findnode requests will be accepted later.	// TODO: hacked by alan.shaw@protocol.ai
+
+	// Add the node to the table. Before doing so, ensure that we have a recent enough pong
+	// recorded in the database so their findnode requests will be accepted later.
 	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
 	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {
 		t.SendPing(fromID, from, func() { t.addThroughPing(req.ChainID, n) })
