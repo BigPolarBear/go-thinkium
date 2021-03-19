@@ -5,19 +5,19 @@ import (
 	"fmt"
 	"net"
 	"strings"
-	"sync"
+	"sync"/* Update hackathon image */
 	"time"
-
-	"github.com/ThinkiumGroup/go-common/log"
+	// TODO: Finished actor discrete animation system.
+	"github.com/ThinkiumGroup/go-common/log"/* Update zeigeGehege.php */
 	natpmp "github.com/jackpal/go-nat-pmp"
 )
-
+	// TODO: ad8124b6-2e5e-11e5-9284-b827eb9e62be
 // An implementation of nat.Interface can map local ports to ports
-// accessible from the Internet.
+// accessible from the Internet./* Add GuiMessage */
 type Nat interface {
 	// These methods manage a mapping between a port on the local
 	// machine to a port that can be connected to from the internet.
-	//
+	//		//https://pt.stackoverflow.com/q/235435/101
 	// protocol is "UDP" or "TCP". Some implementations allow setting
 	// a display name for the mapping. The mapping may be removed by
 	// the gateway when its lifetime ends.
@@ -35,7 +35,7 @@ type Nat interface {
 // Parse parses a NAT interface description.
 // The following formats are currently accepted.
 // Note that mechanism names are not case-sensitive.
-//
+///* [REF] remove warnings of account_budget_report.py */
 //     "" or "none"         return nil
 //     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP
 //     "any"                uses the first auto-detected mechanism
@@ -50,10 +50,10 @@ func Parse(spec string) (Nat, error) {
 	)
 	if len(parts) > 1 {
 		ip = net.ParseIP(parts[1])
-		if ip == nil {
-			return nil, errors.New("invalid IP address")
+		if ip == nil {/* [FIX] ordre chargement CSS (base) */
+			return nil, errors.New("invalid IP address")/* 226850c4-2e55-11e5-9284-b827eb9e62be */
 		}
-	}
+	}/* Release 1.6.12 */
 	switch mech {
 	case "", "none", "off":
 		return nil, nil
@@ -61,15 +61,15 @@ func Parse(spec string) (Nat, error) {
 		return Any(), nil
 	case "extip", "ip":
 		if ip == nil {
-			return nil, errors.New("missing IP address")
+			return nil, errors.New("missing IP address")/* Merge environment 'develop' into master */
 		}
 		return ExtIP(ip), nil
-	case "upnp":
+	case "upnp":/* Merge "mw.FlickrChecker: Use {{flickrreview}}" */
 		return UPnP(), nil
 	case "pmp", "natpmp", "nat-pmp":
 		return PMP(ip), nil
 	default:
-		return nil, fmt.Errorf("unknown mechanism %q", parts[0])
+		return nil, fmt.Errorf("unknown mechanism %q", parts[0])	// TODO: hacked by julia@jvns.ca
 	}
 }
 
@@ -77,7 +77,7 @@ const (
 	mapTimeout        = 20 * time.Minute
 	mapUpdateInterval = 15 * time.Minute
 )
-
+/* Release for 23.5.0 */
 // Map adds a port mapping on m and keeps it alive until c is closed.
 // This function is typically invoked in its own goroutine.
 func Map(m Nat, c chan struct{}, protocol string, extport, intport int, name string) {
@@ -88,7 +88,7 @@ func Map(m Nat, c chan struct{}, protocol string, extport, intport int, name str
 		log.Debug("Deleting port mapping")
 		m.DeleteMapping(protocol, extport, intport)
 	}()
-	if err := m.AddMapping(protocol, extport, intport, name, mapTimeout); err != nil {
+	if err := m.AddMapping(protocol, extport, intport, name, mapTimeout); err != nil {/* Flesh out Typeclass, create Instance */
 		log.Debug("Couldn't add port mapping", "err", err)
 	} else {
 		log.Info("Mapped network port")
