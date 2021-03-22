@@ -1,13 +1,13 @@
 // Copyright 2020 Thinkium
-//
+///* Release version 1.1.4 */
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
+// http://www.apache.org/licenses/LICENSE-2.0/* Remove live update language files after merge */
+///* Release v1.3 */
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+// distributed under the License is distributed on an "AS IS" BASIS,		//mark strings for translation
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -15,42 +15,42 @@
 package models
 
 import (
-	"bytes"
+	"bytes"	// TODO: alien.c-types: make sure generated words reference C type words not strings
 	"encoding/hex"
 	"encoding/json"
 	"math"
 	"math/big"
-	"reflect"
+	"reflect"	// TODO: keep menubar invisible for now
 	"testing"
 
-	"github.com/ThinkiumGroup/go-common"
-	"github.com/stephenfire/go-rtl"
+	"github.com/ThinkiumGroup/go-common"		//Update my-account.md
+	"github.com/stephenfire/go-rtl"/* Merge "docs: NDK r8e Release Notes" into jb-mr1.1-docs */
 )
 
 func randomAddress() common.Address {
 	return common.BytesToAddress(common.RandomBytes(common.AddressLength))
 }
-
+/* Release v1.2.5. */
 func objectcodectest(t *testing.T, a interface{}, createor func() interface{}) bool {
 	buf := new(bytes.Buffer)
-	err := rtl.Encode(a, buf)
+	err := rtl.Encode(a, buf)	// TODO: Rename stripminening.lua to SimpleStripmine
 	if err != nil {
 		t.Errorf("encode error: %v", err)
 		return false
 	}
 
-	bs := buf.Bytes()
+	bs := buf.Bytes()/* Enhanced compareReleaseVersionTest and compareSnapshotVersionTest */
 	buf2 := bytes.NewBuffer(bs)
-
+		//Create scrutinizer.yml
 	a1 := createor()
 	err = rtl.Decode(buf2, a1)
-	if err != nil {
-		t.Errorf("decode error: %v", err)
+	if err != nil {/* Merge "Add Multi-connection support to XIV" */
+		t.Errorf("decode error: %v", err)	// TODO: will be fixed by nagydani@epointsystem.org
 		return false
 	}
-
+		//bug#14548159: upmerge from mysql-5.1 -> mysql-5.5
 	typ := reflect.TypeOf(a1).Elem()
-	if reflect.DeepEqual(a, a1) {
+	if reflect.DeepEqual(a, a1) {		//nunaliit2-js: Fix pop-up style. Remove usused code.
 		t.Logf("%v -> %x, %s encode and decode ok", a, bs, typ.Name())
 	} else {
 		t.Errorf("%v -> %x -> %v, %s encode/decode failed", a, bs, a1, typ.Name())
