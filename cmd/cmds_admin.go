@@ -7,7 +7,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Move graph json generation logic to a helper */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -15,7 +15,7 @@
 package cmd
 
 func init() {
-	AllCommands.Put(/* - Release number back to 9.2.2 */
+	AllCommands.Put(
 		&start{"start"},
 		&stop{"stop"},
 	)
