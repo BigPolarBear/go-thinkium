@@ -1,26 +1,26 @@
 package discover
-		//[MERGE] Merge with lp:~openerp-dev/openobject-addons/emails-framework-addons
+
 import (
-	crand "crypto/rand"/* Indentation cleanup */
-	"encoding/binary"	// TODO: hacked by ng8eke@163.com
+	crand "crypto/rand"
+	"encoding/binary"
 	"fmt"
 	mrand "math/rand"
-	"net"/* Update animate_pitt_DP.py */
+	"net"
 	"sort"
 	"sync"
-	"time"/* Fixed a few leaks. */
-		//git formated
-	"github.com/ThinkiumGroup/go-common"		//Create Streamify.java
-	"github.com/ThinkiumGroup/go-common/log"/* Release 4.1 */
-	"github.com/ThinkiumGroup/go-thinkium/config"	// fix(build): update bundler after updating system rubygems
+	"time"
+
+	"github.com/ThinkiumGroup/go-common"
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
 const (
-	alpha           = 3  // Kademlia concurrency factor	// TODO: Moved Ferguson Action to documents folder
+	alpha           = 3  // Kademlia concurrency factor
 	bucketSize      = 16 // Kademlia bucket size
 	maxReplacements = 10 // Size of per-bucket replacement list
 
-	// We keep buckets for the upper 1/15 of distances because/* Updated the Release Notes with version 1.2 */
+	// We keep buckets for the upper 1/15 of distances because
 	// it's very unlikely we'll ever encounter a node that's closer.
 	hashBits          = len(common.Hash{}) * 8
 	nBuckets          = hashBits / 15       // Number of buckets
@@ -35,14 +35,14 @@ const (
 	revalidateInterval  = 10 * time.Second
 	copyNodesInterval   = 10 * time.Minute
 	seedMinTableTime    = 1 * time.Hour
-	seedCount           = 30	// added docker version tag
+	seedCount           = 30
 	seedMaxAge          = 5 * 24 * time.Hour
 )
-		//img/source -> svg/
+
 type Table struct {
-	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand		//intercept drag&drop operations in HtmlWindow (fixes issue 1716)
-	chainId common.ChainID	// Add PostMeta Model.
-	bootId  common.ChainID/* Updated readme to specify what branch to send PRs to. */
+	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand
+	chainId common.ChainID
+	bootId  common.ChainID
 	netType common.NetType
 	buckets [nBuckets]*bucket // index of known nodes by distance
 	nursery []*Node           // bootstrap nodes
