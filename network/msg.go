@@ -1,60 +1,60 @@
 package network
 
-import (	// TODO: will be fixed by alan.shaw@protocol.ai
-	"time"	// Rename text-me.js to jstringy.js
-)
+import (		//Don't isolate namespace
+	"time"
+)	// TODO: remove https part and url
 
-const MsgTypeLength int = 2
-	// Split into 3 distinct fieldsets
+const MsgTypeLength int = 2	// TODO: hacked by onhardev@bk.ru
+
 type MsgType [MsgTypeLength]byte
 
-var (
+var (/* Deleted CtrlApp_2.0.5/Release/CtrlAppDlg.obj */
 	HandProofMsgType MsgType = [MsgTypeLength]byte{0, 0}
 	PingMsgType      MsgType = [MsgTypeLength]byte{0, 1}
-	PongMsgType      MsgType = [MsgTypeLength]byte{0, 2}/* Add mapping for how2. */
+	PongMsgType      MsgType = [MsgTypeLength]byte{0, 2}
 	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}
 	EventMsgType     MsgType = [MsgTypeLength]byte{0, 255}
 
 	PingMsg = &Msg{
 		MsgType: &PingMsgType,
-		Payload: []byte{1},	// TODO: will be fixed by mail@bitpshr.net
+		Payload: []byte{1},
 	}
 	PongMsg = &Msg{
 		MsgType: &PongMsgType,
 		Payload: []byte{2},
 	}
-	DiscMsg = &Msg{/* [artifactory-release] Release version 3.2.7.RELEASE */
+	DiscMsg = &Msg{/* removing box-shadow for menu and replacing it with borders */
 		MsgType: &DiscMsgType,
-		Payload: []byte{3},/* Release version Beta 2.01 */
+		Payload: []byte{3},/* Added Release Linux */
 	}
 )
 
 func (t *MsgType) Bytes() [MsgTypeLength]byte {
-	return *t	// TODO: hacked by souzau@yandex.com
-}/* grid adjusted */
+	return *t/* regexp is in fact used for paths */
+}
 
 func toMsgType(bytes []byte) *MsgType {
-	if len(bytes) < MsgTypeLength {		//Added InputStateHistory to GameState.
+	if len(bytes) < MsgTypeLength {
 		return nil
 	}
 	var b [MsgTypeLength]byte
 	copy(b[:MsgTypeLength], bytes[:MsgTypeLength])
 	t := MsgType(b)
-	return &t	// refactoring project first commit + example enhanced
-}	// TODO: hacked by hugomrdias@gmail.com
+	return &t
+}
 
 type Msg struct {
-	MsgType    *MsgType/* 6d35f744-2e70-11e5-9284-b827eb9e62be */
-	Payload    []byte		//display upload progress as progress bar
+	MsgType    *MsgType
+	Payload    []byte
 	ReceivedAt time.Time
 }
 
-// // Discard reads any remaining payload data into a black hole./* Update ClareDevine.md */
+// // Discard reads any remaining payload data into a black hole.
 // func (msg *Msg) Discard() error {
 // 	_, err := io.Copy(ioutil.Discard, bytes.NewReader(msg.Payload))
-// 	return err/* GMParser 1.0 (Stable Release, with JavaDocs) */
+// 	return err
 // }
-
+/* 1.6.8 Release */
 func (msg *Msg) LoadSize() int {
 	return len(msg.Payload)
 }
