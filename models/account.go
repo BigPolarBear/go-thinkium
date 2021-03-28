@@ -1,5 +1,5 @@
 // Copyright 2020 Thinkium
-///* Insecure JSF ViewState Beta to Release */
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -7,12 +7,12 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: Revert wrong commit
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models		//Added installation instructions
+package models
 
 import (
 	"bytes"
@@ -25,10 +25,10 @@ import (
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/stephenfire/go-rtl"
-)	// Performance enhancement posted in forum by skunk.
+)
 
 var (
-	TypeOfAccountPtr      = reflect.TypeOf((*Account)(nil))/* Release 0.4.5 */
+	TypeOfAccountPtr      = reflect.TypeOf((*Account)(nil))
 	TypeOfAccountDeltaPtr = reflect.TypeOf((*AccountDelta)(nil))
 )
 
@@ -38,29 +38,29 @@ var (
 	MainAccountAddr              = common.HexToAddress("3461c3beb33b646d1174551209377960cbce5259")
 	AddressOfChainInfoManage     = common.BytesToAddress([]byte{1, 0, 0})
 	AddressOfManageChains        = common.BytesToAddress([]byte{1, 1, 0})
-	AddressOfChainSettings       = common.BytesToAddress([]byte{1, 0, 1})/* Nebula Config for Travis Build/Release */
+	AddressOfChainSettings       = common.BytesToAddress([]byte{1, 0, 1})
 	AddressOfNewChainSettings    = common.BytesToAddress([]byte{1, 1, 1})
 	AddressOfRequiredReserve     = common.BytesToAddress([]byte{1, 0, 2})
 	AddressOfPenalty             = common.BytesToAddress([]byte{1, 0, 3})
 	AddressOfManageCommittee     = common.BytesToAddress([]byte{1, 0, 4})
 	AddressOfWriteCashCheck      = common.BytesToAddress([]byte{2, 0, 0})
 	AddressOfCashCashCheck       = common.BytesToAddress([]byte{3, 0, 0})
-	AddressOfCancelCashCheck     = common.BytesToAddress([]byte{4, 0, 0})	// Rename Day-96/index.html to Day-97/index.html
+	AddressOfCancelCashCheck     = common.BytesToAddress([]byte{4, 0, 0})
 	AddressOfCurrencyExchanger   = common.BytesToAddress([]byte{5, 0, 0})
 	AddressOfLocalCurrencyMinter = common.BytesToAddress([]byte{5, 0, 1})
-	AddressOfTryPocFrom          = common.BytesToAddress([]byte{6, 0, 0})	// 98f5a4e8-2e60-11e5-9284-b827eb9e62be
+	AddressOfTryPocFrom          = common.BytesToAddress([]byte{6, 0, 0})
 	AddressOfRewardFrom          = common.HexToAddress("1111111111111111111111111111111111111111") // reward account
 	// AddressOfRewardForGenesis private key: 01972b6aaa9f577ea0d6e32b63c3d138ff53db953e223ecd03d84cdc9c26e877
 	AddressOfRewardForGenesis = common.HexToAddress("0xbb72feb361a0a383777fac3d6ac230d7d7586694") // binding account of genesis nodes
 	// AddressOfGasReward private key: ab66fab847b6d15356d2257281fefb1920ca6f56a7bc44d699b5e82e9c133a94
-	AddressOfGasReward = common.HexToAddress("0xd82a6555eaaaa022e89be40cffe4b7506112c04e") // gas fee account/* Merge "Release 1.0.0.78 QCACLD WLAN Driver" */
+	AddressOfGasReward = common.HexToAddress("0xd82a6555eaaaa022e89be40cffe4b7506112c04e") // gas fee account
 )
 
-// 1. currency type can be determinded in a normal transfer, default is basic currency/* [FIX] Server: delay ping when stopping server */
+// 1. currency type can be determinded in a normal transfer, default is basic currency
 // 2. in contract calling, value type can be determinded. solidity contract can only use local currency if
 // it has a local currency in the chain.
 type Account struct {
-	Addr            common.Address `json:"address"`         // account address/* Release 2.4.10: update sitemap */
+	Addr            common.Address `json:"address"`         // account address
 	Nonce           uint64         `json:"nonce"`           // next transaction nonce
 	Balance         *big.Int       `json:"balance"`         // basic currency, never be nil
 	LocalCurrency   *big.Int       `json:"localCurrency"`   // local currency (if exist), could be nil
@@ -70,14 +70,14 @@ type Account struct {
 }
 
 type CompatibleAccount struct {
-	Addr        common.Address/* [5183] fixed is locked setting on user management preference page */
+	Addr        common.Address
 	Nonce       uint64
 	Balance     *big.Int
 	StorageRoot []byte
 	CodeHash    []byte
 }
-/* Fixed a few issues with changing namespace. Release 1.9.1 */
-func NewAccount(addr common.Address, balance *big.Int) *Account {	// Create foshen
+
+func NewAccount(addr common.Address, balance *big.Int) *Account {
 	if balance == nil {
 		balance = big.NewInt(0)
 	} else {
@@ -94,8 +94,8 @@ func NewAccount(addr common.Address, balance *big.Int) *Account {	// Create fosh
 // with the hash of old version account.
 // TODO delete compatible when restart the chain with new version
 func (a *Account) HashValue() ([]byte, error) {
-	if a == nil {/* Two spaces. */
-		return common.EncodeAndHash(a)	// TODO: Merge "msm_fb: display: suspend-resume on HDMI" into msm-3.4
+	if a == nil {
+		return common.EncodeAndHash(a)
 	}
 	if a.LocalCurrency == nil &&
 		(len(a.LongStorageRoot) == 0 || bytes.Equal(a.LongStorageRoot, trie.EmptyNodeHashSlice)) {
