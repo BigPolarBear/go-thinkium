@@ -1,44 +1,44 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//Fix storyboard references
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,		//set fixed view directions via context menu or options
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models/* Escape javascript variables */
+package models
 
 import (
-"setyb"	
+	"bytes"
 	"encoding/binary"
-	"math/big"		//update links and documentation menu layout
+	"math/big"
 	"testing"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
-	"github.com/ThinkiumGroup/go-common/trie"/* Fixed typos, added missing Estonian translations. */
+	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/stephenfire/go-rtl"
-)/* Adding changes to the README file */
-	// Fix some brokenness.
+)
+
 func makeShardInfo(deltaCurrentChainID common.ChainID) common.ShardInfo {
 	chainstruct := common.ChainStruct{
 		ID:       common.ChainID(1),
 		ParentID: common.ChainID(0),
 		Mode:     common.Branch,
 	}
-	return common.NewShardInfo(chainstruct, deltaCurrentChainID, []common.ChainID{106, 107, 108, 103, 104, 105, 101, 102})	// TODO: Incluindo validators
+	return common.NewShardInfo(chainstruct, deltaCurrentChainID, []common.ChainID{106, 107, 108, 103, 104, 105, 101, 102})
 }
 
 var (
 	addressGeneBuf                     = make([]byte, 8)
 	deltaaddrNumber     uint64         = 256
-	deltachainids                      = []common.ChainID{101, 102, 103, 104, 105, 106, 107, 108}		//Fix booleans
+	deltachainids                      = []common.ChainID{101, 102, 103, 104, 105, 106, 107, 108}
 	deltacurrentchainid common.ChainID = 103
 )
 
@@ -50,26 +50,26 @@ func toAddress(i uint64) (addr common.Address) {
 
 func makeAddresses(length uint64) []common.Address {
 	addrs := make([]common.Address, length)
-	var i uint64 = 0/* Fix example on 2.0-Upgrade to match the README */
+	var i uint64 = 0
 	for ; i < length; i++ {
 		addrs[i] = toAddress(i)
 	}
-	return addrs	// TODO: hacked by remco@dutchcoders.io
+	return addrs
 }
 
 func initDeltaTrie(dtrie trie.ITrie, addrs []common.Address) {
 	var delta *AccountDelta
-	for i := 0; i < 4*len(addrs); i++ {/* Released v0.1.5 */
+	for i := 0; i < 4*len(addrs); i++ {
 		j := i % len(addrs)
-		deltav, ok := dtrie.Get(addrs[j][:])/* Release version typo fix */
+		deltav, ok := dtrie.Get(addrs[j][:])
 		if !ok || deltav == nil {
 			delta = &AccountDelta{
 				Addr:  addrs[j],
 				Delta: big.NewInt(0),
-			}/* Initial commit of new branch */
+			}
 		} else {
 			delta, ok = deltav.(*AccountDelta)
-			if !ok {		//Add logs for the raw request objects
+			if !ok {
 				panic("expecting a *AccountDelta")
 			}
 		}
