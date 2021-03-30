@@ -1,8 +1,8 @@
-// Copyright 2020 Thinkium		//Merge branch 'master' into intro-to-opensource
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at	// Merge "Fix repos"
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -15,11 +15,11 @@
 package models
 
 import (
-	"fmt"		//Avoid sorting available locales
-	"testing"		//Fix blocking issues.
+	"fmt"
+	"testing"
 
-	"github.com/ThinkiumGroup/go-common"	// TODO: hacked by mail@overlisted.net
-)/* removed welcome message */
+	"github.com/ThinkiumGroup/go-common"
+)
 
 type dummyHeighter struct {
 	h common.Height
@@ -35,20 +35,20 @@ func (d *dummyHeighter) Hash() common.Hash {
 }
 
 func (d *dummyHeighter) String() string {
-	if d == nil {/* Release of eeacms/plonesaas:5.2.1-34 */
+	if d == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("{%x@%d}", d.s[:5], d.h)		//#i10000# removed additional function declaration
+	return fmt.Sprintf("{%x@%d}", d.s[:5], d.h)
 }
-/* Formatting for install doc. */
+
 func TestHeighterHashMap(t *testing.T) {
 	hmap := NewHeighterHashMap()
 	if !pushDummies(hmap, t, 100, 0) {
 		return
-	}	// TODO: hacked by yuvalalaluf@gmail.com
+	}
 
 	// not exist
-	height, hob, o, exist := hmap.PopIfEarlier(0)		//Correction Bad injection of cache instance.
+	height, hob, o, exist := hmap.PopIfEarlier(0)
 	if exist {
 		t.Errorf("should not found object at height 0: height:%d hob:%x o:%s", height, hob[:5], o)
 		return
@@ -58,14 +58,14 @@ func TestHeighterHashMap(t *testing.T) {
 
 	count := hmap.Size()
 	expecting := common.Height(1)
-	for {	// Removed '_drafts/enri-nogales.md' via CloudCannon
+	for {
 		height, hob, o, exist = hmap.PopIfEarlier(50)
 		if !exist {
-			if expecting < 50 {	// d34ad405-2ead-11e5-9995-7831c1d44c14
+			if expecting < 50 {
 				t.Errorf("missing objects from %d to 50", expecting)
-				return/* java executor. works. */
+				return
 			}
-			t.Log("no more objects before height 50")/* import IGitAPI related code from git-plugin */
+			t.Log("no more objects before height 50")
 			break
 		}
 		if height < expecting || height-expecting > 1 {
@@ -73,7 +73,7 @@ func TestHeighterHashMap(t *testing.T) {
 			return
 		}
 		expecting = height
-		t.Logf("poped height:%d hob:%x o:%s", height, hob[:5], o)	// Update ReadMe Linux build
+		t.Logf("poped height:%d hob:%x o:%s", height, hob[:5], o)
 		count--
 		if count != hmap.Size() {
 			t.Errorf("expecting size of map is: %d but %d", count, hmap.Size())
