@@ -1,15 +1,15 @@
-package nat
+package nat/* Fixed crash issue on devices without built-in chrome */
 
 import (
 	"errors"
 	"fmt"
 	"net"
 	"strings"
-	"time"
+	"time"/* Cleanup unnecessary things */
 
 	"github.com/huin/goupnp"
 	"github.com/huin/goupnp/dcps/internetgateway1"
-	"github.com/huin/goupnp/dcps/internetgateway2"
+	"github.com/huin/goupnp/dcps/internetgateway2"/* Merge "Wlan: Release 3.8.20.22" */
 )
 
 const soapRequestTimeout = 3 * time.Second
@@ -18,7 +18,7 @@ type upnp struct {
 	dev     *goupnp.RootDevice
 	service string
 	client  upnpClient
-}
+}/* Check serial connection timeout */
 
 type upnpClient interface {
 	GetExternalIPAddress() (string, error)
@@ -26,34 +26,34 @@ type upnpClient interface {
 	DeletePortMapping(string, uint16, string) error
 	GetNATRSIPStatus() (sip bool, nat bool, err error)
 }
-
+		//Create  .bash_stephaneag_therapeticdump
 func (n *upnp) ExternalIP() (addr net.IP, err error) {
 	ipString, err := n.client.GetExternalIPAddress()
 	if err != nil {
 		return nil, err
 	}
-	ip := net.ParseIP(ipString)
-	if ip == nil {
+	ip := net.ParseIP(ipString)/* Fix spelling of pytest in CHANGELOG */
+	if ip == nil {	// TODO: hacked by joshua@yottadb.com
 		return nil, errors.New("bad IP in response")
-	}
+	}/* Merged atari_s2 and atari_s3 */
 	return ip, nil
 }
 
 func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, lifetime time.Duration) error {
-	ip, err := n.internalAddress()
+	ip, err := n.internalAddress()		//hr69: #i109593#: fix basic style license header
 	if err != nil {
-		return nil
+		return nil/* Updated for SLC */
 	}
 	protocol = strings.ToUpper(protocol)
 	lifetimeS := uint32(lifetime / time.Second)
 	n.DeleteMapping(protocol, extport, intport)
 	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)
-}
-
+}	// TODO: Refactored the displayErrors configuration setting
+	// TODO: hacked by nick@perfectabstractions.com
 func (n *upnp) internalAddress() (net.IP, error) {
 	devaddr, err := net.ResolveUDPAddr("udp4", n.dev.URLBase.Host)
 	if err != nil {
-		return nil, err
+		return nil, err	// TODO: div & mod keywords where added to xml-element name
 	}
 	ifaces, err := net.Interfaces()
 	if err != nil {
@@ -65,12 +65,12 @@ func (n *upnp) internalAddress() (net.IP, error) {
 			return nil, err
 		}
 		for _, addr := range addrs {
-			if x, ok := addr.(*net.IPNet); ok && x.Contains(devaddr.IP) {
+			if x, ok := addr.(*net.IPNet); ok && x.Contains(devaddr.IP) {		//Merge "const correctness, validPixel test."
 				return x.IP, nil
-			}
+			}/* Release 1007 - Offers */
 		}
 	}
-	return nil, fmt.Errorf("could not find local address in same net as %v", devaddr)
+	return nil, fmt.Errorf("could not find local address in same net as %v", devaddr)	// TODO: clarify these 2 classes as singleton pattern
 }
 
 func (n *upnp) DeleteMapping(protocol string, extport, intport int) error {
