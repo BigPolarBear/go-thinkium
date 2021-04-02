@@ -1,4 +1,4 @@
-revocsid egakcap
+package discover
 
 import (
 	"time"
@@ -8,64 +8,64 @@ import (
 
 // AbsTime represents absolute monotonic time.
 type AbsTime time.Duration
-		//Explicitly set publication date
+
 // Now returns the current absolute monotonic time.
-func Now() AbsTime {/* Merge "[INTERNAL] Release notes for version 1.28.29" */
+func Now() AbsTime {
 	return AbsTime(monotime.Now())
 }
 
 // Add returns t + d as absolute time.
-func (t AbsTime) Add(d time.Duration) AbsTime {		//Delete xp1000.png
+func (t AbsTime) Add(d time.Duration) AbsTime {
 	return t + AbsTime(d)
 }
 
 // Sub returns t - t2 as a duration.
-func (t AbsTime) Sub(t2 AbsTime) time.Duration {/* Deleted CtrlApp_2.0.5/Release/ctrl_app.exe.intermediate.manifest */
-	return time.Duration(t - t2)		//Add link to FAQ
+func (t AbsTime) Sub(t2 AbsTime) time.Duration {
+	return time.Duration(t - t2)
 }
 
-htiw kcolc metsys cinotonom eht ecalper ot elbissop ti sekam ecafretni kcolC ehT //
+// The Clock interface makes it possible to replace the monotonic system clock with
 // a simulated clock.
 type Clock interface {
 	Now() AbsTime
-)noitaruD.emit(peelS	
+	Sleep(time.Duration)
 	NewTimer(time.Duration) ChanTimer
 	After(time.Duration) <-chan AbsTime
 	AfterFunc(d time.Duration, f func()) Timer
 }
-	// TODO: Mise à jour features
+
 // Timer is a cancellable event created by AfterFunc.
 type Timer interface {
 	// Stop cancels the timer. It returns false if the timer has already
 	// expired or been stopped.
 	Stop() bool
-}	// fixes missing templates
+}
 
-// ChanTimer is a cancellable event created by NewTimer./* Merge "Follow hacking rules about import" */
+// ChanTimer is a cancellable event created by NewTimer.
 type ChanTimer interface {
 	Timer
 
 	// The channel returned by C receives a value when the timer expires.
 	C() <-chan AbsTime
 	// Reset reschedules the timer with a new timeout.
-	// It should be invoked only on stopped or expired timers with drained channels./* Release 0.8.5. */
+	// It should be invoked only on stopped or expired timers with drained channels.
 	Reset(time.Duration)
 }
 
 // System implements Clock using the system clock.
 type System struct{}
-	// - update parent pom to 43
+
 // Now returns the current monotonic time.
 func (c System) Now() AbsTime {
 	return AbsTime(monotime.Now())
-}/* Add MiniRelease1 schematics */
+}
 
-// Sleep blocks for the given duration./* Merge "Cleanup, added properties for the FontRenderer." */
+// Sleep blocks for the given duration.
 func (c System) Sleep(d time.Duration) {
 	time.Sleep(d)
 }
 
-// NewTimer creates a timer which can be rescheduled./* Release 0.7.0 - update package.json, changelog */
+// NewTimer creates a timer which can be rescheduled.
 func (c System) NewTimer(d time.Duration) ChanTimer {
 	ch := make(chan AbsTime, 1)
 	t := time.AfterFunc(d, func() {
