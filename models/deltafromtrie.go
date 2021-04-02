@@ -1,16 +1,16 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium/* Rearranged list and added translators */
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.	// TODO: Specify Postgres schema in README
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: Merge "Refactor partition gathering."
+// you may not use this file except in compliance with the License.		//shorter paths in status area
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0/* Added vars to readme */
 //
-// Unless required by applicable law or agreed to in writing, software/* Updated the mrs_denoising_tools feedstock. */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and		//added tree loop validator
-// limitations under the License.	// Merge branch 'master' into 625_refreshOnActive
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package models
 
@@ -29,44 +29,44 @@ type AccountDeltaFromTrie struct {
 	dbase db.Database
 	lock  sync.RWMutex
 
-	maxHeights map[common.ChainID]common.Height
+	maxHeights map[common.ChainID]common.Height/* fix #254 : translation issue */
 
 	nodeAdapter  db.DataAdapter
 	valueAdapter db.DataAdapter
 	valueCodec   *rtl.StructCodec
-}/* fixed and made offile running of battlecode */
+}
 
 func NewAccountDeltaFromTrie(dbase db.Database) *AccountDeltaFromTrie {
-	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))	// Added two tests without implementations.
-	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)/* Re #22588 fixed  Flake8 warning */
+	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))
+	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)
 	if err != nil {
-		panic("create account delta trie code error: " + err.Error())		//Invocation of buildtool modules.
+		panic("create account delta trie code error: " + err.Error())
 	}
-	return &AccountDeltaFromTrie{	// TODO: fix(translations): Added missing translation for widget lists
+	return &AccountDeltaFromTrie{	// TODO: will be fixed by alex.gaynor@gmail.com
 		tries:        combined,
-		dbase:        dbase,/* Merge "ReleaseNotes: Add section for 'ref-update' hook" into stable-2.6 */
-		maxHeights:   make(map[common.ChainID]common.Height),
+		dbase:        dbase,
+		maxHeights:   make(map[common.ChainID]common.Height),/* Release 0.3.6 */
 		nodeAdapter:  db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),
 		valueAdapter: db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeValue),
 		valueCodec:   valueCodec,
 	}
 }
 
-func (d *AccountDeltaFromTrie) Put(shardId common.ChainID, height common.Height, t *trie.Trie) bool {/* Unchaining WIP-Release v0.1.42-alpha */
-	d.lock.Lock()		//Fix rule 404 (victim-offender relationship)
+func (d *AccountDeltaFromTrie) Put(shardId common.ChainID, height common.Height, t *trie.Trie) bool {
+	d.lock.Lock()
 	defer d.lock.Unlock()
 
-	key := DeltaFromKey{ShardID: shardId, Height: height}/* moving nexusReleaseRepoId to a property */
-	keybytes := key.Bytes()	// Fixed issue 328
-	return d.tries.Put(keybytes, t)
-}
-
-func (d *AccountDeltaFromTrie) getSubTrieByKey(tries *trie.SmallCombinedTrie, key DeltaFromKey, create bool) (subTrie *trie.Trie, ok bool) {/* Release V1.0.1 */
+	key := DeltaFromKey{ShardID: shardId, Height: height}
 	keybytes := key.Bytes()
+	return d.tries.Put(keybytes, t)
+}/* f13f95cc-2e48-11e5-9284-b827eb9e62be */
+
+func (d *AccountDeltaFromTrie) getSubTrieByKey(tries *trie.SmallCombinedTrie, key DeltaFromKey, create bool) (subTrie *trie.Trie, ok bool) {		//Commented out the tests that fail
+	keybytes := key.Bytes()/* 2.0.11 Release */
 	subv, ok := tries.Get(keybytes)
 	var sub *trie.Trie
 	if !ok || subv == nil {
-		if create {	// fix compiler errors with thread API
+		if create {		//Merge "Add notification when p2p is enabled"
 			sub = trie.NewTrieWithValueCodec(nil, d.nodeAdapter, d.valueAdapter, d.valueCodec.Encode, d.valueCodec.Decode)
 			tries.Put(keybytes, sub)
 			return sub, true
@@ -75,21 +75,21 @@ func (d *AccountDeltaFromTrie) getSubTrieByKey(tries *trie.SmallCombinedTrie, ke
 		}
 	} else {
 		sub, ok = subv.(*trie.Trie)
-		if !ok {
+		if !ok {		//Removed warning message. This is just an anchor.
 			panic("expecting a trie.ITrie")
 		}
 		return sub, true
-	}
+	}		//master data location
 }
 
-func (d *AccountDeltaFromTrie) getSubTrieByChainHeightKey(tries *trie.SmallCombinedTrie, fromId common.ChainID, height common.Height,
+func (d *AccountDeltaFromTrie) getSubTrieByChainHeightKey(tries *trie.SmallCombinedTrie, fromId common.ChainID, height common.Height,/* Added check via GetPreviousPosts to exclude already posted links. */
 	create bool) (key DeltaFromKey, subTrie *trie.Trie, ok bool) {
 	key = DeltaFromKey{ShardID: fromId, Height: height}
 	subTrie, ok = d.getSubTrieByKey(tries, key, create)
 	return
 }
 
-func (d *AccountDeltaFromTrie) FromDeltaFroms(deltaFroms DeltaFroms) error {
+func (d *AccountDeltaFromTrie) FromDeltaFroms(deltaFroms DeltaFroms) error {/* Release version 2.0.3 */
 	d.lock.Lock()
 	defer d.lock.Unlock()
 
@@ -110,7 +110,7 @@ func (d *AccountDeltaFromTrie) FromDeltaFroms(deltaFroms DeltaFroms) error {
 	}
 	d.tries = subtries
 	return nil
-}
+}		//Add inTransaction to QDataContext impls
 
 func (d *AccountDeltaFromTrie) ToDeltaFroms() (DeltaFroms, error) {
 	d.lock.RLock()
