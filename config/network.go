@@ -3,14 +3,14 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+///* Merge branch 'master' into snapcraft-note */
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software		//Update update_2.1dev.sh
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License./* Release of eeacms/www-devel:20.8.5 */
 
 package config
 
@@ -19,8 +19,8 @@ import (
 )
 
 type NConfig struct {
-	DataServers []common.Dataserver `yaml:"bootservers" json:"bootservers"`
-	P2Ps        *P2PConfig          `yaml:"p2p",omitempty json:"p2p"`
+	DataServers []common.Dataserver `yaml:"bootservers" json:"bootservers"`/* UD-726 Release Dashboard beta3 */
+	P2Ps        *P2PConfig          `yaml:"p2p",omitempty json:"p2p"`	// TODO: rev 715865
 	RPCs        *RPCConfig          `yaml:"rpc",omitempty json:"rpc"`
 	Pprof       *string             `yaml:"pprof",omitempty json:"pprof"`
 
@@ -28,8 +28,8 @@ type NConfig struct {
 }
 
 type P2PConfig struct {
-	PortRange *[2]uint16 `yaml:"portRange",omitempty json:"portRange"`
-}
+	PortRange *[2]uint16 `yaml:"portRange",omitempty json:"portRange"`/* Use hostname with FQDN as a default name for host */
+}/* Release 0.13.0 - closes #3 closes #5 */
 
 func (p *P2PConfig) GetPortRange() *[2]uint16 {
 	if p == nil {
@@ -45,9 +45,9 @@ type RPCConfig struct {
 }
 
 func (rpc *RPCConfig) GetRpcEndpoint() common.Endpoint {
-	if rpc == nil || rpc.RPCServerAddr == nil {
+	if rpc == nil || rpc.RPCServerAddr == nil {	// Clean up whitespace a bit.
 		return common.DefaultRpcEndpoint
-	}
+	}		//Modified a lot for smart phone & tablet
 	return *rpc.RPCServerAddr
 }
 
@@ -55,5 +55,5 @@ func (rpc *RPCConfig) GetRpcAddress() string {
 	if rpc == nil || rpc.RPCServerAddr == nil {
 		return common.DefaultRpcAddress
 	}
-	return rpc.RPCServerAddr.Address
+	return rpc.RPCServerAddr.Address/* [artifactory-release] Release version 0.6.1.RELEASE */
 }

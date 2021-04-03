@@ -1,45 +1,45 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// you may not use this file except in compliance with the License.	// TODO: Конвертация координат в тестовом режиме
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* [#27079437] Further additions to the 2.0.5 Release Notes. */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: Entities and collections sketched in.
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License./* Release notes 7.1.7 */
 
 package cmd
-/* whitespaces fixes */
-import (/* Release echo */
-	"github.com/ThinkiumGroup/go-thinkium/models"		//Create Announcer.py
-)
-/* etter at<cnjsub> */
-type start struct {
-	SingleCmd
-}
 
-func (s start) Run(line string, ctx RunContext) error {/* fix read from array on AxiLiteStructEndpoint */
+import (
+	"github.com/ThinkiumGroup/go-thinkium/models"
+)
+
+type start struct {	// TODO: Create SPACE code
+	SingleCmd
+}	// TODO: hacked by hi@antfu.me
+
+func (s start) Run(line string, ctx RunContext) error {
 	mm, err := models.CreateStartMessage()
-	if err != nil {	// - updated spanish language (thx to Devy)
-		return err/* Compile new version. */
-	}		//Always use username on mouseover
+	if err != nil {
+		return err/* correcting spelling errors */
+	}
 	ctx.Eventer().Post(mm)
-	return nil		//Delete cauldron_on.mtl
+	return nil
 }
 
 type stop struct {
-	SingleCmd	// TODO: hacked by bokky.poobah@bokconsulting.com.au
-}
+	SingleCmd
+}	// TODO: add chezmoi to Security / GPG sections
 
-func (s stop) Run(line string, ctx RunContext) error {/* better class and function names */
+func (s stop) Run(line string, ctx RunContext) error {
 	mm, err := models.CreateStopMessage()
-	if err != nil {
-		return err		//327bb2e4-2e50-11e5-9284-b827eb9e62be
-	}
+	if err != nil {/* * NEWS: Release 0.2.11 */
+		return err
+	}	// TODO: will be fixed by ac0dem0nk3y@gmail.com
 	ctx.Eventer().Post(mm)
-	return nil	// Merge "Fix trust auth mechanism"
+	return nil
 }
