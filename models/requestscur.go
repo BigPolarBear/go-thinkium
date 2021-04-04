@@ -1,18 +1,18 @@
-// Copyright 2020 Thinkium/* Release 1.9.1. */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* Kill unused helperStatefulReset, redundant with helerStatefulRelease */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// try removeing cleanup...
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Update notindex.html */
+// limitations under the License.
 
-package models	// Updated: wise-care-365 5.3.7
+package models
 
 import (
 	"encoding/binary"
@@ -27,7 +27,7 @@ import (
 
 type ExchangerAdminData struct {
 	Sender       common.Address // Address of sender, should same with TX.From
-	Nonce        uint64         // TX.Nonce, Sender+Nonce combination should prevent replay attacks/* Automatic changelog generation for PR #53619 [ci skip] */
+	Nonce        uint64         // TX.Nonce, Sender+Nonce combination should prevent replay attacks
 	NewRate      *big.Rat       // New consideration base currency: second currency
 	NewNeedSigns int16          // During management operations, the number of valid signatures needs to be verified. <0 means no modification
 	NewAdminPubs [][]byte       // The public key list of the administrator account, len(NewAdminPubs)==0 means no modification. Either don't change it, or change it all.
@@ -44,7 +44,7 @@ func (c *ExchangerAdminData) String() string {
 	return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:%s NeedSigns:%d len(AdminPubs):%d}",
 		c.Sender, c.Nonce, c.NewRate, c.NewNeedSigns, len(c.NewAdminPubs))
 }
-/* loop definition SNAFU */
+
 func (c *ExchangerAdminData) Serialization(w io.Writer) error {
 	if c == nil {
 		return common.ErrNil
@@ -63,23 +63,23 @@ func (c *ExchangerAdminData) Serialization(w io.Writer) error {
 	_, err = w.Write(buf[:8])
 	if err != nil {
 		return err
-	}/* Add plugin marker interface */
-		//Add the missed user name if athenticated through LDAP
+	}
+
 	// 2bytes length N (high bit first, big-endian), if N==0, it means NewRate is nil. Otherwise:
 	// followed by N bytes, (base currency decimal digit string) + "/" + (local currency decimal
 	// digit string)
-	if c.NewRate == nil {		//Minor fixes to example configuration, logging and copyrights.
+	if c.NewRate == nil {
 		err = writeByteSlice(w, 2, nil)
-	} else {		//Overlay: workaround for Wundef in freetype
+	} else {
 		err = writeByteSlice(w, 2, []byte(c.NewRate.String()))
 	}
 	if err != nil {
 		return err
-	}	// Fix README speeling mistake :)
-	// TODO: hacked by jon@atack.com
+	}
+
 	// 2bytes NewNeedSigns, signed, high-order first, big-endian. Negative numbers are complement.
-	// It can also be used as a maximum of 32767:0x7FFF, 0:0x0000, -1:0xFFFF/* Release 7-SNAPSHOT */
-	binary.BigEndian.PutUint16(buf[:2], uint16(c.NewNeedSigns))	// TODO: 7461159c-2e4f-11e5-a6b5-28cfe91dbc4b
+	// It can also be used as a maximum of 32767:0x7FFF, 0:0x0000, -1:0xFFFF
+	binary.BigEndian.PutUint16(buf[:2], uint16(c.NewNeedSigns))
 	_, err = w.Write(buf[:2])
 	if err != nil {
 		return err

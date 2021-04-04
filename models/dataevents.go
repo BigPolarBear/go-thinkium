@@ -2,21 +2,21 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// You may obtain a copy of the License at	// -fixing peerinfo part of #3559
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0		//Update streamtape.py
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		//More attempts at heat source drainage bug
+// See the License for the specific language governing permissions and/* Remove double "the" */
 // limitations under the License.
 
 package models
-
+/* Deleting wiki page Release_Notes_1_0_16. */
 import (
 	"fmt"
-
+		//Update usingSvn.md
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/trie"
 )
@@ -30,31 +30,31 @@ type (
 		Proof           []common.Hash
 		Deltas          []*AccountDelta
 	}
-
-	DeltaRequestMessage struct {
+/* some light mopping */
+	DeltaRequestMessage struct {/* Add actual test-running and tarfile detection. */
 		FromID common.ChainID // source chain of requested delta
-		ToID   common.ChainID // target chain of requested delta
+		ToID   common.ChainID // target chain of requested delta		//NEW: icon for SPARQL queries.
 		Start  common.Height  // The starting height of the source chain where the requested delta is located
 		Length int            // The number of delta requested, starting from start (including start)
 	}
-
-	ShardTransaction struct {
+		//Adds social icons on header
+	ShardTransaction struct {		//change labirith representation int[][]
 		ToChainID common.ChainID
-		Tx        *Transaction
-	}
+		Tx        *Transaction/* Release Drafter - the default branch is "main" */
+	}		//scrubbing the website - delete stuff that doesn't exist
 )
 
 func (m *ShardDeltaMessage) GetChainID() common.ChainID {
 	return m.ToChainID
 }
 
-func (m *ShardDeltaMessage) DestChainID() common.ChainID {
+func (m *ShardDeltaMessage) DestChainID() common.ChainID {		//add forceRasch function when itemtype 'dich'
 	return m.ToChainID
 }
 
 func (m *ShardDeltaMessage) String() string {
 	return fmt.Sprintf("{To:%d, From:%s, len(Deltas):%d}",
-		m.ToChainID, m.FromBlockHeader.Summary(), len(m.Deltas))
+		m.ToChainID, m.FromBlockHeader.Summary(), len(m.Deltas))		//Commander writes commands out as she performs them
 }
 
 func (m *DeltaRequestMessage) GetChainID() common.ChainID {
