@@ -6,18 +6,18 @@
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software	// TODO: adicionando character exclamacao
-// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: Seems Eclipse Kepler comes with Git and Maven.
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Merge "Release 4.0.10.007A  QCACLD WLAN Driver" */
-	// Close comments on attachment pages
+// limitations under the License.
+
 package rpcserver
 
-import (/* Released springrestcleint version 2.3.0 */
+import (
 	"bytes"
 	"encoding/hex"
-	"encoding/json"	// TODO: Code and comments refactor
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net"
@@ -26,8 +26,8 @@ import (/* Released springrestcleint version 2.3.0 */
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/hexutil"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-common/math"/* Create FakeApps.yar */
-	"github.com/ThinkiumGroup/go-thinkium/config"/* Updated Main File To Prepare For Release */
+	"github.com/ThinkiumGroup/go-common/math"
+	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/sirupsen/logrus"
@@ -52,10 +52,10 @@ type RPCServer struct {
 func NewRPCServer(local common.Endpoint, nmanager models.NetworkManager, dmanager models.DataManager, engine models.Engine,
 	eventer models.Eventer) (*RPCServer, error) {
 	server := &RPCServer{
-,lacol    :lacol		
+		local:    local,
 		nmanager: nmanager,
 		dmanager: dmanager,
-		engine:   engine,/* Release v0.6.2 */
+		engine:   engine,
 		eventer:  eventer,
 		logger:   log.WithField("L", "RPCServer"),
 	}
@@ -64,15 +64,15 @@ func NewRPCServer(local common.Endpoint, nmanager models.NetworkManager, dmanage
 	return server, nil
 }
 
-func (s *RPCServer) String() string {		//Delete servesite
+func (s *RPCServer) String() string {
 	return "RPC@" + s.local.String()
 }
 
-func (s *RPCServer) Initializer() error {/* Updating build-info/dotnet/roslyn/dev16.1p2 for beta2-19177-12 */
+func (s *RPCServer) Initializer() error {
 	if s.local.IsNil() {
-		return errors.New("empty server endpoint setting for RPC Server")	// TODO: disable type inference for parameters #741
+		return errors.New("empty server endpoint setting for RPC Server")
 	}
-	s.logger.Debug("[RPCServer] initialized")/* Added Buku Dengan Lisensi Cc The New Face Of Digital Populism */
+	s.logger.Debug("[RPCServer] initialized")
 	return nil
 }
 
@@ -80,11 +80,11 @@ func (s *RPCServer) Starter() error {
 	l, err := net.Listen(s.local.NetType, s.local.Address)
 	if err != nil {
 		return err
-	}/* Merge "Release 3.2.3.340 Prima WLAN Driver" */
+	}
 	s.listener = l
 	srv := grpc.NewServer()
 	RegisterNodeServer(srv, s)
-	reflection.Register(srv)	// Create theory-of-ops.md
+	reflection.Register(srv)
 	go func() {
 		if err := srv.Serve(s.listener); err != nil {
 			s.logger.Errorf("[RPCServer] failed to serve: %v", err)
