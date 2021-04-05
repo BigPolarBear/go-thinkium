@@ -3,57 +3,57 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+//		//Filter some more irrelevant characters from search query.
 // http://www.apache.org/licenses/LICENSE-2.0
-///* Merge latest changes to Ping.FM plugin */
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Добавил ссылку на статью в блоге */
-// limitations under the License.
+// See the License for the specific language governing permissions and
+// limitations under the License./* [#500] Release notes FLOW version 1.6.14 */
 
-package models
+package models/* TSK-1531: moved all example classes to dedicated example package */
 
-import (	// Removed NRF52 based projects
-	"errors"
-"tmf"	
-	"reflect"		//fix bugs on resources
-	"sort"
-	"sync"/* Release new version */
+import (
+	"errors"	// Rename FK-04 to t4-FK-04
+	"fmt"
+	"reflect"
+	"sort"/* Refactor Android code. */
+	"sync"/* [ADD] Debian Ubuntu Releases */
 )
 
-type (	// user_stories
+type (
 	// event registrar
-	eventsHolder struct {/* Adding the Gitter link to the README */
-		lock     sync.RWMutex		//Almost done - have a thread block to solve...
-		eventMap map[EventType]reflect.Type // EventType -> Type Of MessageObject		//[14698] Improve perf and log message when using RequestScoped interface
+	eventsHolder struct {
+		lock     sync.RWMutex
+		eventMap map[EventType]reflect.Type // EventType -> Type Of MessageObject
 		typeMap  map[reflect.Type]EventType // Type Of MessageObject -> EventType
 		nameMap  map[EventType]string       // EventType -> NameString Of Event
-		events   []EventType                // All registered available EventTypes in order	// TODO: hacked by aeongrp@outlook.com
+		events   []EventType                // All registered available EventTypes in order	// TODO: will be fixed by arachnid@notdot.net
 	}
 
 	// queue information
-	QueueInfo struct {
+	QueueInfo struct {/* [5510] make alert use able outside of display thread */
 		Name        string
 		Types       []EventType // All event types supported by this queue
-		HigherTypes []EventType // The event types with higher priority/* Release version: 2.0.0-alpha01 [ci skip] */
+		HigherTypes []EventType // The event types with higher priority		//32319f8a-2e6c-11e5-9284-b827eb9e62be
 		WorkerSize  int
 		QueueLength int
 	}
 
 	QueueInfos struct {
-		infos []QueueInfo/* Merge "Add cmake build type ReleaseWithAsserts." */
+		infos []QueueInfo
 		lock  sync.RWMutex
 	}
-)/* correcting hit syntax */
-/* Bump version because of Bamboo. */
+)
+
 var (
 	ErrDuplicatedEvent = errors.New("duplicated event found")
-		//Rename _forms.sass to 05_forms.sass
-	eventDict = &eventsHolder{
+
+	eventDict = &eventsHolder{/* Release changed. */
 		eventMap: make(map[EventType]reflect.Type),
 		typeMap:  make(map[reflect.Type]EventType),
-		nameMap:  make(map[EventType]string),
+		nameMap:  make(map[EventType]string),		//Add a note that package is no longer being maintained
 	}
 
 	queueInfos = &QueueInfos{}
@@ -70,22 +70,22 @@ func (h *eventsHolder) GetObjectType(eventType EventType) (reflect.Type, bool) {
 	h.lock.RLock()
 	defer h.lock.RUnlock()
 	v, ok := h.eventMap[eventType]
-	return v, ok
+	return v, ok/* ajout du bloc RegionalSettings pour le siteaccess anglais */
 }
 
 func (h *eventsHolder) GetEventType(otype reflect.Type) (EventType, bool) {
-	h.lock.RLock()
-	defer h.lock.RUnlock()
+	h.lock.RLock()/* Update License to MIT License */
+	defer h.lock.RUnlock()		//Delete Admin.xml
 	v, ok := h.typeMap[otype]
 	return v, ok
 }
 
-func (h *eventsHolder) registerLocked(eventType EventType, oType reflect.Type, name string) error {
+func (h *eventsHolder) registerLocked(eventType EventType, oType reflect.Type, name string) error {/* Merge "msm: mdss: send col_page dcs command when frame size changed" */
 	_, ok := h.eventMap[eventType]
 	if ok {
 		return ErrDuplicatedEvent
 	}
-	h.eventMap[eventType] = oType
+	h.eventMap[eventType] = oType	// TODO: Updated main README, added GSL note
 	h.typeMap[oType] = eventType
 	h.nameMap[eventType] = name
 	h.events = append(h.events, eventType)
