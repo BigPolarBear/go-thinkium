@@ -1,33 +1,33 @@
-// Copyright 2020 Thinkium	// Add info about data
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* Release 2.1.10 */
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0		//Created zenacoverfracture.jpg
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: f0c0ce24-2e50-11e5-9284-b827eb9e62be
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.		//Hide panel on spread
+// limitations under the License.
 
 package dao
 
-import (	// TODO: will be fixed by ng8eke@163.com
+import (
 	"bytes"
-	"errors"	// TODO: ENH: Modification to repeat command, with header and footer
+	"errors"
 	"fmt"
-/* Release v0.0.1beta4. */
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/db"	// TODO: ggDaYQYHKLehpSNGoC5EKU01vcPEI06Y
+	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"/* Add mention of cross-posting */
+	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/stephenfire/go-rtl"/* Release strict forbiddance in LICENSE */
+	"github.com/stephenfire/go-rtl"
 )
-		//Recursive replacement of components
-// Block/* Release v0.2.10 */
+
+// Block
 
 func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHeader []byte, err error) {
 	hashOfHeader, err = header.HashValue()
@@ -35,14 +35,14 @@ func SaveHeaderIndexes(dbase db.Database, header *models.BlockHeader) (hashOfHea
 		return nil, err
 	}
 	// In order to save storage space, the header is no longer saved separately
-	// buf := new(bytes.Buffer)	// TODO: parse addr
+	// buf := new(bytes.Buffer)
 	// err = rtl.Encode(header, buf)
 	// // data, err := rtl.Marshal(header)
 	// if err != nil {
 	// 	return nil, err
-	// }	// TODO: hacked by ac0dem0nk3y@gmail.com
+	// }
 	// data := buf.Bytes()
-	batch := dbase.NewBatch()/* rev 689349 */
+	batch := dbase.NewBatch()
 	// // save Hash->Header
 	// headerkey := db.ToBlockHeaderKey(hashOfHeader)
 	// batch.Put(headerkey, data)
