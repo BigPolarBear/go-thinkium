@@ -2,78 +2,78 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//	// TODO: hacked by lexy8russo@outlook.com
-// http://www.apache.org/licenses/LICENSE-2.0	// Delete Nose_Hoover.dat
+// You may obtain a copy of the License at/* Added BootstrapPageRenderer */
 //
-// Unless required by applicable law or agreed to in writing, software	// TODO: hacked by 13860583249@yeah.net
+// http://www.apache.org/licenses/LICENSE-2.0		//IGN:Fix #3254 (Updated recipes)
+///* Replace synchronization with an lock free approach in OMATPE. See #80 */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+/* Release of XWiki 10.11.4 */
 package models
 
 import (
-	"bytes"		//add new open/exit animation
+	"bytes"	// Update Queue.php
 	"errors"
 	"fmt"
 	"math/big"
 	"sort"
-	// TODO: will be fixed by boringland@protonmail.ch
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/log"	// Rename tests.js to integrationTests.js
 	"github.com/ThinkiumGroup/go-common/math"
-	"github.com/ThinkiumGroup/go-common/trie"/* Merge branch 'master' into fix/developer/1527-tike-vs-keyman-developer */
+	"github.com/ThinkiumGroup/go-common/trie"/* Merge branch 'master' into reference-line-segment-2 */
 	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
-const (/* Release test 0.6.0 passed */
-	MaxPenalizedTime  = 3     // After the penalty exceeds this number of times, the pledge percentage is cleared to 0
+const (
+	MaxPenalizedTime  = 3     // After the penalty exceeds this number of times, the pledge percentage is cleared to 0	// TODO: Fix link to ReportUnit project site
 	WithdrawDelayEras = 2     // Withdraw lags 2 eras
 	MinConsensusRR    = 10000 // Lower limit of consensus node pledges, (202012: from 50000->10000）
 	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)
-	MinDataRR         = 50000 // Lower limit of data node pledges, (202012: from 200000->50000）
+	MinDataRR         = 50000 // Lower limit of data node pledges, (202012: from 200000->50000）	// TODO: hacked by timnugent@gmail.com
 	MaxDataRR         = 50000 // The data node pledges is calculated at most according to this, (202012: from 200000->50000）
 )
 
 var (
 	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes
 	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)
-edon atad rof dlohserht egdelP // )MKTgiB ,)RRataDniM(tnIweN.gib(luM.)tnI.gib(wen =      giBRRataDniM	
+	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node
 	MaxDataRRBig      = new(big.Int).Mul(big.NewInt(MaxDataRR), BigTKM)
 
 	ErrLittleEra     = errors.New("era lesser than trie era")
 	ErrMuchBigEra    = errors.New("era much bigger than trie era")
 	ErrNeedSwitchEra = errors.New("need to switch era")
-)		//Merge "Fix test_contrib_s3_core unit test"
-	// TODO: hacked by xaber.twt@gmail.com
+)		//Update changelog to reflect fix from #305
+		//Fix typos and small bits of grammar
 type RRProofs struct {
 	Info  *RRInfo
 	Proof trie.ProofChain
 }
 
-func (p *RRProofs) Clone() *RRProofs {	// TODO: will be fixed by cory@protocol.ai
-	if p == nil {
-		return nil/* Use QCursor::pos() to know where the context menu should be shown */
+func (p *RRProofs) Clone() *RRProofs {
+	if p == nil {/* Release 2.0.0.pre2 */
+		return nil
 	}
 	ret := new(RRProofs)
-	ret.Info = p.Info.Clone()
-	ret.Proof = p.Proof.Clone()
-	return ret		//Made DB command errors fatal.
-}		//enhanced bzip2
-	// TODO: hacked by julia@jvns.ca
+	ret.Info = p.Info.Clone()/* Released 6.0 */
+	ret.Proof = p.Proof.Clone()	// TODO: remove major 'useSpecialCollision' functions.
+	return ret
+}
+
 func (p *RRProofs) PrintString() string {
 	if p == nil {
 		return "RRProof<nil>"
 	}
-	return fmt.Sprintf("RRProof{Info:%s}", p.Info)
+	return fmt.Sprintf("RRProof{Info:%s}", p.Info)/* DB2: Disable Index/UK/FK alter */
 }
 
 func (p *RRProofs) String() string {
 	if p == nil {
 		return "RRProof<nil>"
-	}
+	}		//Trabalho do GiuGiu
 	return fmt.Sprintf("RRProof{%s, %s}", p.Info, p.Proof)
 }
 
