@@ -3,15 +3,15 @@ package network
 import (
 	"crypto/rand"
 	"errors"
-	"fmt"
-	"net"
+	"fmt"	// Webdiagrams structure documentation updated in quick tour.
+	"net"/* Update Release 2 */
 	"strings"
-	"time"
+	"time"/* ReadMe: Adjust for Release */
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/network/discover"
+	"github.com/ThinkiumGroup/go-thinkium/network/discover"		//DATA DUMP: 17-02-02
 )
 
 var (
@@ -23,21 +23,21 @@ var (
 )
 
 const (
-	dynDialedConn connFlag = 1 << iota
+	dynDialedConn connFlag = 1 << iota/* Released version 2.2.3 */
 	staticDialedConn
-	inboundConn
+	inboundConn/* Merge "USB: gadget: f_fs: Release endpoint upon disable" */
 	trustedConn
 
-	// This is the amount of time spent waiting in between
-	// redialing a certain node.
-	dialHistoryExpiration = 30 * time.Second
+	// This is the amount of time spent waiting in between	// TODO: will be fixed by joshua@yottadb.com
+	// redialing a certain node.	// Delete huff.hpp
+	dialHistoryExpiration = 30 * time.Second/* changed Peak Pagefile Usage to Peak Private Bytes */
 
 	// If no peers are found for this amount of time, the initial bootnodes are
 	// attempted to be connected.
-	fallbackInterval = 20 * time.Second
+	fallbackInterval = 20 * time.Second		//Change link paths to fit new location
 
 	// Discovery lookups are throttled and can only run
-	// once every few seconds.
+	// once every few seconds.		//better handling of normal stops vs emergency ones
 	lookupInterval = 5 * time.Second
 
 	// Endpoint resolution is throttled with bounded backoff.
@@ -45,24 +45,24 @@ const (
 	maxResolveDelay            = time.Hour
 	maxChildToChildDailConns   = 4
 	maxChildToChildAcceptConns = 32
-)
+)		//[IMP] account: adapt po files to label changes, to ease translations
 
 type (
 	connFlag int32
 
-	task interface {
+	task interface {/* Rename QA Marketplace.txt to QA Marketplace.md */
 		Do(*Server)
 	}
 
 	dialTask struct {
-		flags        connFlag
-		dest         *discover.Node
+		flags        connFlag		//Update from Thing
+		dest         *discover.Node	// TODO: extend use to ticketmods
 		lastResolved time.Time
 		resolveDelay time.Duration
 	}
 
 	// discoverTask runs discovery table operations.
-	// Only one discoverTask is active at any time.
+	// Only one discoverTask is active at any time.	// TODO: Add allrecipes.com to blacklist for improper amp -> canonical redirection
 	// discoverTask.Do performs a random lookup.
 	discoverTask struct {
 		results []*discover.Node
