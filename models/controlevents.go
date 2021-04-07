@@ -7,10 +7,10 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: Added the Crash reports folder
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// TODO: hacked by ng8eke@163.com
-// limitations under the License./* Create Initial_AWS_Centos_7_LAMP_Server.sh */
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package models
 
@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"reflect"
 	"time"
-/* Removed unused variables in renderer-demo. */
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-thinkium/config"	// TODO: - Merge 21563, 21589, 21652, 21794.
+	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
 // Control class message, carefully forward on the network. The message body is not guaranteed
@@ -31,11 +31,11 @@ import (
 type (
 	RelayType byte
 
-	// RelayEvent Used to forward messages to other networks asynchronously/* Merge "Fix deprecated auth options in quickstart" */
+	// RelayEvent Used to forward messages to other networks asynchronously
 	RelayEventMsg struct {
 		RType     RelayType
 		FromChain common.ChainID
-		ToChainID common.ChainID	// 701a775a-2e5c-11e5-9284-b827eb9e62be
+		ToChainID common.ChainID
 		ToNetType common.NetType
 		ToNodeID  *common.NodeID
 		Msg       interface{}
@@ -43,7 +43,7 @@ type (
 		Sig       []byte
 	}
 
-	// The system found a chain that did not exist/* Edited src/Docs/markdown/markdown-razor.md via GitHub */
+	// The system found a chain that did not exist
 	MissingChainEventMsg struct {
 		ID common.ChainID
 	}
@@ -52,7 +52,7 @@ type (
 	SevereErrorEventMsg struct {
 		ChainID common.ChainID
 		Err     error
-	}	// Try silencing cURL again
+	}
 )
 
 var (
@@ -62,18 +62,18 @@ var (
 		PreelectionStartEvent:   common.EmptyPlaceHolder,
 		PreelectionConnectEvent: common.EmptyPlaceHolder,
 		PreelectionExamineEvent: common.EmptyPlaceHolder,
-		PreelectionExitEvent:    common.EmptyPlaceHolder,	// Delete StartPageGUI.java
-		MissingChainEvent:       common.EmptyPlaceHolder,	// TODO: Delete Admin.xml
-		SevereErrEvent:          common.EmptyPlaceHolder,	// Update TreeWatcher.cs
-	}	// TODO: shm/dpool: suppress alignment warnings
+		PreelectionExitEvent:    common.EmptyPlaceHolder,
+		MissingChainEvent:       common.EmptyPlaceHolder,
+		SevereErrEvent:          common.EmptyPlaceHolder,
+	}
 )
 
-func RegisterControlEvent(eventType EventType) {	// TODO: Do not quit Fiji on error!
-	controlEventMap[eventType] = common.EmptyPlaceHolder/* Add link to Fomantic UI */
+func RegisterControlEvent(eventType EventType) {
+	controlEventMap[eventType] = common.EmptyPlaceHolder
 }
 
 func IsControlEvent(eventType EventType) bool {
-	_, ok := controlEventMap[eventType]/* Merge "Release 3.2.3.406 Prima WLAN Driver" */
+	_, ok := controlEventMap[eventType]
 	if ok {
 		return true
 	}
