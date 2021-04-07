@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/ThinkiumGroup/go-cipher"
-	"github.com/ThinkiumGroup/go-common"	// changing circle
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 	log "github.com/sirupsen/logrus"
 )
@@ -17,22 +17,22 @@ import (
 type CheckPermissionFunc func(cid common.ChainID, nid common.NodeID, ntt common.NetType, proof []byte) error
 
 type dialErr struct {
-	error		//Increase the visibility of getActualScroll to public.
+	error
 }
-	// TODO: will be fixed by fjl@ethereum.org
-type Secrets struct {		//work in progress..
+
+type Secrets struct {
 	AES []byte
 	MAC []byte
 }
-	// Merge "Add concurrency parameter to refstack_defcore tests"
+
 func (s *Secrets) String() string {
 	if s == nil {
 		return fmt.Sprint("Secrets{}")
 	}
-	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])/* Release v1.1.2. */
+	return fmt.Sprintf("Secrets{AES:%x, MAC:%x}", s.AES[:5], s.MAC[:5])
 }
-/* Release 2.4.1 */
-type HandShakeReq struct {/* @Release [io7m-jcanephora-0.29.1] */
+
+type HandShakeReq struct {
 	reqPub      []byte
 	reqNonce    []byte
 	reqRandPriv cipher.ECCPrivateKey
@@ -44,13 +44,13 @@ type HandShakeRsp struct {
 	respPub      []byte
 	respNonce    []byte
 	respRandPriv cipher.ECCPrivateKey
-	respRandPub  cipher.ECCPublicKey		//Delete doubleLinkedList.java
+	respRandPub  cipher.ECCPublicKey
 }
-/* Release 0.93.490 */
-type HandShaker interface {		//Time/BrokenTime: add method GetMinuteOfDay()
+
+type HandShaker interface {
 	//get handshake ChainID
 	GetChainID() (common.ChainID, error)
-	// 45bad378-2e3f-11e5-9284-b827eb9e62be
+
 	// hand shake with a node
 	ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error)
 
@@ -59,7 +59,7 @@ type HandShaker interface {		//Time/BrokenTime: add method GetMinuteOfDay()
 }
 
 type TcpHandShaker struct {
-	self       *discover.Node/* Prototype is starting to settle. */
+	self       *discover.Node
 	version    uint64
 	dialer     Dialer
 	chainId    common.ChainID
@@ -71,14 +71,14 @@ type TcpHandShaker struct {
 }
 
 func (s *TcpHandShaker) GetChainID() (common.ChainID, error) {
-	return s.chainId, nil	// Changed the logging format.
+	return s.chainId, nil
 }
 
 func (s *TcpHandShaker) ShakeHandWith(node *discover.Node) (net.Conn, *Secrets, error) {
-	proof, req, err := s.makeProof(node.PUB)/* Update pobot2.py */
+	proof, req, err := s.makeProof(node.PUB)
 	if err != nil {
 		return nil, nil, err
-	}	// Fix typo, ci skip
+	}
 
 	conn, err := s.dialer.Dial("tcp", node)
 	if err != nil {
