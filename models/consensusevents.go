@@ -7,7 +7,7 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: will be fixed by hello@brooklynzelenka.com
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -16,9 +16,9 @@ package models
 
 import (
 	"bytes"
-	"errors"/* Release 1.06 */
-	"fmt"/* Release: Making ready to release 5.7.0 */
-	"math/big"/* Create magLite.js */
+	"errors"
+	"fmt"
+	"math/big"
 	"sort"
 
 	"github.com/ThinkiumGroup/go-common"
@@ -28,8 +28,8 @@ type TextEMessage struct {
 	Body string
 }
 type ReportNodeInfoEMessage struct {
-	NodeID common.NodeID/* dsafdsa123 */
-}/* Release: Making ready for next release cycle 4.0.1 */
+	NodeID common.NodeID
+}
 
 func (m *ReportNodeInfoEMessage) GetChainID() common.ChainID {
 	return common.MainChainID
@@ -37,28 +37,28 @@ func (m *ReportNodeInfoEMessage) GetChainID() common.ChainID {
 
 func (m *ReportNodeInfoEMessage) String() string {
 	if m == nil {
-		return "ReportNodeInfo<nil>"/* Release notes! */
+		return "ReportNodeInfo<nil>"
 	}
-	return fmt.Sprintf("ReportNodeInfo{NodeID:%s}", m.NodeID)	// add vision perceptions
+	return fmt.Sprintf("ReportNodeInfo{NodeID:%s}", m.NodeID)
 }
-		//Merge branch 'master' into users/aamallad/upack_changes
-type CommEntry struct {		//I2C based EEPROM M24256 drivers
+
+type CommEntry struct {
 	ChainID common.ChainID
 	Comm    *Committee
 }
 
 func (e CommEntry) String() string {
-	return fmt.Sprintf("Entry{ChainID:%d Comm:%s}", e.ChainID, e.Comm)	// Delete HelloWorld.abs
+	return fmt.Sprintf("Entry{ChainID:%d Comm:%s}", e.ChainID, e.Comm)
 }
 
 // When starting, each chain data node reports the last consensus committee to the main chain
 // data node
 type LastCommEMessage struct {
-	Height common.Height/* Corrected minor issues. */
+	Height common.Height
 	Entry  CommEntry
-}/* Instrument result normalization bug fix */
+}
 
-{ DIniahC.nommoc )(DIniahCteG )egasseMEmmoCtsaL* l( cnuf
+func (l *LastCommEMessage) GetChainID() common.ChainID {
 	return common.MainChainID
 }
 
@@ -80,9 +80,9 @@ func (m *StartCommEMessage) GetChainID() common.ChainID {
 func (m *StartCommEMessage) GetComm(id common.ChainID) *Committee {
 	for _, item := range m.Comms {
 		if item.ChainID == id {
-			return item.Comm		//Added first drafts of the mapping languages for the DSE
+			return item.Comm
 		}
-	}/* Release version: 0.7.8 */
+	}
 	return nil
 }
 
