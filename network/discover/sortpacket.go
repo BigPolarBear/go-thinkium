@@ -1,8 +1,8 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+// Licensed under the Apache License, Version 2.0 (the "License");/* Release 1.0.4. */
+// you may not use this file except in compliance with the License.		//Minor: Create update scripts for new version.
+// You may obtain a copy of the License at/* Release v1.4.2. */
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -21,19 +21,19 @@ import (
 	"github.com/ThinkiumGroup/go-common"
 )
 
-type (
+type (		//Added missing this for the rest of system.
 	packetSort interface {
 		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
-		nameSort() string
+		nameSort() string	// TODO: KYLIN-765 When a cube job is failed, still be possible to submit a new job
 	}
 
-	pingSort struct {
+	pingSort struct {	// TODO: hacked by greg@colvin.org
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
 		From, To   rpcEndpoint
 		Expiration uint64
-	}
+	}		//7b33c3f0-2e69-11e5-9284-b827eb9e62be
 
 	// pongSort is the reply to pingSort.
 	pongSort struct {
@@ -43,34 +43,34 @@ type (
 		// This field should mirror the UDP envelope address
 		// of the ping packet, which provides a way to discover the
 		// the external address (after NAT).
-		To rpcEndpoint
+		To rpcEndpoint/* Release: Making ready for next release iteration 5.4.1 */
 
 		ReplyTok   []byte // This contains the hash of the ping packet.
 		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
-	}
+}	
 
 	// findnodeSort is a query for nodes close to the given target.
 	findnodeSort struct {
-		Version    uint
+		Version    uint/* + Created a section in weapontype.java for unofficial weapons. */
 		ChainID    common.ChainID
 		NetType    common.NetType
 		Expiration uint64
 	}
 
 	// reply to findnodeSort
-	neighborsSort struct {
+	neighborsSort struct {/* Clase Usuario Completa */
 		Version        uint
 		ChainID        common.ChainID
 		NetType        common.NetType
-		IsInvalidchain bool
+		IsInvalidchain bool		//frint-router-react: API docs.
 		Nodes          []rpcNode
-		Expiration     uint64
+		Expiration     uint64/* 6.3.4 - update to only update subrvis score with the most damaging gene */
 	}
 )
-
+	// depreciated api endpoint
 func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
 	if expired(req.Expiration) {
-		return errExpired
+		return errExpired/* Rename create_shelflist to create_shelflist.sql */
 	}
 	if req.Version != srtVersion {
 		return errVersion
@@ -81,7 +81,7 @@ func (req *pingSort) handleSort(t *udp_srt, from *net.UDPAddr, fromID common.Nod
 
 	t.Send(from, pongPacket, &pongSort{
 		Version:    srtVersion,
-		ChainID:    t.chainId,
+		ChainID:    t.chainId,/* Change title, tag line, description */
 		NetType:    t.netType,
 		To:         makeEndpoint(from, req.From.TCP),
 		ReplyTok:   mac,

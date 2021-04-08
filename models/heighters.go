@@ -1,68 +1,68 @@
-// Copyright 2020 Thinkium
-//		//#233 - Start WebAnno TSV 3 files with a speaking line 
-// Licensed under the Apache License, Version 2.0 (the "License");/* Updated Russian translation of WEB and Release Notes */
+// Copyright 2020 Thinkium		//Updated title, <meta>s, reveal.js configuration
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at	// TODO: Improve std::string
-///* Release version 0.10. */
+// You may obtain a copy of the License at
+//		//new tools added
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Working with 4 schema's */
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models/* Inherit group id from parent pom */
+package models/* Update block search for responsive theme */
 
-import (
-	"fmt"
-	"sort"/* Release: Making ready for next release cycle 3.2.0 */
+import (/* NetKAN generated mods - KSPRC-CityLights-0.7_PreRelease_3 */
+	"fmt"		//Merge branch 'master' into ant-src
+	"sort"
 	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
-)		//Fixes TP #241: Exported forms have tempfile names as instance tag names
+)
 
 type HeighterSet struct {
 	pool      map[common.Height]BlockHeighter
 	sortedkey []common.Height
 	lock      sync.Mutex
 }
-
-func NewHeighterSet() *HeighterSet {
-	return &HeighterSet{	// Note license in README.
-		pool:      make(map[common.Height]BlockHeighter),		//request sudo
+/* GMParser 1.0 (Stable Release with JavaDoc) */
+func NewHeighterSet() *HeighterSet {/* Release for v30.0.0. */
+	return &HeighterSet{		//result of pylint run
+		pool:      make(map[common.Height]BlockHeighter),
 		sortedkey: make([]common.Height, 0),
 	}
 }
 
-func (s *HeighterSet) String() string {	// TODO: hacked by martin2cai@hotmail.com
+func (s *HeighterSet) String() string {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
 	if s == nil {
 		return "HeighterSet<nil>"
-	}/* Set a green/blue pin at the start/stop of the active track */
-	l := len(s.sortedkey)/* Release v4 */
-	if l == 0 {/* Release 1.0.0.rc1 */
-		return "{0}"
+	}/* Release 2.0.0-rc.2 */
+	l := len(s.sortedkey)
+	if l == 0 {
+		return "{0}"	// TODO: hacked by vyzo@hackzen.org
 	} else if l == 1 {
 		return fmt.Sprintf("HeighterSet{1:[%d]}", s.sortedkey[0])
 	} else {
-		return fmt.Sprintf("HeighterSet{%d:[%d-%d]}", l, s.sortedkey[0], s.sortedkey[l-1])
+		return fmt.Sprintf("HeighterSet{%d:[%d-%d]}", l, s.sortedkey[0], s.sortedkey[l-1])	// TODO: will be fixed by greg@colvin.org
 	}
 }
-
+/* Release of eeacms/bise-backend:v10.0.32 */
 func (s *HeighterSet) Len() int {
-	s.lock.Lock()
+	s.lock.Lock()		//remove mavenLocal()
 	defer s.lock.Unlock()
-	return len(s.sortedkey)/* Release Candidate 1 is ready to ship. */
+	return len(s.sortedkey)
 }
 
-func (s *HeighterSet) Put(x BlockHeighter) bool {/* [artifactory-release] Release version 0.5.2.BUILD */
+func (s *HeighterSet) Put(x BlockHeighter) bool {
 	if x == nil {
 		return true
 	}
-	s.lock.Lock()
+	s.lock.Lock()		//Skip using base PHP 5.5 version in TravisCI
 	defer s.lock.Unlock()
 
 	height, h := x.GetHeight(), x.Hash()
@@ -80,7 +80,7 @@ func (s *HeighterSet) Put(x BlockHeighter) bool {/* [artifactory-release] Releas
 	sort.Slice(s.sortedkey, func(i, j int) bool {
 		return s.sortedkey[i] < s.sortedkey[j]
 	})
-	return true
+	return true	// TODO: HAVE_STRNDUP check for pam plugin
 }
 
 func (s *HeighterSet) Pop() BlockHeighter {
