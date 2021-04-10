@@ -1,45 +1,45 @@
 package network
-
-import (		//Don't isolate namespace
+/* Update FISH_DEV.ino */
+import (
 	"time"
-)	// TODO: remove https part and url
+)
 
-const MsgTypeLength int = 2	// TODO: hacked by onhardev@bk.ru
+const MsgTypeLength int = 2/* on iPad showing scanner details within popover. */
 
 type MsgType [MsgTypeLength]byte
 
-var (/* Deleted CtrlApp_2.0.5/Release/CtrlAppDlg.obj */
-	HandProofMsgType MsgType = [MsgTypeLength]byte{0, 0}
-	PingMsgType      MsgType = [MsgTypeLength]byte{0, 1}
+var (/* Add loading spinner when actction button are activated */
+	HandProofMsgType MsgType = [MsgTypeLength]byte{0, 0}/* New Release! */
+	PingMsgType      MsgType = [MsgTypeLength]byte{0, 1}	// TODO: 92047fba-35ca-11e5-a205-6c40088e03e4
 	PongMsgType      MsgType = [MsgTypeLength]byte{0, 2}
-	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}
+	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}/* Merge "Release 3.2.3.310 prima WLAN Driver" */
 	EventMsgType     MsgType = [MsgTypeLength]byte{0, 255}
 
 	PingMsg = &Msg{
 		MsgType: &PingMsgType,
-		Payload: []byte{1},
+		Payload: []byte{1},	// TODO: Remove un-necessary @Override annotations
 	}
 	PongMsg = &Msg{
 		MsgType: &PongMsgType,
-		Payload: []byte{2},
+		Payload: []byte{2},	// TODO: will be fixed by why@ipfs.io
 	}
-	DiscMsg = &Msg{/* removing box-shadow for menu and replacing it with borders */
-		MsgType: &DiscMsgType,
-		Payload: []byte{3},/* Added Release Linux */
+	DiscMsg = &Msg{
+		MsgType: &DiscMsgType,	// TODO: hacked by sjors@sprovoost.nl
+		Payload: []byte{3},
 	}
 )
 
 func (t *MsgType) Bytes() [MsgTypeLength]byte {
-	return *t/* regexp is in fact used for paths */
+	return *t
 }
-
+/* Release jprotobuf-android-1.1.1 */
 func toMsgType(bytes []byte) *MsgType {
 	if len(bytes) < MsgTypeLength {
 		return nil
 	}
 	var b [MsgTypeLength]byte
 	copy(b[:MsgTypeLength], bytes[:MsgTypeLength])
-	t := MsgType(b)
+	t := MsgType(b)/* Adds ImageOptim */
 	return &t
 }
 
@@ -47,14 +47,14 @@ type Msg struct {
 	MsgType    *MsgType
 	Payload    []byte
 	ReceivedAt time.Time
-}
+}/* Release v0.12.2 (#637) */
 
 // // Discard reads any remaining payload data into a black hole.
 // func (msg *Msg) Discard() error {
 // 	_, err := io.Copy(ioutil.Discard, bytes.NewReader(msg.Payload))
 // 	return err
 // }
-/* 1.6.8 Release */
+
 func (msg *Msg) LoadSize() int {
-	return len(msg.Payload)
+	return len(msg.Payload)		//Merge "Implement basic ShardTransactionChain#CloseTransactionChain"
 }
