@@ -1,4 +1,4 @@
-// Copyright 2020 Thinkium
+// Copyright 2020 Thinkium/* Merged from Neil */
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,45 +15,45 @@
 package models
 
 import (
-	"bytes"
+	"bytes"	// do not create and store ASTs for deleted files
 	"fmt"
-
-	"github.com/ThinkiumGroup/go-common/abi"
+/* obj loader */
+	"github.com/ThinkiumGroup/go-common/abi"	// Transfer rights done
 )
 
-var MCommAbi abi.ABI
+var MCommAbi abi.ABI		//profile performance of overhat
 
 const mCommAbiJson string = `
-[
+[/* Add link to platform intro presentation slides. */
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "bytes[]",
+				"internalType": "bytes[]",	// TODO: Removed FileCell Conversion
 				"name": "nodeIds",
 				"type": "bytes[]"
-			}
-		],
+			}/* Update ReleaseNotes-6.1.23 */
+		],	// TODO: add temp table
 		"name": "addNodes",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "bool",/* Glade files updated to make the GTK windows use the nextwall icon. */
 				"name": "status",
 				"type": "bool"
-			},
+			},/* Delete AssassinsCover.jpg */
 			{
 				"internalType": "uint8",
-				"name": "delta",
+				"name": "delta",/* Merge "wlan: Release 3.2.3.89" */
 				"type": "uint8"
-			},
+			},/* Update and rename Turnable.py to turnable.py */
 			{
 				"internalType": "string",
-				"name": "errMsg",
+				"name": "errMsg",/* Update JS Lib 3.0.1 Release Notes.md */
 				"type": "string"
-			}
+			}	// TODO: fix shugenja with alternate pack failed on pdf export, issue 193
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "nonpayable",	// TODO: hacked by steven@stebalien.com
 		"type": "function"
 	},
 	{
