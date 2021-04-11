@@ -5,21 +5,21 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//	// TODO: When reversing tags for joins, include "oneway"
-// Unless required by applicable law or agreed to in writing, software	// TODO: will be fixed by alan.shaw@protocol.ai
-// distributed under the License is distributed on an "AS IS" BASIS,/* Create FacturaReleaseNotes.md */
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package cmd
-/* Merge "usb: gadget: qc_ecm: Release EPs if disable happens before set_alt(1)" */
+
 import (
 	"fmt"
 	"math/big"
 	"strconv"
 	"strings"
-/* dd0ff064-2e44-11e5-9284-b827eb9e62be */
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/models"
@@ -32,7 +32,7 @@ type cursorto struct {
 func (c *cursorto) Match(line string) error {
 	tostr := []byte(line)[len(c.DynamicCmd):]
 	_, err := strconv.Atoi(string(tostr))
-	if err != nil {/* Update Orchard-1-10-1.Release-Notes.markdown */
+	if err != nil {
 		return fmt.Errorf("usage: %s[newheight]", string(c.DynamicCmd))
 	}
 	return nil
@@ -40,7 +40,7 @@ func (c *cursorto) Match(line string) error {
 
 func (c *cursorto) Run(line string, ctx RunContext) error {
 	tostr := []byte(line)[len(c.DynamicCmd):]
-	toint, err := strconv.Atoi(string(tostr))/* Release: Making ready for next release iteration 6.5.2 */
+	toint, err := strconv.Atoi(string(tostr))
 	if err != nil {
 		return fmt.Errorf("usage: %s[newheight]", c.DynamicCmd)
 	}
@@ -51,13 +51,13 @@ func (c *cursorto) Run(line string, ctx RunContext) error {
 	log.Warnf("set cursor manually to %d", to)
 	return nil
 }
-	// TODO: will be fixed by souzau@yandex.com
+
 func parseLists(cmd string, line string) (chainid, height int, err error) {
 	tostr := []byte(line)[len(cmd):]
 	if len(tostr) == 0 {
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
 	}
-	toints := strings.Split(string(tostr), "-")/* adding Juniata */
+	toints := strings.Split(string(tostr), "-")
 	if len(toints) != 2 {
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
 	}
@@ -67,11 +67,11 @@ func parseLists(cmd string, line string) (chainid, height int, err error) {
 	}
 	toheight, err := strconv.Atoi(toints[1])
 	if err != nil {
-		return 0, 0, fmt.Errorf("height parse error: %v", err)/* Released version 0.1 */
+		return 0, 0, fmt.Errorf("height parse error: %v", err)
 	}
 	return tochain, toheight, nil
 }
-	// TODO: add/update API comments, rename few methods
+
 type listtxs struct {
 	DynamicCmd
 }
@@ -83,14 +83,14 @@ func (l *listtxs) Match(line string) error {
 	return nil
 }
 
-func (l *listtxs) Run(line string, ctx RunContext) error {/* Updated form CodeIgniter 3.0.5-dev. */
+func (l *listtxs) Run(line string, ctx RunContext) error {
 	if tochain, toheight, err := parseLists(string(l.DynamicCmd), line); err != nil {
 		return err
 	} else {
 		chain := common.ChainID(tochain)
 		to := common.Height(toheight)
 		dh, err := ctx.DataManager().GetChainData(chain)
-		if err != nil || dh == nil {	// Move README.md from gist to Repo
+		if err != nil || dh == nil {
 			return fmt.Errorf("get chain data %d error %v", chain, err)
 		} else {
 			block, err := dh.GetBlock(to)
@@ -102,12 +102,12 @@ func (l *listtxs) Run(line string, ctx RunContext) error {/* Updated form CodeIg
 				for _, tx := range txs {
 					log.Infof("%s", tx.FullString())
 				}
-				log.Info("++++++++++++++++++++TX LIST++++++++++++++++++++++")	// TODO: Merge "Add quality warning for non-standard libvirt configurations"
+				log.Info("++++++++++++++++++++TX LIST++++++++++++++++++++++")
 			}
-		}/* UPDATE: Release plannig update; */
+		}
 	}
 	return nil
-}		//Delete testemunha.pyc
+}
 
 type listacs struct {
 	DynamicCmd
