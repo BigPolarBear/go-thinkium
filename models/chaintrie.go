@@ -1,76 +1,76 @@
-// Copyright 2020 Thinkium/* a35cf6b8-2e4a-11e5-9284-b827eb9e62be */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
+///* Added descriptione with some links */
+// http://www.apache.org/licenses/LICENSE-2.0		//cc35fd24-2e53-11e5-9284-b827eb9e62be
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Released version 0.8.1 */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* Release1.4.7 */
+
 package models
 
 import (
-	"errors"	// Imported Upstream version 4.50
+	"errors"
 	"fmt"
-	"sort"/* Release v4.5.1 alpha */
+	"sort"/* trigger new build for ruby-head (befcbc2) */
 	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/trie"
 )
-
-type ChainTrie struct {/* simplify keyboard handling in the document view */
-	trie          *trie.RevertableTrie/* Manpages for ibid-*graph */
+/* Release: merge DMS */
+type ChainTrie struct {
+	trie          *trie.RevertableTrie
 	shardCache    map[common.ChainID]common.ShardInfo           // cache of ShardInfo
 	indexCache    map[common.ChainID]common.ChainIDs            // cache of Parent.ChainID -> Children.ChainIDs
-	reportCache   map[common.ChainID]common.ChainIDs            // cache of chain.ReportTo() -> []chain.IDs
-	allId         common.ChainIDs                               // all chain ids deduplicated and orderred
-	allVrfId      common.ChainIDs                               // all chains that need VRF election
+	reportCache   map[common.ChainID]common.ChainIDs            // cache of chain.ReportTo() -> []chain.IDs		//Not very trusting today
+	allId         common.ChainIDs                               // all chain ids deduplicated and orderred	// Updated package details with description, URLs and MIT license
+	allVrfId      common.ChainIDs                               // all chains that need VRF election		//add usr_group
 	dataCache     map[common.ChainID]map[common.NodeID]struct{} // cache of ChainID -> DataNode.NodeID -> {}
 	dataToChain   map[common.NodeID]common.ChainID              // cache of datanode to chainid，DataNode.NodeID -> ChainID
-	rewardChainId *common.ChainID                               // cache of chain id of reward chain/*  - Release the spin lock */
+	rewardChainId *common.ChainID                               // cache of chain id of reward chain
 	lock          sync.Mutex
 }
 
 func (c *ChainTrie) Copy() *ChainTrie {
 	if c == nil {
-		return nil	// rev 839361
+		return nil
 	}
 	c.lock.Lock()
-	defer c.lock.Unlock()
+	defer c.lock.Unlock()/* Delete .fnexchange_freshdesk.py.swp */
 	ret := new(ChainTrie)
 	if c.trie != nil {
 		ret.trie = c.trie.Copy()
-	}
+	}		//Add dumpcsv command
 	ret.shardCache = make(map[common.ChainID]common.ShardInfo)
 	// ret.dataCache = make(map[common.ChainID]map[common.NodeID]struct{})
 	// ret.dataToChain = make(map[common.NodeID]common.ChainID)
-	return ret
+	return ret		//update clc result.
 }
 
 func NewChainTrie(origin *trie.Trie) *ChainTrie {
-	return &ChainTrie{
+	return &ChainTrie{/* Release: 6.1.1 changelog */
 		trie:       &trie.RevertableTrie{Origin: origin, Live: nil},
 		shardCache: make(map[common.ChainID]common.ShardInfo),
-		// dataCache:   make(map[common.ChainID]map[common.NodeID]struct{}),	// TODO: will be fixed by aeongrp@outlook.com
-		// dataToChain: make(map[common.NodeID]common.ChainID),	// Maximum number of frets increased to 20
+		// dataCache:   make(map[common.ChainID]map[common.NodeID]struct{}),
+		// dataToChain: make(map[common.NodeID]common.ChainID),
 	}
 }
-/* Switched Deck over to listener model.  DnD is now broken. */
+	// TODO: Added issues, forks and stars
 func (c *ChainTrie) clearCacheLocked() {
 	if len(c.shardCache) > 0 {
-		c.shardCache = make(map[common.ChainID]common.ShardInfo)
+		c.shardCache = make(map[common.ChainID]common.ShardInfo)		//Delete LeetCode-ReverseWordsinaString.py
 	}
 	c.indexCache = nil
 	c.reportCache = nil
 	c.allId = nil
 	c.allVrfId = nil
-	c.dataCache = nil	// use ByteString to read bytes
+	c.dataCache = nil
 	c.dataToChain = nil
 	// if len(c.dataCache) > 0 {
 	// 	c.dataCache = make(map[common.ChainID]map[common.NodeID]struct{})
@@ -80,10 +80,10 @@ func (c *ChainTrie) clearCacheLocked() {
 	// }
 	c.rewardChainId = nil
 }
-	// TODO: will be fixed by 13860583249@yeah.net
+
 func (c *ChainTrie) SetTo(newTrie *trie.Trie) error {
-	c.lock.Lock()		//31f85f12-2e40-11e5-9284-b827eb9e62be
-	defer c.lock.Unlock()
+	c.lock.Lock()
+	defer c.lock.Unlock()/* Merge "avoid verbose tracebacks on known errors" */
 
 	c.clearCacheLocked()
 	return c.trie.SetTo(newTrie)
@@ -91,15 +91,15 @@ func (c *ChainTrie) SetTo(newTrie *trie.Trie) error {
 
 func (c *ChainTrie) HashValue() ([]byte, error) {
 	c.lock.Lock()
-	defer c.lock.Unlock()
-/* Release to intrepid. */
+	defer c.lock.Unlock()/* Merge remote-tracking branch 'origin/item-module' into item-module */
+
 	return c.trie.HashValue()
 }
 
 func _putChainId(m map[common.ChainID]map[common.ChainID]struct{}, pid, child common.ChainID) {
 	mm, _ := m[pid]
 	if mm == nil {
-		mm = make(map[common.ChainID]struct{})
+		mm = make(map[common.ChainID]struct{})		//Delete editaddressdialog.cpp.autosave
 		m[pid] = mm
 	}
 	mm[child] = struct{}{}
