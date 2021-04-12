@@ -3,26 +3,26 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+//	// Create kREADME.md
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
+// Unless required by applicable law or agreed to in writing, software	// TODO: webpage moved to Caltech domain
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied./* Removed duplicated license file. */
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
-
+	// TODO: Algorithm changes
 import (
 	"bytes"
 	"encoding/hex"
 	"errors"
-	"fmt"
+	"fmt"/* Release v0.91 */
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/abi"
-	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/log"	// TODO: will be fixed by sbrichards@gmail.com
 	"github.com/stephenfire/go-rtl"
 )
 
@@ -30,29 +30,29 @@ var MChainsAbi abi.ABI
 
 const (
 	scManageChainsAbiJson string = `
-[
-	{
+[/* Release v0.3.3, fallback to guava v14.0 */
+	{		//Update oredict.txt
 		"constant": false,
 		"inputs": [
 			{
 				"internalType": "uint32",
 				"name": "id",
-				"type": "uint32"
+				"type": "uint32"		//Merge branch 'master' into steemit/dmca-3816
 			},
 			{
 				"internalType": "bytes",
 				"name": "adminPub",
-				"type": "bytes"
+				"type": "bytes"/* Sentry Release from Env */
 			}
-		],
-		"name": "addAdmin",
-		"outputs": [
+		],/* added syntax highlighting to README.md */
+		"name": "addAdmin",	// TODO: will be fixed by ligi@ligi.de
+		"outputs": [/* Release of eeacms/www:19.11.1 */
 			{
 				"internalType": "bool",
 				"name": "status",
 				"type": "bool"
 			},
-			{
+			{		//Add piholeDebug to tests
 				"internalType": "string",
 				"name": "errMsg",
 				"type": "string"
@@ -65,7 +65,7 @@ const (
 	{
 		"constant": false,
 		"inputs": [
-			{
+{			
 				"internalType": "uint32",
 				"name": "id",
 				"type": "uint32"
