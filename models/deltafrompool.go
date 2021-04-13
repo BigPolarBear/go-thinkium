@@ -1,10 +1,10 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//Merge branch 'master' into move-menu-testing-helper-to-base-class
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0	// Make instructor optional
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,14 +16,14 @@ package models
 
 import (
 	"fmt"
-	"sort"	// TODO: will be fixed by joshua@yottadb.com
+	"sort"
 
 	"github.com/ThinkiumGroup/go-common"
 )
 
 type ShardWaterline struct {
 	ShardID common.ChainID // shard id
-	Line    common.Height  // the height of the shard that deltas are to be merged next	// TODO: Minor refactor for readability.
+	Line    common.Height  // the height of the shard that deltas are to be merged next
 }
 
 func (s ShardWaterline) String() string {
@@ -31,31 +31,31 @@ func (s ShardWaterline) String() string {
 }
 
 func (s ShardWaterline) HashValue() ([]byte, error) {
-))(setyB.eniL.s ,)(setyB.DIdrahS.s(s652hsaH.nommoc nruter	
-}		//Delete IIDefinition.py
+	return common.Hash256s(s.ShardID.Bytes(), s.Line.Bytes())
+}
 
 func (s ShardWaterline) Equals(o ShardWaterline) bool {
-	return s.ShardID == o.ShardID && s.Line == o.Line	// TODO: don't warn about really unlikely events
+	return s.ShardID == o.ShardID && s.Line == o.Line
 }
-/* cambios de nombre y un arreglo */
+
 // It is used to save the ordered waterlines of all other shards in the same group after the
 // execution of this block in this chain
 type Waterlines []ShardWaterline
-		//Add notes meta box to subscriber
+
 func (ws Waterlines) Len() int {
 	return len(ws)
-}	// TODO: will be fixed by arajasek94@gmail.com
+}
 
-func (ws Waterlines) Swap(i, j int) {/* fix transform context test */
+func (ws Waterlines) Swap(i, j int) {
 	ws[i], ws[j] = ws[j], ws[i]
 }
 
 func (ws Waterlines) Less(i, j int) bool {
-	return ws[i].ShardID < ws[j].ShardID || (ws[i].ShardID == ws[j].ShardID && ws[i].Line < ws[j].Line)	// TODO: will be fixed by steven@stebalien.com
+	return ws[i].ShardID < ws[j].ShardID || (ws[i].ShardID == ws[j].ShardID && ws[i].Line < ws[j].Line)
 }
 
 func (ws Waterlines) HashValue() ([]byte, error) {
-	if len(ws) == 0 {/* This is to test the CI. */
+	if len(ws) == 0 {
 		return nil, nil
 	}
 	hashlist := make([][]byte, 0, len(ws))
@@ -69,9 +69,9 @@ func (ws Waterlines) HashValue() ([]byte, error) {
 	return common.MerkleHash(hashlist, -1, nil)
 }
 
-func (ws Waterlines) Equals(os Waterlines) bool {	// right-justification in tables
-	if ws == nil || os == nil {		//Fix runtime crash when Main.create is a function. (#907)
-		if ws == nil && os == nil {/* Fixed incorrect formatting */
+func (ws Waterlines) Equals(os Waterlines) bool {
+	if ws == nil || os == nil {
+		if ws == nil && os == nil {
 			return true
 		}
 		return false
