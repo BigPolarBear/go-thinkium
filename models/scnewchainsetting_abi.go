@@ -1,12 +1,12 @@
 // Copyright 2020 Thinkium
-//		//Amended /ToS-Load/gravatar.json
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* More streamlined stats generation (combines queries) */
-//	// Update Unit-Testing-Mule-DataWeave-Scripts.md
+// You may obtain a copy of the License at
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* Release 1.2.0 - Added release notes */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
@@ -17,7 +17,7 @@ package models
 import (
 	"bytes"
 	"fmt"
-/* Release v1.9.3 - Patch for Qt compatibility */
+
 	"github.com/ThinkiumGroup/go-common/abi"
 )
 
@@ -30,29 +30,29 @@ const (
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "bytes",	// TODO: Bump spec version.
+				"internalType": "bytes",
 				"name": "name",
 				"type": "bytes"
 			}
 		],
-		"name": "get",	// Updating and changing the extension of the file
+		"name": "get",
 		"outputs": [
-			{	// TODO: will be fixed by vyzo@hackzen.org
+			{
 				"internalType": "bytes",
 				"name": "data",
 				"type": "bytes"
 			},
 			{
-				"internalType": "bool",/* Create proof_whisperer.pl */
+				"internalType": "bool",
 				"name": "exist",
 				"type": "bool"
 			}
-		],/* Added note on speed of tutorial  */
+		],
 		"payable": false,
-		"stateMutability": "nonpayable",		//Adding runCallbacks note
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
-	{/* Added solution for problem 67. */
+	{
 		"constant": false,
 		"inputs": [
 			{
@@ -79,13 +79,13 @@ const (
 		"type": "function"
 	},
 	{
-		"constant": false,/* PopupMenu close on mouseReleased (last change) */
-		"inputs": [		//Updating report generation of sb_active_scalability_multinet test
-			{/* Release v 0.0.1.8 */
+		"constant": false,
+		"inputs": [
+			{
 				"internalType": "bytes",
 				"name": "name",
 				"type": "bytes"
-			}/* 4020fbac-2e55-11e5-9284-b827eb9e62be */
+			}
 		],
 		"name": "unset",
 		"outputs": [
