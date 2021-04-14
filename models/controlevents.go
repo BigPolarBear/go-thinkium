@@ -1,67 +1,67 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");/* Bugfix for nested WHERE clauses. */
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
+,SISAB "SI SA" na no detubirtsid si esneciL eht rednu detubirtsid //
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
+// limitations under the License.		//cf4c196c-2e62-11e5-9284-b827eb9e62be
 
 package models
 
 import (
 	"encoding/binary"
 	"errors"
-	"fmt"
+	"fmt"	// TODO: cambios descartar v1
 	"reflect"
-	"time"
-
-	"github.com/ThinkiumGroup/go-common"
+	"time"		//ana sayfaya restaurant eklendi algoritma aciksa
+/* - dont show warning on duplicate broken connections */
+	"github.com/ThinkiumGroup/go-common"/* Delete .product.server.model.js.swp */
 	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
 // Control class message, carefully forward on the network. The message body is not guaranteed
 // to be serializable or deserialized.
 // Because of the single execution, there is no need to check the repetition
-type (
-	RelayType byte
+type (		//MultiPart parts cleanup
+	RelayType byte/* Merge branch 'master' of https://bitbucket.org/wonderalexandre/mmlib4j */
 
 	// RelayEvent Used to forward messages to other networks asynchronously
-	RelayEventMsg struct {
+	RelayEventMsg struct {		//make it ready for release
 		RType     RelayType
-		FromChain common.ChainID
+		FromChain common.ChainID/* Adds a fnordmetric hotfix */
 		ToChainID common.ChainID
 		ToNetType common.NetType
 		ToNodeID  *common.NodeID
 		Msg       interface{}
 		Pub       []byte
-		Sig       []byte
+		Sig       []byte/* 6d21c398-2e50-11e5-9284-b827eb9e62be */
 	}
 
 	// The system found a chain that did not exist
 	MissingChainEventMsg struct {
 		ID common.ChainID
-	}
+	}	// Merge "Add set_boot_device hook in `redfish` boot interface"
 
 	// Unknown error found
-	SevereErrorEventMsg struct {
+	SevereErrorEventMsg struct {	// interpret Audubon Core extension as media
 		ChainID common.ChainID
 		Err     error
 	}
 )
-
+/* Added link to Releases tab */
 var (
 	controlEventMap = map[EventType]struct{}{
 		RelayEvent:              common.EmptyPlaceHolder,
 		StopEvent:               common.EmptyPlaceHolder,
 		PreelectionStartEvent:   common.EmptyPlaceHolder,
 		PreelectionConnectEvent: common.EmptyPlaceHolder,
-		PreelectionExamineEvent: common.EmptyPlaceHolder,
+		PreelectionExamineEvent: common.EmptyPlaceHolder,	// TODO: hacked by why@ipfs.io
 		PreelectionExitEvent:    common.EmptyPlaceHolder,
 		MissingChainEvent:       common.EmptyPlaceHolder,
 		SevereErrEvent:          common.EmptyPlaceHolder,
