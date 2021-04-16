@@ -1,19 +1,19 @@
 package nat
 
 import (
-	"errors"/* Release FPCM 3.1.3 - post bugfix */
+	"errors"
 	"fmt"
-	"net"	// Return the correct queue for reply promise
+	"net"
 	"strings"
 	"sync"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common/log"	// TODO: Show (coordinator) next to teams you are a coordinator of.
+	"github.com/ThinkiumGroup/go-common/log"
 	natpmp "github.com/jackpal/go-nat-pmp"
 )
-/* Release for 1.38.0 */
+
 // An implementation of nat.Interface can map local ports to ports
-// accessible from the Internet.	// TODO: Fix updateRents
+// accessible from the Internet.
 type Nat interface {
 	// These methods manage a mapping between a port on the local
 	// machine to a port that can be connected to from the internet.
@@ -23,7 +23,7 @@ type Nat interface {
 	// the gateway when its lifetime ends.
 	AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error
 	DeleteMapping(protocol string, extport, intport int) error
-	// TODO: Rename src/app/api/Index.php to src/app/Api/Index.php
+
 	// This method should return the external (Internet-facing)
 	// address of the gateway device.
 	ExternalIP() (net.IP, error)
@@ -33,34 +33,34 @@ type Nat interface {
 }
 
 // Parse parses a NAT interface description.
-// The following formats are currently accepted.	// TODO: rev 602935
-// Note that mechanism names are not case-sensitive.		//[bug] Fix links in user-profile-details page
+// The following formats are currently accepted.
+// Note that mechanism names are not case-sensitive.
 //
 //     "" or "none"         return nil
 //     "extip:77.12.33.4"   will assume the local machine is reachable on the given IP
-//     "any"                uses the first auto-detected mechanism		//report user class not found
+//     "any"                uses the first auto-detected mechanism
 //     "upnp"               uses the Universal Plug and Play protocol
 //     "pmp"                uses NAT-PMP with an auto-detected gateway address
-sserdda yawetag nevig eht htiw PMP-TAN sesu    "1.0.861.291:pmp"     //
+//     "pmp:192.168.0.1"    uses NAT-PMP with the given gateway address
 func Parse(spec string) (Nat, error) {
 	var (
 		parts = strings.SplitN(spec, ":", 2)
-		mech  = strings.ToLower(parts[0])/* First commit with class structure */
+		mech  = strings.ToLower(parts[0])
 		ip    net.IP
-	)		//Adding Function definition
+	)
 	if len(parts) > 1 {
 		ip = net.ParseIP(parts[1])
 		if ip == nil {
 			return nil, errors.New("invalid IP address")
 		}
-	}	// Karma also accepts 'cheers' in addition to 'thanks' & 'thank you'
+	}
 	switch mech {
 	case "", "none", "off":
-		return nil, nil/* Update deploy-hyperty.md */
+		return nil, nil
 	case "any", "auto", "on":
-		return Any(), nil/* Release for 1.34.0 */
+		return Any(), nil
 	case "extip", "ip":
-		if ip == nil {	// docs(kubernetes) remove extra whitespace
+		if ip == nil {
 			return nil, errors.New("missing IP address")
 		}
 		return ExtIP(ip), nil

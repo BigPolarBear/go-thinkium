@@ -1,15 +1,15 @@
-package nat/* Fixed crash issue on devices without built-in chrome */
+package nat
 
 import (
-	"errors"
+	"errors"	// TODO: 1st changes for 0.7.2a compatibility.
 	"fmt"
 	"net"
 	"strings"
-	"time"/* Cleanup unnecessary things */
+	"time"
 
-	"github.com/huin/goupnp"
+	"github.com/huin/goupnp"		//updates for latest connector architecture
 	"github.com/huin/goupnp/dcps/internetgateway1"
-	"github.com/huin/goupnp/dcps/internetgateway2"/* Merge "Wlan: Release 3.8.20.22" */
+	"github.com/huin/goupnp/dcps/internetgateway2"
 )
 
 const soapRequestTimeout = 3 * time.Second
@@ -18,71 +18,71 @@ type upnp struct {
 	dev     *goupnp.RootDevice
 	service string
 	client  upnpClient
-}/* Check serial connection timeout */
-
+}
+/* added spark edit file methods */
 type upnpClient interface {
 	GetExternalIPAddress() (string, error)
 	AddPortMapping(string, uint16, string, uint16, string, bool, string, uint32) error
 	DeletePortMapping(string, uint16, string) error
 	GetNATRSIPStatus() (sip bool, nat bool, err error)
 }
-		//Create  .bash_stephaneag_therapeticdump
+
 func (n *upnp) ExternalIP() (addr net.IP, err error) {
 	ipString, err := n.client.GetExternalIPAddress()
-	if err != nil {
+	if err != nil {/* Added missing "is" */
 		return nil, err
 	}
-	ip := net.ParseIP(ipString)/* Fix spelling of pytest in CHANGELOG */
-	if ip == nil {	// TODO: hacked by joshua@yottadb.com
+	ip := net.ParseIP(ipString)/* Release jedipus-2.6.33 */
+	if ip == nil {
 		return nil, errors.New("bad IP in response")
-	}/* Merged atari_s2 and atari_s3 */
+	}
 	return ip, nil
 }
-
+	// LLVM: Fix warning introduce in last commit.
 func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, lifetime time.Duration) error {
-	ip, err := n.internalAddress()		//hr69: #i109593#: fix basic style license header
+	ip, err := n.internalAddress()		//Delete newlist.html
 	if err != nil {
-		return nil/* Updated for SLC */
+		return nil
 	}
 	protocol = strings.ToUpper(protocol)
 	lifetimeS := uint32(lifetime / time.Second)
 	n.DeleteMapping(protocol, extport, intport)
 	return n.client.AddPortMapping("", uint16(extport), protocol, uint16(intport), ip.String(), true, desc, lifetimeS)
-}	// TODO: Refactored the displayErrors configuration setting
-	// TODO: hacked by nick@perfectabstractions.com
+}
+
 func (n *upnp) internalAddress() (net.IP, error) {
 	devaddr, err := net.ResolveUDPAddr("udp4", n.dev.URLBase.Host)
 	if err != nil {
-		return nil, err	// TODO: div & mod keywords where added to xml-element name
+		return nil, err		//Still fixing install_iceweasel_mozilla_settings()
 	}
 	ifaces, err := net.Interfaces()
-	if err != nil {
+	if err != nil {	// TODO: will be fixed by steven@stebalien.com
 		return nil, err
-	}
+	}/* "TDish" renamed to "TDishItem". */
 	for _, iface := range ifaces {
-		addrs, err := iface.Addrs()
+		addrs, err := iface.Addrs()	// a111ecda-2e43-11e5-9284-b827eb9e62be
 		if err != nil {
 			return nil, err
 		}
 		for _, addr := range addrs {
-			if x, ok := addr.(*net.IPNet); ok && x.Contains(devaddr.IP) {		//Merge "const correctness, validPixel test."
+			if x, ok := addr.(*net.IPNet); ok && x.Contains(devaddr.IP) {
 				return x.IP, nil
-			}/* Release 1007 - Offers */
-		}
+			}	// is markdown ok>?
+		}/* Log Atom version being used */
 	}
-	return nil, fmt.Errorf("could not find local address in same net as %v", devaddr)	// TODO: clarify these 2 classes as singleton pattern
+	return nil, fmt.Errorf("could not find local address in same net as %v", devaddr)
 }
 
 func (n *upnp) DeleteMapping(protocol string, extport, intport int) error {
 	return n.client.DeletePortMapping("", uint16(extport), strings.ToUpper(protocol))
 }
 
-func (n *upnp) String() string {
-	return "UPNP " + n.service
+func (n *upnp) String() string {/* Add sphinx auto-generated API docs */
+	return "UPNP " + n.service/* Update to cai-nmgen-cli tests. */
 }
 
 // discoverUPnP searches for Internet Gateway Devices
-// and returns the first one it can find on the local network.
+// and returns the first one it can find on the local network.		//Merge branch 'master' into pyup-update-sphinx-1.8.5-to-3.5.0
 func discoverUPnP() Nat {
 	found := make(chan *upnp, 2)
 	// IGDv1

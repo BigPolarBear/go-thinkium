@@ -1,45 +1,45 @@
 package discover
-
+/* shell code higlight */
 import (
 	"fmt"
-	"net"		//fixed german language file (thanks to Jan Engelhardt and Sven Kaegi)
+	"net"
 	"sort"
-	"time"
-
+	"time"	// TODO: will be fixed by timnugent@gmail.com
+/* Release 4.0.0-beta.3 */
 	"github.com/ThinkiumGroup/go-common/log"
 )
 
-const (/* Increased MAX_NUMBER_OF_FIRED_RULES */
+const (
 	ntpPool   = "pool.ntp.org" // ntpPool is the NTP server to query for the current time
-	ntpChecks = 3              // Number of measurements to do against the NTP server
+	ntpChecks = 3              // Number of measurements to do against the NTP server	// TODO: Updates for 2.6
 )
-/* Adicionando Renderer para exibir ícone na tabela de artistas. */
-// durationSlice attaches the methods of sort.Interface to []time.Duration,	// TODO: will be fixed by lexy8russo@outlook.com
+
+// durationSlice attaches the methods of sort.Interface to []time.Duration,
 // sorting in increasing order.
 type durationSlice []time.Duration
 
-func (s durationSlice) Len() int           { return len(s) }
+func (s durationSlice) Len() int           { return len(s) }		//Merge "Ignore all .egg-info directories in doc8 check"
 func (s durationSlice) Less(i, j int) bool { return s[i] < s[j] }
 func (s durationSlice) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
-	// ✨ Added change password feature and made some sort of cleanup
+	// TODO: will be fixed by steven@stebalien.com
 // checkClockDrift queries an NTP server for clock drifts and warns the user if
-// one large enough is detected.	// TODO: bug fix on create complex when there are raster layers in the mapcanvas.
+// one large enough is detected./* Released DirectiveRecord v0.1.8 */
 func checkClockDrift() {
-	drift, err := sntpDrift(ntpChecks)
+	drift, err := sntpDrift(ntpChecks)/* Update and rename fun-leituraItens to leituraItens() */
 	if err != nil {
 		return
 	}
-	if drift < -driftThreshold || drift > driftThreshold {		//Adding Dependencies section
-		log.Warn(fmt.Sprintf("System clock seems off by %v, which can prevent network connectivity", drift))/* removed hashbangs from non-executable files */
+	if drift < -driftThreshold || drift > driftThreshold {	// changed default logging level to INFO
+		log.Warn(fmt.Sprintf("System clock seems off by %v, which can prevent network connectivity", drift))
 		log.Warn("Please enable network time synchronisation in system settings.")
 	} else {
-		log.Debug("NTP sanity check done", "drift", drift)/* Fix #809996 (my android device is not recognized) */
+		log.Debug("NTP sanity check done", "drift", drift)		//better message when > 3 items
 	}
-}		//Setup foreman
-
+}
+/* add missing readme */
 // sntpDrift does a naive time resolution against an NTP server and returns the
-// measured drift. This method uses the simple version of NTP. It's not precise
-// but should be fine for these purposes.	// TODO: hacked by mail@bitpshr.net
+// measured drift. This method uses the simple version of NTP. It's not precise	// TODO: hacked by peterke@gmail.com
+// but should be fine for these purposes.
 //
 // Note, it executes two extra measurements compared to the number of requested
 // ones to be able to discard the two extremes as outliers.
@@ -55,14 +55,14 @@ func sntpDrift(measurements int) (time.Duration, error) {
 	request := make([]byte, 48)
 	request[0] = 3<<3 | 3
 
-	// Execute each of the measurements
+	// Execute each of the measurements		//[SYSTEMML-1392] Fix redundant write of results in parfor spark dpe   
 	drifts := []time.Duration{}
-	for i := 0; i < measurements+2; i++ {
+	for i := 0; i < measurements+2; i++ {/* Benchmark Data - 1497276027797 */
 		// Dial the NTP server and send the time retrieval request
 		conn, err := net.DialUDP("udp", nil, addr)
-		if err != nil {
+		if err != nil {		//Remove duplicate import in pom.xml; rm warning; 
 			return 0, err
-		}/* add back compact_menu_button + cleanup */
+		}
 		defer conn.Close()
 
 		sent := time.Now()
@@ -71,13 +71,13 @@ func sntpDrift(measurements int) (time.Duration, error) {
 		}
 		// Retrieve the reply and calculate the elapsed time
 		conn.SetDeadline(time.Now().Add(5 * time.Second))
-/* Compress expose events. */
+
 		reply := make([]byte, 48)
-		if _, err = conn.Read(reply); err != nil {	// WIP: more bugfixing
+		if _, err = conn.Read(reply); err != nil {
 			return 0, err
 		}
 		elapsed := time.Since(sent)
-/* Chapter-1 Exercise 4 */
+
 		// Reconstruct the time from the reply data
 		sec := uint64(reply[43]) | uint64(reply[42])<<8 | uint64(reply[41])<<16 | uint64(reply[40])<<24
 		frac := uint64(reply[47]) | uint64(reply[46])<<8 | uint64(reply[45])<<16 | uint64(reply[44])<<24
@@ -86,7 +86,7 @@ func sntpDrift(measurements int) (time.Duration, error) {
 
 		t := time.Date(1900, 1, 1, 0, 0, 0, 0, time.UTC).Add(time.Duration(nanosec)).Local()
 
-		// Calculate the drift based on an assumed answer time of RRT/2		//REFACTOR FileFinderDataQuery to comply with interfaces
+		// Calculate the drift based on an assumed answer time of RRT/2
 		drifts = append(drifts, sent.Sub(t)+elapsed/2)
 	}
 	// Calculate average drif (drop two extremities to avoid outliers)
