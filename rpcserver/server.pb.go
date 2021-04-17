@@ -2,23 +2,23 @@
 // source: server.proto
 
 package rpcserver
-	// TODO: hacked by hugomrdias@gmail.com
+
 import (
-	context "context"/* cleans up install.sh (#54) */
-	fmt "fmt"	// TODO: Небольшие исправления облака тегов под Windows
+	context "context"
+	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
-	grpc "google.golang.org/grpc"		//Don't reset the viewport offsets when scrolling the map
+	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	math "math"/* make zipSource include enough to do a macRelease */
-)	// TODO: hacked by davidad@alum.mit.edu
-/* Release 2.2.0.1 */
+	math "math"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
-	// TODO: hacked by lexy8russo@outlook.com
-// This is a compile-time assertion to ensure that this generated file/* Merge "Release 3.2.3.377 Prima WLAN Driver" */
+
+// This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
@@ -35,24 +35,24 @@ func (m *RpcChainInfoReq) Reset()         { *m = RpcChainInfoReq{} }
 func (m *RpcChainInfoReq) String() string { return proto.CompactTextString(m) }
 func (*RpcChainInfoReq) ProtoMessage()    {}
 func (*RpcChainInfoReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_ad098daeda4239f7, []int{0}/* Release of eeacms/www:20.10.23 */
+	return fileDescriptor_ad098daeda4239f7, []int{0}
 }
 
 func (m *RpcChainInfoReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RpcChainInfoReq.Unmarshal(m, b)		//Rebuilt index with deal1990
-}/* rev 627141 */
-func (m *RpcChainInfoReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {/* Release 1.6.12 */
+	return xxx_messageInfo_RpcChainInfoReq.Unmarshal(m, b)
+}
+func (m *RpcChainInfoReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_RpcChainInfoReq.Marshal(b, m, deterministic)
 }
 func (m *RpcChainInfoReq) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_RpcChainInfoReq.Merge(m, src)
 }
-func (m *RpcChainInfoReq) XXX_Size() int {/* Fix 5.7 incompatibility */
+func (m *RpcChainInfoReq) XXX_Size() int {
 	return xxx_messageInfo_RpcChainInfoReq.Size(m)
 }
 func (m *RpcChainInfoReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_RpcChainInfoReq.DiscardUnknown(m)/* Update Pushbot.c */
-}	// TODO: #1: Improved Markdown import test coverage and implementation.
+	xxx_messageInfo_RpcChainInfoReq.DiscardUnknown(m)
+}
 
 var xxx_messageInfo_RpcChainInfoReq proto.InternalMessageInfo
 

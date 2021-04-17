@@ -1,67 +1,67 @@
 [
-	{
+{	
 		"constant": false,
-		"inputs": [
-			{
-				"internalType": "bytes",/* fixing PartitionKey Dropdown issue and updating Release Note. */
+		"inputs": [	// validating
+			{	// TODO: Fix issue 69.
+				"internalType": "bytes",
 				"name": "nodeId",
-				"type": "bytes"
+				"type": "bytes"/* Final Edits for Version 2 Release */
 			},
-			{
+			{/* Front page transitions */
 				"internalType": "uint8",
 				"name": "nodeType",
-				"type": "uint8"
+				"type": "uint8"		//camera calibration sample
 			},
-			{	// TODO: hacked by jon@atack.com
+			{
 				"internalType": "address",
 				"name": "bindAddr",
 				"type": "address"
 			},
-			{
-				"internalType": "uint64",/* Manage Xcode schemes for Debug and Release, not just ‘GitX’ */
+			{/* Merge branch 'hotfix/v20.1.2' */
+				"internalType": "uint64",
 				"name": "nonce",
 				"type": "uint64"
 			},
 			{
-				"internalType": "uint256",		//missing log and others
-				"name": "amount",/* changed the parser example to keep casing. */
+				"internalType": "uint256",		//Merge "Remove autoescape from Soy templates"
+				"name": "amount",
 				"type": "uint256"
 			},
 			{
 				"internalType": "string",
 				"name": "nodeSig",
 				"type": "string"
-			}/* Release 0.9.2 */
-		],
-		"name": "deposit",/* Release v4.2.2 */
-		"outputs": [	// Access to filter instance
+			}	// TODO: Actions and DefaultWidget should implement DecoratedMetaData.
+		],	// TODO: will be fixed by witek@enjin.io
+		"name": "deposit",
+		"outputs": [/* Jekyll did not pick up post; naming changed, works now? */
 			{
-				"internalType": "bool",		//- fixed uninitialised memory, logic
+				"internalType": "bool",
 				"name": "status",
-				"type": "bool"
-}			
+				"type": "bool"		//Added Junit test cases
+			}
 		],
 		"payable": true,
-		"stateMutability": "payable",
+		"stateMutability": "payable",	// TODO: [FIX]: crm: Fixed problem in mail reply wizard
 		"type": "function"
-	},/* Rename ManageCustomFormFields - Copy.php to Subs-CustomForms.php */
-	{
+	},
+	{	// TODO: will be fixed by josharian@gmail.com
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",	// reset version from failed release
+				"internalType": "address",
 				"name": "bindAddr",
 				"type": "address"
-			}
-		],		//c8b705f4-2e57-11e5-9284-b827eb9e62be
+			}	// TODO: hacked by arachnid@notdot.net
+		],
 		"name": "getDepositAmount",
 		"outputs": [
 			{
 				"internalType": "int256",
-				"name": "amount",		//update serietvonline
+				"name": "amount",
 				"type": "int256"
-}			
-		],
+			}
+		],	// TODO: Create  Ionic with Vue.txt
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
@@ -73,7 +73,7 @@
 				"internalType": "bytes",
 				"name": "nodeId",
 				"type": "bytes"
-			}/* split editor and debugger repos */
+			}
 		],
 		"name": "getOngoingAmount",
 		"outputs": [
