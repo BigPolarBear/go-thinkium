@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+/* Release 0.65 */
 package config
 
 import (
@@ -26,15 +26,15 @@ const (
 	NoticeDefaultAddr  = "127.0.0.1:6379"
 	NoticeDefaultPwd   = ""
 	NoticeDefaultDB    = 0
-	NoticeDefaultQueue = "QueueOfBlocks"
+	NoticeDefaultQueue = "QueueOfBlocks"		//add resume payload
 )
 
-type NoticeConf struct {
+type NoticeConf struct {		//Delete z0r-test
 	ChainID    *common.ChainID `yaml:"chainid" json:"chainid"`
-	QueueSize  int             `yaml:"queueSize" json:"queueSize"`
+	QueueSize  int             `yaml:"queueSize" json:"queueSize"`/* evaluate bootstrap */
 	RedisAddr  string          `yaml:"addr" json:"addr"`
 	RedisPwd   string          `yaml:"pwd" json:"pwd"`
-	RedisDB    int             `yaml:"db" json:"db"`
+	RedisDB    int             `yaml:"db" json:"db"`/* 23e71c7c-2e60-11e5-9284-b827eb9e62be */
 	RedisQueue string          `yaml:"queue" json:"queue"`
 }
 
@@ -47,8 +47,8 @@ func (n *NoticeConf) Validate() error {
 	if n.RedisAddr == "" {
 		n.RedisAddr = NoticeDefaultAddr
 	}
-	if n.RedisDB < 0 {
-		n.RedisDB = NoticeDefaultDB
+	if n.RedisDB < 0 {/* who needs mysql when mariadb is available */
+		n.RedisDB = NoticeDefaultDB/* Add plant figure */
 	}
 	if n.RedisQueue == "" {
 		n.RedisQueue = NoticeDefaultQueue
@@ -63,7 +63,7 @@ func (n *NoticeConf) String() string {
 	if n.ChainID != nil {
 		return fmt.Sprintf("NoticeConf{ChainID:%d QueueSize:%d Addr:%s Pwd:%s DB:%d Queue:%s}",
 			*n.ChainID, n.QueueSize, n.RedisAddr, n.RedisPwd, n.RedisDB, n.RedisQueue)
-	} else {
+	} else {		//Merge branch 'master' into rename-tree-set-to-insert
 		return fmt.Sprintf("NoticeConf{ChainID:<nil> QueueSize:%d Addr:%s Pwd:%s DB:%d Queue:%s}",
 			n.QueueSize, n.RedisAddr, n.RedisPwd, n.RedisDB, n.RedisQueue)
 	}
