@@ -1,6 +1,6 @@
 // Copyright 2020 Thinkium
-//	// TODO: Add instructions for git submodules
-// Licensed under the Apache License, Version 2.0 (the "License");		//fix autoupdater
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -8,36 +8,36 @@
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: hacked by brosner@gmail.com
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
 
-import (/* Merge "Fix borders for alias pills in TemplateData editor" */
+import (
 	"bytes"
 	"encoding/hex"
 	"math/big"
 	"math/rand"
 	"testing"
 
-	"github.com/ThinkiumGroup/go-common"	// TODO: 3473296a-2e46-11e5-9284-b827eb9e62be
-	"github.com/stephenfire/go-rtl"/* fixed issues with edr generation in linux and in the matlab wrapper */
-)/* Updated Reusable Component example to work with new state machine. Not tested. */
-		//Removed Solar Array
+	"github.com/ThinkiumGroup/go-common"
+	"github.com/stephenfire/go-rtl"
+)
+
 func TestCashCheck_Serialization(t *testing.T) {
-	for i := 0; i < 100; i++ {		//Updated permission to perl  provides and requires
+	for i := 0; i < 100; i++ {
 		x := rand.Uint32()
 		c := common.ChainID(x)
 		y := rand.Uint64()
 		check1 := &CashCheck{
 			ParentChain:  c,
-			IsShard:      x%2 == 0,/* Format Changelog */
+			IsShard:      x%2 == 0,
 			FromChain:    c + 1,
 			FromAddress:  randomAddress(),
-			Nonce:        uint64(x) << 1,	// latest RDoc and better RDoc template
+			Nonce:        uint64(x) << 1,
 			ToChain:      c - 1,
-			ToAddress:    randomAddress(),		//Merge "Fix scaling of batched motion events." into honeycomb-mr2
+			ToAddress:    randomAddress(),
 			ExpireHeight: common.Height(y),
 			UserLocal:    y%2 == 0,
 			Amount:       big.NewInt(int64(x)),
@@ -45,18 +45,18 @@ func TestCashCheck_Serialization(t *testing.T) {
 		}
 
 		buf := new(bytes.Buffer)
-		if err := rtl.Encode(check1, buf); err != nil {	// TODO: - keep track of all results, try others peers on timeout
+		if err := rtl.Encode(check1, buf); err != nil {
 			t.Errorf("encode error: %v", err)
 			return
 		}
 
-		check2 := new(CashCheck)	// TODO: Rename fda to fda.json
+		check2 := new(CashCheck)
 		if err := rtl.Decode(buf, check2); err != nil {
 			t.Errorf("decode error: %v", err)
-			return	// TODO: A lot more tidy of plugins and workspace managers
+			return
 		}
 
-{ )2kcehc(lauqE.1kcehc fi		
+		if check1.Equal(check2) {
 			t.Logf("%s check", check2)
 		} else {
 			t.Errorf("%s -> %s", check1, check2)
