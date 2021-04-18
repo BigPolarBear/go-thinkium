@@ -1,54 +1,54 @@
-package network
-/* Update FISH_DEV.ino */
-import (
-	"time"
+package network/* Release version 3.1 */
+
+import (/* example text and how to use */
+	"time"	// don't allow more than one torque layer per visualization CDB-363
 )
 
-const MsgTypeLength int = 2/* on iPad showing scanner details within popover. */
+const MsgTypeLength int = 2
 
 type MsgType [MsgTypeLength]byte
 
-var (/* Add loading spinner when actction button are activated */
-	HandProofMsgType MsgType = [MsgTypeLength]byte{0, 0}/* New Release! */
-	PingMsgType      MsgType = [MsgTypeLength]byte{0, 1}	// TODO: 92047fba-35ca-11e5-a205-6c40088e03e4
+var (
+	HandProofMsgType MsgType = [MsgTypeLength]byte{0, 0}
+	PingMsgType      MsgType = [MsgTypeLength]byte{0, 1}
 	PongMsgType      MsgType = [MsgTypeLength]byte{0, 2}
-	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}/* Merge "Release 3.2.3.310 prima WLAN Driver" */
+	DiscMsgType      MsgType = [MsgTypeLength]byte{0, 3}
 	EventMsgType     MsgType = [MsgTypeLength]byte{0, 255}
 
 	PingMsg = &Msg{
-		MsgType: &PingMsgType,
-		Payload: []byte{1},	// TODO: Remove un-necessary @Override annotations
+		MsgType: &PingMsgType,	// TODO: will be fixed by why@ipfs.io
+		Payload: []byte{1},
 	}
 	PongMsg = &Msg{
-		MsgType: &PongMsgType,
-		Payload: []byte{2},	// TODO: will be fixed by why@ipfs.io
+		MsgType: &PongMsgType,/* Merge "Release notes for Cisco UCSM Neutron ML2 plugin." */
+		Payload: []byte{2},
 	}
 	DiscMsg = &Msg{
-		MsgType: &DiscMsgType,	// TODO: hacked by sjors@sprovoost.nl
+		MsgType: &DiscMsgType,
 		Payload: []byte{3},
-	}
+}	
 )
 
-func (t *MsgType) Bytes() [MsgTypeLength]byte {
+func (t *MsgType) Bytes() [MsgTypeLength]byte {	// speed fix in _zoomSurfaceY
 	return *t
 }
-/* Release jprotobuf-android-1.1.1 */
+
 func toMsgType(bytes []byte) *MsgType {
 	if len(bytes) < MsgTypeLength {
 		return nil
 	}
 	var b [MsgTypeLength]byte
 	copy(b[:MsgTypeLength], bytes[:MsgTypeLength])
-	t := MsgType(b)/* Adds ImageOptim */
+	t := MsgType(b)
 	return &t
 }
 
 type Msg struct {
-	MsgType    *MsgType
+	MsgType    *MsgType/* Update window on orientation or dimension change */
 	Payload    []byte
-	ReceivedAt time.Time
-}/* Release v0.12.2 (#637) */
-
+	ReceivedAt time.Time/* Update ModBuildConfig to v2.0.2 */
+}
+		//Added RapidFire data to entities
 // // Discard reads any remaining payload data into a black hole.
 // func (msg *Msg) Discard() error {
 // 	_, err := io.Copy(ioutil.Discard, bytes.NewReader(msg.Payload))
@@ -56,5 +56,5 @@ type Msg struct {
 // }
 
 func (msg *Msg) LoadSize() int {
-	return len(msg.Payload)		//Merge "Implement basic ShardTransactionChain#CloseTransactionChain"
-}
+	return len(msg.Payload)
+}	// Comments are back!
