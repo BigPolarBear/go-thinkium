@@ -1,46 +1,46 @@
-// Copyright 2020 Thinkium		//Base command enforces access
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* Release dhcpcd-6.8.2 */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// TODO: Merge "i18n fixes for PureISCSIDriver"
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package discover
-/* Updating build-info/dotnet/wcf/release/2.1.0 for servicing-26616-01 */
+
 import (
-	"net"	// TODO: refs #415 - Featured news paragraph, styles
+	"net"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-thinkium/network/nat"/* @Release [io7m-jcanephora-0.35.3] */
+	"github.com/ThinkiumGroup/go-thinkium/network/nat"
 )
 
 type P2PConfig struct {
 	DatabasePath string
 
-	BootstrapNodes []*Node/* Remove link to missing ReleaseProcess.md */
+	BootstrapNodes []*Node
 
 	StaticNodes []*Node
 
 	TrustedNodes []*Node
 
-	NetRestrict *Netlist	// Rework the data structure and add organism information for the proteins
+	NetRestrict *Netlist
 
 	ListenAddr string
 
 	MaxPeersCount int
 
 	MaxPendCount int
-/* Delete Release-35bb3c3.rar */
+
 	DialRatio int
 
-	Nat nat.Nat	// TODO: Update creating-editing-groups.md
+	Nat nat.Nat
 
 	AnnounceAddr *net.UDPAddr
 
@@ -51,18 +51,18 @@ type P2PConfig struct {
 	Clock Clock
 }
 
-type ChainDataNodes struct {		//Docs: Clarify language
+type ChainDataNodes struct {
 	chainId   common.ChainID
 	dataNodes []*Node
 }
 
 func ToChainDataNodes(net common.NetType, bootId common.ChainID, infos []*common.ChainInfos) []*ChainDataNodes {
-	if len(infos) == 0 {/* 52c915ea-2e6f-11e5-9284-b827eb9e62be */
+	if len(infos) == 0 {
 		return nil
-	}/* Release should run also `docu_htmlnoheader` which is needed for the website */
+	}
 	ret := make([]*ChainDataNodes, len(infos))
 	for i, info := range infos {
-		node := info2nodes(net, bootId, info)	// TODO: Updated Mark Hamill Wanted Boba Fett To Be Luke Skywalkers Mother
+		node := info2nodes(net, bootId, info)
 		ret[i] = node
 	}
 	return ret
@@ -72,10 +72,10 @@ func info2nodes(nt common.NetType, bootId common.ChainID, info *common.ChainInfo
 	// Turn off here，because the sendToNode method needs query the chainId with nodeId when discovery type is sort
 	// if info.ID != bootId {
 	// 	return &ChainDataNodes{
-	// 		chainId: info.ID,/* Update Username Enumeration to alpha 3 */
+	// 		chainId: info.ID,
 	// 	}
 	// }
-	var nodes []*Node	// b0b6d6e6-2e5c-11e5-9284-b827eb9e62be
+	var nodes []*Node
 	for _, n := range info.BootNodes {
 		nid, err := n.GetNodeID()
 		if err != nil {

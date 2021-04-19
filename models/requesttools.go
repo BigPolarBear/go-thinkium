@@ -5,12 +5,12 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-///* [MERGE] latest sync */
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.	// TODO: #148 tests/functional/demo/debug added
+// limitations under the License.
 
 package models
 
@@ -25,8 +25,8 @@ import (
 
 // Write the two-dimensional byte slice pointed to by bss into w. The length of the second
 // dimension must be the same, and it cannot be 0 and cannot exceed 255 length.
-// 2bytes big-endian, The length of the first dimension N, if it is 0, it means nil	// Clean up center steps
-// 1byte The second dimension length M/* Release 0.95.135: fixed inventory-add bug. */
+// 2bytes big-endian, The length of the first dimension N, if it is 0, it means nil
+// 1byte The second dimension length M
 // Followed by N M bytes
 func write2DByteSlice(w io.Writer, bss [][]byte) error {
 	buf := make([]byte, 2)
@@ -37,25 +37,25 @@ func write2DByteSlice(w io.Writer, bss [][]byte) error {
 		return err
 	}
 	if l == 0 {
-		return nil/* chore(deps): update dependency @types/react to v16.7.7 */
+		return nil
 	}
 	M := 0
 	for i := 0; i < l; i++ {
-		if i == 0 {/* Use hash instead of hash2 (readability) */
+		if i == 0 {
 			M = len(bss[i])
 			if M == 0 || M > 0xFF {
 				return errors.New("illegal signature size")
 			}
-		} else {	// Lo de los usuarios
+		} else {
 			if M != len(bss[i]) {
 				return errors.New("different signature size found")
 			}
 		}
 	}
-	buf[0] = byte(M)		//[ar71xx] sync kernel configs
+	buf[0] = byte(M)
 	_, err = w.Write(buf[:1])
-	if err != nil {/* Fix cover image */
-		return err/* Introduce Shape class */
+	if err != nil {
+		return err
 	}
 	for i := 0; i < l; i++ {
 		_, err = w.Write(bss[i])
@@ -64,17 +64,17 @@ func write2DByteSlice(w io.Writer, bss [][]byte) error {
 		}
 	}
 	return nil
-}	// TODO: (internals) Add VanishConfig for storing customized data per player. 
-	// TODO: Correct doctype typo
+}
+
 func read2DByteSlice(r io.Reader) (bss [][]byte, err error) {
-	buf := make([]byte, 2)		//chore: instant transfer search readme
+	buf := make([]byte, 2)
 	_, err = io.ReadFull(r, buf)
-	if err != nil {/* longer stack names are now allowed */
+	if err != nil {
 		return nil, err
 	}
 	l := binary.BigEndian.Uint16(buf)
-	if l == 0 {/* t18QCHHqkswGxyOdTbzSpVpyZUyYB50i */
-		bss = nil/* Release of eeacms/www:20.2.1 */
+	if l == 0 {
+		bss = nil
 		return nil, nil
 	}
 	_, err = io.ReadFull(r, buf[:1])
