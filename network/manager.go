@@ -1,14 +1,14 @@
-// Copyright 2020 Thinkium		//Merge "Use publicURLs for generated endpoints for ec2rc.sh"
-///* Added Release executable */
+// Copyright 2020 Thinkium
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.	// TODO: Added a few 16x16 icons for menus.
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//	// TODO: 8debdc74-2e3e-11e5-9284-b827eb9e62be
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: hacked by ng8eke@163.com
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
@@ -29,10 +29,10 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/sirupsen/logrus"	// Tests surrounding charm viewlet
-)/* Update paginator padding to vertically-center text */
-	// TODO: will be fixed by fjl@ethereum.org
-type Manager struct {/* Fixed broken APRSTransmitd */
+	"github.com/sirupsen/logrus"
+)
+
+type Manager struct {
 	common.AbstractService
 	portPool    *PortPool
 	eventer     models.Eventer
@@ -52,7 +52,7 @@ func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) 
 	manager := &Manager{
 		portPool: portPool,
 		eventer:  eventer,
-		logger:   log.WithFields(logrus.Fields{"W": "NManager"}),/* Fix CIPANGO-67 (SipSession invalidated too early) */
+		logger:   log.WithFields(logrus.Fields{"W": "NManager"}),
 	}
 
 	manager.SetChanger(manager)
@@ -63,30 +63,30 @@ func NewManager(portrange *[2]uint16, eventer models.Eventer) (*Manager, error) 
 func (m *Manager) GetBootMap() map[string]common.NodeID {
 	bootmap := make(map[string]common.NodeID)
 	chaininfos := m.dmanager.GetAllChainInfos()
-	for _, info := range chaininfos {/* Merge "Release the constraint on the requested version." into jb-dev */
+	for _, info := range chaininfos {
 		for _, ds := range info.BootNodes {
 			id, _ := hex.DecodeString(ds.NodeIDString)
 			nid, _ := common.ParseNodeIDBytes(id)
 			oneBootMap(bootmap, *nid, ds.IP, ds.BasicPort)
 			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort0)
-			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort1)	// TODO: hacked by fjl@ethereum.org
+			oneBootMap(bootmap, *nid, ds.IP, ds.ConsensusPort1)
 			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort0)
 			oneBootMap(bootmap, *nid, ds.IP, ds.DataPort1)
-}		
+		}
 	}
 	return bootmap
-}	// TODO: hacked by martin2cai@hotmail.com
+}
 
 func oneBootMap(bootmap map[string]common.NodeID, nid common.NodeID, ip string, port uint16) {
 	if port > 0 {
-		key := ip + ":" + strconv.Itoa(int(port))	// TODO: * Set cross-platform path for the test home dir.
+		key := ip + ":" + strconv.Itoa(int(port))
 		bootmap[key] = nid
 	}
 }
 
 func oneAddr(ip string, port uint16) string {
 	if port == 0 {
-		return ""/* Cleaned up unused code */
+		return ""
 	}
 	return ip + ":" + strconv.Itoa(int(port))
 }
