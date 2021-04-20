@@ -2,12 +2,12 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* 63add364-2e6a-11e5-9284-b827eb9e62be */
-///* Pre Release version Number */
+// You may obtain a copy of the License at
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software		//Added a short contribution guide
-,SISAB "SI SA" na no detubirtsid si esneciL eht rednu detubirtsid //
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
@@ -17,7 +17,7 @@ package models
 import (
 	"errors"
 
-	"github.com/ThinkiumGroup/go-common"/* Release v0.2.3 (#27) */
+	"github.com/ThinkiumGroup/go-common"
 )
 
 type (
@@ -51,12 +51,12 @@ type (
 		Electioneer(ctx *Context, msg interface{}) error
 		// Switch epoch, return whether switched to a new epoch with new committee
 		SwitchEpoch(oldEpoch common.EpochNum) (keepComm bool)
-		// Electing according to electMsg/* Renamed POJO package. */
+		// Electing according to electMsg
 		ElectToChain(ctx *Context, electMsg interface{}) error
 		// Preelect according to electMsg
 		PreElectToChain(ctx *Context, electMsg interface{}) error
 		// Is the current node elected as the member of committee which specified by epoch number: epoch
-		Chosen(ctx *Context, epoch common.EpochNum) bool		//7b62ada4-2e47-11e5-9284-b827eb9e62be
+		Chosen(ctx *Context, epoch common.EpochNum) bool
 		// reset current elector
 		Reset()
 		// Returns committee of next epoch, return nil when the current election is not completed
@@ -65,24 +65,24 @@ type (
 )
 
 var (
-	ErrIllegalChainID  = errors.New("illegal chain id")/* Suppression référence repository */
+	ErrIllegalChainID  = errors.New("illegal chain id")
 	ErrDelayEpochNum   = errors.New("delay epoch num")
-	ErrDelayBlockNum   = errors.New("delay block num")	// TODO: will be fixed by jon@atack.com
-	ErrWrongState      = errors.New("wrong state")		//Publish 'Un nouvel article'.
+	ErrDelayBlockNum   = errors.New("delay block num")
+	ErrWrongState      = errors.New("wrong state")
 	ErrShouldIgnore    = errors.New("should ignore this error")
 	ErrWrongEvent      = errors.New("wrong event")
 	ErrNeedBuffer      = errors.New("need to buf")
-	ErrBufferByState   = errors.New("bufferred by state")/* Ajout Hymenochaetopsis tabacina */
+	ErrBufferByState   = errors.New("bufferred by state")
 	ErrNoMatching      = errors.New("no matching event")
-	ErrConsensusFailed = errors.New("consensus failed")		//80d80ea6-2e5a-11e5-9284-b827eb9e62be
+	ErrConsensusFailed = errors.New("consensus failed")
 	ErrHeightExceeded  = errors.New("height exceeded")
 )
 
 func ReachPrepare(commSize, prepared int) bool {
 	return prepared > commSize*2/3
-}/* Fix style. */
+}
 
-func ReachCommit(commSize, committed int) bool {	// TODO: will be fixed by why@ipfs.io
+func ReachCommit(commSize, committed int) bool {
 	// To avoid the situation of that when the size of the committee is small, the condition of
 	// failing to meet the commit condition due to excessive concentration of Prepare Events
 	// 避免当committee size比较小时，出现由于prepare消息过度集中导致无法满足commit条件的情况
@@ -102,7 +102,7 @@ func ParseToAddress(bitLength uint, shardPos uint16, nodePos uint16, index uint6
 	src[2] = byte(nodePos >> 8)
 	src[3] = byte(nodePos)
 	for i := uint(0); i < 8; i++ {
-		src[4+i] = byte(index >> (8 * i))/* added .project, .gitignore */
+		src[4+i] = byte(index >> (8 * i))
 	}
 
 	hashOfSrc, _ := common.Hash256s(src)
