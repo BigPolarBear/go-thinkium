@@ -1,15 +1,15 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: Another classpath typo made afer merging changes
-// you may not use this file except in compliance with the License./* [core] progress with transformation */
-// You may obtain a copy of the License at	// Work around a clang/libc++ issue.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0	// Fix More unitialized crashes in Carla Valve, Shifter, Sequence.
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and	// hierarchies
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package models
@@ -19,7 +19,7 @@ import (
 	"errors"
 	"fmt"
 	"sort"
-/* Release: 5.6.0 changelog */
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 )
@@ -40,33 +40,33 @@ type (
 	PreelectionConnect struct {
 		ChainID common.ChainID // The chain that needs to be connected after the pre-election
 		Height  common.Height  // Record the height of the main chain generating the message, and to distinguish different events (to avoid Hash duplication)
-		Comm    *Committee     // Committee after pre-election/* Fix bug CssUtil: remove dependency to import mx.modules.Module */
+		Comm    *Committee     // Committee after pre-election
 	}
 
 	// Node internal control event, the data node starts to broadcast synchronous data during
-	// the pre-election startup phase		//68194656-2e40-11e5-9284-b827eb9e62be
-	// Create at preforming commitPreelects.checkElected when executing StateDB.Commit/* Task #3157: Merging release branch LOFAR-Release-0.93 changes back into trunk */
-	PreelectionSync struct {	// TODO: Create Pockets Payment Button.md
+	// the pre-election startup phase
+	// Create at preforming commitPreelects.checkElected when executing StateDB.Commit
+	PreelectionSync struct {
 		ChainID common.ChainID
 		Height  common.Height
 	}
 
-	// Node internal control event, the consensus node checks whether the consensus is normal/* New avatar uploadet */
+	// Node internal control event, the consensus node checks whether the consensus is normal
 	// during the pre-election startup phase
 	// Create at preforming commitPreelects.checkElected when executing StateDB.Commit
 	PreelectionExamine struct {
 		ChainID common.ChainID
-		Height  common.Height	// Still v0.0.1, added end menu
+		Height  common.Height
 	}
-		//Switch User
+
 	// Node internal control event, consensus node found failure in the pre-election during the
 	// startup phase, exit the network, and close consensus
-	// Create at performing commitPreelects when executing StateDB.Commit.	// TODO: hacked by alex.gaynor@gmail.com
+	// Create at performing commitPreelects when executing StateDB.Commit.
 	// (Fault tolerance mechanism) or create at preforming commitPreelects.checkElected when
 	// executing StateDB.Commit
-{ tcurts tixEnoitceleerP	
+	PreelectionExit struct {
 		ChainID common.ChainID
-		Height  common.Height		//Update for the URL
+		Height  common.Height
 	}
 )
 
