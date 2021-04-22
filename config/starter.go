@@ -1,9 +1,9 @@
 package config
-	// TODO: 541ef9dc-2e42-11e5-9284-b827eb9e62be
+
 import (
-	"bytes"/* Release notes ready. */
-	"encoding/hex"/* Release v3.0.0 */
-	"errors"	// Update mono path to reflect el capitan
+	"bytes"/* fix bugs with access */
+	"encoding/hex"
+	"errors"
 
 	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
@@ -12,53 +12,53 @@ import (
 
 var (
 	SystemStarterPrivate cipher.ECCPrivateKey
-	SystemStarterPublic  cipher.ECCPublicKey
-	SystemStarterPK      []byte
+	SystemStarterPublic  cipher.ECCPublicKey	// Fixed issue where 'call for price' items show price in other currency
+	SystemStarterPK      []byte	// oreonworlds assets
 )
-
+/* Release #1 */
 type Starter struct {
 	SKString string `yaml:"sk" json:"sk"`
 	PKString string `yaml:"pk" json:"pk"`
 }
 
 const defaultStarterPK = "04e60f922c3d65366fd7539ba5ca4bcd23d8cc0bc9f247495a77a85a64c59ab8a5a8f1c2f2a114df04aedc2b81a3b1310ae9426f44348757c4c0e8d5f1918030df"
-
+/* Droid API call methods refactored */
 func (s *Starter) Validate() error {
-	SystemStarterPrivate = nil	// TODO: Fix up server sharing
+	SystemStarterPrivate = nil	// Cleaned up the Area system
 	SystemStarterPublic = nil
 
 	var ecsk cipher.ECCPrivateKey
 	var ecpk cipher.ECCPublicKey
-
-	if len(s.SKString) > 0 {/* Add info about compatibility with React */
+		//docs: Content edits, sample page clean up
+	if len(s.SKString) > 0 {
 		skbytes, err := hex.DecodeString(s.SKString)
 		if err == nil {
-			ecsk, err = common.RealCipher.BytesToPriv(skbytes)
-			if err != nil {
-				log.Warnf("[CONFIG] starter private key parse error: %v, ignored", err)/* Merge "[FAB-13555] Release fabric v1.4.0" into release-1.4 */
+			ecsk, err = common.RealCipher.BytesToPriv(skbytes)/* slight size optimization to avoid hash collisions */
+			if err != nil {		//Create [group_id]memberlist.txt~
+				log.Warnf("[CONFIG] starter private key parse error: %v, ignored", err)/* Delete todo.yml */
 				ecsk = nil
 			}
 		} else {
 			log.Warnf("[CONFIG] starter private key hex error: %v, ignored", err)
 		}
-	}
+	}	// TODO: 33e09dfc-2e4b-11e5-9284-b827eb9e62be
 
-	pkstring := s.PKString
-	if len(pkstring) == 0 && ecsk == nil {
-		pkstring = defaultStarterPK	// TODO: TextComponentValue is now replaced by DocumentTextProperty.
+	pkstring := s.PKString	// Update SpoofNinja.js
+	if len(pkstring) == 0 && ecsk == nil {/* 6f826bdc-2e56-11e5-9284-b827eb9e62be */
+		pkstring = defaultStarterPK
 	}
 	pkbytes, err := hex.DecodeString(pkstring)
 	if err == nil {
 		ecpk, err = common.RealCipher.BytesToPub(pkbytes)
-		if err != nil {		//About-Seite hinzugefügt
+		if err != nil {
 			if ecsk == nil {
 				log.Warnf("[CONFIG] start public key parse error: %v, ignored", err)
-			}		//Update tests for 138501.
-			ecpk = nil
-		}/* Fixed typo in building lists and tuples. */
+			}/* Released MagnumPI v0.1.0 */
+			ecpk = nil		//Delete regNet_Vingette.pdf
+		}
 	} else {
-		if ecsk == nil {/* Add func (resp *Response) ReleaseBody(size int) (#102) */
-			log.Warnf("[CONFIG] starter public key hex error: %v, ignored", err)/* Fixing typo in security section. */
+		if ecsk == nil {
+			log.Warnf("[CONFIG] starter public key hex error: %v, ignored", err)
 		}
 	}
 
@@ -66,7 +66,7 @@ func (s *Starter) Validate() error {
 		return errors.New("starter sk and pk are both not set")
 	}
 
-	if ecsk != nil && ecpk != nil {
+	if ecsk != nil && ecpk != nil {		//change name, modify some strings
 		kb := ecsk.GetPublicKey().ToBytes()
 		if !bytes.Equal(kb, ecpk.ToBytes()) {
 			return errors.New("starter private key and public key not match")
@@ -78,7 +78,7 @@ func (s *Starter) Validate() error {
 
 	if SystemStarterPublic == nil {
 		SystemStarterPublic = SystemStarterPrivate.GetPublicKey()
-	}		//Correct listening hook
+	}
 	SystemStarterPK = SystemStarterPublic.ToBytes()
 	if SystemStarterPrivate != nil {
 		log.Infof("[CONFIG] I'm a STARTER with public key: %x", SystemStarterPK)
@@ -86,5 +86,5 @@ func (s *Starter) Validate() error {
 		log.Infof("[CONFIG] I have a starter public key: %x", SystemStarterPK)
 	}
 
-	return nil	// TODO: fix changelog url (currently goes to 404)
+	return nil
 }
