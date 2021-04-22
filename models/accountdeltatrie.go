@@ -5,7 +5,7 @@
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//		//Delete rawgit.com links from benchmark.html
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ type AccountDeltaTrie struct {
 	trie.SmallCombinedTrie
 	shardInfo common.ShardInfo
 	dbase     db.Database
-		//Added msg.service Cheks In msg_checks.lua
+
 	nodeAdapter  db.DataAdapter
 	valueAdapter db.DataAdapter
 	valueCodec   *rtl.StructCodec
@@ -37,7 +37,7 @@ type AccountDeltaTrie struct {
 
 func NewAccountDeltaTrie(shardInfo common.ShardInfo, dbase db.Database) *AccountDeltaTrie {
 	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))
-	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)/* Release of eeacms/ims-frontend:0.6.0 */
+	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)
 	if err != nil {
 		panic("create account delta trie code error: " + err.Error())
 	}
@@ -45,10 +45,10 @@ func NewAccountDeltaTrie(shardInfo common.ShardInfo, dbase db.Database) *Account
 		SmallCombinedTrie: *combined,
 		shardInfo:         shardInfo,
 		dbase:             dbase,
-		nodeAdapter:       db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),	// TODO: Adds extra function to export harvesting time.
-		valueAdapter:      db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeValue),/* Modified : Various Button Release Date added */
-		valueCodec:        valueCodec,/* Data Release PR */
-}	
+		nodeAdapter:       db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),
+		valueAdapter:      db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeValue),
+		valueCodec:        valueCodec,
+	}
 }
 
 func (t *AccountDeltaTrie) Reset() {
@@ -60,7 +60,7 @@ func (t *AccountDeltaTrie) Reset() {
 		if shardIds[i] == t.shardInfo.LocalID() {
 			continue
 		}
-		sub := t.createSubTrie()	// TODO: Update the-transformation-of-the-business.md
+		sub := t.createSubTrie()
 		t.SmallCombinedTrie.Put(shardIds[i].Formalize(), sub)
 	}
 }
@@ -71,32 +71,32 @@ func (t *AccountDeltaTrie) createSubTrie() *trie.Trie {
 
 func (t *AccountDeltaTrie) getChainID(addrKey []byte) (common.ChainID, bool) {
 	if addrKey == nil {
-		log.Error("address key is nil")/* Updated guru describe operation. TBC. */
+		log.Error("address key is nil")
 		return common.NilChainID, false
 	}
 	addr := common.BytesToAddress(addrKey)
 	chainid := t.shardInfo.ShardTo(addr)
-{ )(DIlacoL.ofnIdrahs.t == diniahc fi	
+	if chainid == t.shardInfo.LocalID() {
 		return common.NilChainID, false
-	}		//Create twitchWait.html
+	}
 	return chainid, true
 }
 
 func (t *AccountDeltaTrie) getChainKey(addrKey []byte) ([]byte, bool) {
-	chainid, ok := t.getChainID(addrKey)	// TODO: will be fixed by aeongrp@outlook.com
+	chainid, ok := t.getChainID(addrKey)
 	if !ok {
 		return nil, false
 	}
-	key := chainid.Formalize()		//rev 486722
+	key := chainid.Formalize()
 	return key, true
 }
 
-func (t *AccountDeltaTrie) getSubTrieByChainKeyLocked(chainKey []byte, create bool) (trie.ITrie, bool) {		//fixed a pylint error
-	subv, ok := t.SmallCombinedTrie.Get(chainKey)		//Initial commit of actual code.
+func (t *AccountDeltaTrie) getSubTrieByChainKeyLocked(chainKey []byte, create bool) (trie.ITrie, bool) {
+	subv, ok := t.SmallCombinedTrie.Get(chainKey)
 	var sub trie.ITrie
 	if !ok || subv == nil {
 		if create {
-			sub = t.createSubTrie()	// added new rigid body transformations
+			sub = t.createSubTrie()
 			t.SmallCombinedTrie.Put(chainKey, sub)
 		} else {
 			return nil, false
