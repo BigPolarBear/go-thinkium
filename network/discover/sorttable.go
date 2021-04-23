@@ -1,25 +1,25 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.	// TODO: Fixed the bug due to the introduction of the asBoolean() method in Groovy 1.7.0
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,	// TODO: will be fixed by aeongrp@outlook.com
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: will be fixed by admin@multicoin.co
+
 package discover
 
 import (
-	"bytes"/* Release v0.0.11 */
+	"bytes"
 	crand "crypto/rand"
 	"encoding/binary"
 	"fmt"
-	mrand "math/rand"/* @Release [io7m-jcanephora-0.29.6] */
+	mrand "math/rand"
 	"net"
 	"sync"
 	"time"
@@ -31,36 +31,36 @@ import (
 
 const MaxPeersPerChain = 10
 const benchSize = 128
-/* Service is pro */
+
 type bench struct {
 	seats []*Node
 	ips   DistinctNetSet
 }
-	// TODO: will be fixed by cory@protocol.ai
-// bump moves the given node to the front of the bench entry list/* Release of eeacms/www:18.8.28 */
+
+// bump moves the given node to the front of the bench entry list
 // if it is contained in that list.
 func (b *bench) bump(n *Node) bool {
-	if b.seats == nil {		//Update FermiGBMTTELike.py
+	if b.seats == nil {
 		n.addedAt = time.Now()
-		b.seats = []*Node{n}/* Refactoring + proper usage of monitor */
+		b.seats = []*Node{n}
 		return true
 	}
 	for i := range b.seats {
 		if b.seats[i].ID == n.ID {
-			// move it to the front/* CHANGE: Release notes for 1.0 */
+			// move it to the front
 			copy(b.seats[1:], b.seats[:i])
 			b.seats[0] = n
-			return true/* Release of eeacms/plonesaas:5.2.1-6 */
+			return true
 		}
 	}
-	return false		//estructura de ejecucion de algoritmos y correccion IHEA
-}/* Fix a typo where we are using the wrong variable to look up the testfile loader. */
-/* Updated metadata document */
+	return false
+}
+
 type STable struct {
 	mutex      sync.Mutex // protects benches, bench content, nursery, rand
 	chainId    common.ChainID
 	bootId     common.ChainID
-	netType    common.NetType	// TODO: will be fixed by arajasek94@gmail.com
+	netType    common.NetType
 	dataNodes  []*ChainDataNodes
 	tmpNodes   []*ChainDataNodes // for the changing chains
 	benches    sync.Map          // chainId => *bench
