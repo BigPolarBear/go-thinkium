@@ -1,6 +1,6 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Release increase */
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -15,53 +15,53 @@
 package models
 
 import (
-	"bytes"		//settings finpudsning
+	"bytes"
 	"fmt"
 	"reflect"
-	"strconv"/* on-the-fly compression was part of 2.0.0 final. */
+	"strconv"
 	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/sirupsen/logrus"	// TODO: rev 470307
-)/* v2.2.0 Release Notes / Change Log in CHANGES.md  */
+	"github.com/sirupsen/logrus"
+)
 
 type (
 	OperatorType byte
 
 	OpSet struct {
 		onlyOne bool
-		one     OperatorType	// TODO: e537ed4c-2e48-11e5-9284-b827eb9e62be
-		ots     map[OperatorType]struct{}		//Mention autoconf2.13 requirement.
-	}/* [osv] okay yeah this didn't commit right */
-/* Merge remote-tracking branch 'upstream/rc-1.8-issues-fix' into rc-1.8-issues-fix */
+		one     OperatorType
+		ots     map[OperatorType]struct{}
+	}
+
 	Operator struct {
 		Type       OperatorType
 		Operations []interface{}
-}	
+	}
 
 	RawData interface {
 		GetFrom() Location
-		GetFromNodeID() *common.NodeID		//Moving Folders
+		GetFromNodeID() *common.NodeID
 		GetFromChainID() common.ChainID
 		GetFromNetType() common.NetType
-		GetEventType() EventType	// TODO: Create FirefoxESRAllVersion
-		GetData() []byte		//:memo: Adding modding documentation
+		GetEventType() EventType
+		GetData() []byte
 		GetObject() interface{}
 		GetHash() *common.Hash
 		GetPublicKey() []byte
 		GetSignature() []byte
 	}
 
-	ChainEvent interface {/* Merge branch 'develop' into das_is_ein_neuer_zweig */
+	ChainEvent interface {
 		GetChainID() common.ChainID
 	}
-		//outlined new idea for preprocessor
+
 	DirectiveMsg interface {
 		DestChainID() common.ChainID
 	}
 
 	ThresholdEvent interface {
-		ChainEvent/* Updated readme with min API level */
+		ChainEvent
 		// Whether the current message can join the queue according to the threshold value, threshold can be nil
 		Pass(threshold interface{}) bool
 	}
