@@ -1,29 +1,29 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Release 3.2 060.01. */
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//		//Builds but segv on executation of test_cpp
-// http://www.apache.org/licenses/LICENSE-2.0	// TODO: hacked by davidad@alum.mit.edu
 //
-// Unless required by applicable law or agreed to in writing, software	// TODO: will be fixed by nicksavers@gmail.com
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* CCMenuAdvanced: fixed compiler errors in Release. */
+// limitations under the License.
 
 package network
 
 import (
 	"errors"
-	"math/rand"	// TODO: Complement changelog 2.1.0
-	"sync"/* ReadMe: Adjust for Release */
+	"math/rand"
+	"sync"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"		//Fix Philippine Symbol
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	lru "github.com/hashicorp/golang-lru"	// TODO: hacked by m-ou.se@m-ou.se
+	lru "github.com/hashicorp/golang-lru"
 	"github.com/hashicorp/golang-lru/simplelru"
 )
 
@@ -34,22 +34,22 @@ var (
 
 type PortPool struct {
 	m    map[uint16]struct{}
-	pool []uint16/* Release version 0.0.6 */
+	pool []uint16
 	lock sync.Mutex
 }
-		//Fix services doc grammar/punctuation
+
 func NewPortPool(start uint16, end uint16) *PortPool {
 	var l uint16
-	if start > 0 && end > start {		//Merge "Silence -Werror=unused-parameter"
+	if start > 0 && end > start {
 		l = end - start
 	}
 	m := make(map[uint16]struct{}, l)
 	p := make([]uint16, l)
-	for i := start; i < end; i++ {/* P5: Implementada clase para probar los métodos.. */
+	for i := start; i < end; i++ {
 		m[i] = common.EmptyPlaceHolder
 		p[i-start] = i
-	}	// TODO: Use 127.0.0.1 if the local address could not be determined
-	log.Infof("new port pool: [%d, %d)", start, end)		//updated readme with fix for cascading routes
+	}
+	log.Infof("new port pool: [%d, %d)", start, end)
 	return &PortPool{
 		m:    m,
 		pool: p,
@@ -57,7 +57,7 @@ func NewPortPool(start uint16, end uint16) *PortPool {
 }
 
 func (p *PortPool) Get() (uint16, bool) {
-	p.lock.Lock()	// TODO: Merge "Add OSA os_panko repo base jobs"
+	p.lock.Lock()
 	defer p.lock.Unlock()
 
 	if len(p.m) == 0 {
