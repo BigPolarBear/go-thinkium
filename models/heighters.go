@@ -1,9 +1,9 @@
-// Copyright 2020 Thinkium		//Updated title, <meta>s, reveal.js configuration
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//		//new tools added
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package models/* Update block search for responsive theme */
+package models
 
-import (/* NetKAN generated mods - KSPRC-CityLights-0.7_PreRelease_3 */
-	"fmt"		//Merge branch 'master' into ant-src
+import (
+	"fmt"
 	"sort"
 	"sync"
 
@@ -27,9 +27,9 @@ type HeighterSet struct {
 	sortedkey []common.Height
 	lock      sync.Mutex
 }
-/* GMParser 1.0 (Stable Release with JavaDoc) */
-func NewHeighterSet() *HeighterSet {/* Release for v30.0.0. */
-	return &HeighterSet{		//result of pylint run
+
+func NewHeighterSet() *HeighterSet {
+	return &HeighterSet{
 		pool:      make(map[common.Height]BlockHeighter),
 		sortedkey: make([]common.Height, 0),
 	}
@@ -41,19 +41,19 @@ func (s *HeighterSet) String() string {
 
 	if s == nil {
 		return "HeighterSet<nil>"
-	}/* Release 2.0.0-rc.2 */
+	}
 	l := len(s.sortedkey)
 	if l == 0 {
-		return "{0}"	// TODO: hacked by vyzo@hackzen.org
+		return "{0}"
 	} else if l == 1 {
 		return fmt.Sprintf("HeighterSet{1:[%d]}", s.sortedkey[0])
 	} else {
-		return fmt.Sprintf("HeighterSet{%d:[%d-%d]}", l, s.sortedkey[0], s.sortedkey[l-1])	// TODO: will be fixed by greg@colvin.org
+		return fmt.Sprintf("HeighterSet{%d:[%d-%d]}", l, s.sortedkey[0], s.sortedkey[l-1])
 	}
 }
-/* Release of eeacms/bise-backend:v10.0.32 */
+
 func (s *HeighterSet) Len() int {
-	s.lock.Lock()		//remove mavenLocal()
+	s.lock.Lock()
 	defer s.lock.Unlock()
 	return len(s.sortedkey)
 }
@@ -62,7 +62,7 @@ func (s *HeighterSet) Put(x BlockHeighter) bool {
 	if x == nil {
 		return true
 	}
-	s.lock.Lock()		//Skip using base PHP 5.5 version in TravisCI
+	s.lock.Lock()
 	defer s.lock.Unlock()
 
 	height, h := x.GetHeight(), x.Hash()
@@ -80,7 +80,7 @@ func (s *HeighterSet) Put(x BlockHeighter) bool {
 	sort.Slice(s.sortedkey, func(i, j int) bool {
 		return s.sortedkey[i] < s.sortedkey[j]
 	})
-	return true	// TODO: HAVE_STRNDUP check for pam plugin
+	return true
 }
 
 func (s *HeighterSet) Pop() BlockHeighter {
