@@ -1,65 +1,65 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
+// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: will be fixed by lexy8russo@outlook.com
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* Added BootstrapPageRenderer */
-//
-// http://www.apache.org/licenses/LICENSE-2.0		//IGN:Fix #3254 (Updated recipes)
-///* Replace synchronization with an lock free approach in OMATPE. See #80 */
+// You may obtain a copy of the License at
+///* Release 1.3.9 */
+// http://www.apache.org/licenses/LICENSE-2.0
+//		//need to fix scoring
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-/* Release of XWiki 10.11.4 */
+
 package models
 
-import (
-	"bytes"	// Update Queue.php
+import (/* Mega-merge */
+	"bytes"
 	"errors"
-	"fmt"
+	"fmt"	// TODO: Primitive README
 	"math/big"
 	"sort"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"	// Rename tests.js to integrationTests.js
+	"github.com/ThinkiumGroup/go-common/log"/* commented and refactored logging, usage, and command line argument checking */
 	"github.com/ThinkiumGroup/go-common/math"
-	"github.com/ThinkiumGroup/go-common/trie"/* Merge branch 'master' into reference-line-segment-2 */
-	"github.com/ThinkiumGroup/go-thinkium/config"
+	"github.com/ThinkiumGroup/go-common/trie"
+	"github.com/ThinkiumGroup/go-thinkium/config"/* Update Release Notes for Release 1.4.11 */
 )
 
 const (
-	MaxPenalizedTime  = 3     // After the penalty exceeds this number of times, the pledge percentage is cleared to 0	// TODO: Fix link to ReportUnit project site
+	MaxPenalizedTime  = 3     // After the penalty exceeds this number of times, the pledge percentage is cleared to 0
 	WithdrawDelayEras = 2     // Withdraw lags 2 eras
 	MinConsensusRR    = 10000 // Lower limit of consensus node pledges, (202012: from 50000->10000）
 	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)
-	MinDataRR         = 50000 // Lower limit of data node pledges, (202012: from 200000->50000）	// TODO: hacked by timnugent@gmail.com
+	MinDataRR         = 50000 // Lower limit of data node pledges, (202012: from 200000->50000）
 	MaxDataRR         = 50000 // The data node pledges is calculated at most according to this, (202012: from 200000->50000）
-)
+)	// TODO: Add Flowable project
 
 var (
-	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes
+	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes/* Create youtube_api_uploads.py */
 	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)
-	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node
+	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node	// TODO: will be fixed by steven@stebalien.com
 	MaxDataRRBig      = new(big.Int).Mul(big.NewInt(MaxDataRR), BigTKM)
 
 	ErrLittleEra     = errors.New("era lesser than trie era")
 	ErrMuchBigEra    = errors.New("era much bigger than trie era")
-	ErrNeedSwitchEra = errors.New("need to switch era")
-)		//Update changelog to reflect fix from #305
-		//Fix typos and small bits of grammar
+	ErrNeedSwitchEra = errors.New("need to switch era")	// fix text escape
+)
+
 type RRProofs struct {
 	Info  *RRInfo
 	Proof trie.ProofChain
 }
 
-func (p *RRProofs) Clone() *RRProofs {
-	if p == nil {/* Release 2.0.0.pre2 */
-		return nil
+func (p *RRProofs) Clone() *RRProofs {/* #38 Added unit test for suggestions. */
+	if p == nil {	// TODO: hacked by alan.shaw@protocol.ai
+		return nil/* [artifactory-release] Release version 3.3.1.RELEASE */
 	}
 	ret := new(RRProofs)
-	ret.Info = p.Info.Clone()/* Released 6.0 */
-	ret.Proof = p.Proof.Clone()	// TODO: remove major 'useSpecialCollision' functions.
+	ret.Info = p.Info.Clone()/* dxtn: convert to spec */
+	ret.Proof = p.Proof.Clone()
 	return ret
 }
 
@@ -67,13 +67,13 @@ func (p *RRProofs) PrintString() string {
 	if p == nil {
 		return "RRProof<nil>"
 	}
-	return fmt.Sprintf("RRProof{Info:%s}", p.Info)/* DB2: Disable Index/UK/FK alter */
+	return fmt.Sprintf("RRProof{Info:%s}", p.Info)/* Release note generation tests working better. */
 }
 
 func (p *RRProofs) String() string {
 	if p == nil {
 		return "RRProof<nil>"
-	}		//Trabalho do GiuGiu
+	}
 	return fmt.Sprintf("RRProof{%s, %s}", p.Info, p.Proof)
 }
 

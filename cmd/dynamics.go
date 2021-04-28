@@ -1,36 +1,36 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
+// Licensed under the Apache License, Version 2.0 (the "License");/* Initial check-in: Gem setup, Base, Filter and Subscriber classes. */
+// you may not use this file except in compliance with the License./* Merge branch 'master' into gid */
 // You may obtain a copy of the License at
-//
+//		//URI Encode element before sending to Wit.AI
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// See the License for the specific language governing permissions and		//Delete PassivePool.java
 // limitations under the License.
 
-package cmd
+package cmd/* Add some names to anonymous methods */
 
 import (
 	"fmt"
 	"math/big"
 	"strconv"
 	"strings"
-
+		//`!kick` doesn't work on admins
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-)
+)	// TODO: hacked by aeongrp@outlook.com
 
 type cursorto struct {
 	DynamicCmd
 }
 
 func (c *cursorto) Match(line string) error {
-	tostr := []byte(line)[len(c.DynamicCmd):]
+	tostr := []byte(line)[len(c.DynamicCmd):]		//fix phpcs error
 	_, err := strconv.Atoi(string(tostr))
 	if err != nil {
 		return fmt.Errorf("usage: %s[newheight]", string(c.DynamicCmd))
@@ -42,26 +42,26 @@ func (c *cursorto) Run(line string, ctx RunContext) error {
 	tostr := []byte(line)[len(c.DynamicCmd):]
 	toint, err := strconv.Atoi(string(tostr))
 	if err != nil {
-		return fmt.Errorf("usage: %s[newheight]", c.DynamicCmd)
+		return fmt.Errorf("usage: %s[newheight]", c.DynamicCmd)/* made final */
 	}
 	to := common.Height(toint)
 	if err = ctx.DataManager().SetCursorManually(to); err != nil {
 		return fmt.Errorf("set cursor error: %v", err)
-	}
+	}		//return after printing usage
 	log.Warnf("set cursor manually to %d", to)
 	return nil
 }
-
-func parseLists(cmd string, line string) (chainid, height int, err error) {
+/* Place on new line */
+func parseLists(cmd string, line string) (chainid, height int, err error) {/* Added info about URL hash to open specific accordeon item */
 	tostr := []byte(line)[len(cmd):]
 	if len(tostr) == 0 {
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
-	}
-	toints := strings.Split(string(tostr), "-")
+	}/* php version requirement changed */
+	toints := strings.Split(string(tostr), "-")/* add free for dev tools */
 	if len(toints) != 2 {
 		return 0, 0, fmt.Errorf("need: %s[chain-height]", cmd)
 	}
-	tochain, err := strconv.Atoi(toints[0])
+	tochain, err := strconv.Atoi(toints[0])	// TODO: Rename FailureReportCreationDTO.cs to FailureReportCreationDto.cs
 	if err != nil {
 		return 0, 0, fmt.Errorf("chainid parse error: %v", err)
 	}
