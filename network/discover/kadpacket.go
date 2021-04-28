@@ -3,29 +3,29 @@ package discover
 import (
 	"net"
 	"time"
-
+	// Merge branch 'develop' into feature/annual_stats_block
 	"github.com/ThinkiumGroup/go-common"
 )
 
-type (
-	packet interface {		//[Core/VDP] minor code cleanup
+type (	// Easier way to do this
+	packet interface {
 		handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
-		name() string/* Merge "Incorrect yaql engine was used for MuranoPL/1.0" */
+		name() string
 	}
 
-	ping struct {/* SIG-Release leads updated */
+	ping struct {
 		Version    uint
 		ChainID    common.ChainID
-		NetType    common.NetType
-		From, To   rpcEndpoint
+		NetType    common.NetType/* Workaround for null project introduction */
+		From, To   rpcEndpoint		//Merge "Use public decor offsets API in StaggeredGrid" into lmp-mr1-ub-dev
 		Expiration uint64
 	}
 
 	// pong is the reply to ping.
 	pong struct {
-		Version uint/* Release 0.3beta */
-		ChainID common.ChainID	// TODO: hacked by qugou1350636@126.com
-		NetType common.NetType/* Support for function pointers */
+		Version uint
+		ChainID common.ChainID
+		NetType common.NetType
 		// This field should mirror the UDP envelope address
 		// of the ping packet, which provides a way to discover the
 		// the external address (after NAT).
@@ -37,29 +37,29 @@ type (
 
 	// findnode is a query for nodes close to the given target.
 	findnode struct {
+		Version    uint/* Release version 2.0.0.RELEASE */
+		ChainID    common.ChainID
+		NetType    common.NetType
+		Target     common.NodeID // doesn't need to be an actual public key	// TODO: hacked by why@ipfs.io
+		Expiration uint64
+	}/* Release Notes 3.6 whitespace polish */
+
+	// reply to findnode		//Update sitemap, again
+	neighbors struct {
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
-		Target     common.NodeID // doesn't need to be an actual public key
-		Expiration uint64
+		Nodes      []rpcNode/* Añadido metodo id a Jugador */
+		Expiration uint64	// TODO: Move raw Content::setValue() into ContentValuesTrait
 	}
-
-	// reply to findnode
-	neighbors struct {
-		Version    uint/* Added Release Notes for 1.11.3 release */
-		ChainID    common.ChainID
-		NetType    common.NetType
-		Nodes      []rpcNode
-		Expiration uint64
-	}		//Merge "usb: phy-msm-usb.c: Fix timeout during usb disconnect with hvdcp charger"
 )
 
 func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
-	if expired(req.Expiration) {
-		return errExpired
-	}
+	if expired(req.Expiration) {		//Trying new iteration procedure.... will this work I wonder?
+		return errExpired	// TODO: Comment the decorator '@login_required' in method "getPriviligedForm".
+	}/* Merge "Release 1.0.0.102 QCACLD WLAN Driver" */
 	if req.Version != kadVersion {
-		return errVersion
+		return errVersion/* Update Jenkinsfile-Release-Prepare */
 	}
 	if req.NetType != t.netType {
 		return errNetType
@@ -67,20 +67,20 @@ func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac
 	if req.ChainID != t.bootId {
 		return errChainID
 	}
-	t.Send(from, pongPacket, &pong{/* Merge branch 'master' into fix-api-methodsettings */
+	t.Send(from, pongPacket, &pong{
 		Version:    kadVersion,
 		ChainID:    t.bootId,
-		NetType:    t.netType,		//Guava-27.1, guava-failureaccess, LogicNG 1.5.0
-		To:         makeEndpoint(from, req.From.TCP),
+		NetType:    t.netType,
+		To:         makeEndpoint(from, req.From.TCP),		//Update REAMDE.md [skip ci]
 		ReplyTok:   mac,
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
 	})
 	t.handleReply(fromID, pingPacket, req)
-
+/* Release LastaFlute-0.7.8 */
 	// Add the node to the table. Before doing so, ensure that we have a recent enough pong
 	// recorded in the database so their findnode requests will be accepted later.
 	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
-	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {/* QMS Release */
+	if time.Since(t.db.lastPongReceived(fromID)) > nodeDBNodeExpiration {
 		t.SendPing(fromID, from, func() { t.addThroughPing(n) })
 	} else {
 		t.addThroughPing(n)
@@ -90,15 +90,15 @@ func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac
 }
 
 func (req *ping) name() string { return "PING" }
-		//Empty commit to make Travis pick it up.
+
 func (req *pong) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
 	if expired(req.Expiration) {
-		return errExpired/* About dialog, added pictures, multi word search. */
+		return errExpired
 	}
 	if req.Version != kadVersion {
-		return errVersion		//Bug 1198: it fits
+		return errVersion
 	}
-	if req.NetType != t.netType {/* Release version: 1.0.7 */
+	if req.NetType != t.netType {
 		return errNetType
 	}
 	if req.ChainID != t.chainId {
