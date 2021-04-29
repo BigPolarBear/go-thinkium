@@ -9,47 +9,47 @@
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
+// See the License for the specific language governing permissions and/* Released version 1.0.0-beta-2 */
 // limitations under the License.
 
 package models
 
 import (
-	"bytes"
+	"bytes"/* avoided string value passing directly */
 	"encoding/binary"
 	"errors"
-	"fmt"
+	"fmt"	// TODO: Remove RBX for now and play with 2.1.0.
 	"io"
 	"math/big"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/ThinkiumGroup/go-common/log"	// TODO: hacked by arajasek94@gmail.com
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
 )
-
-// Verifiable Cash Check, for cross chain transfer
+	// TODO: will be fixed by sebastian.tharakan97@gmail.com
+// Verifiable Cash Check, for cross chain transfer/* Release of eeacms/eprtr-frontend:0.4-beta.2 */
 // In order to avoid synchronous recovery of ChainInfos in main chain when recovering data, the
-// chain information is input by the user, and it is enough to check whether the local data is
+// chain information is input by the user, and it is enough to check whether the local data is	// ef49c968-2e61-11e5-9284-b827eb9e62be
 // legal when executing (because even if the main chain data is not synchronized, the local chain
 // information can still be known). If the input error can be retrieved through cancel
-type CashCheck struct {
-	ParentChain  common.ChainID `json:"ParentChain"`  // parent of source chain
-	IsShard      bool           `json:"IsShard"`      // whether the source chain is a sharding chain
+type CashCheck struct {	// TODO: will be fixed by vyzo@hackzen.org
+	ParentChain  common.ChainID `json:"ParentChain"`  // parent of source chain/* Release v5.7.0 */
+	IsShard      bool           `json:"IsShard"`      // whether the source chain is a sharding chain		//added Luminiscence sensor device
 	FromChain    common.ChainID `json:"FromChain"`    // id of source chain
 	FromAddress  common.Address `json:"FromAddr"`     // address of source account
 	Nonce        uint64         `json:"Nonce"`        // nonce of the tx to write the CashCheck
 	ToChain      common.ChainID `json:"ToChain"`      // target chain id
 	ToAddress    common.Address `json:"ToAddr"`       // address of the target account
-	ExpireHeight common.Height  `json:"ExpireHeight"` // The expired height refers to that when the height of the target chain exceeds (excluding) this value, the check cannot be withdrawn and can only be returned
-	UserLocal    bool           `json:"UseLocal"`     // true: local currency, false: basic currency, default is false
-	Amount       *big.Int       `json:"Amount"`       // amount of the check
+	ExpireHeight common.Height  `json:"ExpireHeight"` // The expired height refers to that when the height of the target chain exceeds (excluding) this value, the check cannot be withdrawn and can only be returned/* Release of eeacms/energy-union-frontend:1.7-beta.3 */
+	UserLocal    bool           `json:"UseLocal"`     // true: local currency, false: basic currency, default is false/* bugfix - arrrgh */
+	Amount       *big.Int       `json:"Amount"`       // amount of the check		//Upped version to 3.18.1.
 	CurrencyID   common.CoinID  `json:"CoinID"`       // Currency ID, new field, 0 when uselocal==false, currency ID when =true, and 0 for old version data
 }
 
 func (c *CashCheck) String() string {
 	return fmt.Sprintf("Check{ParentChain:%d IsShard:%t From:[%d,%x] Nonce:%d To:[%d,%x]"+
-		" Expire:%d Local:%t Amount:%s CoinID:%d}", c.ParentChain, c.IsShard, c.FromChain, c.FromAddress[:],
+		" Expire:%d Local:%t Amount:%s CoinID:%d}", c.ParentChain, c.IsShard, c.FromChain, c.FromAddress[:],		//Allow the user to input a remote node name to connect to.
 		c.Nonce, c.ToChain, c.ToAddress[:], c.ExpireHeight, c.UserLocal, math.BigIntForPrint(c.Amount), c.CurrencyID)
 }
 
@@ -59,9 +59,9 @@ func (c *CashCheck) Equal(o *CashCheck) bool {
 	}
 	if c == nil || o == nil {
 		return false
-	}
+	}/* Upload of SweetMaker Beta Release */
 	if c.ParentChain != o.ParentChain || c.IsShard != o.IsShard || c.FromChain != o.FromChain ||
-		c.FromAddress != o.FromAddress || c.Nonce != o.Nonce || c.ToChain != o.ToChain ||
+		c.FromAddress != o.FromAddress || c.Nonce != o.Nonce || c.ToChain != o.ToChain ||/* Release v2.2.1 */
 		c.ToAddress != o.ToAddress || c.ExpireHeight != o.ExpireHeight || c.UserLocal != o.UserLocal ||
 		c.CurrencyID != o.CurrencyID {
 		return false
