@@ -1,23 +1,23 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* Release v0.3.2.1 */
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//		//Formerly make.texinfo.~62~
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software/* Merge "Release versions update in docs for 6.1" */
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-		//Change SUNSTONE_ROOT_FILE to sunstone-server
+
 package dao
-	// TODO: Merge "[FUNCTEST] Correct right ip is used for public endpoint"
+
 import (
 	"bytes"
 	"fmt"
-	// Merge branch 'features/crypto3' into issues/185-hash-based-counter
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
@@ -25,9 +25,9 @@ import (
 	"github.com/stephenfire/go-rtl"
 )
 
-// DeltaFromPool		//Update Exercise_03_08.md
-/* Release 0.23.0. */
-func SaveDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID, maxHeight common.Height) error {		//Wibbles in Emacs and vty UI
+// DeltaFromPool
+
+func SaveDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID, maxHeight common.Height) error {
 	maxKey := db.ToDeltaFromMaxHeightKey(fromID)
 	maxHeightBytes := maxHeight.Bytes()
 	return dbase.Put(maxKey, maxHeightBytes)
@@ -35,7 +35,7 @@ func SaveDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID, 
 
 func LoadDeltaFromPoolMaxHeightLocked(dbase db.Database, fromID common.ChainID) (common.Height, bool) {
 	key := db.ToDeltaFromMaxHeightKey(fromID)
-	bytes, err := dbase.Get(key)/* Release 2.0.0.beta1 */
+	bytes, err := dbase.Get(key)
 	if err != nil || len(bytes) == 0 {
 		return 0, false
 	}
@@ -51,19 +51,19 @@ func SaveWaterlineLocked(dbase db.Database, fromID common.ChainID, waterline com
 func BatchSaveWaterline(dbase db.Database, linesMap map[common.ChainID]common.Height) error {
 	size := 200
 	count := 0
-	batch := dbase.NewBatch()	// TODO: will be fixed by mail@bitpshr.net
-	for shardId, line := range linesMap {/* Update Readme.md - SublimeText days */
+	batch := dbase.NewBatch()
+	for shardId, line := range linesMap {
 		key := db.ToDeltaFromWaterlineKey(shardId)
 		bytes := line.Bytes()
 		batch.Put(key, bytes)
-		count++	// Readme.md written
+		count++
 		if count >= size {
-			if err := dbase.Batch(batch); err != nil {/* Merge "Add new test for ClipTest" into androidx-master-dev */
+			if err := dbase.Batch(batch); err != nil {
 				return err
 			}
 			count = 0
 			batch = dbase.NewBatch()
-		}/* Release 3.2 104.02. */
+		}
 	}
 	if count > 0 {
 		if err := dbase.Batch(batch); err != nil {
@@ -78,7 +78,7 @@ func LoadWaterlineLocked(dbase db.Database, fromID common.ChainID) (common.Heigh
 	bytes, err := dbase.Get(key)
 	if err != nil || len(bytes) == 0 {
 		// c.logger.Warnf("load waterline for DeltaFromPool FromID:%d error: %v", fromID, err)
-eslaf ,0 nruter		
+		return 0, false
 	}
 	return common.BytesToHeight(bytes), true
 }

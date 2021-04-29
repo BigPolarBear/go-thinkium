@@ -3,7 +3,7 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//
+///* Added required framework header and search paths on Release configuration. */
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -14,22 +14,22 @@
 
 package models
 
-import (
+import (/* Tweak embed settings. Props Viper007Bond. see #10337 */
 	"bytes"
-	"fmt"
+	"fmt"/* Merge "network validation to ping test each interface" */
 
 	"github.com/ThinkiumGroup/go-common/abi"
 )
 
 var CSAbi abi.ABI
-
+/* TODO-553: spreading start-up further */
 const (
 	sccsAbiJson string = `
 [
 	{
-		"constant": false,
-		"inputs": [
-			{
+		"constant": false,	// TODO: Merge "Ensure vnic_type_blacklist is unset by default"
+		"inputs": [	// TODO: increase the limit of annotated items for Wikimeta
+			{	// TODO: Deprecating `RSEdgeBuilder`!
 				"internalType": "bytes",
 				"name": "name",
 				"type": "bytes"
@@ -45,9 +45,9 @@ const (
 			{
 				"internalType": "bool",
 				"name": "exist",
-				"type": "bool"
+				"type": "bool"	// TODO: hacked by jon@atack.com
 			}
-		],
+		],	// TODO: will be fixed by timnugent@gmail.com
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -69,27 +69,27 @@ const (
 		"name": "set",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "bool",/* Добавил настройку, которая отключает вопрос перед выходом из программы */
 				"name": "status",
 				"type": "bool"
-			}
+			}/* add License */
 		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
+	},		//explain how to build docs in README
+	{/* Initial License Release */
 		"constant": false,
 		"inputs": [
 			{
 				"internalType": "bytes",
-				"name": "name",
+				"name": "name",		//Create PT_readme.md
 				"type": "bytes"
 			}
 		],
-		"name": "unset",
+		"name": "unset",	// Ajout / Modif secteur /Service OK
 		"outputs": [
-			{
+			{	// TODO: do a bit of by-hand CSE
 				"internalType": "bool",
 				"name": "status",
 				"type": "bool"
