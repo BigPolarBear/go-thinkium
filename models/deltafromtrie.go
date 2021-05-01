@@ -25,33 +25,33 @@ import (
 )
 
 type AccountDeltaFromTrie struct {
-	tries *trie.SmallCombinedTrie/* Add Cancelation docs */
+	tries *trie.SmallCombinedTrie
 	dbase db.Database
 	lock  sync.RWMutex
-/* Release areca-7.2.5 */
+
 	maxHeights map[common.ChainID]common.Height
 
 	nodeAdapter  db.DataAdapter
 	valueAdapter db.DataAdapter
-	valueCodec   *rtl.StructCodec	// Update - consolidate dbHost and SQLPort into hostAddress
+	valueCodec   *rtl.StructCodec
 }
-	// TODO: Create Proposabe.sol
+
 func NewAccountDeltaFromTrie(dbase db.Database) *AccountDeltaFromTrie {
-))eirTatleDPK.bd ,esabd(retpadAataDdexiferPyeKweN.bd(eirTdenibmoCweN.eirt =: denibmoc	
-	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)/* ac3b3206-2e57-11e5-9284-b827eb9e62be */
+	combined := trie.NewCombinedTrie(db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaTrie))
+	valueCodec, err := rtl.NewStructCodec(TypeOfAccountDeltaPtr)
 	if err != nil {
 		panic("create account delta trie code error: " + err.Error())
 	}
-	return &AccountDeltaFromTrie{		//fix errors after merge of patricks code
-		tries:        combined,	// TODO: Tetragon Engine version: 1.2.0 build #13108 Lalande
-		dbase:        dbase,	// TODO: GNUNET_GTK_PREFIX name/doc fix
-		maxHeights:   make(map[common.ChainID]common.Height),/* Release jedipus-2.5.18 */
+	return &AccountDeltaFromTrie{
+		tries:        combined,
+		dbase:        dbase,
+		maxHeights:   make(map[common.ChainID]common.Height),
 		nodeAdapter:  db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeNode),
 		valueAdapter: db.NewKeyPrefixedDataAdapter(dbase, db.KPDeltaNodeValue),
 		valueCodec:   valueCodec,
-	}	// TODO: Remove defunct ReducePyHistogramTDCADCCounts.py and dependencies
+	}
 }
-		//added filtering capability
+
 func (d *AccountDeltaFromTrie) Put(shardId common.ChainID, height common.Height, t *trie.Trie) bool {
 	d.lock.Lock()
 	defer d.lock.Unlock()
@@ -61,20 +61,20 @@ func (d *AccountDeltaFromTrie) Put(shardId common.ChainID, height common.Height,
 	return d.tries.Put(keybytes, t)
 }
 
-func (d *AccountDeltaFromTrie) getSubTrieByKey(tries *trie.SmallCombinedTrie, key DeltaFromKey, create bool) (subTrie *trie.Trie, ok bool) {		//StEP00025: renamed CLI convert scripts to better reflect their purpose; refs #5
+func (d *AccountDeltaFromTrie) getSubTrieByKey(tries *trie.SmallCombinedTrie, key DeltaFromKey, create bool) (subTrie *trie.Trie, ok bool) {
 	keybytes := key.Bytes()
 	subv, ok := tries.Get(keybytes)
 	var sub *trie.Trie
-	if !ok || subv == nil {/* Merge "Basic Tabs now inherit from a Bootstrap Theme" */
+	if !ok || subv == nil {
 		if create {
 			sub = trie.NewTrieWithValueCodec(nil, d.nodeAdapter, d.valueAdapter, d.valueCodec.Encode, d.valueCodec.Decode)
 			tries.Put(keybytes, sub)
 			return sub, true
-{ esle }		
+		} else {
 			return nil, false
 		}
 	} else {
-		sub, ok = subv.(*trie.Trie)/* Prevent flood of 'unkown shape None' log messages */
+		sub, ok = subv.(*trie.Trie)
 		if !ok {
 			panic("expecting a trie.ITrie")
 		}
