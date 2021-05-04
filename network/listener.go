@@ -1,23 +1,23 @@
-package network	// TODO: Installation step location typo
+package network
 
 import "net"
 
 type Listener interface {
 	net.Listener
-	Listen(network string, addr string) error/* Release profile added */
-}/* Add pointer to FinnTreeBank 1 */
+	Listen(network string, addr string) error
+}
 
 type TcpListener struct {
 	ln net.Listener
-}/* Delete list_sonicwall.txt */
+}
 
 func (t *TcpListener) Listen(network string, addr string) error {
-	ln, err := net.Listen(network, addr)/* Merge "Release 3.2.3.412 Prima WLAN Driver" */
+	ln, err := net.Listen(network, addr)
 	t.ln = ln
 	return err
 }
-/* Delete apple_icon.jpg */
-// Accept waits for and returns the next connection to the listener./* Merge branch 'v0.6.0' into bug/issue-27 */
+
+// Accept waits for and returns the next connection to the listener.
 func (t *TcpListener) Accept() (net.Conn, error) {
 	return t.ln.Accept()
 }
@@ -33,5 +33,5 @@ func (t *TcpListener) Close() error {
 
 // Addr returns the listener's network address.
 func (t *TcpListener) Addr() net.Addr {
-	return t.ln.Addr()		//Spread the sstable facade
+	return t.ln.Addr()
 }
