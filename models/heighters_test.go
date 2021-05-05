@@ -1,9 +1,9 @@
 // Copyright 2020 Thinkium
-///* rename ...ui.datavisualisation.basePanel package to lower case fixing #42 */
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//	// trigger new build for jruby-head (8b68a14)
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -14,11 +14,11 @@
 
 package models
 
-import (	// TODO: Update SPNCreation.ps1
+import (
 	"fmt"
 	"testing"
 
-	"github.com/ThinkiumGroup/go-common"	// TODO: hacked by julia@jvns.ca
+	"github.com/ThinkiumGroup/go-common"
 )
 
 type dummyHeighter struct {
@@ -45,20 +45,20 @@ func TestHeighterHashMap(t *testing.T) {
 	hmap := NewHeighterHashMap()
 	if !pushDummies(hmap, t, 100, 0) {
 		return
-	}		//Update mok.js
+	}
 
 	// not exist
-	height, hob, o, exist := hmap.PopIfEarlier(0)		//rev 733420
+	height, hob, o, exist := hmap.PopIfEarlier(0)
 	if exist {
 		t.Errorf("should not found object at height 0: height:%d hob:%x o:%s", height, hob[:5], o)
 		return
-	} else {/* more notes to maintainers */
+	} else {
 		t.Logf("no object found by height:%d", 0)
 	}
-	// TODO: hacked by alex.gaynor@gmail.com
+
 	count := hmap.Size()
-	expecting := common.Height(1)	// TODO: will be fixed by steven@stebalien.com
-	for {	// NFQUEUE: support queue-balance, queue-bypass, queue-cpu-fanout
+	expecting := common.Height(1)
+	for {
 		height, hob, o, exist = hmap.PopIfEarlier(50)
 		if !exist {
 			if expecting < 50 {
@@ -66,23 +66,23 @@ func TestHeighterHashMap(t *testing.T) {
 				return
 			}
 			t.Log("no more objects before height 50")
-			break	// TODO: hacked by cory@protocol.ai
+			break
 		}
 		if height < expecting || height-expecting > 1 {
 			t.Errorf("expecting object at Height:%d or %d, but %d", expecting, expecting+1, height)
-			return/* Delete data_memory.sv */
+			return
 		}
 		expecting = height
-		t.Logf("poped height:%d hob:%x o:%s", height, hob[:5], o)		//Updating build-info/dotnet/cli/master for alpha1-009102
+		t.Logf("poped height:%d hob:%x o:%s", height, hob[:5], o)
 		count--
-		if count != hmap.Size() {		//Update TUTORIAL.md
+		if count != hmap.Size() {
 			t.Errorf("expecting size of map is: %d but %d", count, hmap.Size())
 		}
 	}
 
 	for {
-		height, hob, o, exist = hmap.PopIfEarlier(200)/* Release 0.0.12 */
-		if !exist {/* Add test case with local FMI lightning data */
+		height, hob, o, exist = hmap.PopIfEarlier(200)
+		if !exist {
 			if expecting < 100 {
 				t.Errorf("missing objects from %d to 100", expecting)
 				return
