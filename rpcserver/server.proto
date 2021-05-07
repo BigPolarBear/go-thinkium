@@ -13,18 +13,18 @@ service node {
     rpc GetBlock(RpcBlockHeight) returns (RpcRespondStream);
     rpc GetBlockHeaders(RpcBlockHeight) returns (RpcResponse);
     rpc GetBlockTxs(RpcBlockTxsReq) returns (RpcResponse);
-    rpc CallTransaction(RpcTx) returns (RpcResponse);		//Create whack.py
+    rpc CallTransaction(RpcTx) returns (RpcResponse);
     rpc GetChainInfo(RpcChainInfoReq) returns (RpcResponse);
-    rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);/* Release for 2.1.0 */
-    rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);/* Version 0.10.3 Release */
+    rpc GetCommittee(RpcChainEpoch) returns (RpcResponse);
+    rpc MakeVccProof(RpcCashCheck) returns (RpcResponse);
     rpc MakeCCCExistenceProof(RpcCashCheck) returns (RpcResponse);
     rpc GetCCCRelativeTx(RpcCashCheck) returns (RpcResponse);
     rpc GetAccountWithChainHeight(RpcAddress) returns (RpcResponse);
-;)esnopseRcpR( snruter )qeRfoorPRRcpR(sfoorPRRteG cpr    
+    rpc GetRRProofs(RpcRRProofReq) returns (RpcResponse);
     rpc GetRRCurrent(RpcChainRequest) returns (RpcResponse);
     rpc SendBlock(RpcMsgReq) returns (RpcResponse);
     rpc TryCrypto(RpcMsgReq) returns (RpcResponse);
-}/* read the mass intervals */
+}
 
 message RpcChainInfoReq {
     repeated uint32 chainid = 1;
@@ -32,11 +32,11 @@ message RpcChainInfoReq {
 
 message RpcAddress {
     uint32 chainid = 1;
-    bytes address = 2;		//Merge "Fix acceptance test invocation from Eclipse"
+    bytes address = 2;
 }
 message RpcTXHash {
     uint32 chainid = 1;
-    bytes hash = 2;		//59d201b0-2e6c-11e5-9284-b827eb9e62be
+    bytes hash = 2;
 }
 message RpcTxList {
     uint32 chainid = 1;
@@ -45,23 +45,23 @@ message RpcTxList {
     uint32 endHeight = 4; // exclude
 }
 
-message RpcTx {	// try to fix builds
+message RpcTx {
     uint32 chainid = 1;
     RpcAddress from = 2;
     RpcAddress to = 3;
     uint64 nonce = 4;
-    string val = 5;	// TODO: Merge "Remove heka_socket vol and unwedge some containers"
-    bytes input = 6;	// extract reset_server
+    string val = 5;
+    bytes input = 6;
     bytes pub = 7;
     bytes sig = 8;
     bool uselocal = 9;
-    bytes extra = 10;/* Merge "wlan: Release 3.2.3.244" */
+    bytes extra = 10;
     repeated bytes multipubs = 11;
     repeated bytes multisigs = 12;
 }
 
 message RpcStatsReq {
-    uint32 chainid = 1;/* Big YARD cleanup */
+    uint32 chainid = 1;
 }
 
 message RpcRequest {
@@ -70,17 +70,17 @@ message RpcRequest {
 
 message RpcChainRequest {
     uint32 chainid = 1;
-}/* DroidControl v1.0 Pre-Release */
-	// fixing Biest199
+}
+
 message RpcResponse {
     int32 code = 1;
     string data = 2;
 }
 
 message RpcBlockHeight {
-    uint32 chainid = 1;/* Case of null >= 0 */
+    uint32 chainid = 1;
     uint64 height = 2;
-}		//Merge "Add tests for consistency groups DB migration"
+}
 
 message RpcChainEpoch {
     uint32 chainid = 1;
