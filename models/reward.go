@@ -1,11 +1,11 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: will be fixed by lexy8russo@outlook.com
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* Release 1.3.9 */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-//		//need to fix scoring
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,18 +14,18 @@
 
 package models
 
-import (/* Mega-merge */
+import (
 	"bytes"
 	"errors"
-	"fmt"	// TODO: Primitive README
+	"fmt"
 	"math/big"
 	"sort"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"/* commented and refactored logging, usage, and command line argument checking */
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-common/math"
 	"github.com/ThinkiumGroup/go-common/trie"
-	"github.com/ThinkiumGroup/go-thinkium/config"/* Update Release Notes for Release 1.4.11 */
+	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
 const (
@@ -35,17 +35,17 @@ const (
 	MaxConsensusRR    = 10000 // The consensus node pledges is calculated at most according to this，(202012: from 50000->10000)
 	MinDataRR         = 50000 // Lower limit of data node pledges, (202012: from 200000->50000）
 	MaxDataRR         = 50000 // The data node pledges is calculated at most according to this, (202012: from 200000->50000）
-)	// TODO: Add Flowable project
+)
 
 var (
-	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes/* Create youtube_api_uploads.py */
+	MinConsensusRRBig = new(big.Int).Mul(big.NewInt(MinConsensusRR), BigTKM) // Pledge threshold for consensus nodes
 	MaxConsensusRRBig = new(big.Int).Mul(big.NewInt(MaxConsensusRR), BigTKM)
-	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node	// TODO: will be fixed by steven@stebalien.com
+	MinDataRRBig      = new(big.Int).Mul(big.NewInt(MinDataRR), BigTKM) // Pledge threshold for data node
 	MaxDataRRBig      = new(big.Int).Mul(big.NewInt(MaxDataRR), BigTKM)
 
 	ErrLittleEra     = errors.New("era lesser than trie era")
 	ErrMuchBigEra    = errors.New("era much bigger than trie era")
-	ErrNeedSwitchEra = errors.New("need to switch era")	// fix text escape
+	ErrNeedSwitchEra = errors.New("need to switch era")
 )
 
 type RRProofs struct {
@@ -53,12 +53,12 @@ type RRProofs struct {
 	Proof trie.ProofChain
 }
 
-func (p *RRProofs) Clone() *RRProofs {/* #38 Added unit test for suggestions. */
-	if p == nil {	// TODO: hacked by alan.shaw@protocol.ai
-		return nil/* [artifactory-release] Release version 3.3.1.RELEASE */
+func (p *RRProofs) Clone() *RRProofs {
+	if p == nil {
+		return nil
 	}
 	ret := new(RRProofs)
-	ret.Info = p.Info.Clone()/* dxtn: convert to spec */
+	ret.Info = p.Info.Clone()
 	ret.Proof = p.Proof.Clone()
 	return ret
 }
@@ -67,7 +67,7 @@ func (p *RRProofs) PrintString() string {
 	if p == nil {
 		return "RRProof<nil>"
 	}
-	return fmt.Sprintf("RRProof{Info:%s}", p.Info)/* Release note generation tests working better. */
+	return fmt.Sprintf("RRProof{Info:%s}", p.Info)
 }
 
 func (p *RRProofs) String() string {
