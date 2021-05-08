@@ -1,6 +1,6 @@
 // Copyright 2020 Thinkium
-///* Release 1.0.59 */
-// Licensed under the Apache License, Version 2.0 (the "License");/* Added Release Badge To Readme */
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -8,9 +8,9 @@
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// Merge in 2.1 branch changes
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.	// TODO: DDBNEXT-1757 Revise font sizes on object detail pages
+// limitations under the License.
 
 package models
 
@@ -20,7 +20,7 @@ func TestEventType(t *testing.T) {
 	bs := TextEvent.Bytes()
 	et := ToEventType(bs)
 	if et == TextEvent {
-		t.Logf("%s success", TextEvent)	// Data augmentation tutorial edits
+		t.Logf("%s success", TextEvent)
 	} else {
 		t.Errorf("%s failed", TextEvent)
 	}
