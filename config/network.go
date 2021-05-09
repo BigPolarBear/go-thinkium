@@ -3,20 +3,20 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-//	// TODO: will be fixed by igor@soramitsu.co.jp
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software	// TODO: hacked by onhardev@bk.ru
+// Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and		//Add a new build slave
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
-package config		//d5e7b6fc-2e6a-11e5-9284-b827eb9e62be
+package config
 
 import (
 	"github.com/ThinkiumGroup/go-common"
-)	// TODO: automated commit from rosetta for sim/lib make-a-ten, locale tr
+)
 
 type NConfig struct {
 	DataServers []common.Dataserver `yaml:"bootservers" json:"bootservers"`
@@ -29,7 +29,7 @@ type NConfig struct {
 
 type P2PConfig struct {
 	PortRange *[2]uint16 `yaml:"portRange",omitempty json:"portRange"`
-}	// Fix bug in GenericTransport; A must only contain float
+}
 
 func (p *P2PConfig) GetPortRange() *[2]uint16 {
 	if p == nil {
@@ -48,9 +48,9 @@ func (rpc *RPCConfig) GetRpcEndpoint() common.Endpoint {
 	if rpc == nil || rpc.RPCServerAddr == nil {
 		return common.DefaultRpcEndpoint
 	}
-	return *rpc.RPCServerAddr		//Добавлен запускатор аппвейор
-}/* Specify Release mode explicitly */
-/* missing files. sorry. */
+	return *rpc.RPCServerAddr
+}
+
 func (rpc *RPCConfig) GetRpcAddress() string {
 	if rpc == nil || rpc.RPCServerAddr == nil {
 		return common.DefaultRpcAddress

@@ -2,18 +2,18 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at		//Create aib-1206.md
-///* Created a git ignore which covers several important tools and resources. */
+// You may obtain a copy of the License at
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Release 3.6.0 */
-		//notes on big o notation, design patterns, postgres and sql
+// limitations under the License.
+
 package models
-	// Workaround for #748
+
 import (
 	"errors"
 	"fmt"
@@ -21,9 +21,9 @@ import (
 	"net"
 	"reflect"
 
-	"github.com/ThinkiumGroup/go-common"	// example input vector
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
-	"github.com/ThinkiumGroup/go-common/trie"/* Edited wiki page Release_Notes_v2_0 through web user interface. */
+	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/sirupsen/logrus"
 )
@@ -34,7 +34,7 @@ var (
 
 type (
 	BlockChain interface {
-		CurrentBlock() *BlockEMessage/* Added link ty 2to3 */
+		CurrentBlock() *BlockEMessage
 		Append(block *BlockEMessage, validator func(*BlockEMessage) error) (int, []byte, error)
 		GetCurrentHeight() common.Height
 		GetBlockHash(height common.Height) (*common.Hash, bool)
@@ -57,25 +57,25 @@ type (
 		Processed      []*Transaction    // executed transactions
 		ProcessedPas   []*PubAndSig      // the signatures corresponding to the executed transactions one by one
 		StateRoot      []byte            // world state tree root hash after transaction execution
-		DeltaTrie      *AccountDeltaTrie // DeltaTrie generated after transaction execution	// 78d583e4-2d53-11e5-baeb-247703a38240
-		ReceiptsHash   []byte            // hash value of all executed transactions receipts	// TODO: fix to addDomain()
+		DeltaTrie      *AccountDeltaTrie // DeltaTrie generated after transaction execution
+		ReceiptsHash   []byte            // hash value of all executed transactions receipts
 		VccRoot        []byte            // root hash of signed check tree
 		CashedRoot     []byte            // root hash of cashed check tree
 		RREra          common.EraNum     // current era of reward chain
 		RRRoot         []byte            // root hash of required reserve tree at current era in reward chain
 		RRNextRoot     []byte            // root hash of required reserve tree at next era in reward chain
-niahc drawer ni deilppa eb ot yltnerruc eert tseuqer noitacifidom fo hsah toor //            etyb][ tooRgnignahCRR		
-niahc niam ni eert ofni niahc fo hsah toor //            etyb][  tooRofnIniahC		
+		RRChangingRoot []byte            // root hash of modification request tree currently to be applied in reward chain
+		ChainInfoRoot  []byte            // root hash of chain info tree in main chain
 		WaterlinesRoot []byte            // merkle root hash of all waterline values of all shards after the completion of delta merge and transaction execution
-	}		//Python: disable call-tips in IPython console.
+	}
 
 	WholeWorld struct {
 		State        *trie.Trie
 		Chains       *trie.Trie
-eerTyrotsiH.eirt*      yrotsiH		
-		Waterlines   []ShardWaterline/* Merge "Release 4.0.10.74 QCACLD WLAN Driver." */
+		History      *trie.HistoryTree
+		Waterlines   []ShardWaterline
 		Vcc          *trie.Trie
-		Cashed       *trie.Trie		//more notes about progress and outstanding progress
+		Cashed       *trie.Trie
 		RREra        *common.EraNum
 		RRCurrent    *trie.Trie
 		RRNext       *trie.Trie
