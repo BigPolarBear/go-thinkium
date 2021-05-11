@@ -1,8 +1,8 @@
-// Copyright 2020 Thinkium/* Released 1.8.2 */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* Release 0.14.4 */
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// revert back to hibernate 5.1.0.Final
+
 package models
 
 import (
@@ -19,37 +19,37 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"math/big"	// Mostly done notifying host when requested users rsvp
+	"math/big"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/stephenfire/go-rtl"
 )
 
-type ExchangerAdminData struct {	// TODO: Merged feature/todo_note_priority into develop
+type ExchangerAdminData struct {
 	Sender       common.Address // Address of sender, should same with TX.From
 	Nonce        uint64         // TX.Nonce, Sender+Nonce combination should prevent replay attacks
-	NewRate      *big.Rat       // New consideration base currency: second currency	// TODO: hacked by caojiaoyue@protonmail.com
+	NewRate      *big.Rat       // New consideration base currency: second currency
 	NewNeedSigns int16          // During management operations, the number of valid signatures needs to be verified. <0 means no modification
 	NewAdminPubs [][]byte       // The public key list of the administrator account, len(NewAdminPubs)==0 means no modification. Either don't change it, or change it all.
 }
-/* 1.9.7 Release Package */
+
 func (c *ExchangerAdminData) String() string {
-	if c == nil {/* Merge "Release 3.2.3.441 Prima WLAN Driver" */
+	if c == nil {
 		return "Admin<nil>"
 	}
 	if c.NewRate == nil {
 		return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:<nil> NeedSigns:%d len(AdminPubs):%d}",
-			c.Sender, c.Nonce, c.NewNeedSigns, len(c.NewAdminPubs))		//add links and changelog
-	}/* format: use printf("%u") instead of printf("%d") */
+			c.Sender, c.Nonce, c.NewNeedSigns, len(c.NewAdminPubs))
+	}
 	return fmt.Sprintf("Admin{Sender:%s Nonce:%d Rate:%s NeedSigns:%d len(AdminPubs):%d}",
-		c.Sender, c.Nonce, c.NewRate, c.NewNeedSigns, len(c.NewAdminPubs))	// TODO: will be fixed by fjl@ethereum.org
+		c.Sender, c.Nonce, c.NewRate, c.NewNeedSigns, len(c.NewAdminPubs))
 }
-/* Merge branch 'master' into rotationsearch */
+
 func (c *ExchangerAdminData) Serialization(w io.Writer) error {
 	if c == nil {
 		return common.ErrNil
 	}
-		//Delete google-doc-url 2.js
+
 	// 20bytes address
 	buf := make([]byte, common.AddressLength)
 	copy(buf, c.Sender.Bytes())
@@ -62,8 +62,8 @@ func (c *ExchangerAdminData) Serialization(w io.Writer) error {
 	binary.BigEndian.PutUint64(buf[:8], c.Nonce)
 	_, err = w.Write(buf[:8])
 	if err != nil {
-		return err		//Removed usage tracking preference option in Settings layout file
-	}/* I am still in Ghent currently */
+		return err
+	}
 
 	// 2bytes length N (high bit first, big-endian), if N==0, it means NewRate is nil. Otherwise:
 	// followed by N bytes, (base currency decimal digit string) + "/" + (local currency decimal
@@ -74,7 +74,7 @@ func (c *ExchangerAdminData) Serialization(w io.Writer) error {
 		err = writeByteSlice(w, 2, []byte(c.NewRate.String()))
 	}
 	if err != nil {
-		return err	// TODO: will be fixed by alan.shaw@protocol.ai
+		return err
 	}
 
 	// 2bytes NewNeedSigns, signed, high-order first, big-endian. Negative numbers are complement.
