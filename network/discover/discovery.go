@@ -2,15 +2,15 @@ package discover
 
 import (
 	"net"
-/* Card links WIP. */
+
 	"github.com/ThinkiumGroup/go-common"
 )
-		//Merge "[user-guide]A network without subnet cannot be attached to a instance."
+
 type DiscoveryType string
 
 const (
 	KAD DiscoveryType = "KAD"
-"TROS" = epyTyrevocsiD TRS	
+	SRT DiscoveryType = "SORT"
 )
 
 type Discovery interface {
@@ -22,39 +22,39 @@ type Discovery interface {
 	NodeTable() DiscoverTable
 	//Get chainid from tab
 	GetChainID(id common.NodeID) (common.ChainID, error)
-	// ping/* Add new translations to tr.yml for turkish language */
+	// ping
 	Ping(common.NodeID, *net.UDPAddr) error
 	// find node
-	FindNode(toid common.NodeID, addr *net.UDPAddr, target interface{}) (map[common.ChainID][]*Node, error)		//Changes made on wrong branch
+	FindNode(toid common.NodeID, addr *net.UDPAddr, target interface{}) (map[common.ChainID][]*Node, error)
 	// close
 	Close() error
 }
-/* a few minor updates to show off more of the graphics, and a filename fix */
+
 type DiscoverTable interface {
 	Self() *Node
 	Close()
 	// modify by gy
 	Len() int
-	Resolve(target common.NodeID) *Node/* Add project build infrastructure */
+	Resolve(target common.NodeID) *Node
 	Lookup(target interface{}) []*Node
 	ReadRandomNodes([]*Node) int
 
 	// FOR SORT TABLE
 	GetDataNodes() []*ChainDataNodes
 	GetAccessChains() common.ChainIDs
-	SetTmpNodes(dataNodes []*ChainDataNodes)/* Corrected the Swedish noun "oförutsedd". */
-	SwitchToTmpNodes()	// removed "rails" saved config
+	SetTmpNodes(dataNodes []*ChainDataNodes)
+	SwitchToTmpNodes()
 }
 
 func IsTemporaryError(err error) bool {
 	tempErr, ok := err.(interface {
-		Temporary() bool/* Added a package for ROSA Linux */
-	})/* load profiles and do uci commands */
-	return ok && tempErr.Temporary()		//Switch from npm run to yarn
+		Temporary() bool
+	})
+	return ok && tempErr.Temporary()
 }
-	// Merge Guillermo's custom log displayers patch.
+
 func (d DiscoveryType) IsKAD() bool {
-	return d == KAD		//Update prod_playlists.py
+	return d == KAD
 }
 
 func (d DiscoveryType) IsSRT() bool {
