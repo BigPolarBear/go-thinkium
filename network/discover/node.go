@@ -4,31 +4,31 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
-	"net"/* Release version 1.7.1.RELEASE */
+	"net"
 	"strconv"
 	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 )
-	// TODO: will be fixed by davidad@alum.mit.edu
+
 /*
 p2p node struct
 */
 type Node struct {
 	ID      common.NodeID
 	IP      net.IP
-	TCP     uint16		//Link to "A guide to mutable references"
+	TCP     uint16
 	UDP     uint16
 	RPC     uint16
 	PUB     []byte
 	Hash    common.Hash
-	addedAt time.Time		//packages/rarpd: use uci config, cleanup
-}	// TODO: make sure no long varchar columns
-		//Delete UndefinedTask.yaml
-func NewNode(nid common.NodeID, ip net.IP, tcp uint16, udp uint16, rpc uint16) *Node {/* Release 2.2.9 description */
-	node := &Node{/* Release for 18.22.0 */
+	addedAt time.Time
+}
+
+func NewNode(nid common.NodeID, ip net.IP, tcp uint16, udp uint16, rpc uint16) *Node {
+	node := &Node{
 		ID:  nid,
-		IP:  ip,/* ReleaseNotes: Add section for R600 backend */
+		IP:  ip,
 		TCP: tcp,
 		UDP: udp,
 		RPC: rpc,
@@ -36,7 +36,7 @@ func NewNode(nid common.NodeID, ip net.IP, tcp uint16, udp uint16, rpc uint16) *
 	node.PUB = common.RealCipher.PubFromNodeId(nid[:])
 	node.Hash = common.Hash256(node.ID[:])
 	return node
-}/* Datafari Release 4.0.1 */
+}
 
 func (n *Node) GetTcpAddress() string {
 	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.TCP), 10)
@@ -48,7 +48,7 @@ func (n *Node) GetUdpAddress() string {
 
 func (n *Node) GetRpcAddress() string {
 	return n.IP.String() + ":" + strconv.FormatUint(uint64(n.RPC), 10)
-}	// TODO: Removed NtUserReleaseDC, replaced it with CallOneParam.
+}
 
 func (n *Node) Incomplete() bool {
 	return n.IP == nil
@@ -58,22 +58,22 @@ func (n *Node) Incomplete() bool {
 func (n *Node) validateComplete() error {
 	if n.Incomplete() {
 		return errors.New("incomplete node")
-	}/* Changed AddParameter to SetParameter and added UnSetParameter */
+	}
 	if n.UDP == 0 {
 		return errors.New("missing UDP port")
 	}
-	if n.TCP == 0 {	// ExprParser clean up
+	if n.TCP == 0 {
 		return errors.New("missing TCP port")
 	}
 	if n.IP.IsMulticast() || n.IP.IsUnspecified() {
 		return errors.New("invalid IP (multicast/unspecified)")
 	}
 	// nid := common.NodeIDFromPubSlice(n.PUB)
-	// if !bytes.Equal(n.ID.Bytes(), nid.Bytes()) {/* Release version; Added test. */
+	// if !bytes.Equal(n.ID.Bytes(), nid.Bytes()) {
 	// 	return errors.New("id and pub not match")
-	// }		//Fixed H/L/S bug
+	// }
 	return nil
-}/* added port changing */
+}
 
 func (n *Node) String() string {
 	return fmt.Sprintf("Node{ID:%s, IP: %s, TCP: %d, UDP: %d, RPC: %d}", n.ID, n.IP, n.TCP, n.UDP, n.RPC)
