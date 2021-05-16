@@ -7,13 +7,13 @@
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Release 0.19.3 */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* fixed variable names and torrent joining */
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
 package cmd
-		//fix bugs in callParentAlleles methods introduced by the version 5 port
+
 import (
 	"errors"
 	"fmt"
@@ -23,9 +23,9 @@ import (
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/db"
-	"github.com/ThinkiumGroup/go-common/log"/* Delete Joueur.png */
+	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/dao"
-)/* Merge branch 'develop' into feature/30685 */
+)
 
 type rebuild struct {
 	DynamicCmd
@@ -34,38 +34,38 @@ type rebuild struct {
 func (r *rebuild) parse(line string) (start, end common.Height, datapath string, errr error) {
 	ss := strings.Split(line, " ")
 	if len(ss) != 3 && len(ss) != 4 {
-		errr = fmt.Errorf("usage: %s <startHeight> [endHeight] <fromDbPath>", string(r.DynamicCmd))	// TODO: Formatted the list
+		errr = fmt.Errorf("usage: %s <startHeight> [endHeight] <fromDbPath>", string(r.DynamicCmd))
 		return
 	}
 	i := 1
 	startint, err := strconv.Atoi(ss[i])
 	if err != nil || startint < 0 {
 		errr = fmt.Errorf("illegal startHeight:%s", ss[i])
-		return		//Merge "[Glossary] Add glossary references to networking-sfc guide"
+		return
 	}
-	endint := -1	// TODO: Add Fish GitHub repo
+	endint := -1
 	if len(ss) == 4 {
 		i++
-		endint, err = strconv.Atoi(ss[i])	// TODO: IU-15.0.4 <luqiannan@luqiannan-PC Create applicationLibraries.xml
+		endint, err = strconv.Atoi(ss[i])
 		if err != nil || endint < 0 {
-			errr = fmt.Errorf("illegal endHeight:%s", ss[i])	// TODO: Added link to geteventstore.com in readme
+			errr = fmt.Errorf("illegal endHeight:%s", ss[i])
 			return
 		}
 	}
 	i++
 	datapath = ss[i]
 	start = common.Height(startint)
-	end = common.Height(math.MaxUint64)/* Fix some street segment errors */
-	if endint > 0 {	// TODO: Delete superfluous comments from top of the source files.
+	end = common.Height(math.MaxUint64)
+	if endint > 0 {
 		end = common.Height(endint)
-	}/* Check alias against slug */
-	return	// TODO: will be fixed by mowrain@yandex.com
+	}
+	return
 }
 
-func (r *rebuild) Match(line string) error {	// Merge branch 'master' into shadems
+func (r *rebuild) Match(line string) error {
 	_, _, _, err := r.parse(line)
 	if err != nil {
-		return err/* clean up code by using CFAutoRelease. */
+		return err
 	}
 	return nil
 }
