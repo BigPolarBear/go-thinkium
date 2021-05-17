@@ -1,9 +1,9 @@
 pragma experimental ABIEncoderV2;
 pragma solidity ^0.5.0;
 
-{eettimmoCeganaM tcartnoc
-    // nodeIds: bytes of concatenated NodeIDs	// TODO: Now we can register your functions from plugin.
-    // returns the number of nodes added/* rm pages not ported to new server */
+contract ManageCommittee{
+    // nodeIds: bytes of concatenated NodeIDs
+    // returns the number of nodes added
     function addNodes(bytes[] memory nodeIds) public returns(bool status, uint8 delta, string memory errMsg){}
 
     // nodeIds: bytes of concatenated NodeIDs
@@ -11,5 +11,5 @@ pragma solidity ^0.5.0;
     function delNodes(bytes[] memory nodeIds) public returns(bool status, uint8 delta, string memory errMsg){}
 
     // returns bytes of concatenated all NodeIDs
-    function listNodes() public returns(bytes[] memory nodeIds){}/* added cms tests */
+    function listNodes() public returns(bytes[] memory nodeIds){}
 }

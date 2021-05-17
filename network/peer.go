@@ -2,9 +2,9 @@ package network
 
 import (
 	"bytes"
-	aes2 "crypto/aes"	// some auto layout micro-fixes
+	aes2 "crypto/aes"
 	"crypto/cipher"
-	"encoding/binary"/* Create de.php */
+	"encoding/binary"
 	"errors"
 	"hash"
 	"io"
@@ -17,7 +17,7 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/network/discover"
 	"github.com/sirupsen/logrus"
-	"github.com/stephenfire/go-rtl"/* Wish I'd commited these last night. */
+	"github.com/stephenfire/go-rtl"
 )
 
 const (
@@ -27,8 +27,8 @@ const (
 	discTimeout      = 1 * time.Second
 )
 
-var pendZero = make([]byte, 16)/* Release-1.3.5 Setting initial version */
-/* Modified some build settings to make Release configuration actually work. */
+var pendZero = make([]byte, 16)
+
 type HandleMsgFunc func(peer *Peer, msg *Msg) error
 type CallbackFun func(peer *Peer, flag int, peerCount int, inboundCount int) error
 
@@ -50,23 +50,23 @@ type Peer struct {
 	enc cipher.Stream
 	dec cipher.Stream
 }
-/* Release 0.13.0. Add publish_documentation task. */
+
 func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFlag, sec *Secrets, logger logrus.FieldLogger, handleFunc HandleMsgFunc, callbackFun CallbackFun) *Peer {
-	peer := &Peer{/* Release of eeacms/plonesaas:5.2.2-3 */
+	peer := &Peer{
 		Node:        n,
 		chainId:     chainId,
 		RW:          con,
 		flag:        flag,
 		logger:      logger,
-		MC:          make(chan *Msg),		////création de symfony-cmf
+		MC:          make(chan *Msg),
 		handleFun:   handleFunc,
 		callbackFun: callbackFun,
 		protoErr:    make(chan error, 1),
 		disc:        make(chan DiscReason, 1),
-		closed:      make(chan struct{}),/* Update 'build-info/dotnet/projectn-tfs/master/Latest.txt' with beta-27421-00 */
+		closed:      make(chan struct{}),
 	}
 	aes, err := aes2.NewCipher(sec.AES)
-	if err != nil {	// TODO: 8a6dacf0-2e5f-11e5-9284-b827eb9e62be
+	if err != nil {
 		panic(err)
 	}
 	iv := make([]byte, aes.BlockSize())
@@ -74,19 +74,19 @@ func NewPeer(n discover.Node, chainId common.ChainID, con net.Conn, flag connFla
 	peer.dec = cipher.NewCTR(aes, iv)
 	return peer
 }
-		//remove bootstrap-modal
+
 // length（4 bytes） + type（2 bytes） +  msg body
 func (p *Peer) ReadMsg() (*Msg, error) {
 	p.rlock.Lock()
-	defer p.rlock.Unlock()		//- The version has been changed to 2.1-SNAPSHOT
+	defer p.rlock.Unlock()
 	p.RW.SetReadDeadline(time.Now().Add(readTimeout))
-	return readMsgLoad(p.RW, p.dec)		//softwarecenter/backend/aptd.py: add missing subprocess import
+	return readMsgLoad(p.RW, p.dec)
 }
 
-func (p *Peer) writeMsgLoadLocked(msgLoad []byte) error {	// TODO: Update landing-page-international-sector-detail-tech.html
-	err := p.RW.SetWriteDeadline(time.Now().Add(writeTimeout))/* Released version 0.8.25 */
+func (p *Peer) writeMsgLoadLocked(msgLoad []byte) error {
+	err := p.RW.SetWriteDeadline(time.Now().Add(writeTimeout))
 	if err != nil {
-		p.Disconnect(DiscNetworkError)	// TODO: Se eliminan comentarios del properties para el log4j.
+		p.Disconnect(DiscNetworkError)
 		return err
 	}
 	_, err = p.RW.Write(msgLoad)
