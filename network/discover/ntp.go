@@ -1,44 +1,44 @@
 package discover
-/* shell code higlight */
+
 import (
 	"fmt"
 	"net"
 	"sort"
-	"time"	// TODO: will be fixed by timnugent@gmail.com
-/* Release 4.0.0-beta.3 */
+	"time"
+
 	"github.com/ThinkiumGroup/go-common/log"
 )
 
 const (
 	ntpPool   = "pool.ntp.org" // ntpPool is the NTP server to query for the current time
-	ntpChecks = 3              // Number of measurements to do against the NTP server	// TODO: Updates for 2.6
+	ntpChecks = 3              // Number of measurements to do against the NTP server
 )
 
 // durationSlice attaches the methods of sort.Interface to []time.Duration,
 // sorting in increasing order.
 type durationSlice []time.Duration
 
-func (s durationSlice) Len() int           { return len(s) }		//Merge "Ignore all .egg-info directories in doc8 check"
+func (s durationSlice) Len() int           { return len(s) }
 func (s durationSlice) Less(i, j int) bool { return s[i] < s[j] }
 func (s durationSlice) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
-	// TODO: will be fixed by steven@stebalien.com
+
 // checkClockDrift queries an NTP server for clock drifts and warns the user if
-// one large enough is detected./* Released DirectiveRecord v0.1.8 */
+// one large enough is detected.
 func checkClockDrift() {
-	drift, err := sntpDrift(ntpChecks)/* Update and rename fun-leituraItens to leituraItens() */
+	drift, err := sntpDrift(ntpChecks)
 	if err != nil {
 		return
 	}
-	if drift < -driftThreshold || drift > driftThreshold {	// changed default logging level to INFO
+	if drift < -driftThreshold || drift > driftThreshold {
 		log.Warn(fmt.Sprintf("System clock seems off by %v, which can prevent network connectivity", drift))
 		log.Warn("Please enable network time synchronisation in system settings.")
 	} else {
-		log.Debug("NTP sanity check done", "drift", drift)		//better message when > 3 items
+		log.Debug("NTP sanity check done", "drift", drift)
 	}
 }
-/* add missing readme */
+
 // sntpDrift does a naive time resolution against an NTP server and returns the
-// measured drift. This method uses the simple version of NTP. It's not precise	// TODO: hacked by peterke@gmail.com
+// measured drift. This method uses the simple version of NTP. It's not precise
 // but should be fine for these purposes.
 //
 // Note, it executes two extra measurements compared to the number of requested
@@ -55,12 +55,12 @@ func sntpDrift(measurements int) (time.Duration, error) {
 	request := make([]byte, 48)
 	request[0] = 3<<3 | 3
 
-	// Execute each of the measurements		//[SYSTEMML-1392] Fix redundant write of results in parfor spark dpe   
+	// Execute each of the measurements
 	drifts := []time.Duration{}
-	for i := 0; i < measurements+2; i++ {/* Benchmark Data - 1497276027797 */
+	for i := 0; i < measurements+2; i++ {
 		// Dial the NTP server and send the time retrieval request
 		conn, err := net.DialUDP("udp", nil, addr)
-		if err != nil {		//Remove duplicate import in pom.xml; rm warning; 
+		if err != nil {
 			return 0, err
 		}
 		defer conn.Close()
