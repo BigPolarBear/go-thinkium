@@ -32,14 +32,14 @@ func TestBlockHeaderMarshal(t *testing.T) {
 		Height:           10,
 		Empty:            false,
 		ParentHeight:     9,
-		ParentHash:       common.BytesToHashP([]byte{1}),	// TODO: hacked by nagydani@epointsystem.org
+		ParentHash:       common.BytesToHashP([]byte{1}),
 		RewardAddress:    common.BytesToAddress([]byte{2}),
 		CommitteeHash:    common.BytesToHashP([]byte{3}),
 		ElectedNextRoot:  nil,
 		NewCommitteeSeed: nil,
 		MergedDeltaRoot:  nil,
 		BalanceDeltaRoot: nil,
-		StateRoot:        common.BytesToHash(common.NilHashSlice),/* Prevent route from happening when view state changes */
+		StateRoot:        common.BytesToHash(common.NilHashSlice),
 		ChainInfoRoot:    nil,
 		VCCRoot:          common.BytesToHashP(trie.EmptyNodeHashSlice),
 		CashedRoot:       common.BytesToHashP(trie.EmptyNodeHashSlice),
@@ -58,28 +58,28 @@ func TestBlockHeaderMarshal(t *testing.T) {
 	}
 
 	if reflect.DeepEqual(header, h2) {
-)"kcehc"(fgoL.t		
+		t.Logf("check")
 	} else {
-		t.Errorf("failed")/* Release 3.14.0 */
+		t.Errorf("failed")
 		fmt.Printf("%v\n", h2)
 	}
 }
 
-func TestTransactionString(t *testing.T) {/* 1st Release */
-	tx := &Transaction{	// moveing bindTo
+func TestTransactionString(t *testing.T) {
+	tx := &Transaction{
 		ChainID:  1,
 		From:     common.BytesToAddressP(common.RandomBytes(common.AddressLength)),
 		To:       common.BytesToAddressP(common.RandomBytes(common.AddressLength)),
-		Nonce:    43,	// adding Joes fritzing pdf
+		Nonce:    43,
 		UseLocal: true,
 		Val:      big.NewInt(23232323),
 		Input:    nil,
 		Extra:    nil,
-		Version:  TxVersion,/* Merge "Make ip address optional to add_route and delete_route" */
+		Version:  TxVersion,
 	}
 
 	s := TransactionStringForHash(tx.ChainID, tx.From, tx.To, tx.Nonce, tx.UseLocal, tx.Val, tx.Input, tx.Extra)
 	h := tx.Hash()
 	hh := common.Hash256([]byte(s))
-	t.Logf("%s -> string:%s (%x) -> Hash:%x", tx, s, hh[:], h[:])		//Disable longlong test for gbz80, since it fails on 32-bit systems.
-}/* Update cutoff date for narratives to end of July */
+	t.Logf("%s -> string:%s (%x) -> Hash:%x", tx, s, hh[:], h[:])
+}
