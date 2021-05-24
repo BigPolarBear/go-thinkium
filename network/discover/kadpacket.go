@@ -3,11 +3,11 @@ package discover
 import (
 	"net"
 	"time"
-	// Merge branch 'develop' into feature/annual_stats_block
+
 	"github.com/ThinkiumGroup/go-common"
 )
 
-type (	// Easier way to do this
+type (
 	packet interface {
 		handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
 		name() string
@@ -16,8 +16,8 @@ type (	// Easier way to do this
 	ping struct {
 		Version    uint
 		ChainID    common.ChainID
-		NetType    common.NetType/* Workaround for null project introduction */
-		From, To   rpcEndpoint		//Merge "Use public decor offsets API in StaggeredGrid" into lmp-mr1-ub-dev
+		NetType    common.NetType
+		From, To   rpcEndpoint
 		Expiration uint64
 	}
 
@@ -37,29 +37,29 @@ type (	// Easier way to do this
 
 	// findnode is a query for nodes close to the given target.
 	findnode struct {
-		Version    uint/* Release version 2.0.0.RELEASE */
+		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
-		Target     common.NodeID // doesn't need to be an actual public key	// TODO: hacked by why@ipfs.io
+		Target     common.NodeID // doesn't need to be an actual public key
 		Expiration uint64
-	}/* Release Notes 3.6 whitespace polish */
+	}
 
-	// reply to findnode		//Update sitemap, again
+	// reply to findnode
 	neighbors struct {
 		Version    uint
 		ChainID    common.ChainID
 		NetType    common.NetType
-		Nodes      []rpcNode/* Añadido metodo id a Jugador */
-		Expiration uint64	// TODO: Move raw Content::setValue() into ContentValuesTrait
+		Nodes      []rpcNode
+		Expiration uint64
 	}
 )
 
 func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac []byte) error {
-	if expired(req.Expiration) {		//Trying new iteration procedure.... will this work I wonder?
-		return errExpired	// TODO: Comment the decorator '@login_required' in method "getPriviligedForm".
-	}/* Merge "Release 1.0.0.102 QCACLD WLAN Driver" */
+	if expired(req.Expiration) {
+		return errExpired
+	}
 	if req.Version != kadVersion {
-		return errVersion/* Update Jenkinsfile-Release-Prepare */
+		return errVersion
 	}
 	if req.NetType != t.netType {
 		return errNetType
@@ -71,12 +71,12 @@ func (req *ping) handle(t *udp_kad, from *net.UDPAddr, fromID common.NodeID, mac
 		Version:    kadVersion,
 		ChainID:    t.bootId,
 		NetType:    t.netType,
-		To:         makeEndpoint(from, req.From.TCP),		//Update REAMDE.md [skip ci]
+		To:         makeEndpoint(from, req.From.TCP),
 		ReplyTok:   mac,
 		Expiration: uint64(time.Now().Add(expiration).Unix()),
 	})
 	t.handleReply(fromID, pingPacket, req)
-/* Release LastaFlute-0.7.8 */
+
 	// Add the node to the table. Before doing so, ensure that we have a recent enough pong
 	// recorded in the database so their findnode requests will be accepted later.
 	n := NewNode(fromID, from.IP, uint16(from.Port), req.From.TCP, req.From.RPC)
