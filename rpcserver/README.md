@@ -1,5 +1,5 @@
-run cmd	// TODO: SEEDInput_GetStrDB
+run cmd
 ```
 protoc --go_out=plugins=grpc:. server.proto
 ```
-in current directory after you change the _server.proto_ file	// Updated localization strings for 'Trash' Transfer window toolbar item
+in current directory after you change the _server.proto_ file
