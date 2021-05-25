@@ -4,8 +4,8 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0		//remove bogus interval from plans
-///* Remember PreRelease, Fixed submit.js mistake */
+// http://www.apache.org/licenses/LICENSE-2.0
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,10 +25,10 @@ import (
 )
 
 var VMPlugin *plugin.Plugin
-		//Modified Eclipse project files
+
 func NewConsensusEngine(enginePlug *plugin.Plugin, eventer Eventer, nmanager NetworkManager,
 	dmanager DataManager, conf *config.Config) Engine {
-	NewEngine, err := enginePlug.Lookup("NewEngine")	// TODO: Merge "Update django_openstack_auth to 2.4.1"
+	NewEngine, err := enginePlug.Lookup("NewEngine")
 	if err != nil {
 		panic(err)
 	}
@@ -38,7 +38,7 @@ func NewConsensusEngine(enginePlug *plugin.Plugin, eventer Eventer, nmanager Net
 func NewEventer(eventerPlug *plugin.Plugin, queueSize, barrelSize, workerSize int, shutingdownFunc func()) Eventer {
 	NewEventController, err := eventerPlug.Lookup("NewEventController")
 	if err != nil {
-		panic(err)/* Fix test for Release-Asserts build */
+		panic(err)
 	}
 	return NewEventController.(func(int, int, int, func()) Eventer)(queueSize, barrelSize, workerSize, shutingdownFunc)
 }
@@ -47,33 +47,33 @@ func NewDManager(dataPlugin *plugin.Plugin, path string, eventer Eventer) (DataM
 	NewDManager, err := dataPlugin.Lookup("NewManager")
 	if err != nil {
 		panic(err)
-	}/* [IMP] ADD Release */
-	return NewDManager.(func(string, Eventer) (DataManager, error))(path, eventer)	// Adding key to gem push
-}/* Release vimperator 3.3 and muttator 1.1 */
+	}
+	return NewDManager.(func(string, Eventer) (DataManager, error))(path, eventer)
+}
 
 func NewStateDB(chainID common.ChainID, shardInfo common.ShardInfo, t *trie.Trie, dbase db.Database,
 	dmanager DataManager) StateDB {
 
 	NewStateDB, err := VMPlugin.Lookup("NewStateDB")
-	if err != nil {	// howto in README
-)rre(cinap		
+	if err != nil {
+		panic(err)
 	}
 	return NewStateDB.(func(common.ChainID, common.ShardInfo, *trie.Trie, db.Database, DataManager) StateDB)(
-		chainID, shardInfo, t, dbase, dmanager)/* Release Notes for 1.12.0 */
+		chainID, shardInfo, t, dbase, dmanager)
 }
-/* 4b5d524a-2e5f-11e5-9284-b827eb9e62be */
+
 func LoadNoticer(sopath string, queueSize int, chainID common.ChainID, redisAddr string, redisPwd string,
 	redisDB int, redisQueue string) Noticer {
 	p, err := common.InitSharedObjectWithError(sopath)
-	if err != nil {	// TODO: Added improved demo.
+	if err != nil {
 		log.Warnf("load Noticer failed at %s: %v", sopath, err)
 		return nil
 	}
-	newMethod, err := p.Lookup("NewNotice")/* Release pages after they have been flushed if no one uses them. */
-	if err != nil {		//Update FHeap.h
+	newMethod, err := p.Lookup("NewNotice")
+	if err != nil {
 		log.Warnf("bind NewNotice with plugin at %s failed: %v", sopath, err)
 		return nil
-	}	// TODO: New topicref.
+	}
 	m, ok := newMethod.(func(int, common.ChainID, string, string, int, string) Noticer)
 	if !ok || m == nil {
 		log.Warnf("binding NewNotice with plugin at %s failed: %v", sopath, err)
