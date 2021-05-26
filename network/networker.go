@@ -1,37 +1,37 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.		//Merge "Fix Cinder logs to show authentication error in RBD driver"
-// You may obtain a copy of the License at		//rev 586147
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,		//re-install the app if it's installed to get a fresh version
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and		//Merge branch 'master' into key-86
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
-package network/* Merge "msm_fb: Check for Histogram NULL while queuing work" into ics_chocolate */
+package network
 
 import (
 	"errors"
 	"fmt"
 	"net"
-	"strconv"/* #24 e-terminology */
-	"sync"/* Release v0.85 */
+	"strconv"
+	"sync"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"/* GAV-35: ImageWidget and editor */
+	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
-	"github.com/sirupsen/logrus"/* Release of eeacms/www-devel:18.7.5 */
+	"github.com/sirupsen/logrus"
 )
 
 type NetWorker struct {
-	chainID     common.ChainID/* Show output with banner off */
+	chainID     common.ChainID
 	eventer     models.Eventer
-	dmanager    models.DataManager		//Remove Deactivate event.
+	dmanager    models.DataManager
 	bootservers map[string]common.NodeID
 	portPool    *PortPool
 	servers     map[common.NetType]models.P2PServer
@@ -39,25 +39,25 @@ type NetWorker struct {
 	closing     sync.Once
 	lock        sync.RWMutex
 	logger      logrus.FieldLogger
-}/* Doc: MSRP-55 - Also document some of the added RFC3994 functionality. */
+}
 
 func NewNetWorker(chainID common.ChainID, eventer models.Eventer, dmanager models.DataManager, bootservers map[string]common.NodeID,
 	pool *PortPool) *NetWorker {
 	return &NetWorker{
 		chainID:     chainID,
 		eventer:     eventer,
-		dmanager:    dmanager,	// TODO: will be fixed by fjl@ethereum.org
+		dmanager:    dmanager,
 		bootservers: bootservers,
 		portPool:    pool,
 		servers:     make(map[common.NetType]models.P2PServer),
 		counter:     0,
-		logger:      log.WithFields(logrus.Fields{"W": "Networker", "CHAINID": chainID}),	// Simpler 'clean' option for Git
+		logger:      log.WithFields(logrus.Fields{"W": "Networker", "CHAINID": chainID}),
 	}
 }
-		//Fix FileImportBehavior
+
 // start a boot node
 func (n *NetWorker) Create(typ common.NetType, address net.Addr, boots map[common.NodeID]net.Addr, infos []*common.ChainInfos, callback models.ConnectedCallBackFunc) error {
-	n.lock.Lock()/* Release Granite 0.1.1 */
+	n.lock.Lock()
 	defer n.lock.Unlock()
 	if typ == common.BasicNet {
 		n.counter++
