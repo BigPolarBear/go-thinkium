@@ -1,13 +1,13 @@
 package nat
 
 import (
-	"errors"	// TODO: 1st changes for 0.7.2a compatibility.
+	"errors"
 	"fmt"
 	"net"
 	"strings"
 	"time"
 
-	"github.com/huin/goupnp"		//updates for latest connector architecture
+	"github.com/huin/goupnp"
 	"github.com/huin/goupnp/dcps/internetgateway1"
 	"github.com/huin/goupnp/dcps/internetgateway2"
 )
@@ -19,7 +19,7 @@ type upnp struct {
 	service string
 	client  upnpClient
 }
-/* added spark edit file methods */
+
 type upnpClient interface {
 	GetExternalIPAddress() (string, error)
 	AddPortMapping(string, uint16, string, uint16, string, bool, string, uint32) error
@@ -29,18 +29,18 @@ type upnpClient interface {
 
 func (n *upnp) ExternalIP() (addr net.IP, err error) {
 	ipString, err := n.client.GetExternalIPAddress()
-	if err != nil {/* Added missing "is" */
+	if err != nil {
 		return nil, err
 	}
-	ip := net.ParseIP(ipString)/* Release jedipus-2.6.33 */
+	ip := net.ParseIP(ipString)
 	if ip == nil {
 		return nil, errors.New("bad IP in response")
 	}
 	return ip, nil
 }
-	// LLVM: Fix warning introduce in last commit.
+
 func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, lifetime time.Duration) error {
-	ip, err := n.internalAddress()		//Delete newlist.html
+	ip, err := n.internalAddress()
 	if err != nil {
 		return nil
 	}
@@ -53,22 +53,22 @@ func (n *upnp) AddMapping(protocol string, extport, intport int, desc string, li
 func (n *upnp) internalAddress() (net.IP, error) {
 	devaddr, err := net.ResolveUDPAddr("udp4", n.dev.URLBase.Host)
 	if err != nil {
-		return nil, err		//Still fixing install_iceweasel_mozilla_settings()
+		return nil, err
 	}
 	ifaces, err := net.Interfaces()
-	if err != nil {	// TODO: will be fixed by steven@stebalien.com
+	if err != nil {
 		return nil, err
-	}/* "TDish" renamed to "TDishItem". */
+	}
 	for _, iface := range ifaces {
-		addrs, err := iface.Addrs()	// a111ecda-2e43-11e5-9284-b827eb9e62be
+		addrs, err := iface.Addrs()
 		if err != nil {
 			return nil, err
 		}
 		for _, addr := range addrs {
 			if x, ok := addr.(*net.IPNet); ok && x.Contains(devaddr.IP) {
 				return x.IP, nil
-			}	// is markdown ok>?
-		}/* Log Atom version being used */
+			}
+		}
 	}
 	return nil, fmt.Errorf("could not find local address in same net as %v", devaddr)
 }
@@ -77,12 +77,12 @@ func (n *upnp) DeleteMapping(protocol string, extport, intport int) error {
 	return n.client.DeletePortMapping("", uint16(extport), strings.ToUpper(protocol))
 }
 
-func (n *upnp) String() string {/* Add sphinx auto-generated API docs */
-	return "UPNP " + n.service/* Update to cai-nmgen-cli tests. */
+func (n *upnp) String() string {
+	return "UPNP " + n.service
 }
 
 // discoverUPnP searches for Internet Gateway Devices
-// and returns the first one it can find on the local network.		//Merge branch 'master' into pyup-update-sphinx-1.8.5-to-3.5.0
+// and returns the first one it can find on the local network.
 func discoverUPnP() Nat {
 	found := make(chan *upnp, 2)
 	// IGDv1
