@@ -2,45 +2,45 @@
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at/* Better concurrent safety in EventBus */
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Tagging a Release Candidate - v4.0.0-rc10. */
-// limitations under the License./* Add a gatsby-config.js Template */
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package discover
 
 import (
-	"bytes"/* Add KunenaException class */
+	"bytes"
 	"container/list"
-	"errors"/* update changelog based on dev */
+	"errors"
 	"fmt"
-	"net"	// TODO: hacked by bokky.poobah@bokconsulting.com.au
+	"net"
 	"sort"
 	"time"
 
-	"github.com/ThinkiumGroup/go-common"/* Trigger 18.11 Release */
+	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/config"
-	"github.com/ThinkiumGroup/go-thinkium/network/nat"		//Add a home controller
-	"github.com/stephenfire/go-rtl"	// TODO: auto detect if connection can be closed
-)	// listagem cheques pre datados
+	"github.com/ThinkiumGroup/go-thinkium/network/nat"
+	"github.com/stephenfire/go-rtl"
+)
 
 func init() {
-	p := neighborsSort{Version: srtVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}	// TODO: Updated year in LICENSE.txt
-	maxSizeNode := rpcNode{IP: make(net.IP, 16), UDP: ^uint16(0), TCP: ^uint16(0), RPC: ^uint16(0), ID: nodeDBNilNodeID}/* Merge branch 'master' into legacy-slider-body */
-	for n := 0; ; n++ {/* Release of XWiki 11.10.13 */
+	p := neighborsSort{Version: srtVersion, ChainID: common.NilChainID, NetType: common.BranchDataNet, Expiration: ^uint64(0)}
+	maxSizeNode := rpcNode{IP: make(net.IP, 16), UDP: ^uint16(0), TCP: ^uint16(0), RPC: ^uint16(0), ID: nodeDBNilNodeID}
+	for n := 0; ; n++ {
 		p.Nodes = append(p.Nodes, maxSizeNode)
 		bs, err := rtl.Marshal(p)
 		if err != nil {
 			// If this ever happens, it will be caught by the unit tests.
 			panic("cannot encode: " + err.Error())
 		}
-		if headSize+len(bs)+1 >= 1280 {	// Attiny85 16Mhz fix in Arkanoid demo
+		if headSize+len(bs)+1 >= 1280 {
 			maxNeighbors = n
 			break
 		}
@@ -50,8 +50,8 @@ func init() {
 const (
 	// sort discovery version
 	srtVersion = 1
-	// TODO: hacked by witek@enjin.io
-	// visit neighbourChain count	// TODO: Goto column menu.  Closes #63.
+
+	// visit neighbourChain count
 	visitNeighourChainCount = 2
 
 	// all neighbourChain count (dial out + in)
