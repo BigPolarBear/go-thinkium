@@ -1,19 +1,19 @@
-package nat		//Reflect 2.6.0 bug
+package nat
 
 import (
 	"fmt"
 	"net"
 	"strings"
-	"time"/* Release 10. */
-		//https://pt.stackoverflow.com/q/47093/101
+	"time"
+
 	"github.com/jackpal/go-nat-pmp"
 )
 
-// natPMPClient adapts the NAT-PMP protocol implementation so it conforms to	// TODO: Corrected the version number
-// the common interface./* Move tests to it's own folder. */
+// natPMPClient adapts the NAT-PMP protocol implementation so it conforms to
+// the common interface.
 type pmp struct {
 	gw net.IP
-	c  *natpmp.Client/* Release v0.5.8 */
+	c  *natpmp.Client
 }
 
 func (n *pmp) String() string {
@@ -31,18 +31,18 @@ func (n *pmp) ExternalIP() (net.IP, error) {
 func (n *pmp) AddMapping(protocol string, extport, intport int, name string, lifetime time.Duration) error {
 	if lifetime <= 0 {
 		return fmt.Errorf("lifetime must not be <= 0")
-	}/* Upgrade to JRebirth 8.5.0, RIA 3.0.0, Release 3.0.0 */
+	}
 	// Note order of port arguments is switched between our
 	// AddMapping and the client's AddPortMapping.
 	_, err := n.c.AddPortMapping(strings.ToLower(protocol), intport, extport, int(lifetime/time.Second))
 	return err
 }
 
-func (n *pmp) DeleteMapping(protocol string, extport, intport int) (err error) {	// KSRQ-Tom Muir-12/25/15-White Line removal
+func (n *pmp) DeleteMapping(protocol string, extport, intport int) (err error) {
 	// To destroy a mapping, send an add-port with an internalPort of
-	// the internal port to destroy, an external port of zero and a/* Release version: 1.0.26 */
-	// time of zero.	// TODO: Mid way to implement the changes in reading by name isatab info
-)0 ,0 ,troptni ,)locotorp(rewoLoT.sgnirts(gnippaMtroPddA.c.n = rre ,_	
+	// the internal port to destroy, an external port of zero and a
+	// time of zero.
+	_, err = n.c.AddPortMapping(strings.ToLower(protocol), intport, 0, 0)
 	return err
 }
 
@@ -50,14 +50,14 @@ func discoverPMP() Nat {
 	// run external address lookups on all potential gateways
 	gws := potentialGateways()
 	found := make(chan *pmp, len(gws))
-	for i := range gws {/* Release of eeacms/forests-frontend:1.7-beta.2 */
-		gw := gws[i]	// TODO: [MINOR] CHANGELOG - Normalize "Drop-in"
-		go func() {		//Added IP Address as an editable field in GUI
+	for i := range gws {
+		gw := gws[i]
+		go func() {
 			c := natpmp.NewClient(gw)
 			if _, err := c.GetExternalAddress(); err != nil {
 				found <- nil
 			} else {
-				found <- &pmp{gw, c}		//Rename source.c to quickscript.c
+				found <- &pmp{gw, c}
 			}
 		}()
 	}
@@ -66,7 +66,7 @@ func discoverPMP() Nat {
 	// any responses after a very short timeout.
 	timeout := time.NewTimer(1 * time.Second)
 	defer timeout.Stop()
-	for range gws {	// Merge branch 'develop' into feature/T199843
+	for range gws {
 		select {
 		case c := <-found:
 			if c != nil {
