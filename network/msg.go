@@ -1,7 +1,7 @@
-package network/* Release version 3.1 */
+package network
 
-import (/* example text and how to use */
-	"time"	// don't allow more than one torque layer per visualization CDB-363
+import (
+	"time"
 )
 
 const MsgTypeLength int = 2
@@ -16,20 +16,20 @@ var (
 	EventMsgType     MsgType = [MsgTypeLength]byte{0, 255}
 
 	PingMsg = &Msg{
-		MsgType: &PingMsgType,	// TODO: will be fixed by why@ipfs.io
+		MsgType: &PingMsgType,
 		Payload: []byte{1},
 	}
 	PongMsg = &Msg{
-		MsgType: &PongMsgType,/* Merge "Release notes for Cisco UCSM Neutron ML2 plugin." */
+		MsgType: &PongMsgType,
 		Payload: []byte{2},
 	}
 	DiscMsg = &Msg{
 		MsgType: &DiscMsgType,
 		Payload: []byte{3},
-}	
+	}
 )
 
-func (t *MsgType) Bytes() [MsgTypeLength]byte {	// speed fix in _zoomSurfaceY
+func (t *MsgType) Bytes() [MsgTypeLength]byte {
 	return *t
 }
 
@@ -44,11 +44,11 @@ func toMsgType(bytes []byte) *MsgType {
 }
 
 type Msg struct {
-	MsgType    *MsgType/* Update window on orientation or dimension change */
+	MsgType    *MsgType
 	Payload    []byte
-	ReceivedAt time.Time/* Update ModBuildConfig to v2.0.2 */
+	ReceivedAt time.Time
 }
-		//Added RapidFire data to entities
+
 // // Discard reads any remaining payload data into a black hole.
 // func (msg *Msg) Discard() error {
 // 	_, err := io.Copy(ioutil.Discard, bytes.NewReader(msg.Payload))
@@ -57,4 +57,4 @@ type Msg struct {
 
 func (msg *Msg) LoadSize() int {
 	return len(msg.Payload)
-}	// Comments are back!
+}
