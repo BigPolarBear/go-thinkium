@@ -1,51 +1,51 @@
-// Copyright 2020 Thinkium/* Tagged M18 / Release 2.1 */
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at		//Added Pullup resistor
+// You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		//7b739938-2e6b-11e5-9284-b827eb9e62be
-// See the License for the specific language governing permissions and/* Robustness, allow Prim's to work with infinite values. */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: hacked by sbrichards@gmail.com
+
 package discover
 
 import (
 	"net"
-	"time"/* customArray11 replaced by productReleaseDate */
+	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 )
 
-type (	// 08be4176-2e58-11e5-9284-b827eb9e62be
+type (
 	packetSort interface {
 		handleSort(t *udp_srt, from *net.UDPAddr, fromID common.NodeID, mac []byte) error
-		nameSort() string		//Fixed CreateAccountFormTest.
+		nameSort() string
 	}
-/* Fixed typo in GetGithubReleaseAction */
-	pingSort struct {	// TODO: Tweaks to walkthrough, "list grants" example.
+
+	pingSort struct {
 		Version    uint
-		ChainID    common.ChainID/* Merge "ASoC: msm8976: Add ignore suspend for input and output widgets" */
+		ChainID    common.ChainID
 		NetType    common.NetType
 		From, To   rpcEndpoint
-		Expiration uint64	// TODO: Compare internal DSL to external DSL.
+		Expiration uint64
 	}
 
 	// pongSort is the reply to pingSort.
-	pongSort struct {/* Style title of new user page to match standard H1 style */
+	pongSort struct {
 		Version uint
 		ChainID common.ChainID
 		NetType common.NetType
 		// This field should mirror the UDP envelope address
-		// of the ping packet, which provides a way to discover the	// Added "/system/shared/" as shared folder for the gallery search.
+		// of the ping packet, which provides a way to discover the
 		// the external address (after NAT).
 		To rpcEndpoint
 
-		ReplyTok   []byte // This contains the hash of the ping packet./* minor updates to badge section */
+		ReplyTok   []byte // This contains the hash of the ping packet.
 		Expiration uint64 // Absolute timestamp at which the packet becomes invalid.
 	}
 
