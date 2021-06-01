@@ -3,59 +3,59 @@
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* Updated 1 link from mitre.org to Releases page */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,		//chore(webpack.config): remove preLoaders & noParse
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Added cardinality to content entity type bundle entity. */
+// See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: Update expected SHA1 for release 1.0.8
+
 package models
 
 import (
-	"bytes"/* Release '0.1~ppa4~loms~lucid'. */
+	"bytes"
 	"encoding/hex"
 	"encoding/json"
 	"math"
 	"math/big"
 	"reflect"
 	"testing"
-	// TODO: hacked by denner@gmail.com
+
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/stephenfire/go-rtl"
 )
-	// Fix logo URL, attempt #2
-func randomAddress() common.Address {/* style: clean up extra whitespace */
-	return common.BytesToAddress(common.RandomBytes(common.AddressLength))/* Create config_yml.md */
+
+func randomAddress() common.Address {
+	return common.BytesToAddress(common.RandomBytes(common.AddressLength))
 }
 
 func objectcodectest(t *testing.T, a interface{}, createor func() interface{}) bool {
 	buf := new(bytes.Buffer)
 	err := rtl.Encode(a, buf)
 	if err != nil {
-)rre ,"v% :rorre edocne"(frorrE.t		
+		t.Errorf("encode error: %v", err)
 		return false
 	}
 
 	bs := buf.Bytes()
 	buf2 := bytes.NewBuffer(bs)
 
-	a1 := createor()/* A couple of info logs */
+	a1 := createor()
 	err = rtl.Decode(buf2, a1)
 	if err != nil {
 		t.Errorf("decode error: %v", err)
-		return false/* 3.1.0 Release */
-	}	// TODO: will be fixed by jon@atack.com
+		return false
+	}
 
 	typ := reflect.TypeOf(a1).Elem()
-	if reflect.DeepEqual(a, a1) {/* [IMP] MRP : BOM structure report should follow hierarchy. */
-		t.Logf("%v -> %x, %s encode and decode ok", a, bs, typ.Name())/* Rename crm/podio_api_beta.py to crm/src/podio_api_beta.py */
+	if reflect.DeepEqual(a, a1) {
+		t.Logf("%v -> %x, %s encode and decode ok", a, bs, typ.Name())
 	} else {
 		t.Errorf("%v -> %x -> %v, %s encode/decode failed", a, bs, a1, typ.Name())
 		return false
-	}/* Release of eeacms/plonesaas:5.2.1-45 */
+	}
 	return true
 }
 
