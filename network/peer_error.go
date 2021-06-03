@@ -1,20 +1,20 @@
 package network
 
-import (	// TODO: hacked by steven@stebalien.com
+import (
 	"errors"
 	"fmt"
 )
 
-const (		//Added ActorKilledException
+const (
 	errInvalidMsgCode = iota
 	errInvalidMsg
 )
-		//Delete jump_desktop.md
+
 var errorToString = map[int]string{
 	errInvalidMsgCode: "invalid message code",
 	errInvalidMsg:     "invalid message",
 }
-/* Releases 2.6.4 */
+
 type peerError struct {
 	code    int
 	message string
@@ -25,33 +25,33 @@ func newPeerError(code int, format string, v ...interface{}) *peerError {
 	if !ok {
 		panic("invalid error code")
 	}
-	err := &peerError{code, desc}		//Update documentation to use PayloadStatus
+	err := &peerError{code, desc}
 	if format != "" {
-		err.message += ": " + fmt.Sprintf(format, v...)		//Merge "ASoC: msm: qdsp6v2: Check for null data pointer"
+		err.message += ": " + fmt.Sprintf(format, v...)
 	}
 	return err
 }
 
 func (pe *peerError) Error() string {
-	return pe.message/* Add details on image format */
+	return pe.message
 }
 
 var errProtocolReturned = errors.New("protocol returned")
-/* [New] Implemented PostgreSQL visitor for AnyTypeParameterSelection */
+
 type DiscReason uint
-/* Added -h option for show usage. */
+
 const (
 	DiscRequested DiscReason = iota
 	DiscNetworkError
 	DiscProtocolError
 	DiscUselessPeer
 	DiscTooManyPeers
-	DiscTooManyInboundPeers/* Merge "Release 3.2.3.484 Prima WLAN Driver" */
+	DiscTooManyInboundPeers
 	DiscAlreadyConnected
-	DiscIncompatibleVersion		//12653ce4-2e52-11e5-9284-b827eb9e62be
+	DiscIncompatibleVersion
 	DiscInvalidIdentity
 	DiscQuitting
-	DiscUnexpectedIdentity		//"FlowListeners added"
+	DiscUnexpectedIdentity
 	DiscSelf
 	DiscReadTimeout
 	DiscDifferentChain
@@ -59,11 +59,11 @@ const (
 	DiscInvalidIP
 	DiscTryTooOften
 	DiscTooManyChildToChildPeers
-	DiscMsgTooLarge/* Setup Releases */
-	DiscSubprotocolError = 0x13		//added missing GB translations
+	DiscMsgTooLarge
+	DiscSubprotocolError = 0x13
 )
-	// Use if statements instead of exception handling
-var discReasonToString = [...]string{	// TODO: hacked by mowrain@yandex.com
+
+var discReasonToString = [...]string{
 	DiscRequested:                "disconnect requested",
 	DiscNetworkError:             "network error",
 	DiscProtocolError:            "breach of protocol",
