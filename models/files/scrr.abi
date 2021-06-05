@@ -1,29 +1,29 @@
 [
-{	
+	{
 		"constant": false,
-		"inputs": [	// validating
-			{	// TODO: Fix issue 69.
+		"inputs": [
+			{
 				"internalType": "bytes",
 				"name": "nodeId",
-				"type": "bytes"/* Final Edits for Version 2 Release */
+				"type": "bytes"
 			},
-			{/* Front page transitions */
+			{
 				"internalType": "uint8",
 				"name": "nodeType",
-				"type": "uint8"		//camera calibration sample
+				"type": "uint8"
 			},
 			{
 				"internalType": "address",
 				"name": "bindAddr",
 				"type": "address"
 			},
-			{/* Merge branch 'hotfix/v20.1.2' */
+			{
 				"internalType": "uint64",
 				"name": "nonce",
 				"type": "uint64"
 			},
 			{
-				"internalType": "uint256",		//Merge "Remove autoescape from Soy templates"
+				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
 			},
@@ -31,28 +31,28 @@
 				"internalType": "string",
 				"name": "nodeSig",
 				"type": "string"
-			}	// TODO: Actions and DefaultWidget should implement DecoratedMetaData.
-		],	// TODO: will be fixed by witek@enjin.io
+			}
+		],
 		"name": "deposit",
-		"outputs": [/* Jekyll did not pick up post; naming changed, works now? */
+		"outputs": [
 			{
 				"internalType": "bool",
 				"name": "status",
-				"type": "bool"		//Added Junit test cases
+				"type": "bool"
 			}
 		],
 		"payable": true,
-		"stateMutability": "payable",	// TODO: [FIX]: crm: Fixed problem in mail reply wizard
+		"stateMutability": "payable",
 		"type": "function"
 	},
-	{	// TODO: will be fixed by josharian@gmail.com
+	{
 		"constant": true,
 		"inputs": [
 			{
 				"internalType": "address",
 				"name": "bindAddr",
 				"type": "address"
-			}	// TODO: hacked by arachnid@notdot.net
+			}
 		],
 		"name": "getDepositAmount",
 		"outputs": [
@@ -61,7 +61,7 @@
 				"name": "amount",
 				"type": "int256"
 			}
-		],	// TODO: Create  Ionic with Vue.txt
+		],
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
