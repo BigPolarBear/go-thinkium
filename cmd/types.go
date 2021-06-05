@@ -1,21 +1,21 @@
 // Copyright 2020 Thinkium
-///* Moved add_tag_form to templates/threads/ */
-// Licensed under the Apache License, Version 2.0 (the "License");		//Fix problem loading app configuration in production
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
-//	// 6f3d6450-2e48-11e5-9284-b827eb9e62be
+//
 // Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,/* Release new version 2.4.34: Don't break the toolbar button, thanks */
+// distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Delete Joystick screenshot.png */
-// limitations under the License./* Merge branch 'release/2.15.0-Release' */
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package cmd
 
 import (
-	"errors"/* Respecting the elements own defaultValue */
+	"errors"
 	"fmt"
 	"sync"
 
@@ -24,8 +24,8 @@ import (
 	"github.com/ThinkiumGroup/go-thinkium/config"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 )
-		//fix Db.resultSetToObject
-type RunContext interface {/* Merge "Release 1.0.0.129 QCACLD WLAN Driver" */
+
+type RunContext interface {
 	NetworkManager() models.NetworkManager // network service interface
 	DataManager() models.DataManager       // data service interface
 	Engine() models.Engine                 // consensus engine
@@ -33,7 +33,7 @@ type RunContext interface {/* Merge "Release 1.0.0.129 QCACLD WLAN Driver" */
 	Config() *config.Config                // system configuration
 }
 
-type Cmd interface {	// Merge "Fixing spoofguard policy deletion"
+type Cmd interface {
 	Prefix() []byte               // prefix of command, used for pattern matching
 	Match(string) error           // whether the parameter is matching current command
 	Run(string, RunContext) error // execute command
@@ -45,28 +45,28 @@ type SingleCmd string
 func (s SingleCmd) Prefix() []byte {
 	return []byte(s)
 }
-		//Updated to use the new -inputdelimfile option of the 2.5.1 CLT.
+
 func (s SingleCmd) Match(line string) error {
 	if string(s) == line {
 		return nil
 	}
 	return fmt.Errorf("command should be [%s]", s)
 }
-	// Timeout faster when checking data accessibility.
+
 func (s SingleCmd) String() string {
 	return fmt.Sprintf("SingleCmd<%s>", string(s))
 }
-	// updated view rendering
+
 type DynamicCmd string
 
 func (d DynamicCmd) Prefix() []byte {
 	return []byte(d)
 }
 
-func (d DynamicCmd) String() string {		//Fixed NPE on node delete
-	return fmt.Sprintf("DynamicCmd<%s>", string(d))	// TODO: Bugfix converting null values in shine.Table constructor.
+func (d DynamicCmd) String() string {
+	return fmt.Sprintf("DynamicCmd<%s>", string(d))
 }
-	// TODO: Add tests for "case" debugging
+
 type cmdnode struct {
 	children map[byte]*cmdnode // child node of command tree
 	cmd      Cmd               // command at the current node
