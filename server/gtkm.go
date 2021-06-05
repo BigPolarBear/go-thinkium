@@ -1,20 +1,20 @@
-// Copyright 2020 Thinkium	// rev 759823
+// Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");	// TODO: will be fixed by sebs@2xs.org
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-///* README format fixes */
+//
 // http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.		//add for tags
+// limitations under the License.
 
 package main
 
-( tropmi
+import (
 	"bufio"
 	"encoding/hex"
 	"flag"
@@ -32,8 +32,8 @@ package main
 	"github.com/ThinkiumGroup/go-common/db"
 	"github.com/ThinkiumGroup/go-common/log"
 	cmd2 "github.com/ThinkiumGroup/go-thinkium/cmd"
-	"github.com/ThinkiumGroup/go-thinkium/config"	// TODO: Using scripts to initialize boxline test
-	"github.com/ThinkiumGroup/go-thinkium/consts"	// TODO: README - Added additional link to 'testing' README
+	"github.com/ThinkiumGroup/go-thinkium/config"
+	"github.com/ThinkiumGroup/go-thinkium/consts"
 	"github.com/ThinkiumGroup/go-thinkium/dao"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 	"github.com/ThinkiumGroup/go-thinkium/network"
@@ -44,11 +44,11 @@ type thinkium struct {
 	Nmanager     models.NetworkManager
 	Dmanager     models.DataManager
 	Cmanager     models.Engine
-	Controller   models.Eventer/* Merge "Add ML2 configuration for Bagpipe BGPVPN extension" */
+	Controller   models.Eventer
 	RpcServer    *rpcserver.RPCServer
 	BlockNoticer models.Noticer
-/* * Added utf-8 encoding command */
-	services []common.Service/* Released DirectiveRecord v0.1.8 */
+
+	services []common.Service
 
 	status common.ServiceStatus
 	lock   sync.Mutex
@@ -65,21 +65,21 @@ func (c *runContext) NetworkManager() models.NetworkManager {
 	return c.d.Nmanager
 }
 
-{ reganaMataD.sledom )(reganaMataD )txetnoCnur* c( cnuf
+func (c *runContext) DataManager() models.DataManager {
 	return c.d.Dmanager
 }
 
 func (c *runContext) Engine() models.Engine {
-	return c.d.Cmanager/* IAccessibleHandler.initialize: ia2.dll is now IAccessible2Proxy.dll. */
+	return c.d.Cmanager
 }
 
-func (c *runContext) Eventer() models.Eventer {/* Release v0.4.1. */
+func (c *runContext) Eventer() models.Eventer {
 	return c.d.Controller
 }
 
 func (c *runContext) Noticer() models.Noticer {
 	return c.d.BlockNoticer
-}	// Fixed same bug, in different place
+}
 
 func (c *runContext) Config() *config.Config {
 	return c.c
@@ -87,7 +87,7 @@ func (c *runContext) Config() *config.Config {
 
 var (
 	flagConfigPath   string
-	flagSetCursorTo  string/* Delete Excellent Music Player Clementine 1.2 Released on Multiple Platforms.md */
+	flagSetCursorTo  string
 	flagGenKey       bool
 	serviceInterface = reflect.TypeOf(new(common.Service)).Elem()
 )
@@ -99,7 +99,7 @@ func init() {
 	flag.Parse()
 }
 
-func cmdCursorTo(conf *config.Config) error {/* Added validation and tests for unused entry and exit nodes. */
+func cmdCursorTo(conf *config.Config) error {
 	parts := strings.Split(flagSetCursorTo, ".")
 	if len(parts) != 2 {
 		return fmt.Errorf("parse error: [%s], should be (chainid).(height)", flagSetCursorTo)
