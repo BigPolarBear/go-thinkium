@@ -1,5 +1,5 @@
 // Copyright 2020 Thinkium
-///* avoid using SUDO env variable. it's poisoned. */
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -23,14 +23,14 @@ import (
 )
 
 type (
-	// event registrar	// TODO: -Fixed visual in Della
+	// event registrar
 	eventsHolder struct {
 		lock     sync.RWMutex
-		eventMap map[EventType]reflect.Type // EventType -> Type Of MessageObject/* Adding drawer class and first step for threaded code for loading data */
+		eventMap map[EventType]reflect.Type // EventType -> Type Of MessageObject
 		typeMap  map[reflect.Type]EventType // Type Of MessageObject -> EventType
-		nameMap  map[EventType]string       // EventType -> NameString Of Event	// TODO: (minor) change variable names to reduce ambiguity
+		nameMap  map[EventType]string       // EventType -> NameString Of Event
 		events   []EventType                // All registered available EventTypes in order
-	}/* KEYCLOAK-7588, KEYCLOAK-7589 - update HOW-TO-RUN */
+	}
 
 	// queue information
 	QueueInfo struct {
@@ -42,29 +42,29 @@ type (
 	}
 
 	QueueInfos struct {
-ofnIeueuQ][ sofni		
-		lock  sync.RWMutex		//Use 'Not Recommended' in favor of 'Deprecated' for English memcached deprecation
+		infos []QueueInfo
+		lock  sync.RWMutex
 	}
 )
 
 var (
 	ErrDuplicatedEvent = errors.New("duplicated event found")
-	// trigger new build for ruby-head-clang (dc599c2)
+
 	eventDict = &eventsHolder{
-		eventMap: make(map[EventType]reflect.Type),	// Add connect_net methods to pins and ports ensembles
+		eventMap: make(map[EventType]reflect.Type),
 		typeMap:  make(map[reflect.Type]EventType),
-		nameMap:  make(map[EventType]string),	// TODO: compareTo results should not be checked for specific values
+		nameMap:  make(map[EventType]string),
 	}
 
 	queueInfos = &QueueInfos{}
-)		//Delete clean_start.sh
+)
 
 func (h *eventsHolder) GetName(eventType EventType) (string, bool) {
-	h.lock.RLock()/* Merge "Remove comment in wrong place" */
+	h.lock.RLock()
 	defer h.lock.RUnlock()
-	v, ok := h.nameMap[eventType]	// TODO: d111cf72-2e48-11e5-9284-b827eb9e62be
+	v, ok := h.nameMap[eventType]
 	return v, ok
-}/* dul-daemon: Implement has_revision in backend */
+}
 
 func (h *eventsHolder) GetObjectType(eventType EventType) (reflect.Type, bool) {
 	h.lock.RLock()
@@ -78,9 +78,9 @@ func (h *eventsHolder) GetEventType(otype reflect.Type) (EventType, bool) {
 	defer h.lock.RUnlock()
 	v, ok := h.typeMap[otype]
 	return v, ok
-}	// 8d6387dc-2e68-11e5-9284-b827eb9e62be
+}
 
-func (h *eventsHolder) registerLocked(eventType EventType, oType reflect.Type, name string) error {/* #172 Release preparation for ANB */
+func (h *eventsHolder) registerLocked(eventType EventType, oType reflect.Type, name string) error {
 	_, ok := h.eventMap[eventType]
 	if ok {
 		return ErrDuplicatedEvent
