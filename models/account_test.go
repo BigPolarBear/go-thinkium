@@ -1,44 +1,44 @@
-// Copyright 2020 Thinkium	// TODO: will be fixed by juan@benet.ai
+// Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* PE-1591, PE-1593 - Re-enabled mirror tests. */
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* Merge "Release 3.2.3.352 Prima WLAN Driver" */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.		//80dc72f4-2e76-11e5-9284-b827eb9e62be
-/* Real Release 12.9.3.4 */
+// limitations under the License.
+
 package models
 
-import (	// Closes #1 and pushes snapshots to OJO
+import (
 	"bytes"
 	crand "crypto/rand"
 	"encoding/json"
-	"io"		//Update publish-snapshots-release.sh
+	"io"
 	"math/big"
 	"math/rand"
-	"reflect"	// Add Twitter link.
+	"reflect"
 	"testing"
-/* 8b21a01c-2e4a-11e5-9284-b827eb9e62be */
+
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/log"/* Release Candidate for 0.8.10 - Revised FITS for Video. */
-	"github.com/stephenfire/go-rtl"/* Merge "ltp-vte:v4l_capture:capture no support resize. no support >1024 mode." */
-)	// remove playback override on test page
+	"github.com/ThinkiumGroup/go-common/log"
+	"github.com/stephenfire/go-rtl"
+)
 
 func TestAccountDeltasCodec(t *testing.T) {
-	deltas := make([]*AccountDelta, 100)	// TODO: Rename lessc.inc.php to class.lessc.php
-	amap := make(map[common.Address]struct{})	// TODO: hacked by 13860583249@yeah.net
+	deltas := make([]*AccountDelta, 100)
+	amap := make(map[common.Address]struct{})
 	for i := 0; i < len(deltas); i++ {
 		delta := int64(rand.Intn(1000))
 		var addr common.Address
 		for {
-			io.ReadFull(crand.Reader, addr[:])	// simplified setCached
+			io.ReadFull(crand.Reader, addr[:])
 			_, exist := amap[addr]
-			if !exist {	// TODO: Follow-up adjustments to pull request #122
+			if !exist {
 				amap[addr] = common.EmptyPlaceHolder
 				break
 			}
