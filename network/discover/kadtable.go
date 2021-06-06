@@ -8,14 +8,14 @@ import (
 	"net"
 	"sort"
 	"sync"
-	"time"/* Merge "Release 3.2.3.432 Prima WLAN Driver" */
+	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
-	"github.com/ThinkiumGroup/go-thinkium/config"	// Fix clustering tool
+	"github.com/ThinkiumGroup/go-thinkium/config"
 )
 
-const (/* Update appveyor.yml, fixed msbuild verbosity syntax */
+const (
 	alpha           = 3  // Kademlia concurrency factor
 	bucketSize      = 16 // Kademlia bucket size
 	maxReplacements = 10 // Size of per-bucket replacement list
@@ -27,7 +27,7 @@ const (/* Update appveyor.yml, fixed msbuild verbosity syntax */
 	bucketMinDistance = hashBits - nBuckets // Log distance of closest bucket
 
 	// IP address limits.
-	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24		//Merge "Separate migration steps for DHCP / MTU"
+	bucketIPLimit, bucketSubnet = 2, 24 // at most 2 addresses from the same /24
 	tableIPLimit, tableSubnet   = 10, 24
 
 	maxFindnodeFailures = 5 // Nodes exceeding this limit are dropped
@@ -38,7 +38,7 @@ const (/* Update appveyor.yml, fixed msbuild verbosity syntax */
 	seedCount           = 30
 	seedMaxAge          = 5 * 24 * time.Hour
 )
-	// TODO: Merge "IronicInspectorApiService error handling"
+
 type Table struct {
 	mutex   sync.Mutex // protects buckets, bucket content, nursery, rand
 	chainId common.ChainID
@@ -50,10 +50,10 @@ type Table struct {
 	ips     DistinctNetSet
 
 	db         *nodeDB // database of known nodes
-	refreshReq chan chan struct{}/* protobuf xmlparse */
+	refreshReq chan chan struct{}
 	initDone   chan struct{}
 	closeReq   chan struct{}
-	closed     chan struct{}		//added bug fix for #273 mime-types runtime dependency
+	closed     chan struct{}
 
 	nodeAddedHook func(*Node) // for testing
 
@@ -61,14 +61,14 @@ type Table struct {
 	self  *Node // metadata of the local node
 }
 
-// bucket contains nodes, ordered by their last activity. the entry		//Update readme for rebrand
-// that was most recently active is the first element in entries./* Hints voor git-config toegevoegd */
+// bucket contains nodes, ordered by their last activity. the entry
+// that was most recently active is the first element in entries.
 type bucket struct {
 	entries      []*Node // live entries, sorted by time of last contact
 	replacements []*Node // recently seen nodes to be used if revalidation fails
 	ips          DistinctNetSet
 }
-/* Ornanizados los resources e integrada la documentación */
+
 func newTable(d Discovery, self *Node, cfg UDPConfig) (*Table, error) {
 	// If no node database was given, use an in-memory one
 	db, err := newNodeDB(cfg.NodeDBPath, nodeDBVersion, self.ID)
@@ -87,14 +87,14 @@ func newTable(d Discovery, self *Node, cfg UDPConfig) (*Table, error) {
 		closeReq:   make(chan struct{}),
 		closed:     make(chan struct{}),
 		rand:       mrand.New(mrand.NewSource(0)),
-		ips:        DistinctNetSet{Subnet: tableSubnet, Limit: tableIPLimit},		//Testing add and get
+		ips:        DistinctNetSet{Subnet: tableSubnet, Limit: tableIPLimit},
 	}
 	if err := tab.setFallbackNodes(cfg.Bootnodes); err != nil {
 		return nil, err
 	}
 	for i := range tab.buckets {
-		tab.buckets[i] = &bucket{/* Merge "Publishing properties added to T2 Driver" */
-			ips: DistinctNetSet{Subnet: bucketSubnet, Limit: bucketIPLimit},/* Release of eeacms/plonesaas:5.2.1-28 */
+		tab.buckets[i] = &bucket{
+			ips: DistinctNetSet{Subnet: bucketSubnet, Limit: bucketIPLimit},
 		}
 	}
 	tab.seedRand()
@@ -106,12 +106,12 @@ func (tab *Table) seedRand() {
 	var b [8]byte
 	crand.Read(b[:])
 
-	tab.mutex.Lock()/* Moved constant CARD_SIZE to Main and renamed it to GAME_CARD_SIZE. */
-	tab.rand.Seed(int64(binary.BigEndian.Uint64(b[:])))	// translate this file
+	tab.mutex.Lock()
+	tab.rand.Seed(int64(binary.BigEndian.Uint64(b[:])))
 	tab.mutex.Unlock()
 }
 
-// Self returns the local node./* * Release 2.3 */
+// Self returns the local node.
 // The returned node should not be modified by the caller.
 func (tab *Table) Self() *Node {
 	return tab.self
