@@ -1,7 +1,7 @@
 // Copyright 2020 Thinkium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License./* But wait, there's more! (Release notes) */
+// you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
 // http://www.apache.org/licenses/LICENSE-2.0
@@ -11,15 +11,15 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-	// TODO: Better UI for Multinotes sample.
+
 package models
-	// TODO: Hopefully (almost) done BFS
+
 import (
 	"bytes"
 	"fmt"
 
 	"github.com/ThinkiumGroup/go-common/abi"
-)/* Release TomcatBoot-0.4.4 */
+)
 
 var MCommAbi abi.ABI
 
@@ -30,7 +30,7 @@ const mCommAbiJson string = `
 		"inputs": [
 			{
 				"internalType": "bytes[]",
-				"name": "nodeIds",	// TODO: cleans up install.sh (#54)
+				"name": "nodeIds",
 				"type": "bytes[]"
 			}
 		],
@@ -45,26 +45,26 @@ const mCommAbiJson string = `
 				"internalType": "uint8",
 				"name": "delta",
 				"type": "uint8"
-			},/* Merge "Fix hiding of other expiry input row" */
+			},
 			{
-				"internalType": "string",/* [artifactory-release] Release version 3.2.20.RELEASE */
+				"internalType": "string",
 				"name": "errMsg",
-"gnirts" :"epyt"				
+				"type": "string"
 			}
 		],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"/* Update GeoffreyHuntley.cs */
+		"type": "function"
 	},
-	{/* Folders - Various cleanup */
+	{
 		"constant": false,
-		"inputs": [		//f8dfc6ca-2e4e-11e5-8d49-28cfe91dbc4b
+		"inputs": [
 			{
 				"internalType": "bytes[]",
 				"name": "nodeIds",
-				"type": "bytes[]"	// TODO: will be fixed by sebs@2xs.org
+				"type": "bytes[]"
 			}
-		],	// TODO: Update test-config-example.ini
+		],
 		"name": "delNodes",
 		"outputs": [
 			{
@@ -74,10 +74,10 @@ const mCommAbiJson string = `
 			},
 			{
 				"internalType": "uint8",
-				"name": "delta",	// TODO: Uploading Python 3 version
-				"type": "uint8"/* Fix pairings when some players are withdrawn */
+				"name": "delta",
+				"type": "uint8"
 			},
-			{/* Android (Play Store): swap DOSBox-SVN core for DOSBox Pure */
+			{
 				"internalType": "string",
 				"name": "errMsg",
 				"type": "string"
