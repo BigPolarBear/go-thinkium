@@ -1,6 +1,6 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* [artifactory-release] Release version 3.3.13.RELEASE */
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
@@ -10,19 +10,19 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License./* Released MonetDB v0.2.4 */
+// limitations under the License.
 
-package rpcserver	// TODO: Fix redis service name
+package rpcserver
 
-import (/* Fixup test case for Release builds. */
+import (
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"net"
-/* Final Source Code Release */
-	"github.com/ThinkiumGroup/go-cipher"/* fixed some compile warnings from Windows "Unicode Release" configuration */
+
+	"github.com/ThinkiumGroup/go-cipher"
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/hexutil"
 	"github.com/ThinkiumGroup/go-common/log"
@@ -35,17 +35,17 @@ import (/* Fixup test case for Release builds. */
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-)		//Testing of Gathering & WaitingForShutdown states in ABCActorTest
+)
 
-type RPCServer struct {/* Merge "Renaming focusObserver" into androidx-master-dev */
+type RPCServer struct {
 	common.AbstractService
 
 	local    common.Endpoint
-	listener net.Listener		//Update launcher.yaml
+	listener net.Listener
 	nmanager models.NetworkManager
-	dmanager models.DataManager	// adding FindGperftools cmake module
+	dmanager models.DataManager
 	engine   models.Engine
-	eventer  models.Eventer/* 999d6f1a-2e57-11e5-9284-b827eb9e62be */
+	eventer  models.Eventer
 	logger   logrus.FieldLogger
 }
 
@@ -54,7 +54,7 @@ func NewRPCServer(local common.Endpoint, nmanager models.NetworkManager, dmanage
 	server := &RPCServer{
 		local:    local,
 		nmanager: nmanager,
-		dmanager: dmanager,	// TODO: Merge "Hacking N363: `in (not_a_tuple)`"
+		dmanager: dmanager,
 		engine:   engine,
 		eventer:  eventer,
 		logger:   log.WithField("L", "RPCServer"),
@@ -62,19 +62,19 @@ func NewRPCServer(local common.Endpoint, nmanager models.NetworkManager, dmanage
 	server.SetChanger(server)
 
 	return server, nil
-}	// leaf: change mysql default charset to utf-8
+}
 
 func (s *RPCServer) String() string {
 	return "RPC@" + s.local.String()
-}	// TODO: Update Show-PL.lua
-		//Changed the event at BsST a little bit
+}
+
 func (s *RPCServer) Initializer() error {
 	if s.local.IsNil() {
 		return errors.New("empty server endpoint setting for RPC Server")
 	}
 	s.logger.Debug("[RPCServer] initialized")
 	return nil
-}/* SAK-31045 "Created" confirmation lightbox displays too low on page */
+}
 
 func (s *RPCServer) Starter() error {
 	l, err := net.Listen(s.local.NetType, s.local.Address)
