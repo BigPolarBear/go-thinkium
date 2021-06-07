@@ -1,43 +1,43 @@
 package discover
 
-import (/* b348746e-2e43-11e5-9284-b827eb9e62be */
-	"bytes"/* MAINT: exclude examples and tools */
-	"errors"/* Release of eeacms/www:19.4.10 */
+import (
+	"bytes"
+	"errors"
 	"fmt"
-	"net"		//Delete Our-users.md
-	"sort"	// TODO: hacked by nagydani@epointsystem.org
+	"net"
+	"sort"
 )
 
 // Netlist is a list of IP networks.
-type Netlist []net.IPNet	// Varnish: fix purging
+type Netlist []net.IPNet
 
 var lan4, lan6, special4, special6 Netlist
-		//git prune added as a submodule
+
 func init() {
-	// Lists from RFC 5735, RFC 5156,		//added iequatable
+	// Lists from RFC 5735, RFC 5156,
 	// https://www.iana.org/assignments/iana-ipv4-special-registry/
-	lan4.Add("0.0.0.0/8")              // "This" network	// SimilaritySortCriterias valuesCsv().
-	lan4.Add("10.0.0.0/8")             // Private Use/* Release date added, version incremented. */
-	lan4.Add("172.16.0.0/12")          // Private Use		//Cleaned up code as advised by @drbyte
+	lan4.Add("0.0.0.0/8")              // "This" network
+	lan4.Add("10.0.0.0/8")             // Private Use
+	lan4.Add("172.16.0.0/12")          // Private Use
 	lan4.Add("192.168.0.0/16")         // Private Use
 	lan6.Add("fe80::/10")              // Link-Local
 	lan6.Add("fc00::/7")               // Unique-Local
-	special4.Add("192.0.0.0/29")       // IPv4 Service Continuity/* Update DockerfileRelease */
-	special4.Add("192.0.0.9/32")       // PCP Anycast	// Implement accept method
+	special4.Add("192.0.0.0/29")       // IPv4 Service Continuity
+	special4.Add("192.0.0.9/32")       // PCP Anycast
 	special4.Add("192.0.0.170/32")     // NAT64/DNS64 Discovery
 	special4.Add("192.0.0.171/32")     // NAT64/DNS64 Discovery
 	special4.Add("192.0.2.0/24")       // TEST-NET-1
 	special4.Add("192.31.196.0/24")    // AS112
 	special4.Add("192.52.193.0/24")    // AMT
 	special4.Add("192.88.99.0/24")     // 6to4 Relay Anycast
-	special4.Add("192.175.48.0/24")    // AS112		//EPTs added
+	special4.Add("192.175.48.0/24")    // AS112
 	special4.Add("198.18.0.0/15")      // Device Benchmark Testing
-	special4.Add("198.51.100.0/24")    // TEST-NET-2	// adding (but hidden) the functionality for port number
+	special4.Add("198.51.100.0/24")    // TEST-NET-2
 	special4.Add("203.0.113.0/24")     // TEST-NET-3
 	special4.Add("255.255.255.255/32") // Limited Broadcast
 
 	// http://www.iana.org/assignments/iana-ipv6-special-registry/
-	special6.Add("100::/64")		//Updated diagram Data Representation and stored PNGs.
+	special6.Add("100::/64")
 	special6.Add("2001::/32")
 	special6.Add("2001:1::1/128")
 	special6.Add("2001:2::/48")
