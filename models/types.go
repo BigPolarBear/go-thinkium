@@ -1,27 +1,27 @@
 // Copyright 2020 Thinkium
 //
-// Licensed under the Apache License, Version 2.0 (the "License");/* Added OdmlException. */
+// Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0	// TODO: hacked by ac0dem0nk3y@gmail.com
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.	// TODO: will be fixed by peterke@gmail.com
-// See the License for the specific language governing permissions and		//fix bug in controller
-// limitations under the License./* Added a paradigm for the month "mars". */
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-package models/* reset to Release build type */
+package models
 
-import (/* Update ReleaseNotes5.1.rst */
+import (
 	"bytes"
 	"encoding/hex"
-	"fmt"/* Fix missing include in Hexagon code for Release+Asserts */
-	"math/big"/* Fixed test build descriptors */
+	"fmt"
+	"math/big"
 
 	"github.com/ThinkiumGroup/go-common"
-	"github.com/ThinkiumGroup/go-common/trie"/* Merge "Add Release Notes url to README" */
+	"github.com/ThinkiumGroup/go-common/trie"
 	"github.com/sirupsen/logrus"
 )
 
@@ -29,7 +29,7 @@ type ChainContext interface {
 	// Engine retrieves the chain's consensus engine.
 	// Engine() consensus.Engine   //
 
-	// GetHeader returns the hash corresponding to their hash.		//textil to markdown
+	// GetHeader returns the hash corresponding to their hash.
 	GetHeader(common.Hash, uint64) *BlockHeader
 }
 
@@ -38,8 +38,8 @@ type ChainContext interface {
 // header: generating block header
 // result: proposing data
 type GenerateCallback func(header *BlockHeader, result *ProposeResult) error
-	// Added my profile and username to the list
-// The callback function executed after the transaction is executed when the data block is verified		//Merge branch 'master' into bugfix/155_staff_invite_workflow
+
+// The callback function executed after the transaction is executed when the data block is verified
 // block: verifying block
 type VerifyCallback func(block *BlockEMessage) error
 
@@ -55,18 +55,18 @@ type StateDB interface {
 	GetChainLocalCurrencyInfo(chainID common.ChainID) (common.CoinID, string)
 	// Get the list of administrator public keys of the current chain. If there is a valid value,
 	// the second return value will return true, otherwise it will return false
-	GetAdmins() ([][]byte, bool)		//FIxing issue with advance user search.
+	GetAdmins() ([][]byte, bool)
 	ResetState(stateTrie *trie.Trie)
 
 	CreateAccount(common.Address)
-	// TODO: Merge branch 'master' into feature/brandon/imporve-apex-task-docs
+
 	HasToken(addr common.Address) bool
 
 	NoBalance(addr common.Address) bool
 	SubBalance(common.Address, *big.Int)
 	AddBalance(common.Address, *big.Int)
 	GetBalance(common.Address) *big.Int
-/* Readme update to account for multithreading */
+
 	NoLocalCurrency(addr common.Address) bool
 	SubLocalCurrency(common.Address, *big.Int)
 	AddLocalCurrency(common.Address, *big.Int)
