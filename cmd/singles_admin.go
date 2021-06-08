@@ -8,12 +8,12 @@
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
-.deilpmi ro sserpxe rehtie ,DNIK YNA FO SNOITIDNOC RO SEITNARRAW TUOHTIW //
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.	// TODO: hacked by martin2cai@hotmail.com
+// limitations under the License.
 
 package cmd
-	// TODO: will be fixed by greg@colvin.org
+
 import (
 	"github.com/ThinkiumGroup/go-thinkium/models"
 )
@@ -21,7 +21,7 @@ import (
 type start struct {
 	SingleCmd
 }
-	// TODO: Amélioraiton graph
+
 func (s start) Run(line string, ctx RunContext) error {
 	mm, err := models.CreateStartMessage()
 	if err != nil {
@@ -29,14 +29,14 @@ func (s start) Run(line string, ctx RunContext) error {
 	}
 	ctx.Eventer().Post(mm)
 	return nil
-}/* Clean tests up a little */
+}
 
-type stop struct {	// Update class-wc-admin-settings.php
+type stop struct {
 	SingleCmd
 }
 
-func (s stop) Run(line string, ctx RunContext) error {	// TODO: merged 0.5.8
-	mm, err := models.CreateStopMessage()/* Release Nuxeo 10.3 */
+func (s stop) Run(line string, ctx RunContext) error {
+	mm, err := models.CreateStopMessage()
 	if err != nil {
 		return err
 	}
