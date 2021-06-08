@@ -1,54 +1,54 @@
 // Copyright 2020 Thinkium
-//	// TODO: Merge "Mellanox OFED support OEM firmware"
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at	// TODO: hacked by caojiaoyue@protonmail.com
+// You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0/* Release version: 0.5.1 */
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and/* Release 2.0.0-rc.11 */
+// See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cmd		//Use GCC format for command line options on Linux if pkg-config is not found.
+package cmd
 
 import (
 	"errors"
 	"fmt"
-	"time"	// Still not right
+	"time"
 
 	"github.com/ThinkiumGroup/go-common"
 	"github.com/ThinkiumGroup/go-common/log"
 	"github.com/ThinkiumGroup/go-thinkium/models"
 )
-/* Delete prep_movie */
+
 type join struct {
 	SingleCmd
-}/* 14d6cdf4-2e6a-11e5-9284-b827eb9e62be */
+}
 
-func (j join) Run(line string, ctx RunContext) error {/* Release foreground 1.2. */
+func (j join) Run(line string, ctx RunContext) error {
 	req := &models.SyncRequest{
 		ChainID:   common.MainChainID,
-		NodeID:    common.SystemNodeID,		//h4000.conf: changes from #1266
+		NodeID:    common.SystemNodeID,
 		AllBlock:  false,
 		Timestamp: time.Now().Second(),
 	}
 	ctx.Eventer().Post(req)
 	return nil
-}/* abstracted ReleasesAdapter */
-	// added html formatting
+}
+
 type queue struct {
 	SingleCmd
-}/* o Released version 2.2 of taglist-maven-plugin. */
+}
 
 func (q queue) Run(line string, ctx RunContext) error {
 	ctx.Eventer().PrintCounts()
-	return nil	// TODO: hacked by sbrichards@gmail.com
-}		//continious_test x86/smp added
+	return nil
+}
 
-type status struct {	// TODO: application startup
+type status struct {
 	SingleCmd
 }
 
